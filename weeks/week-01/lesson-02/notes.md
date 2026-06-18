@@ -1,18 +1,20 @@
-# ملاحظات الدرس 2: تثبيت Laravel 12 وربطه بـ React وInertia
+# ملخص الدرس: تثبيت Laravel 12 وربطه بـ React وInertia
 
-## ملخص سريع
-ننشئ مشروع Laravel ونضيف React وInertia ونشغل أول صفحة React من Laravel.
+## الفكرة الأساسية
+Laravel يوفر هيكل التطبيق الخلفي، وReact توفر واجهة تفاعلية، أما Inertia فيجعل الصفحة تبدو مثل تطبيق React حديث مع بقاء المسارات والمنطق داخل Laravel. هذا يعني أن الطالب يستطيع بناء تطبيق كامل بدون أن يتشتت بين API منفصل وواجهة منفصلة في البداية.
 
-## أهم المصطلحات
-- بنية مجلدات Laravel الأساسية
-- الفرق بين routes وcontrollers وviews
-- مكان صفحات React داخل resources/js/Pages
-- كيف يعرض Inertia صفحة React من Route
+## لماذا هذا مهم؟
+نستخدم Inertia لأن الدورة موجهة لبناء تطبيق احترافي بسرعة وبطريقة مفهومة. الطالب سيرى أن Controller في Laravel يستطيع إرسال صفحة React مع بياناتها، وهذا يختصر كثيراً من التعقيد على المبتدئ.
 
-## قاعدة ذهبية للمبتدئ
-لا تحفظ الكود قبل أن تعرف أين يكتب ولماذا يكتب وما النتيجة المتوقعة منه.
+## داخل FlowPilot
+هذه الخطوة هي نقطة ولادة FlowPilot. بعدها يصبح لدينا تطبيق واحد يجمع بين قوة Laravel ومرونة React.
 
-## مساحة ملاحظاتك
-- 
-- 
-- 
+## المثال
+composer create-project laravel/laravel flowpilot
+cd flowpilot
+composer require inertiajs/inertia-laravel
+npm install @inertiajs/react react react-dom
+php artisan inertia:middleware
+
+## نتيجة الدرس
+صفحة React أولى يتم عرضها من خلال Laravel باستخدام Inertia.

@@ -1,18 +1,30 @@
-# ملاحظات الدرس 11: Eloquent Models والعلاقات
+# ملخص الدرس: Eloquent Models والعلاقات
 
-## ملخص سريع
-نتعامل مع قاعدة البيانات بلغة Laravel السهلة بدلاً من SQL مباشر.
+## الفكرة الأساسية
+Eloquent هو نظام Laravel للتعامل مع قاعدة البيانات ككائنات واضحة بدلاً من كتابة SQL في كل مرة. Model يمثل جدولاً مثل Project أو Task.
 
-## أهم المصطلحات
-- ما هو Model
-- ما معنى hasMany وbelongsTo
-- استخدام fillable
-- تحميل العلاقات
+## لماذا هذا مهم؟
+العلاقات تجعل الكود مفهوماً. بدلاً من سؤال قاعدة البيانات يدوياً عن مهام مشروع معين، نكتب project->tasks ونحصل على النتيجة.
 
-## قاعدة ذهبية للمبتدئ
-لا تحفظ الكود قبل أن تعرف أين يكتب ولماذا يكتب وما النتيجة المتوقعة منه.
+## داخل FlowPilot
+صفحة المشروع في FlowPilot ستحتاج عرض المهام والتعليقات والمرفقات، وهذا يعتمد على علاقات Eloquent.
 
-## مساحة ملاحظاتك
-- 
-- 
-- 
+## المثال
+class Project extends Model
+{
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+}
+
+class Task extends Model
+{
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+}
+
+## نتيجة الدرس
+Models مترابطة يمكن استخدامها في Controllers وصفحات Inertia.
