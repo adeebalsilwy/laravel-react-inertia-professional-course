@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="420" viewBox="0 0 980 420" role="img" aria-label="مخطط تهيئة بيئة العمل وفهم خريطة المشروع">
+<defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#06b6d4"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f172a" flood-opacity=".14"/></filter></defs>
+<rect width="980" height="420" rx="28" fill="#f8fafc"/><text x="490" y="45" text-anchor="middle" font-size="26" font-weight="800" fill="#0f172a">تهيئة بيئة العمل وفهم خريطة المشروع</text>
+<g filter="url(#s)">
+<rect x="55" y="110" width="155" height="90" rx="22" fill="white" stroke="#c7d2fe"/><text x="132" y="153" text-anchor="middle" font-size="17" font-weight="800" fill="#3730a3">الفكرة</text><text x="132" y="180" text-anchor="middle" font-size="13" fill="#64748b">ابدأ بالفهم</text>
+<path d="M220 155 H300" stroke="url(#g)" stroke-width="5" marker-end="url(#arrow)"/>
+<rect x="310" y="110" width="155" height="90" rx="22" fill="white" stroke="#bae6fd"/><text x="387" y="153" text-anchor="middle" font-size="16" font-weight="800" fill="#075985">ما هو Laravel وما دوره</text><text x="387" y="180" text-anchor="middle" font-size="13" fill="#64748b">Backend</text>
+<path d="M475 155 H555" stroke="url(#g)" stroke-width="5"/>
+<rect x="565" y="110" width="155" height="90" rx="22" fill="white" stroke="#bbf7d0"/><text x="642" y="153" text-anchor="middle" font-size="16" font-weight="800" fill="#166534">ما هو React وما دوره ف</text><text x="642" y="180" text-anchor="middle" font-size="13" fill="#64748b">Bridge</text>
+<path d="M730 155 H810" stroke="url(#g)" stroke-width="5"/>
+<rect x="820" y="110" width="120" height="90" rx="22" fill="white" stroke="#ddd6fe"/><text x="880" y="153" text-anchor="middle" font-size="16" font-weight="800" fill="#6d28d9">React</text><text x="880" y="180" text-anchor="middle" font-size="13" fill="#64748b">Frontend</text>
+</g>
+<rect x="130" y="260" width="720" height="82" rx="24" fill="#0f172a"/><text x="490" y="296" text-anchor="middle" font-size="21" font-weight="900" fill="white">التطبيق العملي داخل مشروع FlowPilot</text><text x="490" y="326" text-anchor="middle" font-size="15" fill="#cbd5e1">نفهم المفهوم ثم نكتبه ثم نختبره في المتصفح ونوثقه في ملفات الدرس</text>
+</svg>
