@@ -3,69 +3,79 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الأسبوع 6: الميزات المتقدمة | FlowPilot Academy</title>
+    <title>الأسبوع 6: APIs والتكاملات | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
+        .card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; transition: all 0.3s ease; }
+        .card:hover { border-color: #8b5cf6; transform: translateY(-4px); }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
-
+<body class="bg-slate-50 text-slate-900">
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
-        <a href="../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <a href="../../index.html" class="font-black text-2xl">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100" href="../../index.html">الرئيسية</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100" href="../../pages/curriculum.html">الفهرس</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100" href="../../pages/lessons.html">الدروس</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100" href="../../pages/beginner-guide.html">دليل الطالب</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100" href="../../pages/project.html">المشروع العملي</a>
+        </nav>
     </div>
 </header>
-
 <main class="mx-auto max-w-7xl px-4 py-12 text-right">
-    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="../../pages/curriculum.html">← العودة للفهرس الشامل</a>
-    
+    <a class="font-black text-purple-700 hover:underline inline-block mb-8" href="../../pages/curriculum.html">← العودة للفهرس</a>
     <section class="mb-12">
         <div class="flex items-center gap-4 mb-4">
-            <span class="px-4 py-1.5 rounded-full bg-indigo-600 text-white font-black text-sm uppercase">الأسبوع 06</span>
-            <h1 class="text-4xl font-black text-slate-900">APIs والتكاملات والبحث الذكي</h1>
+            <span class="px-4 py-1.5 rounded-full bg-purple-600 text-white font-black text-sm">الأسبوع 06</span>
+            <h1 class="text-4xl font-black text-slate-900">APIs والتكاملات والبحث المتقدم</h1>
         </div>
-        <p class="text-lg text-slate-600 max-w-3xl leading-relaxed">
-            في هذا الأسبوع، نجعل FlowPilot أكثر ذكاءً واحترافية. سنتعلم كيف ننظم البيانات باستخدام API Resources، وكيف نبني نظام بحث وفلاتر متقدم، ونضيف التنبيهات وسجل النشاط لتتبع العمل.
-        </p>
+        <p class="text-lg text-slate-600 max-w-3xl">في هذا الأسبوع ننظم البيانات المخرجة باستخدام API Resources، ونضيف بحثاً ذكياً وفلاتر متعددة، ونبني نظام تنبيهات فوري، ونسجل كل حدث في سجل النشاط.</p>
     </section>
-
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <a href="lesson-01/index.html" class="card p-8 hover:border-indigo-500 group bg-white rounded-3xl border border-slate-200 transition-all">
-            <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">الدرس 21</span>
-            <h3 class="mt-2 text-xl font-black group-hover:text-indigo-600 transition-colors">API Resources</h3>
-            <p class="mt-4 text-sm text-slate-500 leading-relaxed">تنظيم وتطهير البيانات المرسلة للواجهة.</p>
-            <div class="mt-6 pt-6 border-t text-xs font-bold text-indigo-600">ابدأ التعلم الآن ←</div>
+    <div class="grid md:grid-cols-2 gap-6">
+        <a href="lesson-01/index.html" class="card p-8 hover:border-purple-500 group">
+            <span class="text-xs font-black text-purple-500">الدرس 21</span>
+            <h3 class="mt-2 text-xl font-black group-hover:text-purple-600">Laravel API Resources</h3>
+            <p class="mt-3 text-sm text-slate-500">Resource, Collection, toArray(), Pagination Resources, تنسيق البيانات المرسلة لـ React.</p>
+            <div class="mt-4 pt-4 border-t text-xs font-bold text-purple-600">ابدأ التعلم ←</div>
         </a>
-
-        <a href="lesson-02/index.html" class="card p-8 hover:border-indigo-500 group bg-white rounded-3xl border border-slate-200 transition-all">
-            <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">الدرس 22</span>
-            <h3 class="mt-2 text-xl font-black group-hover:text-indigo-600 transition-colors">البحث والفلاتر</h3>
-            <p class="mt-4 text-sm text-slate-500 leading-relaxed">مساعدة المستخدم للوصول لبياناته بسرعة.</p>
-            <div class="mt-6 pt-6 border-t text-xs font-bold text-indigo-600">ابدأ التعلم الآن ←</div>
+        <a href="lesson-02/index.html" class="card p-8 hover:border-purple-500 group">
+            <span class="text-xs font-black text-purple-500">الدرس 22</span>
+            <h3 class="mt-2 text-xl font-black group-hover:text-purple-600">البحث والفلاتر المتقدمة</h3>
+            <p class="mt-3 text-sm text-slate-500">Search Query, Filter by Status/Date, Pagination with Search, Inertia Preserve State.</p>
+            <div class="mt-4 pt-4 border-t text-xs font-bold text-purple-600">ابدأ التعلم ←</div>
         </a>
-
-        <a href="lesson-03/index.html" class="card p-8 hover:border-indigo-500 group bg-white rounded-3xl border border-slate-200 transition-all">
-            <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">الدرس 23</span>
-            <h3 class="mt-2 text-xl font-black group-hover:text-indigo-600 transition-colors">التنبيهات</h3>
-            <p class="mt-4 text-sm text-slate-500 leading-relaxed">إخطار المستخدمين بالأحداث الهامة.</p>
-            <div class="mt-6 pt-6 border-t text-xs font-bold text-indigo-600">ابدأ التعلم الآن ←</div>
+        <a href="lesson-03/index.html" class="card p-8 hover:border-purple-500 group">
+            <span class="text-xs font-black text-purple-500">الدرس 23</span>
+            <h3 class="mt-2 text-xl font-black group-hover:text-purple-600">التنبيهات Notifications</h3>
+            <p class="mt-3 text-sm text-slate-500">Laravel Notifications, Database Channel, Mark as Read, Notification Bell UI, Inertia Shared Data.</p>
+            <div class="mt-4 pt-4 border-t text-xs font-bold text-purple-600">ابدأ التعلم ←</div>
         </a>
-
-        <a href="lesson-04/index.html" class="card p-8 hover:border-indigo-500 group bg-white rounded-3xl border border-slate-200 transition-all">
-            <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">الدرس 24</span>
-            <h3 class="mt-2 text-xl font-black group-hover:text-indigo-600 transition-colors">سجل النشاط</h3>
-            <p class="mt-4 text-sm text-slate-500 leading-relaxed">مراقبة من فعل ماذا داخل التطبيق.</p>
-            <div class="mt-6 pt-6 border-t text-xs font-bold text-indigo-600">ابدأ التعلم الآن ←</div>
+        <a href="lesson-04/index.html" class="card p-8 hover:border-purple-500 group">
+            <span class="text-xs font-black text-purple-500">الدرس 24</span>
+            <h3 class="mt-2 text-xl font-black group-hover:text-purple-600">سجل النشاط Activity Log</h3>
+            <p class="mt-3 text-sm text-slate-500">Eloquent Events, Activity Model, Polymorphic Relations, عرض سجل النشاط في الواجهة.</p>
+            <div class="mt-4 pt-4 border-t text-xs font-bold text-purple-600">ابدأ التعلم ←</div>
         </a>
     </div>
+    <section class="mt-16 p-8 bg-purple-50 rounded-[2rem] border border-purple-100">
+        <h2 class="text-2xl font-black text-purple-900 mb-4">ماذا ستكون قادراً على فعله بعد هذا الأسبوع؟</h2>
+        <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div class="flex items-center gap-2 text-purple-800">✓ تنظيم البيانات المخرجة باستخدام Resources</div>
+            <div class="flex items-center gap-2 text-purple-800">✓ بناء بحث متقدم مع فلاتر متعددة</div>
+            <div class="flex items-center gap-2 text-purple-800">✓ إرسال وإدارة التنبيهات للمستخدمين</div>
+            <div class="flex items-center gap-2 text-purple-800">✓ تسجيل كل حدث في سجل النشاط</div>
+            <div class="flex items-center gap-2 text-purple-800">✓ عرض الإشعارات في واجهة React</div>
+            <div class="flex items-center gap-2 text-purple-800">✓ استخدام Eloquent Events لتسجيل التغييرات</div>
+        </div>
+    </section>
 </main>
-
-<footer class="mt-24 border-t bg-white py-12 text-center text-slate-400 text-sm font-medium">
-    © 2025 FlowPilot Academy. الشفافية هي سر العمل الجماعي الناجح.
-</footer>
-
+<footer class="mt-24 border-t bg-white py-12 text-center text-slate-400 text-sm">© 2025 FlowPilot Academy. التكاملات تجعل التطبيق حياً.</footer>
 <script src="../../assets/js/app.js"></script>
 </body>
 </html>
