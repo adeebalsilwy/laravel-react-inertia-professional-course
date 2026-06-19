@@ -1,20 +1,6 @@
-# ملخص الدرس: تثبيت Laravel 12 وربطه بـ React وInertia
+# ملاحظات الدرس 2: تثبيت Laravel 12 وربطه بـ React وInertia
 
-## الفكرة الأساسية
-Laravel يوفر هيكل التطبيق الخلفي، وReact توفر واجهة تفاعلية، أما Inertia فيجعل الصفحة تبدو مثل تطبيق React حديث مع بقاء المسارات والمنطق داخل Laravel. هذا يعني أن الطالب يستطيع بناء تطبيق كامل بدون أن يتشتت بين API منفصل وواجهة منفصلة في البداية.
-
-## لماذا هذا مهم؟
-نستخدم Inertia لأن الدورة موجهة لبناء تطبيق احترافي بسرعة وبطريقة مفهومة. الطالب سيرى أن Controller في Laravel يستطيع إرسال صفحة React مع بياناتها، وهذا يختصر كثيراً من التعقيد على المبتدئ.
-
-## داخل FlowPilot
-هذه الخطوة هي نقطة ولادة FlowPilot. بعدها يصبح لدينا تطبيق واحد يجمع بين قوة Laravel ومرونة React.
-
-## المثال
-composer create-project laravel/laravel flowpilot
-cd flowpilot
-composer require inertiajs/inertia-laravel
-npm install @inertiajs/react react react-dom
-php artisan inertia:middleware
-
-## نتيجة الدرس
-صفحة React أولى يتم عرضها من خلال Laravel باستخدام Inertia.
+- المفهوم الأساسي: Laravel هو إطار عمل للجزء الخلفي، وReact مكتبة لبناء الواجهات، وInertia جسر يجعل Laravel يرسل صفحات React بدون بناء API منفصل في البداية. عندما تتكامل هذه الأدوات يصبح الطالب قادراً على بناء تطبيق حديث بواجهة تفاعلية ومنطق خلفي قوي.
+- أين يظهر في FlowPilot: سيكون FlowPilot تطبيق Laravel يعرض صفحاته بواجهات React. عند فتح صفحة المشاريع، Laravel يستقبل الطلب، Inertia يمرر البيانات، وReact يعرض الصفحة.
+- أهم ملف أو مكان تنفيذ: Terminal
+- راجع الأخطاء الشائعة بعد التطبيق.

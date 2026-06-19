@@ -1,45 +1,276 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>تهيئة بيئة العمل وقراءة خريطة المشروع</title><script src="https://cdn.tailwindcss.com"></script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../../assets/css/style.css"></head><body class="bg-slate-50 text-slate-900"><header class="glass sticky top-0 z-50 border-b border-slate-200/70"><div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4"><a href="../../../index.html" class="font-black text-xl text-slate-900">FlowPilot Academy</a><nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700"><a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../index.html">الرئيسية</a><a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/curriculum.html">الفهرس</a><a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/lessons.html">الدروس</a><a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/beginner-guide.html">دليل الطالب</a><a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/project.html">المشروع</a></nav><button onclick="toggleMenu()" class="md:hidden rounded-xl border px-3 py-2">☰</button></div><div id="mobileMenu" class="hidden md:hidden px-4 pb-3 space-y-2 font-bold"><a class="block p-2" href="../../../index.html">الرئيسية</a><a class="block p-2" href="../../../pages/curriculum.html">الفهرس</a><a class="block p-2" href="../../../pages/lessons.html">الدروس</a><a class="block p-2" href="../../../pages/beginner-guide.html">دليل الطالب</a><a class="block p-2" href="../../../pages/project.html">المشروع</a></div></header><main class="mx-auto max-w-7xl px-4 py-8"><div class="lesson-layout"><aside class="sidebar-sticky h-fit card p-4"><a class="font-black text-indigo-700" href="../index.html">← العودة إلى صفحة الأسبوع 1</a><label class="block mt-5 text-sm font-black text-slate-500">انتقال سريع إلى أي درس</label><select id="quickJump" class="mt-2 w-full rounded-xl border px-3 py-2"><option value="">اختر درساً...</option><option value="../../week-01/lesson-01/index.html">الأسبوع 1 - الدرس 1: تهيئة بيئة العمل وقراءة خريطة المشروع</option>
-<option value="../../week-01/lesson-02/index.html">الأسبوع 1 - الدرس 2: تثبيت Laravel 12 وربطه بـ React وInertia</option>
-<option value="../../week-01/lesson-03/index.html">الأسبوع 1 - الدرس 3: Tailwind وتصميم النظام البصري</option>
-<option value="../../week-01/lesson-04/index.html">الأسبوع 1 - الدرس 4: Git وتنظيم المستودع والمعايير</option>
-<option value="../../week-02/lesson-01/index.html">الأسبوع 2 - الدرس 1: Routing في Laravel وInertia Responses</option>
-<option value="../../week-02/lesson-02/index.html">الأسبوع 2 - الدرس 2: Layouts وNavigation ثابت</option>
-<option value="../../week-02/lesson-03/index.html">الأسبوع 2 - الدرس 3: Components في React داخل Inertia</option>
-<option value="../../week-02/lesson-04/index.html">الأسبوع 2 - الدرس 4: صفحات Dashboard وWorkspace</option>
-<option value="../../week-03/lesson-01/index.html">الأسبوع 3 - الدرس 1: تصميم قاعدة بيانات FlowPilot</option>
-<option value="../../week-03/lesson-02/index.html">الأسبوع 3 - الدرس 2: Migrations وSeeders وFactories</option>
-<option value="../../week-03/lesson-03/index.html">الأسبوع 3 - الدرس 3: Eloquent Models والعلاقات</option>
-<option value="../../week-03/lesson-04/index.html">الأسبوع 3 - الدرس 4: Queries وتحسين القراءة</option>
-<option value="../../week-04/lesson-01/index.html">الأسبوع 4 - الدرس 1: Authentication عملي</option>
-<option value="../../week-04/lesson-02/index.html">الأسبوع 4 - الدرس 2: Authorization Policies</option>
-<option value="../../week-04/lesson-03/index.html">الأسبوع 4 - الدرس 3: Middleware وحماية الصفحات</option>
-<option value="../../week-04/lesson-04/index.html">الأسبوع 4 - الدرس 4: إدارة الملف الشخصي والإعدادات</option>
-<option value="../../week-05/lesson-01/index.html">الأسبوع 5 - الدرس 1: إنشاء المشاريع وإدارتها</option>
-<option value="../../week-05/lesson-02/index.html">الأسبوع 5 - الدرس 2: إدارة المهام Kanban</option>
-<option value="../../week-05/lesson-03/index.html">الأسبوع 5 - الدرس 3: Inertia Forms وحالات التحميل</option>
-<option value="../../week-05/lesson-04/index.html">الأسبوع 5 - الدرس 4: رفع الملفات والمرفقات</option>
-<option value="../../week-06/lesson-01/index.html">الأسبوع 6 - الدرس 1: Laravel API Resources</option>
-<option value="../../week-06/lesson-02/index.html">الأسبوع 6 - الدرس 2: البحث والفلاتر المتقدمة</option>
-<option value="../../week-06/lesson-03/index.html">الأسبوع 6 - الدرس 3: Notifications والتنبيهات</option>
-<option value="../../week-06/lesson-04/index.html">الأسبوع 6 - الدرس 4: Activity Log وسجل العمليات</option>
-<option value="../../week-07/lesson-01/index.html">الأسبوع 7 - الدرس 1: Testing للوحدات والميزات</option>
-<option value="../../week-07/lesson-02/index.html">الأسبوع 7 - الدرس 2: React Component Quality</option>
-<option value="../../week-07/lesson-03/index.html">الأسبوع 7 - الدرس 3: Performance وCaching</option>
-<option value="../../week-07/lesson-04/index.html">الأسبوع 7 - الدرس 4: Security Hardening</option>
-<option value="../../week-08/lesson-01/index.html">الأسبوع 8 - الدرس 1: Production Build وEnvironment</option>
-<option value="../../week-08/lesson-02/index.html">الأسبوع 8 - الدرس 2: Deployment Workflow</option>
-<option value="../../week-08/lesson-03/index.html">الأسبوع 8 - الدرس 3: توثيق المشروع والعرض النهائي</option>
-<option value="../../week-08/lesson-04/index.html">الأسبوع 8 - الدرس 4: تسليم FlowPilot النهائي</option></select><div class="mt-5 rounded-2xl bg-indigo-50 p-4"><p class="text-xs font-black text-indigo-700">هذا المحتوى موجه للطلاب</p><p class="mt-1 font-black">شرح قابل للعرض داخل القاعة</p><p class="mt-2 text-sm leading-7 text-slate-600">كل فقرة تشرح المفهوم فعلياً بلغة سهلة، مع مثال وتطبيق داخل FlowPilot.</p></div><div class="mt-5 lesson-anchor-nav flex flex-wrap gap-2"><a href="#what">ما هو؟</a><a href="#why">الأهمية</a><a href="#flowpilot">داخل FlowPilot</a><a href="#practice">التطبيق</a><a href="#code">الكود</a><a href="#visuals">المخططات</a></div><div class="mt-5 space-y-2 text-sm"><a class="block rounded-xl bg-emerald-50 text-emerald-800 p-3 font-bold" href="assignment.html">واجب الدرس</a><a class="block rounded-xl bg-sky-50 text-sky-800 p-3 font-bold" href="quiz.html">كويز الدرس</a><a class="block rounded-xl bg-slate-100 p-3 font-bold" href="notes.md">ملخص وملاحظات</a></div></aside><article class="card p-6 md:p-9 prose-box"><section class="student-hero"><span class="badge bg-indigo-50 text-indigo-700">الأسبوع 1 · الدرس 1 · الدرس رقم 1</span><h1 class="mt-4 text-3xl md:text-5xl font-black leading-tight">تهيئة بيئة العمل وقراءة خريطة المشروع</h1><p class="mt-4 text-lg leading-9 text-slate-600">نجهز Laravel 12 وNode وComposer ونبني تصوراً واضحاً لمسار مشروع FlowPilot من أول مجلد حتى أول شاشة.</p><div class="mt-5 grid md:grid-cols-3 gap-4 not-prose"><div class="lesson-objective"><p class="font-black">لغة الشرح</p><p class="text-slate-600 mt-2">موجهة للطلاب وليست تعليمات للمدرب</p></div><div class="lesson-objective"><p class="font-black">أسلوب الدرس</p><p class="text-slate-600 mt-2">تعريف واضح ثم أهمية ثم تطبيق</p></div><div class="lesson-objective"><p class="font-black">النتيجة</p><p class="text-slate-600 mt-2">مشروع Laravel قابل للتشغيل، وفهم واضح لمسار الملفات التي سنستخدمها طوال الدورة.</p></div></div></section>
-<section class="student-section" id="intro"><h2>تمهيد الدرس للطلاب</h2><p class="student-reading">في هذا الدرس سنتعلم <strong>Laravel وReact وInertia وبيئة التطوير</strong> بطريقة تناسب الطالب المبتدئ. سنبدأ بالسؤال البسيط: ما الفكرة؟ ثم ننتقل إلى سؤال أهم: لماذا نحتاجها داخل مشروع حقيقي؟ وبعد ذلك نطبقها داخل مشروع الدورة <strong>FlowPilot</strong>.</p><p class="student-reading">هذا الشرح ليس تعليمات للمدرب، بل نص تعليمي جاهز للعرض على الطلاب. يمكن قراءة الفقرات كما هي داخل القاعة، ويمكن للطالب الرجوع إليها لاحقاً لفهم المفهوم وتنفيذ الواجب.</p></section>
-<section class="student-section" id="what"><h2>الشرح النظري المنظم</h2><div class="concept-strip not-prose mt-4"><div class="teaching-point"><h3>ما هو Laravel وReact وInertia وبيئة التطوير؟</h3><p class="student-reading">Laravel هو إطار عمل PHP يساعدنا على بناء الجزء الخلفي من التطبيق: المسارات، قواعد البيانات، تسجيل الدخول، الصلاحيات، ومعالجة الطلبات. React هي مكتبة JavaScript لبناء الواجهات التي يتفاعل معها المستخدم. Inertia.js هو الجسر الذي يجعل Laravel يرسل البيانات مباشرة إلى صفحات React بدون الحاجة إلى بناء API منفصل في بداية التعلم.</p></div><div class="teaching-point"><h3>لماذا نحتاج هذا المفهوم؟</h3><p class="student-reading">نبدأ بتهيئة البيئة لأن أي خطأ في الإصدارات أو الأدوات سيجعل الطالب يظن أن المشكلة في الكود، بينما السبب الحقيقي قد يكون أن Composer أو Node أو قاعدة البيانات غير جاهزة. فهم خريطة المشروع من البداية يجعل الطالب يعرف أين يكتب كل جزء ولماذا.</p></div><div class="teaching-point"><h3>كيف يعمل عملياً؟</h3><p class="student-reading">عملياً سنتأكد من تثبيت PHP وComposer وNode وGit، ثم نشرح مجلدات Laravel المهمة مثل routes وapp وdatabase وresources/js. بعد ذلك يرى الطالب أين ستعيش صفحات React وأين يتم استدعاؤها بواسطة Inertia.</p></div><div class="teaching-point"><h3>ما علاقته بالدروس القادمة؟</h3><p class="student-reading">هذا الدرس لا يقف وحده. نتيجته ستستخدم في الدروس التالية حتى يبني الطالب FlowPilot خطوة بعد خطوة. عندما يفهم الطالب Laravel وReact وInertia وبيئة التطوير الآن، سيستطيع لاحقاً قراءة الكود وتعديل الصفحات وحل الأخطاء بثقة أكبر.</p></div></div></section>
-<section class="student-section" id="example"><h2>مثال مبسط لتسهيل الفهم</h2><div class="example-box"><p class="student-reading">تهيئة البيئة تشبه تجهيز قاعة التدريب قبل حضور الطلاب: يجب أن تعمل الشاشة، والإنترنت، والأجهزة، والملفات. بعد ذلك يصبح الشرح سهلاً لأن كل أداة في مكانها.</p><p class="student-reading mt-3">بهذا المثال يصبح المفهوم قريباً من الحياة اليومية. وبعد أن يفهم الطالب التشبيه، نعود إلى الكود لنرى كيف تظهر الفكرة نفسها داخل التطبيق.</p></div></section>
-<section class="student-section" id="flowpilot"><h2>كيف يظهر هذا المفهوم داخل مشروع FlowPilot؟</h2><div class="flowpilot-box"><p class="student-reading">في FlowPilot نحتاج هذه البيئة حتى نستطيع بناء منصة إدارة مشاريع حقيقية. بدون إعداد صحيح لن نستطيع تشغيل Laravel، ولا بناء ملفات React، ولا متابعة الدروس التالية بثقة.</p></div><div class="mt-5 grid md:grid-cols-3 gap-4 not-prose"><div class="student-outcome"><h3>قبل الدرس</h3><p>يعرف الطالب الفكرة بشكل عام أو يسمع المصطلح لأول مرة.</p></div><div class="student-outcome"><h3>أثناء الدرس</h3><p>يرى المفهوم داخل ملفات FlowPilot وليس كشرح منفصل.</p></div><div class="student-outcome"><h3>بعد الدرس</h3><p>يمتلك نتيجة عملية يمكن البناء عليها في الدرس التالي.</p></div></div></section>
-<section class="student-section" id="practice"><h2>الشرح العملي خطوة بخطوة</h2><p class="student-reading">التطبيق العملي في هذا الدرس يتم بهدوء وبخطوات قصيرة. كل خطوة لها سبب واضح ونتيجة يمكن ملاحظتها. لا ننتقل إلى الخطوة التالية قبل أن يعرف الطالب ماذا تغير ولماذا تغير.</p><div class="grid md:grid-cols-2 gap-4 not-prose mt-5"><div class="student-step"><strong>الخطوة 1: قراءة الفكرة قبل فتح المحرر</strong><p class="student-reading mt-2">يبدأ الطالب بفهم Laravel وReact وInertia وبيئة التطوير من خلال الشرح النظري والمثال، لأن الهدف ليس نسخ الكود بسرعة بل فهم سبب كل خطوة.</p></div><div class="student-step"><strong>الخطوة 2: تحديد مكان التطبيق داخل FlowPilot</strong><p class="student-reading mt-2">نوضح للطالب هل سيعمل داخل routes أو Controllers أو resources/js أو database. معرفة المكان الصحيح تقلل التشتت وتمنع وضع الكود في ملف غير مناسب.</p></div><div class="student-step"><strong>الخطوة 3: تنفيذ تعديل صغير ومفهوم</strong><p class="student-reading mt-2">نطبق جزءاً واحداً فقط في كل مرة، ثم نربطه بنتيجة مرئية. هذه الطريقة تناسب المبتدئين لأنها تجعل الخطأ أسهل في الاكتشاف.</p></div><div class="student-step"><strong>الخطوة 4: تشغيل المشروع ومشاهدة النتيجة</strong><p class="student-reading mt-2">بعد التطبيق يشغل الطالب الأوامر المناسبة ويفتح المتصفح أو قاعدة البيانات ليتأكد أن FlowPilot تغير فعلاً.</p></div><div class="student-step"><strong>الخطوة 5: تسجيل الملاحظة النهائية</strong><p class="student-reading mt-2">يكتب الطالب جملة قصيرة تلخص ما تعلمه. هذه العادة تساعده على تذكر المفهوم عند العودة للمشروع لاحقاً.</p></div></div></section>
-<section class="student-section" id="code"><h2>مثال كود مشروح للطلاب</h2><p class="student-reading">الكود التالي ليس للحفظ، بل للقراءة والفهم. المطلوب من الطالب أن يلاحظ الكلمات المهمة، ثم يربطها بما شاهده في الشرح النظري والتطبيق العملي.</p><pre class="code" id="code1">php -v
-composer -V
-node -v
-npm -v
-git --version</pre><button onclick="copyText('code1')" class="mt-3 rounded-xl bg-slate-900 text-white px-4 py-2 text-sm font-bold">نسخ المثال</button><div class="line-note"><strong>شرح المثال:</strong> هذه الأوامر تطبع إصدارات الأدوات الأساسية. عندما تظهر الإصدارات بدون أخطاء فهذا يعني أن الطالب جاهز للبدء في بناء FlowPilot.</div></section>
-<section class="student-section" id="visuals"><h2>مخططات وصور توضيحية</h2><p class="student-reading">تساعد هذه الرسومات الطالب على رؤية العلاقة بين Laravel وInertia وReact وبين الجزء الذي يتم بناؤه داخل FlowPilot. يمكن استخدامها في العرض داخل القاعة أو كمراجعة بعد الدرس.</p><div class="grid md:grid-cols-2 gap-5 not-prose mt-5"><div class="diagram-wrap"><img class="lesson-img" src="diagram.svg" alt="مخطط الدرس"><p class="visual-label">مخطط يوضح مسار التعلم في هذا الدرس</p></div><div class="diagram-wrap"><img class="lesson-img" src="visual-example.svg" alt="صورة توضيحية"><p class="visual-label">صورة توضح علاقة المفهوم بمشروع FlowPilot</p></div></div></section>
-<section class="student-section"><h2>ماذا يجب أن يفهم الطالب في نهاية الدرس؟</h2><ul class="checklist"><li>أن يشرح معنى Laravel وReact وInertia وبيئة التطوير بلغته الخاصة.</li><li>أن يعرف لماذا نستخدم هذا الجزء داخل FlowPilot.</li><li>أن يقرأ المثال البرمجي ويفهم وظيفة كل سطر أساسي فيه.</li><li>أن يطبق الواجب ويجيب على الكويز للتأكد من الفهم.</li></ul></section>
-<div class="mt-8 grid md:grid-cols-2 gap-4 not-prose"><a class="rounded-2xl bg-emerald-600 text-white p-5 font-black" href="assignment.html">فتح صفحة الواجب الاحترافية</a><a class="rounded-2xl bg-sky-600 text-white p-5 font-black" href="quiz.html">فتح صفحة الكويز الاحترافية</a></div><div class="mt-10 flex justify-between gap-3"><span></span><a class="rounded-2xl bg-indigo-600 text-white px-5 py-3 font-black" href="../../week-01/lesson-02/index.html">الدرس التالي ←</a></div></article></div></main><footer class="mt-16 border-t bg-white"><div class="mx-auto max-w-7xl px-4 py-8 text-sm text-slate-600 flex flex-col md:flex-row gap-3 justify-between"><p>© FlowPilot Academy - دورة Laravel 12 + React + Inertia.js</p><p>محتوى تعليمي للطلاب: شرح نظري واضح + مثال + تطبيق عملي + واجب + كويز + مخططات</p></div></footer><script src="../../../assets/js/app.js"></script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>الدرس 1: تهيئة بيئة العمل وفهم خريطة المشروع</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../index.html">الرئيسية</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/curriculum.html">الفهرس</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/lessons.html">الدروس</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/beginner-guide.html">دليل الطالب</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/project.html">المشروع</a>
+        </nav>
+        <button onclick="toggleMenu()" class="md:hidden rounded-xl border px-3 py-2">☰</button>
+    </div>
+</header>
+
+<main class="mx-auto max-w-7xl px-4 py-8">
+    <div class="lesson-layout">
+        <aside class="sidebar-sticky h-fit card p-4 hidden lg:block">
+            <a class="font-black text-indigo-700 hover:underline" href="../index.html">← العودة للأسبوع الأول</a>
+            <div class="mt-8 space-y-2 text-sm font-bold text-slate-600">
+                <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مقدمة الدرس</a>
+                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">الشرح النظري</a>
+                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال من الحياة</a>
+                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">في FlowPilot</a>
+                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">أخطاء شائعة</a>
+            </div>
+            <div class="mt-8 pt-8 border-t space-y-2">
+                <a class="block rounded-xl bg-emerald-600 text-white p-3 font-black text-center text-sm shadow-lg shadow-emerald-100" href="assignment.html">واجب الدرس</a>
+                <a class="block rounded-xl bg-sky-600 text-white p-3 font-black text-center text-sm shadow-lg shadow-sky-100" href="quiz.html">كويز الدرس</a>
+            </div>
+        </aside>
+
+        <article class="card p-6 md:p-12 prose-box bg-white shadow-sm border-slate-200">
+            <!-- 1. Lesson Title -->
+            <section class="lesson-hero border-b pb-8 mb-12">
+                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 1 · الدرس 1</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">تهيئة بيئة العمل وفهم خريطة طريق مشروع FlowPilot</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"تجهيز الأدوات هو الخطوة الأولى نحو النجاح. في هذا الدرس، سنبني الأساس المتين الذي ستقف عليه طوال الدورة."</p>
+            </section>
+
+            <!-- 2. Introduction -->
+            <section class="student-section space-y-4" id="intro">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">لماذا هذا الدرس مهم؟</h2>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    تخيل أنك تريد بناء منزل، هل تبدأ بوضع الطوب مباشرة؟ بالطبع لا، يجب أولاً تمهيد الأرض وإحضار المعدات اللازمة. في عالم البرمجة، "تهيئة البيئة" هي عملية تجهيز جهازك بالأدوات (اللغات والبرامج) التي يفهمها الكمبيوتر لتشغيل كود Laravel و React.
+                </p>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    بدون هذا الدرس، ستواجه رسائل خطأ محبطة لا علاقة لها بكودك البرمجي، بل بجهازك غير الجاهز. بنهاية هذا الدرس، سيكون جهازك مختبراً وجاهزاً للانطلاق في بناء مشروع FlowPilot.
+                </p>
+            </section>
+
+            <!-- 3. Detailed Theory -->
+            <section class="student-section mt-16 space-y-6" id="theory">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">ما الأدوات التي سنستخدمها ولماذا؟</h2>
+                <div class="grid md:grid-cols-2 gap-6 mt-8">
+                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
+                        <h4 class="font-black text-indigo-600 text-lg mb-2">PHP & Laravel 12</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">PHP هي اللغة التي يُبنى بها الجزء الخلفي (Back-end)، و Laravel هو "إطار عمل" يوفر لنا أدوات جاهزة لتنظيم الكود، قواعد البيانات، والأمان، بدلاً من كتابة كل شيء من الصفر.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
+                        <h4 class="font-black text-indigo-600 text-lg mb-2">Node.js & NPM</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">نحتاجهما لتشغيل وإدارة مكتبات JavaScript مثل React. بدونهما لن نستطيع معالجة ملفات التصميم والواجهات الحديثة.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
+                        <h4 class="font-black text-indigo-600 text-lg mb-2">Composer</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">هو "مدير الحزم" الخاص بلغة PHP. وظيفته جلب الأدوات والمكتبات التي يحتاجها Laravel ليعمل بشكل صحيح.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
+                        <h4 class="font-black text-indigo-600 text-lg mb-2">Git</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">هو نظام لتتبع التغييرات في كودك. يسمح لك بالعودة لإصدار قديم إذا حدث خطأ، والتعاون مع مبرمجين آخرين بسهولة.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Real-life Example -->
+            <section class="student-section mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100" id="example">
+                <h2 class="text-2xl font-black mb-4">مثال من حياتنا اليومية</h2>
+                <p class="text-indigo-50 leading-relaxed text-lg">
+                    يمكننا تشبيه تهيئة البيئة بتجهيز "مطبخ احترافي" قبل البدء في الطهي. 
+                    <br><br>
+                    - <strong>PHP</strong> هو الطباخ الرئيسي.
+                    <br>
+                    - <strong>Composer</strong> هو المساعد الذي يشتري المكونات (المكتبات).
+                    <br>
+                    - <strong>Node.js</strong> هو الفرن والأدوات الكهربائية التي تعالج المكونات بسرعة.
+                    <br>
+                    - <strong>Git</strong> هو كاميرا المراقبة التي تسجل كل خطوة لتعرف متى وكيف أفسدت الطبخة لتعيد إصلاحها!
+                </p>
+            </section>
+
+            <!-- 5. Link to FlowPilot -->
+            <section class="student-section mt-16" id="flowpilot">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">كيف يخدم هذا الدرس مشروع FlowPilot؟</h2>
+                <div class="mt-6 p-6 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-900">
+                    <p class="leading-relaxed">
+                        مشروع <strong>FlowPilot</strong> هو منصة سحابية حقيقية. لكي نستطيع البدء في بناء "لوحة التحكم" أو "نظام المهام"، يجب أن يكون جهازك قادراً على تشغيل خادم محلي (Local Server). في هذا الدرس، نحن نضع حجر الأساس الذي سيسمح لنا لاحقاً بكتابة أول سطر كود في مشروعنا.
+                    </p>
+                </div>
+            </section>
+
+            <!-- 6. Step-by-Step Practical -->
+            <section class="student-section mt-16 space-y-12" id="practice">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">التطبيق العملي خطوة بخطوة</h2>
+
+                <div class="space-y-12">
+                    <!-- Step 1 -->
+                    <div class="step-card">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl shadow-lg shadow-indigo-200">1</span>
+                            <h3 class="text-xl font-black text-slate-900">التحقق من وجود PHP و Composer</h3>
+                        </div>
+                        <div class="space-y-4 pr-16">
+                            <p class="text-slate-600"><strong>الهدف:</strong> التأكد من أن لغة البرمجة الأساسية ومدير حزمها مثبتان على جهازك.</p>
+                            <p class="text-slate-600"><strong>لماذا؟</strong> Laravel يعتمد بالكامل على PHP و يحتاج لـ Composer لجلب ملفاته.</p>
+                            <div class="bg-slate-900 rounded-2xl p-4 md:p-6 font-mono text-sm text-indigo-400 overflow-x-auto">
+                                <p class="text-slate-500 mb-2"># اكتب هذه الأوامر في Terminal (شاشة الأوامر)</p>
+                                <p>php -v</p>
+                                <p>composer -v</p>
+                            </div>
+                            <p class="text-slate-500 text-sm italic">النتيجة المتوقعة: يجب أن تظهر أرقام الإصدارات (مثلاً PHP 8.2 أو أعلى).</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="step-card">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl shadow-lg shadow-indigo-200">2</span>
+                            <h3 class="text-xl font-black text-slate-900">تثبيت Node.js و NPM</h3>
+                        </div>
+                        <div class="space-y-4 pr-16">
+                            <p class="text-slate-600"><strong>الهدف:</strong> تجهيز بيئة تشغيل JavaScript لبناء واجهة React.</p>
+                            <p class="text-slate-600"><strong>لماذا؟</strong> بدون Node.js، لن نستطيع استخدام Tailwind CSS أو React داخل مشروعنا.</p>
+                            <div class="bg-slate-900 rounded-2xl p-4 md:p-6 font-mono text-sm text-emerald-400 overflow-x-auto">
+                                <p>node -v</p>
+                                <p>npm -v</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="step-card">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl shadow-lg shadow-indigo-200">3</span>
+                            <h3 class="text-xl font-black text-slate-900">تثبيت نظام Git</h3>
+                        </div>
+                        <div class="space-y-4 pr-16">
+                            <p class="text-slate-600"><strong>الهدف:</strong> تفعيل نظام حفظ نسخ المشروع.</p>
+                            <div class="bg-slate-900 rounded-2xl p-4 md:p-6 font-mono text-sm text-sky-400 overflow-x-auto">
+                                <p>git --version</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Explained Code -->
+            <section class="student-section mt-16" id="code">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">شرح الأوامر البرمجية</h2>
+                <div class="mt-8 space-y-4">
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
+                        <code class="text-indigo-600 font-bold block mb-2">php -v</code>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            هذا الأمر يطلب من الكمبيوتر: "أرني نسخة لغة PHP المثبتة حالياً". 
+                            في مشروع <strong>FlowPilot</strong>، نحتاج لنسخة 8.2 على الأقل لأننا نستخدم <strong>Laravel 12</strong>.
+                        </p>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
+                        <code class="text-indigo-600 font-bold block mb-2">composer -v</code>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            يتحقق من وجود مساعدك الشخصي (Composer). إذا ظهر شعار الرجل الذي يرتدي قبعة، فأنت في أمان!
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. Expected Result -->
+            <section class="student-section mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">النتيجة النهائية المتوقعة</h2>
+                <div class="mt-6 flex flex-col md:flex-row items-center gap-8">
+                    <div class="flex-1 space-y-4">
+                        <p class="text-slate-600 leading-relaxed">
+                            بعد تنفيذ هذه الخطوات، يجب أن يكون جهازك قادراً على التعرف على جميع هذه الأدوات من أي مكان في شاشة الأوامر (Terminal). 
+                        </p>
+                        <ul class="space-y-2 text-sm font-bold text-slate-700">
+                            <li class="flex gap-2">✅ لا توجد رسائل "Command Not Found"</li>
+                            <li class="flex gap-2">✅ إصدار PHP 8.2+</li>
+                            <li class="flex gap-2">✅ إصدار Node.js 18+</li>
+                        </ul>
+                    </div>
+                    <div class="w-full md:w-64 h-40 bg-slate-100 rounded-3xl border-2 border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-sm font-black italic">
+                        Screenshot: Clean Terminal
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. Common Errors -->
+            <section class="student-section mt-16" id="errors">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-rose-600 pr-4">أخطاء قد تواجهك وكيف تحلها</h2>
+                <div class="mt-8 space-y-6">
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h4 class="font-black text-rose-700 mb-2">خطأ: 'php' is not recognized</h4>
+                        <p class="text-sm text-rose-900/70 leading-relaxed mb-4">هذا يعني أن الكمبيوتر لا يعرف أين قمت بتثبيت PHP.</p>
+                        <p class="text-sm font-black text-rose-900">الحل: تأكد من إضافة مسار PHP إلى "Environment Variables" في جهازك، أو أعد تثبيت برنامج XAMPP وتأكد من اختيار الخيارات الافتراضية.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10. Diagrams -->
+            <section class="student-section mt-16" id="visuals">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">مخططات توضيحية</h2>
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="diagram.svg" alt="Technical Diagram" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط العلاقة التقنية</p>
+                    </div>
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="visual-example.svg" alt="Teaching Diagram" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">التشبيه البصري للأدوات</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 13. Summary -->
+            <section class="student-section mt-16 p-10 rounded-[2.5rem] bg-slate-900 text-white">
+                <h2 class="text-2xl font-black mb-6">ملخص الدرس</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="text-indigo-400 font-black uppercase text-xs tracking-widest">ماذا تعلمنا؟</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed">تعرفنا على الأدوات الأساسية (PHP, Composer, Node, Git) وكيفية التحقق منها.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="text-indigo-400 font-black uppercase text-xs tracking-widest">لماذا هو مهم؟</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed">لأنها الأدوات التي ستبني وتدير كود FlowPilot طوال فترة الدورة.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="text-indigo-400 font-black uppercase text-xs tracking-widest">الخطوة القادمة</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed">سنقوم بتثبيت مشروع Laravel 12 الأول وربطه بـ React فعلياً!</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="mt-12 flex justify-between gap-4">
+                <span></span>
+                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 hover:-translate-x-2 transition-all shadow-xl shadow-indigo-100" href="../../week-01/lesson-02/index.html">الدرس التالي: تثبيت Laravel & React ←</a>
+            </div>
+        </article>
+    </div>
+</main>
+
+<footer class="mt-24 border-t bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
+        <p class="text-slate-500 font-medium">© 2025 FlowPilot Academy. المحتوى مصمم خصيصاً لتعليم المبتدئين.</p>
+        <div class="flex gap-4">
+             <a href="assignment.html" class="font-black text-emerald-600">حل الواجب</a>
+             <a href="quiz.html" class="font-black text-sky-600">بدء الكويز</a>
+        </div>
+    </div>
+</footer>
+
+<script src="../../../assets/js/app.js"></script>
+</body>
+</html>

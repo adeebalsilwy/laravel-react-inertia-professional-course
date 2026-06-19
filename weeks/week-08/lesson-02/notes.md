@@ -1,21 +1,6 @@
-# ملخص الدرس: Deployment Workflow
+# ملاحظات الدرس 30: خطوات النشر Deployment Workflow
 
-## الفكرة الأساسية
-النشر هو نقل التطبيق إلى خادم أو منصة استضافة وتشغيله للمستخدمين. Workflow يعني ترتيب الخطوات حتى لا ننسى شيئاً.
-
-## لماذا هذا مهم؟
-النشر العشوائي يسبب أخطاء كثيرة مثل صلاحيات الملفات أو عدم تشغيل migrations أو نسيان build.
-
-## داخل FlowPilot
-FlowPilot يصبح قابلاً للعرض خارج جهاز الطالب، ويمكن تقديمه كمشروع نهائي.
-
-## المثال
-git pull origin main
-composer install --no-dev --optimize-autoloader
-npm ci
-npm run build
-php artisan migrate --force
-php artisan queue:restart
-
-## نتيجة الدرس
-خطة نشر عملية يمكن اتباعها عند رفع FlowPilot.
+- المفهوم الأساسي: Deployment هو نقل التطبيق من جهاز المطور إلى خادم يستطيع المستخدمون الوصول إليه. يحتاج ترتيباً واضحاً حتى لا تتعطل الخدمة.
+- أين يظهر في FlowPilot: سنضع خطوات نشر FlowPilot على خادم مع تشغيل composer وnpm وmigrations.
+- أهم ملف أو مكان تنفيذ: خادم الإنتاج
+- راجع الأخطاء الشائعة بعد التطبيق.
