@@ -1,1 +1,336 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>كويز - Testing لاختبار الميزات المهمة - FlowPilot Academy</title><link rel="stylesheet" href="../../../assets/css/style.css"></head><body><nav class="nav"><div class="container inner"><a class="brand" href="../../../index.html"><span class="logo">F</span><span>FlowPilot Academy</span></a><div class="links"><a href="../../../index.html">الرئيسية</a><a href="../../../pages/curriculum.html">الفهرس</a><a href="../../../pages/lessons.html">الدروس</a><a href="../../../pages/beginner-guide.html">دليل الطالب</a><a href="../../../pages/project.html">المشروع</a><a href="../../../pages/plan.html">خطة التطوير</a><a href="../../../pages/references.html">المراجع</a></div></div></nav><main class="container section"><a class="btn" href="index.html">← العودة إلى الدرس</a><section class="card"><span class="badge">كويز الأسبوع 7 · الدرس 1</span><h1 class="title">كويز: Testing لاختبار الميزات المهمة</h1><p class="lead">الكويز يقيس الفهم الحقيقي: لماذا نستخدم المفهوم، وكيف يظهر داخل FlowPilot، وما العلاقة بين النظرية والتطبيق.</p></section><section class="grid" style="margin-top:20px"><div class="card" data-answer="b"><h3>السؤال 1: ما الهدف الأساسي من هذا الدرس؟</h3><label class="quiz-option"><input type="radio" name="q1" value="a"> حفظ أسماء الملفات فقط</label><label class="quiz-option"><input type="radio" name="q1" value="b"> فهم مفهوم عملي وربطه بمشروع FlowPilot</label><label class="quiz-option"><input type="radio" name="q1" value="c"> تغيير ألوان الصفحة فقط</label><label class="quiz-option"><input type="radio" name="q1" value="d"> تجاهل التطبيق العملي</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> الهدف هو الفهم والتطبيق، وليس الحفظ أو التزيين فقط.</p></div><div class="card" data-answer="c"><h3>السؤال 2: ما العلاقة الصحيحة بين Laravel وReact وInertia؟</h3><label class="quiz-option"><input type="radio" name="q2" value="a"> Laravel يعرض الواجهة فقط</label><label class="quiz-option"><input type="radio" name="q2" value="b"> React يدير قاعدة البيانات</label><label class="quiz-option"><input type="radio" name="q2" value="c"> Inertia يربط Laravel بصفحات React</label><label class="quiz-option"><input type="radio" name="q2" value="d"> Tailwind يحفظ البيانات</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> Inertia يعمل كجسر بين Laravel وReact.</p></div><div class="card" data-answer="b"><h3>السؤال 3: لماذا نشرح السبب قبل الكود؟</h3><label class="quiz-option"><input type="radio" name="q3" value="a"> حتى ينسخ الطالب بسرعة</label><label class="quiz-option"><input type="radio" name="q3" value="b"> حتى يفهم الطالب وظيفة الخطوة ويكررها لاحقاً</label><label class="quiz-option"><input type="radio" name="q3" value="c"> حتى نقلل الشرح</label><label class="quiz-option"><input type="radio" name="q3" value="d"> لأن الكود غير مهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> فهم السبب يجعل الطالب قادراً على حل الأخطاء وتطبيق الفكرة في مكان آخر.</p></div><div class="card" data-answer="b"><h3>السؤال 4: ما أفضل طريقة للتعامل مع خطأ يظهر أثناء التطبيق؟</h3><label class="quiz-option"><input type="radio" name="q4" value="a"> حذف الملفات</label><label class="quiz-option"><input type="radio" name="q4" value="b"> قراءة رسالة الخطأ ومراجعة المسار والاسم</label><label class="quiz-option"><input type="radio" name="q4" value="c"> تجاهل الخطأ</label><label class="quiz-option"><input type="radio" name="q4" value="d"> إغلاق المشروع</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> رسالة الخطأ غالباً توضح مكان المشكلة أو سببها.</p></div><div class="card" data-answer="b"><h3>السؤال 5: ماذا يعني نجاح الدرس داخل FlowPilot؟</h3><label class="quiz-option"><input type="radio" name="q5" value="a"> وجود عنوان فقط</label><label class="quiz-option"><input type="radio" name="q5" value="b"> ظهور نتيجة عملية مفهومة يمكن البناء عليها</label><label class="quiz-option"><input type="radio" name="q5" value="c"> عدم تشغيل المشروع</label><label class="quiz-option"><input type="radio" name="q5" value="d"> نسخ الكود دون فهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> كل درس يجب أن يضيف نتيجة تعليمية وعملية واضحة.</p></div></section><section class="card"><button class="btn" data-grade-quiz>تصحيح الكويز</button><p id="quizResult" class="result"></p></section></main><footer class="footer"><div class="container">© FlowPilot Academy - دورة Laravel 12 + React + Inertia.js + Tailwind CSS</div></footer><script src="../../../assets/js/app.js"></script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>كويز - Testing | FlowPilot Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        .quiz-card { transition: all 0.3s; }
+        .quiz-card.correct { border-color: #22c55e; background: #f0fdf4; }
+        .quiz-card.wrong { border-color: #ef4444; background: #fef2f2; }
+        .quiz-card.show-answer .explain { display: block; }
+        .explain { display: none; }
+        .option-label { cursor: pointer; padding: 0.75rem 1rem; border-radius: 1rem; border: 2px solid #e2e8f0; transition: all 0.2s; }
+        .option-label:hover { border-color: #6366f1; background: #eef2ff; }
+        .option-label.selected { border-color: #6366f1; background: #eef2ff; }
+        .option-label.correct-answer { border-color: #22c55e; background: #f0fdf4; }
+        .option-label.wrong-answer { border-color: #ef4444; background: #fef2f2; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+    </div>
+</header>
+
+<main class="mx-auto max-w-4xl px-4 py-12">
+    <div class="text-right">
+        <a class="font-black text-indigo-700 hover:underline inline-block mb-6" href="index.html">← العودة إلى الدرس</a>
+    </div>
+
+    <div class="card p-8 md:p-12 bg-white shadow-sm rounded-3xl text-right">
+        <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 7 · الدرس 1 · كويز</span>
+        <h1 class="mt-4 text-3xl md:text-4xl font-black text-slate-900">🧪 كويز: الاختبارات الآلية (Testing)</h1>
+        <p class="mt-2 text-slate-500">أجب عن الأسئلة التالية. اضغط على "تحقق من الإجابة" لكل سؤال لترى النتيجة.</p>
+    </div>
+
+    <div id="quizContainer" class="mt-8 space-y-6 text-right">
+        <!-- Questions will be rendered by JS -->
+    </div>
+
+    <div class="mt-8 text-center">
+        <button id="checkAllBtn" class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-lg ml-4">تصحيح الكل ✅</button>
+        <button id="resetBtn" class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all">إعادة المحاولة 🔄</button>
+    </div>
+
+    <div id="scoreDisplay" class="mt-6 p-6 rounded-3xl bg-gradient-to-l from-indigo-600 to-indigo-700 text-white text-center hidden">
+        <h2 class="text-2xl font-black">نتيجتك</h2>
+        <p id="scoreText" class="text-4xl font-black mt-2">0/9</p>
+        <p id="scoreMessage" class="mt-2 text-indigo-200"></p>
+    </div>
+
+    <div class="mt-8 text-center">
+        <a class="rounded-2xl bg-green-600 px-8 py-4 text-white font-black hover:bg-green-700 transition-all shadow-lg" href="assignment.html">التالي: الواجب العملي ←</a>
+    </div>
+</main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. الجودة هي ما يميز المبرمج الحقيقي.
+</footer>
+
+<script>
+const questions = [
+    {
+        type: 'mcq',
+        question: 'ما هو الهدف الأساسي من كتابة Feature Tests في Laravel؟',
+        options: [
+            'اختبار سرعة تحميل الصفحات',
+            'اختبار سلوك الميزات من وجهة نظر المستخدم (HTTP requests)',
+            'اختبار ألوان واجهة المستخدم',
+            'اختبار سرعة قاعدة البيانات'
+        ],
+        correct: 1,
+        explanation: 'Feature Tests تختبر سلوك الميزات الكاملة عن طريق إرسال طلبات HTTP والتأكد من الاستجابات، مثلما يفعل المستخدم الحقيقي.'
+    },
+    {
+        type: 'mcq',
+        question: 'أي أمر ينشئ ملف اختبار Feature في Laravel؟',
+        options: [
+            'php artisan make:model Test',
+            'php artisan make:controller Test',
+            'php artisan make:test TestName',
+            'php artisan make:seeder Test'
+        ],
+        correct: 2,
+        explanation: 'الأمر php artisan make:test TestName ينشئ ملف اختبار في مجلد tests/Feature.'
+    },
+    {
+        type: 'mcq',
+        question: 'ماذا تعني assertStatus(200) في اختبار Laravel؟',
+        options: [
+            'أن الصفحة أعادت توجيه المستخدم',
+            'أن الصفحة غير موجودة (404)',
+            'أن الصفحة فتحت بنجاح',
+            'أن المستخدم غير مصرح له'
+        ],
+        correct: 2,
+        explanation: 'رمز الحالة 200 يعني أن الطلب نجح وتم تحميل الصفحة بنجاح.'
+    },
+    {
+        type: 'mcq',
+        question: 'أي دالة تستخدم لتسجيل دخول مستخدم وهمي في الاختبار؟',
+        options: [
+            '$this->login($user)',
+            '$this->actingAs($user)',
+            '$this->auth($user)',
+            '$this->authenticate($user)'
+        ],
+        correct: 1,
+        explanation: 'الدالة actingAs($user) تسجل دخول المستخدم الوهمي داخل سياق الاختبار.'
+    },
+    {
+        type: 'mcq',
+        question: 'ما الفرق بين Feature test و Unit test؟',
+        options: [
+            'Feature test أسرع من Unit test',
+            'Feature test يختبر تدفقاً كاملاً (HTTP)، بينما Unit test يختبر دالة أو كلاس منفرداً',
+            'Unit test يختبر واجهة المستخدم فقط',
+            'لا يوجد فرق'
+        ],
+        correct: 1,
+        explanation: 'Feature tests تختبر سيناريوهات كاملة (مثل زيارة صفحة وتقديم نموذج)، بينما Unit tests تختبر أجزاء صغيرة من الكود مثل دوال كلاس معين.'
+    },
+    {
+        type: 'tf',
+        question: 'إذا ظهر assertStatus(302) فهذا يعني أن الصفحة أعادت التوجيه (Redirect).',
+        correct: true,
+        explanation: 'صحيح. رمز 302 يعني توجيه، ويستخدم عادة بعد إنشاء أو تعديل مورد.'
+    },
+    {
+        type: 'tf',
+        question: 'الدالة assertDatabaseHas() تتحقق من عدم وجود سجل في قاعدة البيانات.',
+        correct: false,
+        explanation: 'خطأ. assertDatabaseHas() تتحقق من وجود السجل. أما assertDatabaseMissing() فتتحقق من عدم وجوده.'
+    },
+    {
+        type: 'theory',
+        question: 'اشرح بجملتين لماذا تعتبر الاختبارات الآلية "توثيقاً حياً" للتطبيق؟',
+        sampleAnswer: 'لأن ملفات الاختبار تشرح بالضبط كيف يفترض أن تعمل كل ميزة. أي مبرمج جديد يقرأ الاختبارات يفهم توقعات النظام دون الحاجة لقراءة آلاف الأسطر من الكود.',
+        explanation: 'الإجابة يجب أن تذكر أن الاختبارات توثق السلوك المتوقع وتساعد المبرمجين الجدد على فهم النظام.'
+    },
+    {
+        type: 'practical',
+        question: 'اكتب كود اختبار Feature يتأكد من أن المستخدم المسجل يستطيع رؤية صفحة /dashboard وأنها تعرض كود 200.',
+        sampleAnswer: 'public function test_dashboard_loads(): void { $user = User::factory()->create(); $this->actingAs($user); $response = $this->get(\'/dashboard\'); $response->assertStatus(200); }',
+        explanation: 'يجب أن يحتوي الكود على: إنشاء مستخدم، تسجيل دخول، طلب GET للرابط، وتأكيد الحالة 200.'
+    }
+];
+
+let userAnswers = new Array(questions.length).fill(null);
+let checkedStatus = new Array(questions.length).fill(false);
+
+function renderQuestions() {
+    const container = document.getElementById('quizContainer');
+    container.innerHTML = '';
+    questions.forEach((q, idx) => {
+        const card = document.createElement('div');
+        card.className = 'quiz-card p-6 bg-white rounded-3xl border-2 border-slate-200 shadow-sm';
+        card.id = `q-${idx}`;
+
+        let typeLabel = '';
+        if (q.type === 'mcq') typeLabel = 'اختيار من متعدد';
+        else if (q.type === 'tf') typeLabel = 'صح/خطأ';
+        else if (q.type === 'theory') typeLabel = 'سؤال نظري';
+        else if (q.type === 'practical') typeLabel = 'سؤال تطبيقي';
+
+        let html = `
+            <div class="flex items-center gap-2 mb-4">
+                <span class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold">${typeLabel}</span>
+                <span class="text-xs text-slate-400">السؤال ${idx + 1} من ${questions.length}</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-4">${idx + 1}. ${q.question}</h3>
+        `;
+
+        if (q.type === 'mcq') {
+            html += '<div class="space-y-3">';
+            q.options.forEach((opt, optIdx) => {
+                html += `
+                    <label class="option-label flex items-center gap-3" id="opt-${idx}-${optIdx}" onclick="selectOption(${idx}, ${optIdx})">
+                        <input type="radio" name="q${idx}" value="${optIdx}" class="accent-indigo-600">
+                        <span>${opt}</span>
+                    </label>
+                `;
+            });
+            html += '</div>';
+        } else if (q.type === 'tf') {
+            html += '<div class="flex gap-4">';
+            html += `
+                <label class="option-label flex items-center gap-2" id="opt-${idx}-true" onclick="selectOption(${idx}, true)">
+                    <input type="radio" name="q${idx}" value="true" class="accent-indigo-600"> <span>صح ✅</span>
+                </label>
+                <label class="option-label flex items-center gap-2" id="opt-${idx}-false" onclick="selectOption(${idx}, false)">
+                    <input type="radio" name="q${idx}" value="false" class="accent-indigo-600"> <span>خطأ ❌</span>
+                </label>
+            `;
+            html += '</div>';
+        } else if (q.type === 'theory' || q.type === 'practical') {
+            html += `
+                <textarea id="answer-${idx}" rows="4" class="w-full p-4 rounded-2xl border-2 border-slate-200 focus:border-indigo-500 focus:ring-0 text-right" placeholder="اكتب إجابتك هنا..."></textarea>
+            `;
+        }
+
+        html += `
+            <div class="mt-4 flex items-center justify-between">
+                <button onclick="checkAnswer(${idx})" class="px-6 py-2 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-all text-sm">تحقق من الإجابة ✅</button>
+                <span id="status-${idx}" class="text-sm font-bold"></span>
+            </div>
+            <div id="explain-${idx}" class="explain mt-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                <p class="font-bold text-slate-700">💡 الشرح:</p>
+                <p class="text-slate-600">${q.explanation}</p>
+            </div>
+        `;
+
+        card.innerHTML = html;
+        container.appendChild(card);
+    });
+}
+
+function selectOption(idx, value) {
+    userAnswers[idx] = value;
+    const q = questions[idx];
+    const card = document.getElementById(`q-${idx}`);
+
+    if (q.type === 'mcq') {
+        q.options.forEach((_, optIdx) => {
+            const el = document.getElementById(`opt-${idx}-${optIdx}`);
+            if (el) el.classList.remove('selected', 'correct-answer', 'wrong-answer');
+        });
+        const selected = document.getElementById(`opt-${idx}-${value}`);
+        if (selected) selected.classList.add('selected');
+    } else if (q.type === 'tf') {
+        ['true', 'false'].forEach(v => {
+            const el = document.getElementById(`opt-${idx}-${v}`);
+            if (el) el.classList.remove('selected', 'correct-answer', 'wrong-answer');
+        });
+        const selected = document.getElementById(`opt-${idx}-${value === true ? 'true' : 'false'}`);
+        if (selected) selected.classList.add('selected');
+    }
+}
+
+function checkAnswer(idx) {
+    const q = questions[idx];
+    const card = document.getElementById(`q-${idx}`);
+    const statusEl = document.getElementById(`status-${idx}`);
+    const explainEl = document.getElementById(`explain-${idx}`);
+
+    let isCorrect = false;
+
+    if (q.type === 'mcq') {
+        if (userAnswers[idx] === null) {
+            statusEl.textContent = '⚠️ اختر إجابة أولاً';
+            statusEl.className = 'text-sm font-bold text-amber-600';
+            return;
+        }
+        isCorrect = userAnswers[idx] === q.correct;
+        q.options.forEach((_, optIdx) => {
+            const el = document.getElementById(`opt-${idx}-${optIdx}`);
+            if (el) {
+                el.classList.remove('selected', 'correct-answer', 'wrong-answer');
+                if (optIdx === q.correct) el.classList.add('correct-answer');
+                else if (optIdx === userAnswers[idx] && optIdx !== q.correct) el.classList.add('wrong-answer');
+                else if (optIdx === userAnswers[idx]) el.classList.add('correct-answer');
+            }
+        });
+    } else if (q.type === 'tf') {
+        if (userAnswers[idx] === null) {
+            statusEl.textContent = '⚠️ اختر إجابة أولاً';
+            statusEl.className = 'text-sm font-bold text-amber-600';
+            return;
+        }
+        isCorrect = userAnswers[idx] === q.correct;
+        ['true', 'false'].forEach(v => {
+            const el = document.getElementById(`opt-${idx}-${v}`);
+            if (el) el.classList.remove('selected', 'correct-answer', 'wrong-answer');
+        });
+        const correctVal = q.correct === true ? 'true' : 'false';
+        const correctEl = document.getElementById(`opt-${idx}-${correctVal}`);
+        if (correctEl) correctEl.classList.add('correct-answer');
+        if (userAnswers[idx] !== q.correct) {
+            const wrongVal = q.correct === true ? 'false' : 'true';
+            const wrongEl = document.getElementById(`opt-${idx}-${wrongVal}`);
+            if (wrongEl) wrongEl.classList.add('wrong-answer');
+        } else {
+            const correctEl2 = document.getElementById(`opt-${idx}-${q.correct === true ? 'true' : 'false'}`);
+            if (correctEl2) correctEl2.classList.add('correct-answer');
+        }
+    } else if (q.type === 'theory' || q.type === 'practical') {
+        const textarea = document.getElementById(`answer-${idx}`);
+        if (!textarea.value.trim()) {
+            statusEl.textContent = '⚠️ اكتب إجابتك أولاً';
+            statusEl.className = 'text-sm font-bold text-amber-600';
+            return;
+        }
+        statusEl.textContent = '📝 تم الاستلام - راجع الإجابة النموذجية';
+        statusEl.className = 'text-sm font-bold text-green-600';
+    }
+
+    if (q.type === 'mcq' || q.type === 'tf') {
+        if (isCorrect) {
+            statusEl.textContent = '✅ إجابة صحيحة!';
+            statusEl.className = 'text-sm font-bold text-green-600';
+            card.classList.add('correct');
+            card.classList.remove('wrong');
+        } else {
+            statusEl.textContent = '❌ إجابة خاطئة';
+            statusEl.className = 'text-sm font-bold text-red-600';
+            card.classList.add('wrong');
+            card.classList.remove('correct');
+        }
+    }
+
+    explainEl.style.display = 'block';
+    checkedStatus[idx] = true;
+}
+
+document.getElementById('checkAllBtn').addEventListener('click', function() {
+    questions.forEach((_, idx) => checkAnswer(idx));
+});
+
+document.getElementById('resetBtn').addEventListener('click', function() {
+    userAnswers = new Array(questions.length).fill(null);
+    checkedStatus = new Array(questions.length).fill(false);
+    document.getElementById('scoreDisplay').classList.add('hidden');
+    renderQuestions();
+});
+
+renderQuestions();
+</script>
+</body>
+</html>

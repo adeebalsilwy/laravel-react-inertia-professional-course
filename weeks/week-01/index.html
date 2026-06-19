@@ -3,16 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الأسبوع 1: التأسيس والبيئة | FlowPilot Academy</title>
+    <title>الأسبوع 1: التأسيس وفهم Stack الحديث | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../assets/css/style.css">
     <style>
         :root { font-family: 'Tajawal', sans-serif; }
         .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
         .card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; transition: all 0.3s ease; }
+        .card:hover { border-color: #6366f1; transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -24,7 +24,7 @@
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../index.html">الرئيسية</a>
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../pages/curriculum.html">الفهرس</a>
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../pages/lessons.html">الدروس</a>
-            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../pages/beginner-guide.html">دليل المبتدئ</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../pages/beginner-guide.html">دليل الطالب</a>
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../pages/project.html">المشروع العملي</a>
         </nav>
     </div>
@@ -39,43 +39,72 @@
             <h1 class="text-4xl font-black text-slate-900">التأسيس وفهم Stack الحديث</h1>
         </div>
         <p class="text-lg text-slate-600 max-w-3xl leading-relaxed">
-            في هذا الأسبوع، نضع حجر الأساس لمشروع <strong>FlowPilot</strong>. سنتعلم كيف نجهز بيئة عمل احترافية، ونثبت Laravel 12، ونربطه بواجهة React التفاعلية عبر جسر Inertia.js.
+            في هذا الأسبوع نضع حجر الأساس لمشروع <strong>FlowPilot</strong>. سنجهز بيئة العمل بجميع الأدوات اللازمة (PHP, Composer, Node.js, Git)، ثم ننشئ أول مشروع Laravel 12 و نربطه مع React عبر Inertia.js، ونتعلم أساسيات Tailwind CSS لتصميم الواجهات، وأخيراً نحفظ المشروع في Git.
         </p>
     </section>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid md:grid-cols-2 gap-6">
         <a href="lesson-01/index.html" class="card p-8 hover:border-indigo-500 group">
             <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">الدرس 01</span>
-            <h3 class="mt-2 text-xl font-black group-hover:text-indigo-600 transition-colors">تهيئة بيئة العمل</h3>
-            <p class="mt-4 text-sm text-slate-500 leading-relaxed">تجهيز PHP، Composer، Node، و Git.</p>
-            <div class="mt-6 pt-6 border-t text-xs font-bold text-indigo-600">ابدأ التعلم الآن ←</div>
+            <h3 class="mt-2 text-xl font-black group-hover:text-indigo-600 transition-colors">تهيئة بيئة العمل وفهم خريطة المشروع</h3>
+            <p class="mt-3 text-sm text-slate-500 leading-relaxed">تثبيت PHP 8.2+، Composer، Node.js 18+، Git. فهم دور كل أداة في مشروع FlowPilot. التحقق من الإصدارات.</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+                <span class="px-2 py-1 rounded bg-indigo-100 text-indigo-700 text-xs font-bold">نظري</span>
+                <span class="px-2 py-1 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">عملي</span>
+            </div>
+            <div class="mt-4 pt-4 border-t text-xs font-bold text-indigo-600 group-hover:pr-2 transition-all">ابدأ التعلم ←</div>
         </a>
 
         <a href="lesson-02/index.html" class="card p-8 hover:border-indigo-500 group">
             <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">الدرس 02</span>
-            <h3 class="mt-2 text-xl font-black group-hover:text-indigo-600 transition-colors">تثبيت Laravel & React</h3>
-            <p class="mt-4 text-sm text-slate-500 leading-relaxed">بناء قلب المشروع وربط التقنيات.</p>
-            <div class="mt-6 pt-6 border-t text-xs font-bold text-indigo-600">ابدأ التعلم الآن ←</div>
+            <h3 class="mt-2 text-xl font-black group-hover:text-indigo-600 transition-colors">تثبيت Laravel 12 وربطه بـ React و Inertia</h3>
+            <p class="mt-3 text-sm text-slate-500 leading-relaxed">إنشاء أول مشروع Laravel، تثبيت Breeze مع React و Inertia، فهم بنية مجلدات Laravel، تشغيل الخادمين.</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+                <span class="px-2 py-1 rounded bg-indigo-100 text-indigo-700 text-xs font-bold">نظري</span>
+                <span class="px-2 py-1 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">عملي</span>
+            </div>
+            <div class="mt-4 pt-4 border-t text-xs font-bold text-indigo-600 group-hover:pr-2 transition-all">ابدأ التعلم ←</div>
         </a>
 
         <a href="lesson-03/index.html" class="card p-8 hover:border-indigo-500 group">
             <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">الدرس 03</span>
-            <h3 class="mt-2 text-xl font-black group-hover:text-indigo-600 transition-colors">Tailwind CSS</h3>
-            <p class="mt-4 text-sm text-slate-500 leading-relaxed">تصميم واجهات احترافية وسريعة.</p>
-            <div class="mt-6 pt-6 border-t text-xs font-bold text-indigo-600">ابدأ التعلم الآن ←</div>
+            <h3 class="mt-2 text-xl font-black group-hover:text-indigo-600 transition-colors">تصميم الواجهة الأولى باستخدام Tailwind CSS</h3>
+            <p class="mt-3 text-sm text-slate-500 leading-relaxed">مفهوم Utility-First، كلاسات Tailwind للتباعد والألوان والخطوط، التصميم المتجاوب، تخصيص الإعدادات.</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+                <span class="px-2 py-1 rounded bg-indigo-100 text-indigo-700 text-xs font-bold">نظري</span>
+                <span class="px-2 py-1 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">عملي</span>
+            </div>
+            <div class="mt-4 pt-4 border-t text-xs font-bold text-indigo-600 group-hover:pr-2 transition-all">ابدأ التعلم ←</div>
         </a>
 
         <a href="lesson-04/index.html" class="card p-8 hover:border-indigo-500 group">
             <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">الدرس 04</span>
-            <h3 class="mt-2 text-xl font-black group-hover:text-indigo-600 transition-colors">نظام Git</h3>
-            <p class="mt-4 text-sm text-slate-500 leading-relaxed">حفظ التقدم والتعاون البرمجي.</p>
-            <div class="mt-6 pt-6 border-t text-xs font-bold text-indigo-600">ابدأ التعلم الآن ←</div>
+            <h3 class="mt-2 text-xl font-black group-hover:text-indigo-600 transition-colors">Git وتنظيم المستودع وطريقة حفظ التقدم</h3>
+            <p class="mt-3 text-sm text-slate-500 leading-relaxed">مفهوم Git و Version Control، الأوامر الأساسية: init, add, commit, status, log، .gitignore، حفظ أول commit لمشروع FlowPilot.</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+                <span class="px-2 py-1 rounded bg-indigo-100 text-indigo-700 text-xs font-bold">نظري</span>
+                <span class="px-2 py-1 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">عملي</span>
+            </div>
+            <div class="mt-4 pt-4 border-t text-xs font-bold text-indigo-600 group-hover:pr-2 transition-all">ابدأ التعلم ←</div>
         </a>
     </div>
+
+    <!-- Week outcomes -->
+    <section class="mt-16 p-8 bg-indigo-50 rounded-[2rem] border border-indigo-100">
+        <h2 class="text-2xl font-black text-indigo-900 mb-4">ماذا ستكون قادراً على فعله بعد هذا الأسبوع؟</h2>
+        <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div class="flex items-center gap-2 text-indigo-800">✓ تجهيز بيئة عمل متكاملة لـ Laravel و React</div>
+            <div class="flex items-center gap-2 text-indigo-800">✓ إنشاء أول مشروع Laravel 12 مع React</div>
+            <div class="flex items-center gap-2 text-indigo-800">✓ تشغيل الخادمين (php artisan serve + npm run dev)</div>
+            <div class="flex items-center gap-2 text-indigo-800">✓ كتابة أول أكواد Tailwind وتصميم صفحة بسيطة</div>
+            <div class="flex items-center gap-2 text-indigo-800">✓ حفظ المشروع في Git وفهم أساسيات التحكم بالإصدارات</div>
+            <div class="flex items-center gap-2 text-indigo-800">✓ التعامل مع Terminal وقراءة رسائل الأخطاء</div>
+        </div>
+    </section>
 </main>
 
 <footer class="mt-24 border-t bg-white py-12 text-center text-slate-400 text-sm font-medium">
-    © 2025 FlowPilot Academy. الثبات في البدايات يضمن النجاح في النهايات.
+    <p>© 2025 FlowPilot Academy. الثبات في البدايات يضمن النجاح في النهايات.</p>
 </footer>
 
 <script src="../../assets/js/app.js"></script>

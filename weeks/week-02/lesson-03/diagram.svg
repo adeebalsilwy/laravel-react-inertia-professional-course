@@ -1,1 +1,96 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="240" viewBox="0 0 900 240"><defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#0f172a"/></marker></defs><rect width="900" height="240" rx="28" fill="#ffffff"/><text x="450" y="40" text-anchor="middle" font-size="24" font-weight="700" font-family="Tahoma" fill="#111827">فهم مكونات React وتقسيم الواجهة إلى أجزاء</text><rect x="40" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="105" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">الفكرة</text><rect x="210" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="275" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">Laravel</text><rect x="380" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="445" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">Inertia</text><rect x="550" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="615" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">React</text><rect x="720" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="785" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">FlowPilot</text><path d="M 170 115 L 205 115" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M 340 115 L 375 115" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M 510 115 L 545 115" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M 680 115 L 715 115" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><text x="450" y="205" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#64748b">مخطط مبسط يوضح انتقال الفكرة من الشرح النظري إلى التطبيق العملي داخل FlowPilot</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <linearGradient id="bgL3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#faf5ff;stop-opacity:1" />
+    </linearGradient>
+    <filter id="sh3" x="-5%" y="-5%" width="115%" height="120%">
+      <feDropShadow dx="2" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+  <rect width="800" height="400" fill="url(#bgL3)" rx="24"/>
+  <text x="400" y="40" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="900" font-size="22" fill="#0f172a">🏗️ هيكل المكونات (Component Tree) في تطبيق FlowPilot</text>
+  <text x="400" y="62" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="13" fill="#64748b">المكونات تتداخل هرمياً: Layout ← صفحات ← مكونات أصغر</text>
+
+  <!-- Root: App -->
+  <g filter="url(#sh3)">
+    <rect x="300" y="80" width="200" height="45" rx="12" fill="#6366f1"/>
+    <text x="400" y="108" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="900" font-size="15" fill="#ffffff">⚛️ App (التطبيق)</text>
+  </g>
+
+  <!-- Level 1: AppLayout -->
+  <g filter="url(#sh3)">
+    <rect x="160" y="155" width="200" height="45" rx="12" fill="#8b5cf6"/>
+    <text x="260" y="183" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="900" font-size="14" fill="#ffffff">📐 AppLayout</text>
+  </g>
+
+  <!-- Level 1: Pages -->
+  <g filter="url(#sh3)">
+    <rect x="440" y="155" width="200" height="45" rx="12" fill="#8b5cf6"/>
+    <text x="540" y="183" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="900" font-size="14" fill="#ffffff">📄 الصفحات (Pages)</text>
+  </g>
+
+  <!-- Lines from App -->
+  <path d="M350 125 L260 150" stroke="#6366f1" stroke-width="2.5"/>
+  <path d="M450 125 L540 150" stroke="#6366f1" stroke-width="2.5"/>
+
+  <!-- Level 2: Layout children -->
+  <g filter="url(#sh3)">
+    <rect x="55" y="230" width="150" height="40" rx="10" fill="#a78bfa"/>
+    <text x="130" y="256" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="700" font-size="12" fill="#ffffff">🧭 Navbar</text>
+  </g>
+  <g filter="url(#sh3)">
+    <rect x="230" y="230" width="150" height="40" rx="10" fill="#a78bfa"/>
+    <text x="305" y="256" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="700" font-size="12" fill="#ffffff">📋 Sidebar</text>
+  </g>
+  <g filter="url(#sh3)">
+    <rect x="405" y="230" width="150" height="40" rx="10" fill="#a78bfa"/>
+    <text x="480" y="256" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="700" font-size="12" fill="#ffffff">👣 Footer</text>
+  </g>
+
+  <!-- Lines from AppLayout -->
+  <path d="M210 200 L130 225" stroke="#8b5cf6" stroke-width="1.5"/>
+  <path d="M260 200 L305 225" stroke="#8b5cf6" stroke-width="1.5"/>
+  <path d="M310 200 L480 225" stroke="#8b5cf6" stroke-width="1.5"/>
+
+  <!-- Level 3: Dashboard Page components -->
+  <g filter="url(#sh3)">
+    <rect x="55" y="300" width="130" height="40" rx="10" fill="#c4b5fd"/>
+    <text x="120" y="326" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="700" font-size="11" fill="#4c1d95">📊 StatCard</text>
+  </g>
+  <g filter="url(#sh3)">
+    <rect x="210" y="300" width="130" height="40" rx="10" fill="#c4b5fd"/>
+    <text x="275" y="326" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="700" font-size="11" fill="#4c1d95">📦 ProjectCard</text>
+  </g>
+  <g filter="url(#sh3)">
+    <rect x="365" y="300" width="130" height="40" rx="10" fill="#c4b5fd"/>
+    <text x="430" y="326" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="700" font-size="11" fill="#4c1d95">✅ TaskBadge</text>
+  </g>
+  <g filter="url(#sh3)">
+    <rect x="520" y="300" width="130" height="40" rx="10" fill="#c4b5fd"/>
+    <text x="585" y="326" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="700" font-size="11" fill="#4c1d95">🏷️ StatusBadge</text>
+  </g>
+
+  <!-- Lines from Pages to components -->
+  <path d="M470 200 L120 295" stroke="#8b5cf6" stroke-width="1.5"/>
+  <path d="M540 200 L275 295" stroke="#8b5cf6" stroke-width="1.5"/>
+  <path d="M600 200 L430 295" stroke="#8b5cf6" stroke-width="1.5"/>
+  <path d="M640 200 L585 295" stroke="#8b5cf6" stroke-width="1.5"/>
+
+  <!-- Props flow label -->
+  <g transform="translate(660, 230)">
+    <rect x="0" y="0" width="130" height="40" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+    <text x="65" y="15" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#92400e" font-weight="700">⬆️ Props تتدفق</text>
+    <text x="65" y="32" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#92400e" font-weight="700">من الأب للابن</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(55, 355)">
+    <rect x="0" y="0" width="14" height="14" rx="4" fill="#6366f1"/>
+    <text x="18" y="12" font-family="Tajawal, Tahoma, sans-serif" font-size="11" fill="#64748b">المكون الجذري (Root)</text>
+    <rect x="160" y="0" width="14" height="14" rx="4" fill="#8b5cf6"/>
+    <text x="178" y="12" font-family="Tajawal, Tahoma, sans-serif" font-size="11" fill="#64748b">مكونات هيكلية (Layout/Pages)</text>
+    <rect x="380" y="0" width="14" height="14" rx="4" fill="#c4b5fd"/>
+    <text x="398" y="12" font-family="Tajawal, Tahoma, sans-serif" font-size="11" fill="#64748b">مكونات فرعية (Reusable)</text>
+  </g>
+</svg>

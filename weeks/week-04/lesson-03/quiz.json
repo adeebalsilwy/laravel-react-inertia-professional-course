@@ -1,14 +1,76 @@
 {
   "lesson": 15,
   "title": "Middleware وحماية الصفحات الخاصة",
+  "description": "يقيس هذا الكويز فهمك لمفهوم Middleware في Laravel وكيفية إنشائها وتطبيقها",
+  "totalQuestions": 9,
+  "objectiveQuestions": 7,
+  "passingScore": 5,
   "questions": [
     {
-      "q": "ما أهم هدف من الدرس؟",
-      "answer": "فهم المفهوم وتطبيقه داخل FlowPilot"
+      "id": 1,
+      "type": "mcq",
+      "question": "ما هو Middleware في Laravel؟",
+      "options": ["قاعدة بيانات لتخزين الجلسات", "طبقة فحص تقع بين الطلب والتطبيق", "أداة لتصميم واجهات المستخدم", "نوع خاص من قواعد البيانات"],
+      "correctAnswer": 1,
+      "explanation": "Middleware هي طبقة وسيطة تفحص الطلب قبل وصوله للـ Controller."
     },
     {
-      "q": "لماذا نكتب خطوات عملية مفصلة؟",
-      "answer": "حتى يفهم الطالب الهدف والمكان والكود والنتيجة"
+      "id": 2,
+      "type": "mcq",
+      "question": "ماذا يفعل Middleware 'auth' في Laravel؟",
+      "options": ["يمنع الزوار غير المسجلين من الوصول", "يسمح للجميع بالدخول", "يفحص صلاحية البريد الإلكتروني", "يرسل إيميل ترحيبي"],
+      "correctAnswer": 0,
+      "explanation": "Middleware 'auth' يمنع غير المسجلين ويعيد توجيههم لصفحة login."
+    },
+    {
+      "id": 3,
+      "type": "mcq",
+      "question": "أين يتم تسجيل Middleware المخصص لاستخدامه في المسارات؟",
+      "options": ["ملف .env", "routes/web.php مباشرة", "Kernel.php بمصفوفة $middlewareAliases", "config/app.php"],
+      "correctAnswer": 2,
+      "explanation": "نضيف الاسم المختصر (Alias) في $middlewareAliases في Kernel.php."
+    },
+    {
+      "id": 4,
+      "type": "mcq",
+      "question": "أي أمر ينشئ Middleware جديداً؟",
+      "options": ["php artisan make:middleware CheckProject", "php artisan make:model Middleware", "php artisan create:middleware", "php artisan middleware:generate"],
+      "correctAnswer": 0,
+      "explanation": "php artisan make:middleware ينشئ ملف Middleware جديد."
+    },
+    {
+      "id": 5,
+      "type": "mcq",
+      "question": "ماذا تعني $next($request) في دالة handle الخاصة بـ Middleware؟",
+      "options": ["إنهاء التنفيذ وإرجاع خطأ", "تمرير الطلب للمرحلة التالية", "إعادة تحميل الصفحة", "تسجيل خروج المستخدم"],
+      "correctAnswer": 1,
+      "explanation": "$next($request) يمرر الطلب إلى الـ Middleware التالي أو Controller."
+    },
+    {
+      "id": 6,
+      "type": "tf",
+      "question": "Middleware 'guest' يمنع الزوار غير المسجلين من الوصول.",
+      "correctAnswer": false,
+      "explanation": "'guest' يسمح فقط للزوار غير المسجلين. المسجلين يعيد توجيههم للوحة التحكم."
+    },
+    {
+      "id": 7,
+      "type": "tf",
+      "question": "يمكن تطبيق أكثر من Middleware على نفس المسار.",
+      "correctAnswer": true,
+      "explanation": "يمكن تطبيق عدة Middleware كمصفوفة مثل ['auth', 'verified', 'check.project']."
+    },
+    {
+      "id": 8,
+      "type": "theory",
+      "question": "اشرح: لماذا نستخدم Middleware بدلاً من وضع نفس الشروط داخل كل Controller؟",
+      "modelAnswer": "Middleware يطبق مبدأ DRY (Don't Repeat Yourself). نكتب التحقق مرة واحدة ونطبقه على كل المسارات التي تحتاجه، مما يجعل الكود أنظف وأسهل للصيانة."
+    },
+    {
+      "id": 9,
+      "type": "practical",
+      "question": "أكتب كود Middleware يتحقق من أن المستخدم لديه دور 'admin'، وإلا يرسل 403.",
+      "modelAnswer": "public function handle(Request $request, Closure $next): Response\n{\n    if (!$request->user() || $request->user()->role !== 'admin') {\n        abort(403, 'يجب أن تكون مشرفاً');\n    }\n    return $next($request);\n}"
     }
   ]
 }

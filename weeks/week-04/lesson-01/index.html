@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 13: تسجيل الدخول وإنشاء الحسابات</title>
+    <title>الدرس 13: تسجيل الدخول وإنشاء حسابات المستخدمين | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +13,13 @@
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
         .step-card { border-right: 4px solid #f59e0b; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .code-line { display: block; padding: 2px 0; }
+        .code-comment { color: #6b7280; }
+        .code-keyword { color: #818cf8; }
+        .code-string { color: #34d399; }
+        .code-function { color: #f472b6; }
+        .error-box { background: #fef2f2; border-right: 4px solid #ef4444; padding: 1.5rem; border-radius: 1rem; margin-bottom: 1.5rem; }
+        .success-box { background: #f0fdf4; border-right: 4px solid #22c55e; padding: 1.5rem; border-radius: 1rem; margin-bottom: 1.5rem; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -29,92 +36,534 @@
             <div class="sidebar-sticky space-y-4">
                 <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الرابع</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-amber-50 text-amber-700" href="#intro">مفهوم المصادقة</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">Laravel Breeze</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال مفتاح الفندق</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl bg-amber-50 text-amber-700" href="#intro">مفهوم المصادقة (Authentication)</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">ما هو Laravel Breeze؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#analogy">مثال: مفتاح الفندق</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#routes">مسارات المصادقة (Auth Routes)</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#model">نموذج User والميجراشن</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#middleware">Middleware للـ Auth</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#inertia">Inertia وحالة المصادقة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">FlowPilot: حماية المشاريع</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي (8 خطوات)</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">الأخطاء الشائعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#summary">ملخص الدرس</a>
                 </div>
             </div>
         </aside>
 
         <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
             <section class="border-b pb-8 mb-12">
-                <span class="badge bg-amber-50 text-amber-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 4 · الدرس 1</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">المصادقة (Authentication): كيف نحمي FlowPilot بكلمات مرور؟</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"لا يمكن لأي شخص الدخول لمشاريع فريقك؛ لنتعلم كيف نبني نظام تسجيل دخول آمن واحترافي."</p>
+                <span class="badge bg-amber-50 text-amber-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 4 · الدرس 1 (الدرس 13)</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">تسجيل الدخول وإنشاء حسابات المستخدمين</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"المصادقة هي أول طبقة أمان في أي تطبيق. اليوم نتعلم كيف نجعل FlowPilot يعرف عملاءه قبل أن يفتح لهم الأبواب."</p>
             </section>
 
-            <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">ما هي المصادقة (Authentication)؟</h2>
+            <!-- INTRO SECTION -->
+            <section id="intro" class="space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">1. ما هي المصادقة (Authentication)؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    المصادقة هي عملية التحقق من "هوية" المستخدم. هل هذا الشخص هو فعلاً صاحب الحساب؟ نحن نقوم بذلك من خلال البريد الإلكتروني وكلمة المرور.
+                    <strong>المصادقة (Authentication)</strong> هي عملية التحقق من هوية المستخدم. عندما تدخل إلى تطبيق ما وتكتب بريدك الإلكتروني وكلمة المرور، أنت تقوم بعملية "مصادقة". التطبيق يسأل: "هل أنت فعلاً من تدّعي أنك؟" والإجابة تكون من خلال البريد الإلكتروني وكلمة السر.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    بدون مصادقة، يمكن لأي شخص في الإنترنت أن يرى مهامك ويعدلها. في FlowPilot، سنستخدم أدوات Laravel الجاهزة لبناء نظام تسجيل دخول (Login) وإنشاء حساب (Register) في ثوانٍ.
+                    بدون المصادقة، يمكن لأي شخص في العالم أن يفتح التطبيق ويرى مشاريعك الخاصة في FlowPilot. تخيل أن أي شخص يمكنه حذف مهامك أو تغيير مواعيد تسليم مشاريعك فقط بكتابة الرابط في المتصفح. لهذا السبب، المصادقة هي أول وأهم خطوة في بناء تطبيق آمن.
                 </p>
+                <div class="bg-amber-50 p-6 rounded-2xl border border-amber-200">
+                    <p class="font-bold text-amber-800">📌 مصطلح مهم: Authentication ≠ Authorization</p>
+                    <p class="text-amber-700 text-sm mt-2"><strong>المصادقة (Authentication):</strong> تثبت هويتك (من أنت؟).<br>
+                    <strong>التفويض (Authorization):</strong> يحدد صلاحياتك (ماذا يُسمح لك أن تفعل؟).<br>
+                    في هذا الدرس نركز على المصادقة فقط. التفويض سنتعلمه في الدرس القادم.</p>
+                </div>
             </section>
 
+            <!-- THEORY SECTION -->
             <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">أداة Laravel Breeze</h2>
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">2. ما هو Laravel Breeze؟</h2>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    <strong>Laravel Breeze</strong> هو "starter kit" (مجموعة بداية) توفرها Laravel مجاناً. تحتوي هذه المجموعة على كل شيء يخص المصادقة: صفحات تسجيل الدخول، إنشاء حساب جديد، إعادة تعيين كلمة المرور، وتأكيد البريد الإلكتروني. كل هذه الصفحات مطبقة مسبقاً باستخدام <strong>React</strong> و <strong>Tailwind CSS</strong>.
+                </p>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    لماذا نستخدم Breeze بدل كتابة كل شيء من الصفر؟ لأن كتابة نظام مصادقة آمن يحتاج لخبرة كبيرة في مجال الأمن السيبراني. Laravel Breeze مبني من قبل خبراء أمان ويحافظ على أفضل الممارسات (Best Practices). نحن كمطورين نريد بناء تطبيق FlowPilot، لا إعادة اختراع العجلة.
+                </p>
+                <div class="grid md:grid-cols-3 gap-4 mt-6">
+                    <div class="p-4 rounded-xl bg-green-50 border border-green-200 text-center">
+                        <p class="font-black text-green-700 text-lg">✓ تسجيل الدخول</p>
+                        <p class="text-xs text-green-600">Login page جاهزة مع React</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-blue-50 border border-blue-200 text-center">
+                        <p class="font-black text-blue-700 text-lg">✓ إنشاء حساب</p>
+                        <p class="text-xs text-blue-600">Register page مع تحقق تلقائي</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-purple-50 border border-purple-200 text-center">
+                        <p class="font-black text-purple-700 text-lg">✓ استعادة كلمة المرور</p>
+                        <p class="text-xs text-purple-600">Forgot Password + Reset</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ANALOGY SECTION -->
+            <section id="analogy" class="mt-16 p-8 rounded-3xl bg-amber-600 text-white shadow-xl shadow-amber-100">
+                <h2 class="text-2xl font-black mb-4">3. مثال من حياتنا: مفتاح الفندق</h2>
+                <p class="text-amber-50 leading-relaxed text-lg">
+                    تخيل أنك تريد دخول فندق. هناك <strong>موظف استقبال</strong> (هذا هو نظام المصادقة).<br><br>
+                    <strong>الخطوة الأولى:</strong> تذهب لموظف الاستقبال وتقول له اسمك (هذا هو البريد الإلكتروني).<br>
+                    <strong>الخطوة الثانية:</strong> يطلب منك رقم حجزك (هذه هي كلمة المرور).<br>
+                    <strong>الخطوة الثالثة:</strong> بعد التأكد من صحة البيانات، يعطيك <strong>بطاقة الغرفة</strong> (هذه هي "الجلسة" أو Session).<br>
+                    <strong>ما بعد ذلك:</strong> طوال فترة إقامتك، كل ما تريد دخول الغرفة تظهر البطاقة (Session Cookie) والجهاز يفتح لك الباب بدون إعادة إدخال البيانات.<br><br>
+                    تماماً مثل هذا، بعد تسجيل الدخول في FlowPilot، المتصفح يحتفظ بـ "بطاقة دخول" (Cookie) تخبر Laravel أن هذا المستخدم موثوق. كلما طلب المستخدم صفحة جديدة، ترسل البطاقة مع الطلب ويمرّ دون الحاجة لتسجيل الدخول مرة أخرى.
+                </p>
+            </section>
+
+            <!-- AUTH ROUTES SECTION -->
+            <section id="routes" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">4. مسارات المصادقة (Auth Routes)</h2>
                 <p class="text-slate-600 leading-relaxed">
-                    Laravel يوفر لنا "حقيبة" جاهزة تسمى <strong>Breeze</strong>. هذه الحقيبة تحتوي على كل صفحات تسجيل الدخول، إنشاء الحساب، استعادة كلمة المرور، وكلها مبرمجة وجاهزة للاستخدام مع React و Tailwind.
+                    بعد تثبيت Laravel Breeze، تظهر مجموعة من المسارات الجديدة في ملف <code>routes/auth.php</code>. دعنا نستعرضها معاً:
                 </p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// routes/auth.php - مسارات المصادقة التي يوفرها Breeze</span></span>
+                    <span class="code-line"><span class="code-keyword">use</span> App\Http\Controllers\Auth\AuthenticatedSessionController;</span>
+                    <span class="code-line"><span class="code-keyword">use</span> App\Http\Controllers\Auth\RegisteredUserController;</span>
+                    <span class="code-line"><span class="code-keyword">use</span> App\Http\Controllers\Auth\PasswordResetLinkController;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-comment">// 1. تسجيل الدخول (Login)</span></span>
+                    <span class="code-line">Route::get(<span class="code-string">'/login'</span>, [AuthenticatedSessionController::class, <span class="code-string">'create'</span>])</span>
+                    <span class="code-line">    ->middleware(<span class="code-string">'guest'</span>)->name(<span class="code-string">'login'</span>);</span>
+                    <span class="code-line">Route::post(<span class="code-string">'/login'</span>, [AuthenticatedSessionController::class, <span class="code-string">'store'</span>])</span>
+                    <span class="code-line">    ->middleware(<span class="code-string">'guest'</span>);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-comment">// 2. إنشاء حساب (Register)</span></span>
+                    <span class="code-line">Route::get(<span class="code-string">'/register'</span>, [RegisteredUserController::class, <span class="code-string">'create'</span>])</span>
+                    <span class="code-line">    ->middleware(<span class="code-string">'guest'</span>)->name(<span class="code-string">'register'</span>);</span>
+                    <span class="code-line">Route::post(<span class="code-string">'/register'</span>, [RegisteredUserController::class, <span class="code-string">'store'</span>])</span>
+                    <span class="code-line">    ->middleware(<span class="code-string">'guest'</span>);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-comment">// 3. تسجيل الخروج (Logout)</span></span>
+                    <span class="code-line">Route::post(<span class="code-string">'/logout'</span>, [AuthenticatedSessionController::class, <span class="code-string">'destroy'</span>])</span>
+                    <span class="code-line">    ->middleware(<span class="code-string">'auth'</span>)->name(<span class="code-string">'logout'</span>);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-comment">// 4. نسيان كلمة المرور (Forgot Password)</span></span>
+                    <span class="code-line">Route::get(<span class="code-string">'/forgot-password'</span>, [PasswordResetLinkController::class, <span class="code-string">'create'</span>])</span>
+                    <span class="code-line">    ->middleware(<span class="code-string">'guest'</span>)->name(<span class="code-string">'password.request'</span>);</span>
+                </div>
+                <div class="space-y-4 mt-6">
+                    <h3 class="text-xl font-black text-slate-900">🔍 شرح الكود سطراً سطراً:</h3>
+                    <ul class="list-disc pr-6 space-y-3 text-slate-600">
+                        <li><strong>Route::get('/login', ...):</strong> عندما يزور المستخدم الرابط <code>/login</code> في المتصفح، يتم استدعاء الدالة <code>create</code> من <code>AuthenticatedSessionController</code> التي تعرض صفحة تسجيل الدخول (ملف React).</li>
+                        <li><strong>Route::post('/login', ...):</strong> عندما يضغط المستخدم على زر "تسجيل الدخول"، يرسل البيانات (البريد + كلمة المرور) عبر طلب POST إلى الدالة <code>store</code> التي تتحقق من صحة البيانات.</li>
+                        <li><strong>->middleware('guest'):</strong> هذا يعني أن الزوار فقط (غير المسجلين) يمكنهم رؤية هذه الصفحة. إذا كان المستخدم مسجلاً دخوله بالفعل، سينقل تلقائياً إلى لوحة التحكم.</li>
+                        <li><strong>->name('login'):</strong> يعطي اسم للمسار لتستخدمه في الروابط داخل التطبيق (مثلاً <code>route('login')</code>).</li>
+                        <li><strong>Route::post('/logout', ...):</strong> طلب POST (عادةً عند الضغط على زر "تسجيل الخروج") ينفذ الدالة <code>destroy</code> التي تنهي الجلسة.</li>
+                        <li><strong>->middleware('auth'):</strong> هذا يعني أن المستخدم يجب أن يكون مسجلاً للدخول ليتمكن من تسجيل الخروج (منطقي!).</li>
+                    </ul>
+                </div>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-amber-600 text-white shadow-xl shadow-amber-100">
-                <h2 class="text-2xl font-black mb-4">مثال من حياتنا (مفتاح الفندق)</h2>
-                <p class="text-white leading-relaxed text-lg">
-                    تخيل <strong>المصادقة</strong> كأنها موظف الاستقبال في فندق. 
-                    <br><br>
-                    - عندما تصل، يسألك عن هويتك (البريد).
-                    <br>
-                    - ثم يطلب منك التأكد (كلمة المرور).
-                    <br>
-                    - بعد التأكد، يعطيك <strong>بطاقة ممغنطة</strong>؛ هذه البطاقة هي ما يثبت هويتك طوال فترة بقائك في الفندق، وتسمح لك بفتح باب غرفتك فقط!
+            <!-- USER MODEL SECTION -->
+            <section id="model" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">5. نموذج User والميجراشن (User Model & Migration)</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    كل مستخدم في التطبيق يمثله <strong>سجل (Record)</strong> في جدول <code>users</code> في قاعدة البيانات. Laravel يوفر لنا نموذج <code>User</code> جاهزاً مع <strong>Migration</strong> (ملف تهجير) ينشئ الجدول تلقائياً.
                 </p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// app/Models/User.php - نموذج المستخدم</span></span>
+                    <span class="code-line"><span class="code-keyword">&lt;?php</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">namespace</span> App\Models;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">use</span> Illuminate\Foundation\Auth\User <span class="code-keyword">as</span> Authenticatable;</span>
+                    <span class="code-line"><span class="code-comment">// Authenticatable هي فئة أساسية توفر كل دوال المصادقة</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">class</span> User <span class="code-keyword">extends</span> Authenticatable</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-comment">// الحقول المسموح بتعبئتها (Mass Assignment)</span></span>
+                    <span class="code-line">    <span class="code-keyword">protected</span> <span class="code-function">$fillable</span> = [</span>
+                    <span class="code-line">        <span class="code-string">'name'</span>,     <span class="code-comment">// اسم المستخدم</span></span>
+                    <span class="code-line">        <span class="code-string">'email'</span>,    <span class="code-comment">// البريد الإلكتروني</span></span>
+                    <span class="code-line">        <span class="code-string">'password'</span>, <span class="code-comment">// كلمة المرور (سيتم تشفيرها تلقائياً)</span></span>
+                    <span class="code-line">    ];</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// الحقول المخفية (مثل passwords و tokens) عند تحويل المستخدم لـ JSON</span></span>
+                    <span class="code-line">    <span class="code-keyword">protected</span> <span class="code-function">$hidden</span> = [</span>
+                    <span class="code-line">        <span class="code-string">'password'</span>,</span>
+                    <span class="code-line">        <span class="code-string">'remember_token'</span>,</span>
+                    <span class="code-line">    ];</span>
+                    <span class="code-line">}</span>
+                </div>
+                <div class="space-y-4 mt-4">
+                    <h3 class="text-xl font-black text-slate-900">🔍 شرح الكود:</h3>
+                    <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                        <li><strong>extends Authenticatable:</strong> هذه الفئة (Authenticatable) تحتوي على كل دوال المصادقة الجاهزة مثل <code>check()</code> للتأكد من حالة الدخول، و <code>login()</code> لتسجيل الدخول.</li>
+                        <li><strong>$fillable:</strong> مصفوفة تحدد الحقول التي يمكن ملؤها عند إنشاء مستخدم جديد. هذا يحمي التطبيق من هجمات Mass Assignment.</li>
+                        <li><strong>$hidden:</strong> مصفوفة تحدد الحقول التي لا تظهر عند تحويل المستخدم لـ JSON (مثلاً عند إرسال بيانات المستخدم لواجهة React).</li>
+                    </ul>
+                </div>
             </section>
 
+            <!-- MIDDLEWARE SECTION -->
+            <section id="middleware" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">6. Middleware للـ Auth</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    <strong>Middleware</strong> (البرمجية الوسيطة) هي "طبقة فحص" تقف بين طلب المستخدم وكود التطبيق. وظيفتها أن تفحص الطلب قبل وصوله إلى الـ Controller.
+                </p>
+                <p class="text-slate-600 leading-relaxed">
+                    في Laravel، لدينا Middleware جاهز اسمه <code>auth</code>. كل ما عليك فعله هو إضافته للمسارات التي تريد حمايتها:
+                </p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// routes/web.php - حماية مسارات FlowPilot</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-comment">// 1. طريقة: حماية مجموعة مسارات كاملة</span></span>
+                    <span class="code-line">Route::middleware([<span class="code-string">'auth'</span>])->group(<span class="code-keyword">function</span> () {</span>
+                    <span class="code-line">    Route::get(<span class="code-string">'/dashboard'</span>, [DashboardController::class, <span class="code-string">'index'</span>])</span>
+                    <span class="code-line">        ->name(<span class="code-string">'dashboard'</span>);</span>
+                    <span class="code-line">    Route::resource(<span class="code-string">'/projects'</span>, ProjectController::class);</span>
+                    <span class="code-line">});</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-comment">// 2. طريقة: حماية مسار واحد فقط</span></span>
+                    <span class="code-line">Route::get(<span class="code-string">'/profile'</span>, [ProfileController::class, <span class="code-string">'edit'</span>])</span>
+                    <span class="code-line">    ->middleware([<span class="code-string">'auth'</span>])</span>
+                    <span class="code-line">    ->name(<span class="code-string">'profile.edit'</span>);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-comment">// 3. طريقة: عكس الحماية - فقط للزوار (guest)</span></span>
+                    <span class="code-line">Route::get(<span class="code-string">'/login'</span>, [LoginController::class, <span class="code-string">'create'</span>])</span>
+                    <span class="code-line">    ->middleware([<span class="code-string">'guest'</span>]);</span>
+                </div>
+                <div class="space-y-4 mt-4">
+                    <h3 class="text-xl font-black text-slate-900">🔍 شرح الكود:</h3>
+                    <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                        <li><strong>middleware(['auth']):</strong> يخبر Laravel: "لا تسمح لأي شخص غير مسجل الدخول بالدخول إلى هذه المسارات". إذا حاول زائر الدخول، سينقل تلقائياً إلى صفحة تسجيل الدخول.</li>
+                        <li><strong>->group(function() {...}):</strong> يجمع عدة مسارات معاً لتطبيق نفس الـ Middleware عليها كلها.</li>
+                        <li><strong>middleware(['guest']):</strong> العكس تماماً - يسمح فقط للزوار (غير المسجلين) برؤية الصفحة. مثلاً، لا نريد لمستخدم مسجل الدخول أن يرى صفحة تسجيل الدخول.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- INERTIA AUTH STATE SECTION -->
+            <section id="inertia" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">7. كيف يعالج Inertia حالة المصادقة؟</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    في تطبيق Inertia.js، بيانات المستخدم الحالي (المسجل دخوله) يتم مشاركتها مع كل صفحات React تلقائياً عبر <strong>Shared Data</strong> (بيانات مشتركة).
+                </p>
+                <p class="text-slate-600 leading-relaxed">
+                    هذا يحدث في ملف <code>HandleInertiaRequests.php</code> وهو Middleware خاص بـ Inertia:
+                </p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// app/Http/Middleware/HandleInertiaRequests.php</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-function">share</span>(Request <span class="code-function">$request</span>): <span class="code-function">array</span></span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">return</span> [</span>
+                    <span class="code-line">        <span class="code-comment">// يشارك بيانات المستخدم الحالي مع كل الصفحات</span></span>
+                    <span class="code-line">        <span class="code-string">'auth'</span> =&gt; [</span>
+                    <span class="code-line">            <span class="code-comment">// $request-&gt;user() تعيد المستخدم المسجل أو null</span></span>
+                    <span class="code-line">            <span class="code-string">'user'</span> =&gt; <span class="code-function">$request</span>-&gt;user(),</span>
+                    <span class="code-line">        ],</span>
+                    <span class="code-line">        <span class="code-comment">// flash messages للرسائل المؤقتة (مثل "تم الحفظ")</span></span>
+                    <span class="code-line">        <span class="code-string">'flash'</span> =&gt; [</span>
+                    <span class="code-line">            <span class="code-string">'message'</span> =&gt; <span class="code-function">$request</span>-&gt;session()-&gt;get(<span class="code-string">'message'</span>),</span>
+                    <span class="code-line">        ],</span>
+                    <span class="code-line">    ];</span>
+                    <span class="code-line">}</span>
+                </div>
+                <div class="space-y-4 mt-4">
+                    <h3 class="text-xl font-black text-slate-900">🔍 شرح الكود:</h3>
+                    <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                        <li><strong>share(Request $request):</strong> هذه الدالة تُستدعى في كل طلب. كل ما ترجعه من مصفوفة يصبح متاحاً في كل صفحات React عبر <code>usePage().props</code>.</li>
+                        <li><strong>'auth' => ['user' => $request->user()]:</strong> يخزن بيانات المستخدم الحالي في مفتاح <code>auth.user</code>. إذا كان الزائر غير مسجل، تكون القيمة <code>null</code>.</li>
+                        <li><strong>$request->session()->get('message'):</strong> يجلب أي رسالة مؤقتة (flash message) من الجلسة، مثل "تم تحديث الملف الشخصي بنجاح".</li>
+                    </ul>
+                </div>
+                <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-200 mt-6">
+                    <p class="font-bold text-indigo-800">🖥️ كيف نستخدم <code>auth.user</code> في React؟</p>
+                    <div class="bg-slate-900 rounded-2xl p-4 font-mono text-xs overflow-x-auto mt-3 text-left">
+                        <span class="code-line"><span class="code-comment">// في أي مكون React:</span></span>
+                        <span class="code-line"><span class="code-keyword">import</span> { usePage } <span class="code-keyword">from</span> <span class="code-string">'@inertiajs/react'</span>;</span>
+                        <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">export default function</span> <span class="code-function">Navbar</span>() {</span>
+                    <span class="code-line">    <span class="code-keyword">const</span> { props } = <span class="code-function">usePage</span>();</span>
+                    <span class="code-line">    <span class="code-keyword">const</span> user = props.auth.user; <span class="code-comment">// بيانات المستخدم أو null</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-keyword">return</span> (</span>
+                    <span class="code-line">        &lt;div&gt;</span>
+                    <span class="code-line">            {user ? (</span>
+                    <span class="code-line">                &lt;p&gt;مرحباً {user.name}&lt;/p&gt; <span class="code-comment">// عرض اسم المستخدم</span></span>
+                    <span class="code-line">            ) : (</span>
+                    <span class="code-line">                &lt;a href="/login"&gt;تسجيل الدخول&lt;/a&gt;</span>
+                    <span class="code-line">            )}</span>
+                    <span class="code-line">        &lt;/div&gt;</span>
+                    <span class="code-line">    );</span>
+                    <span class="code-line">}</span>
+                    </div>
+                    <p class="text-indigo-700 text-sm mt-3">🔍 الشرح: <code>usePage()</code> هو Hook من Inertia يعطيك كل الـ Props المرسلة من Laravel. نستخدم <code>props.auth.user</code> للوصول لبيانات المستخدم. إذا كان <code>null</code>، نعرض زر "تسجيل الدخول". إذا كان موجوداً، نعرض اسم المستخدم.</p>
+                </div>
+            </section>
+
+            <!-- FLOWPILOT SECTION -->
+            <section id="flowpilot" class="mt-16 p-8 rounded-3xl bg-gradient-to-br from-indigo-600 to-indigo-800 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">8. FlowPilot: حماية المشاريع خلف المصادقة</h2>
+                <p class="text-indigo-100 leading-relaxed text-lg">
+                    في تطبيق FlowPilot، كل مستخدم يملك مشاريعه الخاصة. لا يمكن لأي شخص غير مسجل الدخول أن يرى حتى قائمة المشاريع. كيف نطبق هذا؟
+                </p>
+                <div class="bg-indigo-900/50 rounded-2xl p-6 font-mono text-sm overflow-x-auto mt-4 text-left">
+                    <span class="code-line"><span class="code-comment">// routes/web.php - مسارات FlowPilot المحمية</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-comment">// مسارات عامة (لا تحتاج مصادقة)</span></span>
+                    <span class="code-line">Route::get(<span class="code-string">'/'</span>, [HomeController::class, <span class="code-string">'index'</span>])->name(<span class="code-string">'home'</span>);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-comment">// مجموعة مسارات محمية (تحتاج مصادقة)</span></span>
+                    <span class="code-line">Route::middleware([<span class="code-string">'auth'</span>])->group(<span class="code-keyword">function</span> () {</span>
+                    <span class="code-line">    <span class="code-comment">// لوحة التحكم - يراها فقط المسجلون</span></span>
+                    <span class="code-line">    Route::get(<span class="code-string">'/dashboard'</span>, [DashboardController::class, <span class="code-string">'index'</span>])</span>
+                    <span class="code-line">        ->name(<span class="code-string">'dashboard'</span>);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// إدارة المشاريع - كلها محمية</span></span>
+                    <span class="code-line">    Route::resource(<span class="code-string">'projects'</span>, ProjectController::class);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// ملف المستخدم الشخصي</span></span>
+                    <span class="code-line">    Route::get(<span class="code-string">'/profile'</span>, [ProfileController::class, <span class="code-string">'show'</span>])</span>
+                    <span class="code-line">        ->name(<span class="code-string">'profile'</span>);</span>
+                    <span class="code-line">});</span>
+                </div>
+                <p class="text-indigo-200 text-sm mt-4">🔑 بهذه الطريقة البسيطة، أي شخص غير مسجل يحاول فتح <code>/dashboard</code> أو <code>/projects</code> سيتم تحويله تلقائياً إلى صفحة تسجيل الدخول.</p>
+            </section>
+
+            <!-- PRACTICE SECTION -->
+            <section id="practice" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">9. التطبيق العملي: 8 خطوات لتفعيل المصادقة</h2>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء مشروع Laravel جديد مع Breeze</h3>
+                    <p class="text-slate-500 text-sm mb-3">نبدأ بإنشاء مشروع Laravel جديد وتثبيت Breeze:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <span class="code-line"><span class="code-comment"># إنشاء مشروع Laravel جديد</span></span>
+                        <span class="code-line">composer create-project laravel/laravel flowpilot</span>
+                        <span class="code-line"> </span>
+                        <span class="code-line"><span class="code-comment"># الدخول إلى مجلد المشروع</span></span>
+                        <span class="code-line">cd flowpilot</span>
+                        <span class="code-line"> </span>
+                        <span class="code-line"><span class="code-comment"># تثبيت Laravel Breeze (حزمة تطويرية)</span></span>
+                        <span class="code-line">composer require laravel/breeze --dev</span>
+                    </div>
+                    <p class="text-slate-600 text-sm">🔍 <strong>composer create-project:</strong> ينشئ مشروع Laravel جديد باسم <code>flowpilot</code>. <strong>composer require --dev:</strong> يثبت Breeze كحزمة تطويرية (تستخدم أثناء التطوير فقط).</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تثبيت Breeze مع React</h3>
+                    <p class="text-slate-500 text-sm mb-3">الآن نثبت Breeze مع دعم React و Inertia:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-amber-400 overflow-x-auto mb-4 text-left">
+                        <span class="code-line"><span class="code-comment"># تثبيت Breeze مع Stack: React + Inertia</span></span>
+                        <span class="code-line">php artisan breeze:install react</span>
+                        <span class="code-line"> </span>
+                        <span class="code-line"><span class="code-comment"># ماذا يفعل هذا الأمر؟</span></span>
+                        <span class="code-line"><span class="code-comment"># 1. ينشئ Controllers الخاصة بالمصادقة</span></span>
+                        <span class="code-line"><span class="code-comment"># 2. ينشئ صفحات React (Login, Register, ForgotPassword, etc.)</span></span>
+                        <span class="code-line"><span class="code-comment"># 3. يضيف مسارات المصادقة إلى routes/auth.php</span></span>
+                        <span class="code-line"><span class="code-comment"># 4. يثبت حزمة Inertia.js ومكتباتها</span></span>
+                        <span class="code-line"><span class="code-comment"># 5. يضبط Tailwind CSS ليدعم React</span></span>
+                    </div>
+                    <p class="text-slate-600 text-sm">🔍 بعد تشغيل الأمر، ستظهر رسالة تطلب منك اختيار بعض الخيارات. اختر الخيارات الافتراضية (اضغط Enter).</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: تثبيت وتشغيل NPM</h3>
+                    <p class="text-slate-500 text-sm mb-3">نثبت مكتبات JavaScript (Vite, React, Tailwind) ونشغل خادم التطوير:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-cyan-400 overflow-x-auto mb-4 text-left">
+                        <span class="code-line"><span class="code-comment"># تثبيت مكتبات Node.js (Vite, React, Tailwind, Inertia)</span></span>
+                        <span class="code-line">npm install</span>
+                        <span class="code-line"> </span>
+                        <span class="code-line"><span class="code-comment"># تشغيل خادم التطوير (يستمع للتغييرات ويعيد بناء الملفات)</span></span>
+                        <span class="code-line">npm run dev</span>
+                    </div>
+                    <p class="text-slate-600 text-sm">🔍 <strong>npm install:</strong> يقرأ ملف <code>package.json</code> ويحمل كل المكتبات المطلوبة. <strong>npm run dev:</strong> يشغل Vite (أداة بناء) في وضع التطوير - أي تغيير في ملفات JavaScript/React يتم تحميله فوراً.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: إعداد قاعدة البيانات وتهجير الجداول</h3>
+                    <p class="text-slate-500 text-sm mb-3">ننشئ قاعدة البيانات ونجهز الجداول (جدول users وغيره):</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-purple-400 overflow-x-auto mb-4 text-left">
+                        <span class="code-line"><span class="code-comment"># 1. أنشئ قاعدة بيانات في phpMyAdmin أو MySQL باسم "flowpilot"</span></span>
+                        <span class="code-line"><span class="code-comment"># 2. عدّل ملف .env بمعلومات قاعدة البيانات:</span></span>
+                        <span class="code-line">DB_DATABASE=flowpilot</span>
+                        <span class="code-line">DB_USERNAME=root</span>
+                        <span class="code-line">DB_PASSWORD=</span>
+                        <span class="code-line"> </span>
+                        <span class="code-line"><span class="code-comment"># 3. شغّل التهجير (Migration) لإنشاء الجداول</span></span>
+                        <span class="code-line">php artisan migrate</span>
+                    </div>
+                    <p class="text-slate-600 text-sm">🔍 <strong>php artisan migrate:</strong> ينفذ جميع Migrations الموجودة في مجلد <code>database/migrations</code>. سينشئ جدول <code>users</code> (بأعمدة: id, name, email, password, remember_token, timestamps) وجدول <code>password_reset_tokens</code> وجدول <code>sessions</code>.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: تجربة التسجيل (Register)</h3>
+                    <p class="text-slate-500 text-sm mb-3">الآن نفتح التطبيق في المتصفح ونجرب إنشاء حساب جديد:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-amber-400 overflow-x-auto mb-4 text-left">
+                        <span class="code-line"><span class="code-comment"># شغّل خادم Laravel (في نافذة Terminal أخرى):</span></span>
+                        <span class="code-line">php artisan serve</span>
+                        <span class="code-line"> </span>
+                        <span class="code-line"><span class="code-comment"># افتح المتصفح على الرابط:</span></span>
+                        <span class="code-line">http://127.0.0.1:8000/register</span>
+                    </div>
+                    <p class="text-slate-600 text-sm">🔍 ستظهر صفحة التسجيل React. املأ الحقول: <strong>الاسم</strong> (مثلاً: أحمد)، <strong>البريد الإلكتروني</strong> (مثلاً: ahmed@example.com)، <strong>كلمة المرور</strong> (يجب أن تكون 8 أحرف على الأقل)، <strong>تأكيد كلمة المرور</strong>. اضغط "تسجيل". إذا نجحت العملية، سينقلك التطبيق إلى صفحة Dashboard.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 6: تجربة تسجيل الدخول (Login)</h3>
+                    <p class="text-slate-500 text-sm mb-3">بعد تسجيل الخروج، نختبر تسجيل الدخول:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
+                        <span class="code-line"><span class="code-comment"># اذهب إلى صفحة تسجيل الدخول</span></span>
+                        <span class="code-line">http://127.0.0.1:8000/login</span>
+                        <span class="code-line"> </span>
+                        <span class="code-line"><span class="code-comment"># أدخل البريد: ahmed@example.com</span></span>
+                        <span class="code-line"><span class="code-comment"># أدخل كلمة المرور: (التي اخترتها)</span></span>
+                        <span class="code-line"><span class="code-comment"># اضغط على "تسجيل الدخول"</span></span>
+                        <span class="code-line"> </span>
+                        <span class="code-line"><span class="code-comment"># إذا نجحت: سيتم نقلك إلى /dashboard</span></span>
+                        <span class="code-line"><span class="code-comment"># إذا فشلت: ستظهر رسالة خطأ "بيانات الدخول غير صحيحة"</span></span>
+                    </div>
+                    <p class="text-slate-600 text-sm">🔍 في الواجهة الخلفية (Backend)، <code>LoginController</code> يقوم بالتحقق من البريد وكلمة المرور. إذا تطابقت البيانات، يقوم بإنشاء <strong>Session</strong> جديدة. إذا لم تطابق، يعيد المستخدم إلى صفحة الدخول مع رسالة خطأ.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 7: حماية مسار Dashboard</h3>
+                    <p class="text-slate-500 text-sm mb-3">نتأكد أن مسار Dashboard محمي ولا يمكن لزائر رؤيته:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <span class="code-line"><span class="code-comment"># حاول فتح الرابط في نافذة متصفح خاصة (Incognito):</span></span>
+                        <span class="code-line">http://127.0.0.1:8000/dashboard</span>
+                        <span class="code-line"> </span>
+                        <span class="code-line"><span class="code-comment"># النتيجة المتوقعة: سيتم تحويلك تلقائياً إلى:</span></span>
+                        <span class="code-line">http://127.0.0.1:8000/login</span>
+                    </div>
+                    <p class="text-slate-600 text-sm">🔍 إذا كنت تستخدم وضع Incognito (أو سجّلت الخروج)، محاولة فتح <code>/dashboard</code> ستنقلك تلقائياً إلى صفحة تسجيل الدخول. هذا هو عمل Middleware <code>auth</code> الذي تم تطبيقه على مسار Dashboard في ملف <code>routes/web.php</code>.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 8: تخصيص واجهة تسجيل الدخول لـ FlowPilot</h3>
+                    <p class="text-slate-500 text-sm mb-3">نقوم بتخصيص صفحة Login لتتناسب مع هوية FlowPilot البنفسجية:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-pink-400 overflow-x-auto mb-4 text-left">
+                        <span class="code-line"><span class="code-comment">// resources/js/Pages/Auth/Login.jsx</span></span>
+                        <span class="code-line"><span class="code-comment">// ابحث عن هذا الملف وعدّل الألوان فيه</span></span>
+                        <span class="code-line"> </span>
+                        <span class="code-line"><span class="code-comment">// قبل التعديل:</span></span>
+                        <span class="code-line">&lt;button className=<span class="code-string">"bg-gray-900 ..."</span>&gt;</span>
+                        <span class="code-line">    Log in</span>
+                        <span class="code-line">&lt;/button&gt;</span>
+                        <span class="code-line"> </span>
+                        <span class="code-line"><span class="code-comment">// بعد التعديل (ألوان FlowPilot):</span></span>
+                        <span class="code-line">&lt;button className=<span class="code-string">"bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-2xl transition-all"</span>&gt;</span>
+                        <span class="code-line">    تسجيل الدخول</span>
+                        <span class="code-line">&lt;/button&gt;</span>
+                    </div>
+                    <p class="text-slate-600 text-sm">🔍 افتح ملف <code>resources/js/Pages/Auth/Login.jsx</code>. ستجد مكون React الذي يعرض صفحة تسجيل الدخول. يمكنك تغيير النصوص من الإنجليزية إلى العربية وتعديل ألوان Tailwind لتتناسب مع الماركة البنفسجية لـ FlowPilot.</p>
+                </div>
+            </section>
+
+            <!-- EXPECTED RESULT -->
+            <section class="mt-16 success-box">
+                <h2 class="text-xl font-black text-slate-900 mb-4">10. النتيجة المتوقعة بعد تنفيذ الخطوات</h2>
+                <ul class="list-disc pr-6 space-y-3 text-slate-700">
+                    <li>✅ صفحة <code>/register</code> تعرض استمارة إنشاء حساب جديدة (الاسم، البريد، كلمة المرور).</li>
+                    <li>✅ صفحة <code>/login</code> تعرض استمارة تسجيل الدخول (البريد، كلمة المرور).</li>
+                    <li>✅ بعد تسجيل الدخول، يظهر اسم المستخدم في شريط التنقل (Navbar).</li>
+                    <li>✅ محاولة فتح <code>/dashboard</code> بدون تسجيل الدخول تنقلك إلى صفحة تسجيل الدخول.</li>
+                    <li>✅ زر "تسجيل الخروج" يظهر فقط للمستخدمين المسجلين وينهي الجلسة.</li>
+                </ul>
+            </section>
+
+            <!-- COMMON ERRORS -->
+            <section id="errors" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">11. الأخطاء الشائعة وحلولها</h2>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">❌ الخطأ 1: "419 Page Expired" عند تسليم النموذج</p>
+                    <p class="text-red-600 text-sm"><strong>السبب:</strong> عدم وجود <code>@csrf</code> في النموذج (Form). Laravel يحمي من هجمات CSRF ويتطلب توكن لكل طلب POST.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> في Inertia، هذا يحدث تلقائياً. تأكد أنك تستخدم <code>&lt;form&gt;</code> مع <code>method="post"</code> وأضف <code>useForm</code> من Inertia.</p>
+                    <div class="bg-slate-900 rounded-xl p-3 font-mono text-xs text-amber-400 mt-2 text-left">
+                        <span class="code-line"><span class="code-comment">// المكون الصحيح باستخدام Inertia useForm:</span></span>
+                        <span class="code-line"><span class="code-keyword">import</span> { useForm } <span class="code-keyword">from</span> <span class="code-string">'@inertiajs/react'</span>;</span>
+                        <span class="code-line"> </span>
+                        <span class="code-line"><span class="code-keyword">const</span> { data, setData, post, processing, errors } = <span class="code-function">useForm</span>({</span>
+                        <span class="code-line">    email: <span class="code-string">''</span>,</span>
+                        <span class="code-line">    password: <span class="code-string">''</span>,</span>
+                        <span class="code-line">});</span>
+                        <span class="code-line"> </span>
+                        <span class="code-line"><span class="code-keyword">function</span> <span class="code-function">submit</span>(e) {</span>
+                        <span class="code-line">    e.preventDefault();</span>
+                    <span class="code-line">    post(<span class="code-string">'/login'</span>); <span class="code-comment">// Inertia يضيف CSRF token تلقائياً</span></span>
+                    <span class="code-line">}</span>
+                    </div>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">❌ الخطأ 2: "SQLSTATE[HY000] [2002] Connection refused"</p>
+                    <p class="text-red-600 text-sm"><strong>السبب:</strong> خادم MySQL (أو XAMPP/MAMP) لم يتم تشغيله بعد.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> شغّل XAMPP Control Panel واضغط "Start" بجانب MySQL. أو شغّل خدمة MySQL من سطر الأوامر.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">❌ الخطأ 3: "Class 'App\Http\Controllers\Auth\LoginController' not found"</p>
+                    <p class="text-red-600 text-sm"><strong>السبب:</strong> لم يتم تثبيت Breeze بشكل صحيح أو لم يتم تحديث Composer autoload.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> شغّل الأمر <code>composer dump-autoload</code> ثم أعد تثبيت Breeze بـ <code>php artisan breeze:install react</code>.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">❌ الخطأ 4: صفحة بيضاء (White Screen) بعد التثبيت</p>
+                    <p class="text-red-600 text-sm"><strong>السبب:</strong> عدم تشغيل <code>npm run dev</code> أو وجود خطأ في ملف React.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> افتح Terminal وتأكد من تشغيل <code>npm run dev</code>. افحص Console في المتصفح (F12 > Console) لترى أخطاء JavaScript.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">❌ الخطأ 5: "The password field confirmation does not match."</p>
+                    <p class="text-red-600 text-sm"><strong>السبب:</strong> حقل "تأكيد كلمة المرور" لا يطابق حقل "كلمة المرور".</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> تأكد أن اسم حقل التأكيد هو <code>password_confirmation</code> في ملف React وأن قيمته تطابق <code>password</code>.</p>
+                </div>
+            </section>
+
+            <!-- DIAGRAMS SECTION -->
             <section id="visuals" class="mt-16">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">مخططات توضيحية</h2>
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">12. مخططات توضيحية</h2>
                 <div class="grid md:grid-cols-2 gap-8 mt-8">
                     <div class="card p-4 text-center space-y-4">
-                        <img src="diagram.svg" alt="Technical Diagram" class="w-full rounded-xl border">
-                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط المصادقة</p>
+                        <img src="diagram.svg" alt="مخطط المصادقة" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط: دورة حياة المصادقة من البداية للنهاية</p>
                     </div>
                     <div class="card p-4 text-center space-y-4">
-                        <img src="visual-example.svg" alt="Teaching Diagram" class="w-full rounded-xl border">
-                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">التشبيه البصري (الفندق)</p>
+                        <img src="visual-example.svg" alt="تشبيه الفندق" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">تشبيه بصري: المفتاح والفندق</p>
                     </div>
                 </div>
             </section>
 
-            <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">التطبيق العملي</h2>
-
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: تثبيت Laravel Breeze</h3>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
-                        <p>composer require laravel/breeze --dev</p>
-                        <p>php artisan breeze:install react</p>
-                    </div>
+            <!-- SUMMARY -->
+            <section id="summary" class="mt-16 p-8 rounded-3xl bg-slate-900 text-white">
+                <h2 class="text-2xl font-black mb-6">13. 🧠 ملخص الدرس</h2>
+                <div class="space-y-4 text-slate-300">
+                    <p>🔹 <strong>المصادقة (Authentication)</strong> هي عملية التحقق من هوية المستخدم عبر البريد الإلكتروني وكلمة المرور.</p>
+                    <p>🔹 <strong>Laravel Breeze</strong> هو Starter Kit يوفر نظام مصادقة كامل وجاهز مع React + Tailwind CSS.</p>
+                    <p>🔹 مسارات المصادقة الرئيسية: <code>/register</code> (تسجيل)، <code>/login</code> (دخول)، <code>/logout</code> (خروج)، <code>/forgot-password</code> (نسيان كلمة المرور).</p>
+                    <p>🔹 <strong>Middleware ('auth')</strong> يحمي المسارات من الزوار غير المسجلين.</p>
+                    <p>🔹 <strong>Inertia.js</strong> يشارك بيانات المستخدم مع React عبر <code>usePage().props.auth.user</code>.</p>
+                    <p>🔹 <strong>نموذج User</strong> يمثل المستخدم في قاعدة البيانات ويوفر دوال المصادقة الجاهزة.</p>
+                    <p>🔹 في <strong>FlowPilot</strong>، كل مسارات المشاريع محمية بـ Middleware 'auth' لضمان أمان بيانات المستخدمين.</p>
                 </div>
-
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تشغيل التهجير وبناء الواجهة</h3>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
-                        <p>php artisan migrate</p>
-                        <p>npm install && npm run dev</p>
-                    </div>
+                <div class="mt-8 p-6 bg-indigo-600 rounded-2xl">
+                    <p class="font-black text-lg">💡 تذكر: المصادقة هي الباب الأول لأمان تطبيقك. لا تبدأ ببناء أي ميزة قبل أن تؤمّن هذا الباب!</p>
                 </div>
             </section>
 
+            <!-- NAVIGATION -->
             <div class="mt-12 flex justify-between gap-4">
                 <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-03/lesson-04/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-amber-600 px-8 py-4 text-white font-black hover:bg-amber-700 transition-all shadow-xl shadow-amber-100" href="../../week-04/lesson-02/index.html">الدرس التالي: الصلاحيات Policies ←</a>
+                <a class="rounded-2xl bg-amber-600 px-8 py-4 text-white font-black hover:bg-amber-700 transition-all shadow-xl shadow-amber-100" href="../lesson-02/index.html">الدرس التالي: الصلاحيات Policies ←</a>
             </div>
         </article>
     </div>
 </main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. الأمان يبدأ من أول سطر كود.<br>
+    <a href="assignment.html" class="text-indigo-600 hover:underline font-bold">→ اذهب إلى الواجب العملي</a>
+    <span class="mx-2">·</span>
+    <a href="quiz.html" class="text-indigo-600 hover:underline font-bold">→ اذهب إلى الكويز</a>
+</footer>
 
 <script src="../../../assets/js/app.js"></script>
 </body>

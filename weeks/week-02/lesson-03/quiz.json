@@ -3,12 +3,88 @@
   "title": "فهم مكونات React وتقسيم الواجهة إلى أجزاء",
   "questions": [
     {
-      "q": "ما أهم هدف من الدرس؟",
-      "answer": "فهم المفهوم وتطبيقه داخل FlowPilot"
+      "type": "mcq",
+      "question": "ما هو المكون (Component) في React؟",
+      "options": [
+        "ملف CSS يحتوي على تنسيقات",
+        "دالة JavaScript تعيد JSX (قطعة واجهة)",
+        "قاعدة بيانات",
+        "صورة في المجلد"
+      ],
+      "correctIndex": 1,
+      "explanation": "المكون هو دالة تعيد JSX، ويمثل قطعة مستقلة من واجهة المستخدم."
     },
     {
-      "q": "لماذا نكتب خطوات عملية مفصلة؟",
-      "answer": "حتى يفهم الطالب الهدف والمكان والكود والنتيجة"
+      "type": "mcq",
+      "question": "ما هي Props في React؟",
+      "options": [
+        "أداة لتنسيق النصوص",
+        "مكتبة خارجية",
+        "بيانات تُمرر من المكون الأب إلى المكون الابن",
+        "دالة لإنشاء المكونات"
+      ],
+      "correctIndex": 2,
+      "explanation": "Props هي اختصار لـ Properties - بيانات تتدفق من الأب إلى الابن."
+    },
+    {
+      "type": "mcq",
+      "question": "لماذا نستخدم key عند استخدام map()؟",
+      "options": [
+        "لمساعدة React في تحديد العناصر التي تغيرت بكفاءة",
+        "لتزيين الكود",
+        "لإبطاء التطبيق",
+        "ليس ضرورياً - يمكن حذفه"
+      ],
+      "correctIndex": 0,
+      "explanation": "key يساعد React في تحديث القائمة بكفاءة بدلاً من إعادة رسمها كلها."
+    },
+    {
+      "type": "mcq",
+      "question": "أي من التالي هو الصحيح لعرض مرحباً فقط إذا كان isLoggedIn = true؟",
+      "options": [
+        "{if (isLoggedIn) { \"مرحباً\" }}",
+        "{isLoggedIn ?: \"مرحباً\"}",
+        "show \"مرحباً\" when isLoggedIn",
+        "{isLoggedIn && \"مرحباً\"}"
+      ],
+      "correctIndex": 3,
+      "explanation": "&& تعني: إذا isLoggedIn صحيح، اعرض مرحباً."
+    },
+    {
+      "type": "mcq",
+      "question": "لماذا يجب أن يبدأ اسم المكون بحرف كبير (مثل ProjectCard)؟",
+      "options": [
+        "لأنه اختياري - لا فرق",
+        "لتمييزه عن عناصر HTML العادية (div, span, p)",
+        "لأن اللغة تفرض ذلك",
+        "لجعل الكود أطول"
+      ],
+      "correctIndex": 1,
+      "explanation": "React تميز بين المكونات (حرف كبير) وعناصر HTML (حرف صغير)."
+    },
+    {
+      "type": "truefalse",
+      "question": "يمكن تغيير قيمة Props داخل المكون الابن.",
+      "correctAnswer": false,
+      "explanation": "Props هي قراءة فقط - لا يمكن تغييرها داخل المكون الابن."
+    },
+    {
+      "type": "truefalse",
+      "question": "يمكن استخدام map() لتكرار مكون React وعرض قائمة.",
+      "correctAnswer": true,
+      "explanation": "map() هي الطريقة المثلى لتكرار المكونات."
+    },
+    {
+      "type": "theory",
+      "question": "لماذا نقسّم واجهة التطبيق إلى مكونات صغيرة بدلاً من كتابة كل شيء في صفحة واحدة؟",
+      "keywords": ["إعادة", "استخدام", "صيان"],
+      "minLength": 30,
+      "sampleAnswer": "نقسم الواجهة لمكونات لتسهيل إعادة الاستخدام والصيانة، وتنظيم الكود وجعله أكثر قابلية للفهم."
+    },
+    {
+      "type": "practical",
+      "question": "اكتب مكوناً باسم UserCard يستقبل Props: name و email ويعرضهما.",
+      "expectedCode": "export default function UserCard({ name, email }) { return <div>{name} - {email}</div>; }"
     }
   ]
 }

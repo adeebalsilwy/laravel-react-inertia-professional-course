@@ -3,52 +3,216 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 3: لمسة Tailwind السحرية</title>
+    <title>واجب الدرس 3: تصميم واجهة FlowPilot بـ Tailwind</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; }
+        code { direction: ltr; display: inline-block; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
-        <a href="../../../index.html" class="font-black text-2xl text-slate-900">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../index.html">الرئيسية</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/curriculum.html">الفهرس</a>
+        </nav>
     </div>
 </header>
 
-<main class="mx-auto max-w-4xl px-4 py-12 text-center">
-    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة للدرس</a>
+<main class="mx-auto max-w-4xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة لشرح الدرس</a>
     
-    <div class="card p-12 space-y-8 shadow-2xl">
-        <div class="w-20 h-20 bg-indigo-100 text-indigo-600 rounded-3xl flex items-center justify-center text-4xl mx-auto">🎨</div>
-        <h1 class="text-4xl font-black">واجب تصميم أول واجهة</h1>
-        <p class="text-slate-600 text-lg">"المطلوب هو تطبيق ما تعلمته في Tailwind لتصميم بطاقة ترحيب احترافية."</p>
+    <section class="space-y-8">
+        <div class="card p-8 bg-gradient-to-l from-indigo-600 to-indigo-700 text-white shadow-xl shadow-indigo-100">
+            <h1 class="text-3xl font-black">واجب الدرس 3: لمسة الجمال الأولى لـ FlowPilot</h1>
+            <p class="mt-4 text-indigo-100 leading-relaxed italic">
+                "حان الوقت لتجعل FlowPilot يبدو رائعاً! ستستخدم Tailwind CSS لتصميم أول واجهة احترافية."
+            </p>
+        </div>
 
-        <div class="text-right space-y-6 max-w-2xl mx-auto bg-slate-50 p-8 rounded-3xl border border-slate-100">
-            <h3 class="font-black text-xl text-indigo-700">خطوات التنفيذ:</h3>
-            <ol class="list-decimal pr-6 space-y-4 text-slate-700 font-medium">
-                <li>تأكد من تثبيت Tailwind في مشروع FlowPilot.</li>
-                <li>افتح ملف <code>resources/js/Pages/Welcome.jsx</code>.</li>
-                <li>صمم بطاقة (Card) تحتوي على:
-                    <ul class="list-disc pr-8 mt-2 text-sm text-slate-500">
-                        <li>خلفية بيضاء مع ظل (Shadow).</li>
-                        <li>حواف دائرية كبيرة (Rounded-3xl).</li>
-                        <li>عنوان كبير بلون نديلي (text-indigo-600).</li>
-                        <li>زر "ابدأ الآن" بلون خلفية أخضر (bg-emerald-600).</li>
+        <div class="space-y-8">
+            <!-- Part 1 -->
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm">
+                <h2 class="text-2xl font-black flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">01</span>
+                    تخصيص ألوان FlowPilot
+                </h2>
+                <div class="space-y-4 text-slate-600">
+                    <p class="font-bold">الهدف:</p>
+                    <p>إضافة ألوان مخصصة لمشروع FlowPilot في ملف الإعدادات.</p>
+                    
+                    <p class="font-bold">الخطوات:</p>
+                    <ol class="space-y-3 pr-6">
+                        <li>1. افتح ملف <code>tailwind.config.js</code> في VS Code.</li>
+                        <li>2. ضمن <code>theme.extend.colors</code>، أضف لوناً مخصصاً باسم <code>flowpilot</code> بقيم: 500: '#6366f1' و 700: '#4338ca'.</li>
+                        <li>3. أضف لوناً ثانياً باسم <code>flowpilot-accent</code> بقيم: 500: '#10b981' (أخضر) و 700: '#059669'.</li>
+                        <li>4. احفظ الملف.</li>
+                    </ol>
+
+                    <div class="p-4 rounded-xl bg-amber-50 border border-amber-100">
+                        <p class="text-sm font-bold text-amber-800">💡 تذكر: بعد تعديل tailwind.config.js، أعد تشغيل <code>npm run dev</code> ليتم تحديث Tailwind.</p>
+                    </div>
+
+                    <p class="font-bold">ماذا تتحقق منه؟</p>
+                    <ul class="list-disc pr-6 space-y-1 text-sm">
+                        <li>الملف لا يحتوي على أخطاء نحوية (Syntax errors).</li>
+                        <li>الألوان الجديدة (flowpilot, flowpilot-accent) ظهرت في VS Code IntelliSense.</li>
                     </ul>
-                </li>
-                <li>التقط صورة لمتصفحك بعد تطبيق التصميم.</li>
-            </ol>
+                </div>
+            </section>
+
+            <!-- Part 2 -->
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm">
+                <h2 class="text-2xl font-black flex items-center gap-3 text-indigo-600">
+                    <span class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">02</span>
+                    تصميم بطاقة ترحيب احترافية (Welcome Card)
+                </h2>
+                <div class="space-y-4 text-slate-600">
+                    <p class="font-bold">الهدف:</p>
+                    <p>تعديل صفحة Welcome.jsx لتصبح بطاقة ترحيب جذابة باستخدام Tailwind.</p>
+                    
+                    <p class="font-bold">الخطوات:</p>
+                    <ol class="space-y-3 pr-6">
+                        <li>1. افتح <code>resources/js/Pages/Welcome.jsx</code>.</li>
+                        <li>2. استبدل كل الكود بالكود التالي:</li>
+                    </ol>
+
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left" dir="ltr">
+                        <p><span class="text-purple-400">import</span> { Link } <span class="text-purple-400">from</span> <span class="text-amber-400">'@inertiajs/react'</span>;</p>
+                        <p>&nbsp;</p>
+                        <p><span class="text-purple-400">export default function</span> <span class="text-yellow-400">Welcome</span>() {</p>
+                        <p>&nbsp;&nbsp;<span class="text-purple-400">return</span> (</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">&lt;div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-emerald-50 flex items-center justify-center p-4"&gt;</span></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">&lt;div className="max-w-lg w-full bg-white rounded-[2rem] shadow-2xl p-12 text-center border border-slate-100"&gt;</span></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">&lt;div className="w-20 h-20 bg-flowpilot-100 rounded-2xl flex items-center justify-center mx-auto mb-6"&gt;</span></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-4xl"&gt;🚀&lt;/span&gt;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">&lt;/div&gt;</span></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">&lt;h1 className="text-4xl md:text-5xl font-black text-flowpilot-600 mb-4"&gt;</span></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FlowPilot</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">&lt;/h1&gt;</span></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p className="text-slate-500 text-lg leading-relaxed mb-2">إدارة المشاريع بذكاء</p></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">&lt;p className="text-slate-400 text-sm mb-8"&gt;</span>قم بإدارة مهامك وفريقك بكفاءة عالية<span class="text-slate-500">&lt;/p&gt;</span></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">&lt;button className="bg-flowpilot-600 hover:bg-flowpilot-700 text-white font-bold py-4 px-10 rounded-2xl transition-all duration-300 shadow-lg shadow-flowpilot-200 hover:shadow-xl hover:-translate-y-1"&gt;</span></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ابدأ رحلتك</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">&lt;/button&gt;</span></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">&lt;/div&gt;</span></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">&lt;/div&gt;</span></p>
+                        <p>&nbsp;&nbsp;);</p>
+                        <p>}</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Part 3 -->
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm">
+                <h2 class="text-2xl font-black flex items-center gap-3 text-emerald-600">
+                    <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">03</span>
+                    إضافة 3 بطاقات إحصائيات (Stat Cards)
+                </h2>
+                <div class="space-y-4 text-slate-600">
+                    <p class="font-bold">الهدف:</p>
+                    <p>إنشاء 3 بطاقات إحصائيات باستخدام Grid - مثل لوحة تحكم حقيقية.</p>
+                    
+                    <p class="font-bold">الخطوات:</p>
+                    <ol class="space-y-3 pr-6">
+                        <li>1. تحت زر "ابدأ رحلتك" مباشرة، أضف هذا الكود:</li>
+                    </ol>
+
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto text-left" dir="ltr">
+                        <p><span class="text-slate-500">{/* 3 بطاقات إحصائيات */}</span></p>
+                        <p><span class="text-slate-500">&lt;div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10 pt-10 border-t border-slate-100"&gt;</span></p>
+                        <p>&nbsp;&nbsp;<span class="text-slate-500">&lt;div className="bg-indigo-50 p-4 rounded-2xl text-center"&gt;</span></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-2xl mb-1 block"&gt;📋&lt;/span&gt;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="font-black text-xl text-indigo-700"&gt;3&lt;/span&gt;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-xs text-slate-500"&gt;مشاريع نشطة&lt;/span&gt;</p>
+                        <p>&nbsp;&nbsp;<span class="text-slate-500">&lt;/div&gt;</span></p>
+                        <p>&nbsp;&nbsp;<span class="text-slate-500">&lt;div className="bg-emerald-50 p-4 rounded-2xl text-center"&gt;</span></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-2xl mb-1 block"&gt;✅&lt;/span&gt;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="font-black text-xl text-emerald-700"&gt;12&lt;/span&gt;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-xs text-slate-500"&gt;مهام مكتملة&lt;/span&gt;</p>
+                        <p>&nbsp;&nbsp;<span class="text-slate-500">&lt;/div&gt;</span></p>
+                        <p>&nbsp;&nbsp;<span class="text-slate-500">&lt;div className="bg-amber-50 p-4 rounded-2xl text-center"&gt;</span></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-2xl mb-1 block"&gt;👥&lt;/span&gt;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="font-black text-xl text-amber-700"&gt;5&lt;/span&gt;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-xs text-slate-500"&gt;أعضاء الفريق&lt;/span&gt;</p>
+                        <p>&nbsp;&nbsp;<span class="text-slate-500">&lt;/div&gt;</span></p>
+                        <p><span class="text-slate-500">&lt;/div&gt;</span></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Part 4 - Extra Challenge -->
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm">
+                <h2 class="text-2xl font-black flex items-center gap-3 text-rose-600">
+                    <span class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-sm font-black">★</span>
+                    التحدي الإضافي (اختياري)
+                </h2>
+                <div class="space-y-4 text-slate-600">
+                    <p>أضف خلفية تفاعلية (Animated Gradient) إلى الصفحة الرئيسية:</p>
+                    <ol class="list-decimal pr-6 space-y-2 text-sm">
+                        <li>أضف كلاس <code>animate-pulse</code> للشعار (الأيقونة) ليجعلها تومض بلطف.</li>
+                        <li>غيّر التدرج اللوني إلى <code>bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500</code> للخلفية.</li>
+                        <li>لاحظ كيف يتغير شكل الصفحة بالكامل!</li>
+                    </ol>
+                    <p class="text-rose-600 font-bold text-sm">تلميح: كلاس <code>animate-pulse</code> هو كلاس جاهز في Tailwind يجعل العنصر يومض (يظهر ويختفي) ببطء.</p>
+                </div>
+            </section>
+
+            <!-- Part 5 - Theory -->
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm">
+                <h2 class="text-2xl font-black flex items-center gap-3 text-amber-600">
+                    <span class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-sm font-black">04</span>
+                    أسئلة فهم
+                </h2>
+                <div class="space-y-4 text-slate-600">
+                    <p>أجب عن الأسئلة التالية:</p>
+                    <ol class="list-decimal pr-6 space-y-4 text-sm">
+                        <li><strong>ما الفرق بين <code>p-4</code> و <code>m-4</code>؟</strong></li>
+                        <li><strong>ماذا يعني <code>md:grid-cols-2</code>؟</strong></li>
+                        <li><strong>لماذا نستخدم <code>className</code> بدلاً من <code>class</code> في JSX؟</strong></li>
+                        <li><strong>ما فائدة كلاس <code>hover:bg-*</code>؟</strong></li>
+                    </ol>
+                </div>
+            </section>
         </div>
 
-        <div class="pt-8 border-t">
-            <p class="text-sm font-bold text-slate-400 italic">"الإبداع يبدأ بتجربة بسيطة. جرب تغيير الألوان والأحجام كما تحب!"</p>
+        <!-- Submission Guide -->
+        <div class="p-8 rounded-[2rem] bg-slate-900 text-white space-y-4">
+            <h3 class="text-xl font-black">طريقة التسليم</h3>
+            <ul class="space-y-3 text-slate-300 text-sm">
+                <li>• <strong>لقطة شاشة 1:</strong> المتصفح يعرض بطاقة الترحيب الجديدة.</li>
+                <li>• <strong>لقطة شاشة 2:</strong> إظهار البطاقات الإحصائية (3 بطاقات) تحت الزر.</li>
+                <li>• <strong>لقطة شاشة 3 (اختياري):</strong> تأثير animate-pulse أو الخلفية الجديدة.</li>
+                <li>• <strong>النص:</strong> إجابات الأسئلة النظرية.</li>
+                <li class="p-3 rounded-xl bg-slate-800 text-amber-400 font-bold">
+                    ⚠️ إذا لم تظهر الألوان flowpilot، أعد تشغيل npm run dev بعد حفظ tailwind.config.js
+                </li>
+            </ul>
         </div>
-    </div>
+
+        <!-- Pitfalls -->
+        <div class="card p-8 space-y-4 border-rose-200 bg-rose-50">
+            <h3 class="text-xl font-black text-rose-800">مخاطر شائعة</h3>
+            <ul class="space-y-3 text-sm text-rose-900">
+                <li>• <strong>نسيان تحديث tailwind.config.js:</strong> الألوان المخصصة لن تعمل إذا لم تضفها بشكل صحيح.</li>
+                <li>• <strong>عدم إعادة تشغيل npm run dev:</strong> بعد تعديل الإعدادات، أعد تشغيل خادم Vite.</li>
+                <li>• <strong>خطأ إملائي في الكلاس:</strong> Tailwind حساس للحروف. <code>bg-whit</code> لن يعمل، يجب <code>bg-white</code>.</li>
+                <li>• <strong>نسيان إغلاق علامات JSX:</strong> كل عنصر يجب إغلاقه (self-closing أو closing tag).</li>
+            </ul>
+        </div>
+    </section>
 </main>
 
-<script src="../../../assets/js/app.js"></script>
+<footer class="mt-24 border-t py-8 text-center text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. التصميم هو ما يجعل المستخدم يقع في حب تطبيقك.
+</footer>
+
 </body>
 </html>

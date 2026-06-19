@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 10: Migrations وSeeders للمبتدئين</title>
+    <title>الدرس 10: Migrations و Seeders و Factories للمبتدئين | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +13,15 @@
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
         .step-card { border-right: 4px solid #0ea5e9; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 1.5rem; border-radius: 16px; direction: ltr; text-align: left; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.8; }
+        .code-line { display: block; }
+        .code-comment { color: #6b7280; }
+        .code-keyword { color: #93c5fd; font-weight: bold; }
+        .code-string { color: #34d399; }
+        .code-php { color: #f59e0b; }
+        .error-box { border-right: 4px solid #ef4444; background: #fef2f2; padding: 1rem; border-radius: 12px; margin-bottom: 1rem; }
+        .terminal-box { background: #0f172a; color: #e2e8f0; padding: 1rem; border-radius: 12px; direction: ltr; text-align: left; font-family: 'Courier New', monospace; font-size: 13px; }
+        .terminal-prompt { color: #34d399; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -20,101 +29,612 @@
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../index.html">الرئيسية</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/curriculum.html">الفهرس</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/lessons.html">الدروس</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/beginner-guide.html">دليل الطالب</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/project.html">المشروع</a>
+        </nav>
     </div>
 </header>
 
 <main class="mx-auto max-w-7xl px-4 py-8">
     <div class="grid lg:grid-cols-4 gap-8">
+        <!-- Sidebar -->
         <aside class="hidden lg:block">
             <div class="sidebar-sticky space-y-4">
                 <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الثالث</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-sky-50 text-sky-700" href="#intro">مفهوم الـ Migrations</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">ما هو الـ Seeder؟</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال المخطط الهندسي</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl bg-sky-50 text-sky-700" href="#intro">مقدمة: ما هي الـ Migration؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#migration">إنشاء وتشغيل Migrations</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#columns">أنواع الأعمدة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">مشروع FlowPilot</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#seeder">Seeders: زراعة البيانات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#factory">Factories: البيانات الوهمية</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#steps">خطوات عملية</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#code">شرح الكود سطراً بسطر</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">الأخطاء الشائعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#summary">ملخص الدرس</a>
                 </div>
             </div>
         </aside>
 
+        <!-- Main Content -->
         <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
+
+            <!-- Title -->
             <section class="border-b pb-8 mb-12">
                 <span class="badge bg-sky-50 text-sky-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 3 · الدرس 2</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">Migrations & Seeders: كيف نبني الجداول برمجياً؟</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"لا تبنِ قاعدة بياناتك يدوياً؛ بل اكتب كوداً يبنيها لك في أي مكان وزمان."</p>
-            </section>
-
-            <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">لماذا نستخدم الـ Migrations؟</h2>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    تخيل أنك تعمل في فريق. إذا قمت بإنشاء جدول جديد يدوياً في جهازك، كيف سيعرف زميلك عنه؟ سيضطر لإنشائه يدوياً أيضاً، وهذا يسبب أخطاءً كثيرة.
-                </p>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    الـ <strong>Migrations</strong> هي حل Laravel السحري. هي ملفات كود بسيطة تصف شكل الجداول. بضغطة زر واحدة، يمكن لأي شخص في فريقك بناء نفس قاعدة البيانات تماماً على جهازه.
-                </p>
-            </section>
-
-            <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">المفاهيم: التهجير والتبذير</h2>
-                <div class="space-y-6 text-slate-600">
-                    <div>
-                        <h4 class="font-black text-indigo-600">1. Migrations (التهجير)</h4>
-                        <p>هي ملفات تصف "هيكل" الجداول (الأعمدة، الأنواع، العلاقات). نستخدمها لإنشاء أو تعديل الجداول.</p>
-                    </div>
-                    <div>
-                        <h4 class="font-black text-indigo-600">2. Seeders (التبذير/الزراعة)</h4>
-                        <p>بعد بناء الجدول، نحتاج لبيانات وهمية لنجرب التطبيق. الـ <strong>Seeder</strong> هو كود يملأ الجداول ببيانات تجريبية تلقائياً.</p>
-                    </div>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">Migrations و Seeders و Factories للمبتدئين</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"Migrations هي المخطط المعماري لقاعدة بياناتك. Seeders هي أول الأثاث الذي تضعه فيه."</p>
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-bold">مدة القراءة: 60 دقيقة</span>
+                    <span class="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-bold">مستوى: مبتدئ</span>
+                    <span class="px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-xs font-bold">أدوات: Artisan, Migrations, Seeders, Factories</span>
                 </div>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-sky-600 text-white shadow-xl shadow-sky-100">
-                <h2 class="text-2xl font-black mb-4">مثال من الواقع (المخطط الهندسي)</h2>
-                <p class="text-sky-50 leading-relaxed text-lg">
-                    - الـ <strong>Migration</strong> هو "المخطط الهندسي" للمنزل؛ يحدد أين توجد الغرف والجدران. 
-                    <br>
-                    - الـ <strong>Seeder</strong> هو "الأثاث"؛ نضعه داخل الغرف لنجرب كيف ستكون الحياة في المنزل قبل أن يسكنه الناس الحقيقيون!
-                </p>
+            <!-- Section 1: Introduction -->
+            <section id="intro" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">مقدمة: ما هي الـ Migration (الهجرة)؟</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed text-lg">
+                    <p>في الدرس السابق، تعلمنا كيف <strong>نخطط</strong> لقاعدة البيانات على الورق. الآن حان وقت <strong>التنفيذ الفعلي</strong>. في Laravel، لا نذهب إلى MySQL ونكتب أوامر SQL يدوياً. بدلاً من ذلك، نستخدم <strong>Migrations</strong>.</p>
+                    <p><strong>ما هي الـ Migration؟</strong> هي ملف PHP يصف تغييراً نريد تطبيقه على قاعدة البيانات. مثلاً: "إنشاء جدول المشاريع" أو "إضافة عمود الحالة إلى جدول المهام". كل ملف Migration يشبه <strong>أمر بناء</strong> في سجل التغييرات.</p>
+                    <p>لماذا لا نكتب SQL مباشرة؟ لأننا نريد <strong>تتبع التغييرات</strong> مع الوقت. مع Migrations، يمكنك:</p>
+                    <ul class="list-disc pr-6 space-y-2">
+                        <li>إنشاء الجداول بأمر واحد</li>
+                        <li>التراجع عن التغييرات (Rollback) بسهولة</li>
+                        <li>مشاركة هيكل قاعدة البيانات مع فريق العمل</li>
+                        <li>تطبيق نفس التغييرات على عدة بيئات (تطوير، اختبار، إنتاج)</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box bg-sky-50 p-5 rounded-2xl border-r-4 border-sky-500">
+                    <p class="font-bold text-sky-800">📌 تشبيه بسيط:</p>
+                    <p class="text-sky-700">تخيل أنك تبني بيتاً. Migration هو <strong>المخطط الهندسي</strong> الذي يخبر العمال: "هنا الجدار، هنا الباب، هنا النافذة". أنت لا تبني بالحدس - أنت تتبع مخططاً. Laravel يقرأ المخطط (ملف Migration) وينفذه على قاعدة البيانات بدقة.</p>
+                </div>
             </section>
 
-            <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">التطبيق العملي</h2>
+            <!-- Section 2: Creating Migrations -->
+            <section id="migration" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">إنشاء وتشغيل Migrations باستخدام Artisan</h2>
+                
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <p><strong>Artisan</strong> هو سطر الأوامر الخاص بـ Laravel. نستخدمه لإنشاء ملفات Migration بأمر بسيط:</p>
+                </div>
+
+                <div class="terminal-box">
+                    <span class="text-slate-500 text-xs"># نكتب هذا الأمر في Terminal (نافذة الأوامر) داخل مجلد المشروع</span><br>
+                    <span class="terminal-prompt">$</span> php artisan make:migration create_projects_table
+                </div>
+
+                <p class="text-slate-600">بعد تنفيذ الأمر، سيتم إنشاء ملف جديد في المسار <code>database/migrations/</code>. اسم الملف يبدأ بتاريخ ووقت الإنشاء، مثلاً: <code>2025_06_19_120000_create_projects_table.php</code>.</p>
+
+                <div class="highlight-box bg-amber-50 p-5 rounded-2xl border-r-4 border-amber-500">
+                    <p class="font-bold text-amber-800">⚠️ قاعدة تسمية Migrations:</p>
+                    <p class="text-amber-700">Laravel يستخدم اتفاقية تسمية: <code>create_[table_name]_table</code> لإنشاء جدول جديد، و <code>add_[column]_to_[table]_table</code> لإضافة عمود لجدول موجود. اتبع هذه الاتفاقية دائماً.</p>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">تشغيل الـ Migrations:</h3>
+                <div class="terminal-box">
+                    <span class="terminal-prompt">$</span> php artisan migrate
+                </div>
+                <p class="text-slate-600">هذا الأمر ينفذ جميع Migrations التي لم تُنفذ بعد. سيقرأ Laravel كل ملف Migration وينفذ <code>up()</code> method (الذي سنشرحه لاحقاً).</p>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">أوامر مهمة مع Migrations:</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right border-collapse">
+                        <thead>
+                            <tr class="bg-slate-800 text-white">
+                                <th class="p-3 border border-slate-700">الأمر</th>
+                                <th class="p-3 border border-slate-700">الوظيفة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300 font-bold">php artisan migrate</td><td class="p-3 border border-slate-300">تنفيذ جميع Migrations الجديدة</td></tr>
+                            <tr class="bg-slate-50"><td class="p-3 border border-slate-300 font-bold">php artisan migrate:rollback</td><td class="p-3 border border-slate-300">التراجع عن آخر batch من Migrations</td></tr>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300 font-bold">php artisan migrate:refresh</td><td class="p-3 border border-slate-300">إعادة تنفيذ جميع Migrations (rollback + migrate)</td></tr>
+                            <tr class="bg-slate-50"><td class="p-3 border border-slate-300 font-bold">php artisan migrate:fresh</td><td class="p-3 border border-slate-300">حذف جميع الجداول وإعادة إنشائها</td></tr>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300 font-bold">php artisan migrate:status</td><td class="p-3 border border-slate-300">عرض حالة كل Migration (نفذ أم لا)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section 3: Understanding up() and down() -->
+            <section id="columns" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">فهم up() و down() وأنواع الأعمدة</h2>
+                
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <p>كل ملف Migration يحتوي على <strong>طريقتين (methods)</strong> رئيسيتين:</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mt-4">
+                        <div class="p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-200">
+                            <h4 class="font-bold text-emerald-800">⬆️ <code>up()</code></h4>
+                            <p class="text-sm text-emerald-700 mt-2">هذه الطريقة تُنفذ عند تشغيل <code>php artisan migrate</code>. هنا نضع الكود الذي يُنشئ الجداول أو يُعدّلها. مثلاً: <code>Schema::create('projects', function (Blueprint $table) { ... })</code>.</p>
+                            <p class="text-xs text-emerald-600 mt-2">"up" تعني "الارتقاء" - ننتقل بالنسخة الحالية إلى إصدار أحدث من قاعدة البيانات.</p>
+                        </div>
+                        <div class="p-5 rounded-2xl bg-rose-50 border-2 border-rose-200">
+                            <h4 class="font-bold text-rose-800">⬇️ <code>down()</code></h4>
+                            <p class="text-sm text-rose-700 mt-2">هذه الطريقة تُنفذ عند تشغيل <code>php artisan migrate:rollback</code>. وظيفتها عكس ما فعلته <code>up()</code>. إذا أنشأت جدولاً، هنا تحذفه: <code>Schema::dropIfExists('projects')</code>.</p>
+                            <p class="text-xs text-rose-600 mt-2">"down" تعني "الهبوط" - نعود للإصدار السابق. مهم جداً لتصحيح الأخطاء.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-8">أنواع الأعمدة (Column Types) في Laravel</h3>
+                <p class="text-slate-600">داخل <code>up()</code>، نستخدم <code>Schema::create</code> مع <code>Blueprint $table</code>. الكائن <code>$table</code> يوفر دوالاً لكل نوع عمود:</p>
+
+                <div class="overflow-x-auto mt-4">
+                    <table class="w-full text-right border-collapse">
+                        <thead>
+                            <tr class="bg-slate-800 text-white">
+                                <th class="p-3 border border-slate-700">الدالة</th>
+                                <th class="p-3 border border-slate-700">نوع العمود في SQL</th>
+                                <th class="p-3 border border-slate-700">الاستخدام</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300"><code>$table->id()</code></td><td class="p-3 border border-slate-300">bigIncrements</td><td class="p-3 border border-slate-300">المفتاح الأساسي (PK)</td></tr>
+                            <tr class="bg-slate-50"><td class="p-3 border border-slate-300"><code>$table->string('name', 255)</code></td><td class="p-3 border border-slate-300">VARCHAR(255)</td><td class="p-3 border border-slate-300">نص قصير (اسم، عنوان)</td></tr>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300"><code>$table->text('description')</code></td><td class="p-3 border border-slate-300">TEXT</td><td class="p-3 border border-slate-300">نص طويل (وصف، محتوى)</td></tr>
+                            <tr class="bg-slate-50"><td class="p-3 border border-slate-300"><code>$table->foreignId('user_id')</code></td><td class="p-3 border border-slate-300">BIGINT UNSIGNED</td><td class="p-3 border border-slate-300">مفتاح أجنبي (FK)</td></tr>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300"><code>$table->boolean('is_completed')</code></td><td class="p-3 border border-slate-300">TINYINT(1)</td><td class="p-3 border border-slate-300">قيمة منطقية (صح/خطأ)</td></tr>
+                            <tr class="bg-slate-50"><td class="p-3 border border-slate-300"><code>$table->enum('status', ['a','b'])</code></td><td class="p-3 border border-slate-300">ENUM</td><td class="p-3 border border-slate-300">قيمة من قائمة محددة</td></tr>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300"><code>$table->date('deadline')</code></td><td class="p-3 border border-slate-300">DATE</td><td class="p-3 border border-slate-300">تاريخ (YYYY-MM-DD)</td></tr>
+                            <tr class="bg-slate-50"><td class="p-3 border border-slate-300"><code>$table->dateTime('due_date')</code></td><td class="p-3 border border-slate-300">DATETIME</td><td class="p-3 border border-slate-300">تاريخ ووقت كامل</td></tr>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300"><code>$table->timestamps()</code></td><td class="p-3 border border-slate-300">TIMESTAMP</td><td class="p-3 border border-slate-300">يضيف created_at و updated_at</td></tr>
+                            <tr class="bg-slate-50"><td class="p-3 border border-slate-300"><code>$table->softDeletes()</code></td><td class="p-3 border border-slate-300">TIMESTAMP</td><td class="p-3 border border-slate-300">يضيف deleted_at للحذف الناعم</td></tr>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300"><code>$table->nullableTimestamps()</code></td><td class="p-3 border border-slate-300">TIMESTAMP NULL</td><td class="p-3 border border-slate-300">timestamps لكن اختيارية</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-8">تعديلات الأعمدة (Modifiers):</h3>
+                <p class="text-slate-600">يمكننا تعديل خصائص العمود باستخدام دوال إضافية:</p>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-keyword">$table</span>-><span class="code-php">string</span>(<span class="code-string">'email'</span>)-><span class="code-php">unique</span>();      <span class="code-comment">// قيمة فريدة (لا تتكرر)</span></span>
+                    <span class="code-line"><span class="code-keyword">$table</span>-><span class="code-php">string</span>(<span class="code-string">'nickname'</span>)-><span class="code-php">nullable</span>();   <span class="code-comment">// يمكن أن يكون NULL (اختياري)</span></span>
+                    <span class="code-line"><span class="code-keyword">$table</span>-><span class="code-php">string</span>(<span class="code-string">'color'</span>)-><span class="code-php">default</span>(<span class="code-string">'blue'</span>);  <span class="code-comment">// قيمة افتراضية</span></span>
+                    <span class="code-line"><span class="code-keyword">$table</span>-><span class="code-php">foreignId</span>(<span class="code-string">'user_id'</span>)-><span class="code-php">constrained</span>(); <span class="code-comment">// ينشئ FK تلقائياً</span></span>
+                    <span class="code-line"><span class="code-keyword">$table</span>-><span class="code-php">foreignId</span>(<span class="code-string">'project_id'</span>)-><span class="code-php">constrained</span>()-><span class="code-php">cascadeOnDelete</span>(); <span class="code-comment">// يحذف المهام تلقائياً عند حذف المشروع</span></span>
+                </div>
+            </section>
+
+            <!-- Section 4: FlowPilot Project Migration -->
+            <section id="flowpilot" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">تطبيق FlowPilot: إنشاء جدول Projects مع مفتاح أجنبي</h2>
+                <p class="text-slate-600">الآن سنطبق ما تعلمناه. سننشئ Migration لجدول <code>projects</code> في مشروع FlowPilot.</p>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">الخطوة 1: إنشاء ملف Migration</h3>
+                <div class="terminal-box">
+                    <span class="terminal-prompt">$</span> php artisan make:migration create_projects_table
+                </div>
+                <p class="text-slate-600 text-sm mt-2">سيتم إنشاء ملف في <code>database/migrations/2025_06_19_XXXXXX_create_projects_table.php</code>.</p>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">الخطوة 2: كتابة الكود داخل الـ Migration</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-keyword">&lt;?php</span></span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-keyword">use</span> Illuminate\Database\Migrations\Migration;</span>
+                    <span class="code-line"><span class="code-keyword">use</span> Illuminate\Database\Schema\Blueprint;</span>
+                    <span class="code-line"><span class="code-keyword">use</span> Illuminate\Support\Facades\Schema;</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-keyword">return new class</span> <span class="code-keyword">extends</span> Migration</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-comment">/**</span></span>
+                    <span class="code-line">    <span class="code-comment">     * Run the migrations.</span></span>
+                    <span class="code-line">    <span class="code-comment">     */</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-php">up</span>(): <span class="code-keyword">void</span></span>
+                    <span class="code-line">    {</span>
+                    <span class="code-line">        Schema::<span class="code-php">create</span>(<span class="code-string">'projects'</span>, <span class="code-keyword">function</span> (Blueprint <span class="code-keyword">$table</span>) {</span>
+                    <span class="code-line">            <span class="code-keyword">$table</span>-><span class="code-php">id</span>();                              <span class="code-comment">// المفتاح الأساسي (PK)</span></span>
+                    <span class="code-line">            <span class="code-keyword">$table</span>-><span class="code-php">foreignId</span>(<span class="code-string">'user_id'</span>)            <span class="code-comment">// المفتاح الأجنبي (FK)</span></span>
+                    <span class="code-line">                  -><span class="code-php">constrained</span>()                  <span class="code-comment">// يشير تلقائياً لـ users.id</span></span>
+                    <span class="code-line">                  -><span class="code-php">cascadeOnDelete</span>();              <span class="code-comment">// عند حذف المستخدم، تُحذف مشاريعه</span></span>
+                    <span class="code-line">            <span class="code-keyword">$table</span>-><span class="code-php">string</span>(<span class="code-string">'name'</span>);                   <span class="code-comment">// اسم المشروع (VARCHAR)</span></span>
+                    <span class="code-line">            <span class="code-keyword">$table</span>-><span class="code-php">text</span>(<span class="code-string">'description'</span>)-><span class="code-php">nullable</span>(); <span class="code-comment">// وصف المشروع (اختياري)</span></span>
+                    <span class="code-line">            <span class="code-keyword">$table</span>-><span class="code-php">string</span>(<span class="code-string">'status'</span>)                 <span class="code-comment">// حالة المشروع</span></span>
+                    <span class="code-line">                  -><span class="code-php">default</span>(<span class="code-string">'pending'</span>);            <span class="code-comment">// القيمة الافتراضية: pending</span></span>
+                    <span class="code-line">            <span class="code-keyword">$table</span>-><span class="code-php">date</span>(<span class="code-string">'deadline'</span>)-><span class="code-php">nullable</span>();    <span class="code-comment">// تاريخ التسليم (اختياري)</span></span>
+                    <span class="code-line">            <span class="code-keyword">$table</span>-><span class="code-php">timestamps</span>();                    <span class="code-comment">// created_at + updated_at</span></span>
+                    <span class="code-line">            <span class="code-keyword">$table</span>-><span class="code-php">softDeletes</span>();                  <span class="code-comment">// deleted_at للحذف الناعم</span></span>
+                    <span class="code-line">        });</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line"></span>
+                    <span class="code-line">    <span class="code-comment">/**</span></span>
+                    <span class="code-line">    <span class="code-comment">     * Reverse the migrations.</span></span>
+                    <span class="code-line">    <span class="code-comment">     */</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-php">down</span>(): <span class="code-keyword">void</span></span>
+                    <span class="code-line">    {</span>
+                    <span class="code-line">        Schema::<span class="code-php">dropIfExists</span>(<span class="code-string">'projects'</span>);     <span class="code-comment">// حذف الجدول عند التراجع</span></span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line">};</span>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">الخطوة 3: تشغيل الـ Migration</h3>
+                <div class="terminal-box">
+                    <span class="terminal-prompt">$</span> php artisan migrate
+                </div>
+                <p class="text-slate-600 mt-2">بعد تنفيذ الأمر، ستظهر رسالة نجاح: <code>Migrated: 2025_06_19_XXXXXX_create_projects_table</code>. اذهب إلى قاعدة البيانات - ستجد جدول <code>projects</code> قد أنشئ بجميع الأعمدة.</p>
+            </section>
+
+            <!-- Section 5: Seeders -->
+            <section id="seeder" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">Seeders: زراعة البيانات الأولية</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <p>بعد إنشاء الجداول، نحتاج <strong>بيانات اختبارية</strong> لنتأكد أن التطبيق يعمل. بدلاً من إدخال البيانات يدوياً واحداً تلو الآخر، نستخدم <strong>Seeders</strong>.</p>
+                    <p><strong>Seeder</strong> هو ملف PHP يضيف بيانات إلى قاعدة البيانات. يشبه <strong>"زرع بذور"</strong> في الحديقة - تضع البذور (البيانات) في التربة (الجداول) وتنمو (يصبح التطبيق حياً بالبيانات).</p>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">إنشاء Seeder:</h3>
+                <div class="terminal-box">
+                    <span class="terminal-prompt">$</span> php artisan make:seeder ProjectSeeder
+                </div>
+                <p class="text-slate-600 text-sm mt-2">ملاحظة: اسم الـ Seeder يكتب بـ PascalCase (حرف أول كبير) وينتهي بـ "Seeder".</p>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">كتابة Seeder:</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-keyword">&lt;?php</span></span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-keyword">namespace</span> Database\Seeders;</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-keyword">use</span> Illuminate\Database\Seeder;</span>
+                    <span class="code-line"><span class="code-keyword">use</span> App\Models\Project;</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-keyword">return new class</span> <span class="code-keyword">extends</span> Seeder</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-php">run</span>(): <span class="code-keyword">void</span></span>
+                    <span class="code-line">    {</span>
+                    <span class="code-line">        Project::<span class="code-php">create</span>([                          <span class="code-comment">// إنشاء مشروع جديد</span></span>
+                    <span class="code-line">            <span class="code-string">'user_id'</span>    => 1,                      <span class="code-comment">// المستخدم رقم 1</span></span>
+                    <span class="code-line">            <span class="code-string">'name'</span>       => <span class="code-string">'تطبيق FlowPilot'</span>,       <span class="code-comment">// اسم المشروع</span></span>
+                    <span class="code-line">            <span class="code-string">'description'</span> => <span class="code-string">'منصة لإدارة المشاريع'</span>, <span class="code-comment">// وصف المشروع</span></span>
+                    <span class="code-line">            <span class="code-string">'status'</span>     => <span class="code-string">'active'</span>,                <span class="code-comment">// الحالة: نشط</span></span>
+                    <span class="code-line">            <span class="code-string">'deadline'</span>   => <span class="code-string">'2025-12-31'</span>,            <span class="code-comment">// تاريخ التسليم</span></span>
+                    <span class="code-line">        ]);</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line">};</span>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">تسجيل Seeder في DatabaseSeeder:</h3>
+                <p class="text-slate-600">لتشغيل Seeder، يجب تسجيله في الملف الرئيسي <code>DatabaseSeeder.php</code>:</p>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// database/seeders/DatabaseSeeder.php</span></span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-php">run</span>(): <span class="code-keyword">void</span></span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">$this</span>-><span class="code-php">call</span>([                              <span class="code-comment">// استدعاء Seeders</span></span>
+                    <span class="code-line">        UserSeeder::<span class="code-keyword">class</span>,                  <span class="code-comment">// أولاً: المستخدمين</span></span>
+                    <span class="code-line">        ProjectSeeder::<span class="code-keyword">class</span>,               <span class="code-comment">// ثانياً: المشاريع</span></span>
+                    <span class="code-line">        TaskSeeder::<span class="code-keyword">class</span>,                   <span class="code-comment">// ثالثاً: المهام</span></span>
+                    <span class="code-line">    ]);</span>
+                    <span class="code-line">}</span>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">تشغيل Seeders:</h3>
+                <div class="terminal-box">
+                    <span class="terminal-prompt">$</span> php artisan db:seed
+                </div>
+                <p class="text-slate-600 text-sm mt-2">أو مع تنفيذ Migrations مباشرة: <code>php artisan migrate --seed</code>.</p>
+            </section>
+
+            <!-- Section 6: Factories -->
+            <section id="factory" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">Factories: مصانع البيانات الوهمية</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <p>ماذا لو أردنا إضافة <strong>50 مشروعاً</strong> بدلاً من مشروع واحد؟ كتابة 50 سطراً في Seeder ستكون متعبة. هنا يأتي دور <strong>Factories</strong>.</p>
+                    <p><strong>Factory</strong> هو "مصنع" ينتج بيانات وهمية (Fake Data) بشكل تلقائي. نستخدم مكتبة <strong>Faker</strong> (المضمنة في Laravel) لتوليد أسماء، عناوين، تواريخ عشوائية.</p>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">إنشاء Factory:</h3>
+                <div class="terminal-box">
+                    <span class="terminal-prompt">$</span> php artisan make:factory ProjectFactory
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">كتابة Factory:</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-keyword">&lt;?php</span></span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-keyword">namespace</span> Database\Factories;</span>
+                    <span class="code-line"></span>
+                    <span class="code-keyword">use</span> App\Models\Project;</span>
+                    <span class="code-line"><span class="code-keyword">use</span> Illuminate\Database\Eloquent\Factories\Factory;</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-keyword">class</span> ProjectFactory <span class="code-keyword">extends</span> Factory</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">protected</span> <span class="code-keyword">$model</span> = Project::<span class="code-keyword">class</span>;       <span class="code-comment">// ربط المصنع بنموذج Project</span></span>
+                    <span class="code-line"></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-php">definition</span>(): <span class="code-keyword">array</span>  <span class="code-comment">// تعريف شكل البيانات</span></span>
+                    <span class="code-line">    {</span>
+                    <span class="code-line">        <span class="code-keyword">return</span> [</span>
+                    <span class="code-line">            <span class="code-string">'name'</span>        => <span class="code-php">fake</span>()-><span class="code-php">sentence</span>(3),     <span class="code-comment">// جملة عشوائية من 3 كلمات كاسم</span></span>
+                    <span class="code-line">            <span class="code-string">'description'</span> => <span class="code-php">fake</span>()-><span class="code-php">paragraph</span>(2),  <span class="code-comment">// فقرتين عشوائيتين كوصف</span></span>
+                    <span class="code-line">            <span class="code-string">'status'</span>      => <span class="code-php">fake</span>()-><span class="code-php">randomElement</span>([<span class="code-string">'pending'</span>, <span class="code-string">'active'</span>, <span class="code-string">'completed'</span>]), <span class="code-comment">// عشوائي من القائمة</span></span>
+                    <span class="code-line">            <span class="code-string">'deadline'</span>    => <span class="code-php">fake</span>()-><span class="code-php">dateTimeBetween</span>(<span class="code-string">'now'</span>, <span class="code-string">'+1 year'</span>), <span class="code-comment">// تاريخ عشوائي خلال سنة</span></span>
+                    <span class="code-line">        ];</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line">}</span>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">استخدام Factory في Seeder:</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// في ProjectSeeder.php - بدلاً من create واحدة:</span></span>
+                    <span class="code-line">Project::<span class="code-php">factory</span>()</span>
+                    <span class="code-line">    -><span class="code-php">count</span>(20)                              <span class="code-comment">// أنشئ 20 مشروعاً</span></span>
+                    <span class="code-line">    -><span class="code-php">forUser</span>(User::<span class="code-php">first</span>())              <span class="code-comment">// كلهم للمستخدم الأول</span></span>
+                    <span class="code-line">    -><span class="code-php">create</span>();                              <span class="code-comment">// احفظهم في قاعدة البيانات</span></span>
+                </div>
+                <p class="text-slate-600 text-sm mt-2">هذا السطر الواحد سينشئ 20 مشروعاً وهمياً بأسماء ووصف وتواريخ عشوائية. السحر!</p>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">دوال Faker الشائعة:</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right border-collapse">
+                        <thead>
+                            <tr class="bg-slate-800 text-white">
+                                <th class="p-3 border border-slate-700">الدالة</th>
+                                <th class="p-3 border border-slate-700">الناتج</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300"><code>fake()->name()</code></td><td class="p-3 border border-slate-300">اسم عشوائي (مثل: أحمد محمد)</td></tr>
+                            <tr class="bg-slate-50"><td class="p-3 border border-slate-300"><code>fake()->email()</code></td><td class="p-3 border border-slate-300">بريد إلكتروني عشوائي</td></tr>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300"><code>fake()->sentence(3)</code></td><td class="p-3 border border-slate-300">جملة من 3 كلمات</td></tr>
+                            <tr class="bg-slate-50"><td class="p-3 border border-slate-300"><code>fake()->paragraph(2)</code></td><td class="p-3 border border-slate-300">فقرتين من النص</td></tr>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300"><code>fake()->randomElement(['a','b'])</code></td><td class="p-3 border border-slate-300">عنصر عشوائي من المصفوفة</td></tr>
+                            <tr class="bg-slate-50"><td class="p-3 border border-slate-300"><code>fake()->numberBetween(1, 100)</code></td><td class="p-3 border border-slate-300">رقم عشوائي بين 1 و 100</td></tr>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300"><code>fake()->date()</code></td><td class="p-3 border border-slate-300">تاريخ عشوائي</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section 7: Practical Steps -->
+            <section id="steps" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">خطوات عملية لبناء قاعدة بيانات FlowPilot</h2>
 
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء Migration للمشاريع</h3>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
-                        <p>php artisan make:migration create_projects_table</p>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء مشروع Laravel جديد</h3>
+                    <div class="terminal-box">
+                        <span class="terminal-prompt">$</span> composer create-project laravel/laravel flowpilot<br>
+                        <span class="terminal-prompt">$</span> cd flowpilot
+                    </div>
+                    <p class="text-sm text-slate-600 mt-2">ملاحظة: إذا كنت تستخدم Laravel مثبتاً مسبقاً، يمكنك تجاهل هذه الخطوة.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: إعداد قاعدة البيانات</h3>
+                    <p class="text-slate-600">افتح ملف <code>.env</code> في جذر المشروع. ابحث عن هذه الأسطر وغيّرها حسب إعدادات MySQL الخاصة بك:</p>
+                    <div class="code-block text-sm">
+                        <span class="code-line">DB_CONNECTION=mysql</span>
+                        <span class="code-line">DB_HOST=127.0.0.1</span>
+                        <span class="code-line">DB_PORT=3306</span>
+                        <span class="code-line">DB_DATABASE=flowpilot</span>
+                        <span class="code-line">DB_USERNAME=root</span>
+                        <span class="code-line">DB_PASSWORD=</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mt-2">تأكد من إنشاء قاعدة بيانات <code>flowpilot</code> في MySQL (باستخدام phpMyAdmin أو أمر CREATE DATABASE).</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: إنشاء Migrations لجميع الجداول</h3>
+                    <div class="terminal-box">
+                        <span class="terminal-prompt">$</span> php artisan make:migration create_projects_table<br>
+                        <span class="terminal-prompt">$</span> php artisan make:migration create_tasks_table<br>
+                        <span class="terminal-prompt">$</span> php artisan make:migration create_teams_table<br>
+                        <span class="terminal-prompt">$</span> php artisan make:migration create_project_user_table
                     </div>
                 </div>
 
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تحديد الأعمدة</h3>
-                    <p class="mb-4">افتح الملف الناتج في مجلد <code>database/migrations</code> واكتب:</p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
-                        <p>$table->string('name');</p>
-                        <p>$table->text('description')->nullable();</p>
-                        <p>$table->string('status')->default('active');</p>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: كتابة كود كل Migration</h3>
+                    <p class="text-slate-600">لكل ملف، اكتب الأعمدة المناسبة كما شرحنا سابقاً. لا تنسَ:</p>
+                    <ul class="list-disc pr-6 text-sm text-slate-500 space-y-1">
+                        <li><code>id()</code> لكل جدول</li>
+                        <li><code>foreignId(...)->constrained()</code> للمفاتيح الأجنبية</li>
+                        <li><code>timestamps()</code> و <code>softDeletes()</code></li>
+                        <li><code>nullable()</code> للأعمدة الاختيارية</li>
+                        <li><code>default()</code> للقيم الافتراضية</li>
+                    </ul>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: تشغيل الـ Migrations</h3>
+                    <div class="terminal-box">
+                        <span class="terminal-prompt">$</span> php artisan migrate
+                    </div>
+                    <p class="text-sm text-slate-600 mt-2">تأكد من ظهور جميع الجداول في قاعدة البيانات باستخدام phpMyAdmin أو أي أداة MySQL.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 6: إنشاء Seeders و Factories</h3>
+                    <div class="terminal-box">
+                        <span class="terminal-prompt">$</span> php artisan make:seeder UserSeeder<br>
+                        <span class="terminal-prompt">$</span> php artisan make:seeder ProjectSeeder<br>
+                        <span class="terminal-prompt">$</span> php artisan make:seeder TaskSeeder<br>
+                        <span class="terminal-prompt">$</span> php artisan make:factory ProjectFactory<br>
+                        <span class="terminal-prompt">$</span> php artisan make:factory TaskFactory
                     </div>
                 </div>
 
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: تنفيذ الأمر</h3>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-sky-400 overflow-x-auto mb-4 text-left">
-                        <p>php artisan migrate</p>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 7: زراعة البيانات وتشغيلها</h3>
+                    <div class="terminal-box">
+                        <span class="terminal-prompt">$</span> php artisan db:seed
+                    </div>
+                    <p class="text-sm text-slate-600 mt-2">أو يمكن استخدام: <code>php artisan migrate:fresh --seed</code> لإعادة إنشاء الجداول مع زراعة البيانات دفعة واحدة.</p>
+                </div>
+            </section>
+
+            <!-- Section 8: Detailed Code Explanation -->
+            <section id="code" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">شرح الكود سطراً بسطر: Migration + Seeder + Factory</h2>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">1. شرح ملف Migration (create_projects_table.php):</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-keyword">&lt;?php</span>  <span class="code-comment">// فتح ملف PHP</span></span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-keyword">use</span> Illuminate\Database\Migrations\Migration;  <span class="code-comment">// استيراد كلاس Migration الأساسي</span></span>
+                    <span class="code-line"><span class="code-keyword">use</span> Illuminate\Database\Schema\Blueprint;      <span class="code-comment">// استيراد كلاس Blueprint (يحدد هيكل الجدول)</span></span>
+                    <span class="code-line"><span class="code-keyword">use</span> Illuminate\Support\Facades\Schema;         <span class="code-comment">// استيراد Facade Schema للتعامل مع قاعدة البيانات</span></span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-keyword">return new class</span> <span class="code-keyword">extends</span> Migration  <span class="code-comment">// إنشاء كلاس مجهول (Anonymous Class) يرث من Migration</span></span>
+                </div>
+
+                <p class="text-slate-600 mt-4"><strong>شرح <code>Schema::create()</code>:</strong></p>
+                <div class="code-block">
+                    <span class="code-line">Schema::<span class="code-php">create</span>(<span class="code-string">'projects'</span>, <span class="code-keyword">function</span> (Blueprint <span class="code-keyword">$table</span>) {</span>
+                    <span class="code-line">    ...  <span class="code-comment">// هنا نحدد أعمدة الجدول</span></span>
+                    <span class="code-line">});</span>
+                </div>
+                <ul class="list-disc pr-6 text-sm text-slate-600 space-y-1">
+                    <li><code>Schema::create</code>: دالة تأخذ اسم الجدول كأول معامل (string)، ووظيفة مجهولة (Closure) كمعامل ثانٍ.</li>
+                    <li><code>Blueprint $table</code>: الكائن الذي يمثل الجدول. نستخدمه لإضافة الأعمدة.</li>
+                </ul>
+
+                <p class="text-slate-600 mt-4"><strong>شرح الأعمدة واحداً تلو الآخر:</strong></p>
+                <ul class="list-disc pr-6 text-sm text-slate-600 space-y-3">
+                    <li><code>$table->id()</code>: ينشئ عموداً اسمه <code>id</code> من نوع <code>BIGINT UNSIGNED AUTO_INCREMENT</code>. هذا هو المفتاح الأساسي. يرتبط مع <code>PRIMARY KEY</code> في SQL.</li>
+                    <li><code>$table->foreignId('user_id')</code>: ينشئ عموداً اسمه <code>user_id</code> من نوع <code>BIGINT UNSIGNED</code>. هذه هي البداية لإنشاء مفتاح أجنبي.</li>
+                    <li><code>->constrained()</code>: تخبر Laravel أن هذا العمود هو Foreign Key يشير إلى عمود <code>id</code> في جدول <code>users</code>. Laravel يستنتج اسم الجدول من اسم العمود: <code>user_id</code> → جدول <code>users</code>.</li>
+                    <li><code>->cascadeOnDelete()</code>: عند حذف مستخدم، تُحذف جميع مشاريعه تلقائياً. هذا يمنع وجود "مشاريع يتيمة" ليس لها مالك.</li>
+                    <li><code>$table->string('name')</code>: ينشئ عموداً من نوع <code>VARCHAR(255)</code>. مناسب لأسماء المشاريع.</li>
+                    <li><code>$table->text('description')->nullable()</code>: ينشئ عموداً من نوع <code>TEXT</code> (نص طويل). <code>nullable()</code> يعني أن هذا العمود يمكن أن يكون NULL (فارغاً).</li>
+                    <li><code>$table->string('status')->default('pending')</code>: عمود نصي بقيمة افتراضية <code>'pending'</code>. عندما يُنشأ مشروع جديد، إن لم نحدد حالة، ستصبح <code>pending</code> تلقائياً.</li>
+                    <li><code>$table->date('deadline')->nullable()</code>: عمود تاريخ (YYYY-MM-DD). اختياري: يمكن أن يكون المشروع بدون تاريخ تسليم.</li>
+                    <li><code>$table->timestamps()</code>: دالة خاصة تنشئ عمودين: <code>created_at</code> و <code>updated_at</code> من نوع <code>TIMESTAMP</code>. Laravel يملؤهما تلقائياً.</li>
+                    <li><code>$table->softDeletes()</code>: ينشئ عموداً اسمه <code>deleted_at</code> من نوع <code>TIMESTAMP</code>. عند "حذف" سجل، نضع التاريخ هنا بدلاً من حذفه فعلياً.</li>
+                </ul>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-8">2. شرح Seeder مع Factory:</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// في ProjectSeeder.php</span></span>
+                    <span class="code-line">Project::<span class="code-php">factory</span>()          <span class="code-comment">// نصل إلى Factory المرتبط بنموذج Project</span></span>
+                    <span class="code-line">    -><span class="code-php">count</span>(20)              <span class="code-comment">// نحدد عدد السجلات: 20 مشروعاً</span></span>
+                    <span class="code-line">    -><span class="code-php">create</span>();              <span class="code-comment">// ننفذ عملية الإنشاء والحفظ في قاعدة البيانات</span></span>
+                </div>
+                <p class="text-sm text-slate-600 mt-2">هذا الكود: (1) يأخذ Factory النموذج Project، (2) يحدد أننا نريد 20 نسخة، (3) ينشئها ويحفظها في قاعدة البيانات. كل مشروع سيأخذ قيماً عشوائية من Factory.</p>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">3. شرح Factory بالتفصيل:</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-keyword">return</span> [</span>
+                    <span class="code-line">    <span class="code-string">'name'</span> => <span class="code-php">fake</span>()-><span class="code-php">sentence</span>(3),           <span class="code-comment">// fake() يعيد كائن Faker لتوليد بيانات وهمية</span></span>
+                    <span class="code-line">                                          <span class="code-comment">// sentence(3) يولد جملة من 3 كلمات بالإنكليزية</span></span>
+                    <span class="code-line">    <span class="code-string">'description'</span> => <span class="code-php">fake</span>()-><span class="code-php">paragraph</span>(2),    <span class="code-comment">// paragraph(2) يولد فقرتين</span></span>
+                    <span class="code-line">    <span class="code-string">'status'</span> => <span class="code-php">fake</span>()-><span class="code-php">randomElement</span>([...]), <span class="code-comment">// يختار قيمة عشوائية من المصفوفة</span></span>
+                    <span class="code-line">    <span class="code-string">'deadline'</span> => <span class="code-php">fake</span>()-><span class="code-php">dateTimeBetween</span>(...), <span class="code-comment">// تاريخ عشوائي بين تاريخين</span></span>
+                    <span class="code-line">];</span>
+                </div>
+                <p class="text-sm text-slate-600 mt-2">لاحظ أن Factory لا يحدد <code>user_id</code>. هذا لأننا سنحدده لاحقاً عند استدعاء Factory من Seeder باستخدام <code>forUser()</code>.</p>
+            </section>
+
+            <!-- Section 9: Expected Result -->
+            <section id="expected" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">النتيجة المتوقعة</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-6 rounded-2xl border-2 border-emerald-200 bg-emerald-50">
+                        <h4 class="font-bold text-emerald-800 mb-3">✅ بعد تنفيذ الخطوات:</h4>
+                        <ul class="space-y-2 text-sm text-emerald-700">
+                            <li>✓ 4 جداول جديدة في قاعدة البيانات: projects, tasks, teams, project_user</li>
+                            <li>✓ كل جدول يحتوي على الأعمدة المطلوبة مع أنواع بيانات صحيحة</li>
+                            <li>✓ المفاتيح الأجنبية (FK) تعمل وتربط الجداول ببعضها</li>
+                            <li>✓ 20 مشروعاً وهمياً في جدول projects (من Factory)</li>
+                            <li>✓ مستخدم افتراضي واحد على الأقل</li>
+                            <li>✓ مهام وهمية مرتبطة بالمشاريع</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 rounded-2xl border-2 border-sky-200 bg-sky-50">
+                        <h4 class="font-bold text-sky-800 mb-3">📂 الملفات التي سنستخدمها:</h4>
+                        <ul class="space-y-2 text-sm text-sky-700">
+                            <li><code>database/migrations/</code> - جميع ملفات Migrations</li>
+                            <li><code>database/seeders/</code> - جميع ملفات Seeders</li>
+                            <li><code>database/factories/</code> - جميع ملفات Factories</li>
+                            <li><code>database/seeders/DatabaseSeeder.php</code> - المدير الرئيسي</li>
+                            <li><code>.env</code> - إعدادات الاتصال بقاعدة البيانات</li>
+                        </ul>
                     </div>
                 </div>
             </section>
 
+            <!-- Section 10: Common Errors -->
+            <section id="errors" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">الأخطاء الشائعة وكيفية حلها</h2>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 1: "Table already exists" عند تشغيل migrate</h4>
+                    <p class="text-rose-600 text-sm">السبب: حاولت تشغيل <code>php artisan migrate</code> والجدول موجود بالفعل (ربما من تشغيل سابق).</p>
+                    <p class="text-rose-500 text-xs mt-2">الحل: استخدم <code>php artisan migrate:fresh</code> لحذف جميع الجداول وإعادة إنشائها. أو <code>php artisan migrate:rollback</code> ثم <code>php artisan migrate</code>.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 2: "SQLSTATE[23000]: Integrity constraint violation" (انتهاك المفتاح الأجنبي)</h4>
+                    <p class="text-rose-600 text-sm">السبب: تحاول إضافة سجل يشير إلى مفتاح أجنبي بقيمة غير موجودة في الجدول الأصلي. مثلاً، تحاول إضافة مشروع <code>user_id = 99</code> ولا يوجد مستخدم بهذا الرقم.</p>
+                    <p class="text-rose-500 text-xs mt-2">الحل: تأكد من ترتيب Seeders - أنشئ المستخدمين أولاً، ثم المشاريع. أو استخدم Factory's <code>forUser()</code> الذي يختار مستخدمين موجودين فعلاً.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 3: "Class Database\Seeders\XSeeder not found"</h4>
+                    <p class="text-rose-600 text-sm">السبب: نسيت تسجيل الـ Seeder في <code>DatabaseSeeder.php</code>، أو اسم الـ Seeder خطأ.</p>
+                    <p class="text-rose-500 text-xs mt-2">الحل: تأكد من إضافة <code>$this->call([XSeeder::class])</code> في <code>DatabaseSeeder.php</code>، وتأكد من تطابق اسم الملف مع اسم الكلاس.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 4: "Unknown column type" أو خطأ في نوع العمود</h4>
+                    <p class="text-rose-600 text-sm">السبب: استخدام نوع عمود غير موجود في Laravel أو MySQL، أو خطأ إملائي في اسم الدالة (مثلاً <code>stirng</code> بدلاً من <code>string</code>).</p>
+                    <p class="text-rose-500 text-xs mt-2">الحل: استخدم دالة موجودة. راجع جدول الأنواع في هذا الدرس. أشهر الأخطاء الإملائية: <code>stirng</code> بدلاً من <code>string</code>، <code>foregnId</code> بدلاً من <code>foreignId</code>.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 5: فشل الاتصال بقاعدة البيانات "SQLSTATE[HY000] [1045]"</h4>
+                    <p class="text-rose-600 text-sm">السبب: إعدادات <code>.env</code> غير صحيحة - اسم قاعدة بيانات، اسم مستخدم، أو كلمة مرور خاطئة.</p>
+                    <p class="text-rose-500 text-xs mt-2">الحل: تأكد من صحة إعدادات <code>DB_DATABASE</code>، <code>DB_USERNAME</code>، <code>DB_PASSWORD</code> في ملف <code>.env</code>. تأكد أن MySQL شغال.</p>
+                </div>
+            </section>
+
+            <!-- Section 11: Summary -->
+            <section id="summary" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">📝 ملخص الدرس</h2>
+                <div class="bg-gradient-to-r from-indigo-50 to-sky-50 p-6 rounded-2xl border border-indigo-100">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">1</span>
+                            <div><span class="font-bold text-slate-900">Migrations</span><span class="text-slate-600"> هي ملفات PHP تصف تغييرات قاعدة البيانات. تسمح بتتبع التغييرات والتراجع عنها.</span></div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">2</span>
+                            <div><span class="font-bold text-slate-900">up()</span><span class="text-slate-600"> تنفذ التغيير (إنشاء جدول). <strong>down()</strong> تعكسه (حذف الجدول).</span></div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">3</span>
+                            <div><span class="font-bold text-slate-900">أوامر Artisan</span><span class="text-slate-600">: <code>make:migration</code> للإنشاء، <code>migrate</code> للتنفيذ، <code>migrate:rollback</code> للتراجع.</span></div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">4</span>
+                            <div><span class="font-bold text-slate-900">Seeders</span><span class="text-slate-600"> تضيف بيانات أولية. <strong>Factories</strong> تولد بيانات وهمية بكميات كبيرة باستخدام Faker.</span></div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">5</span>
+                            <div><span class="font-bold text-slate-900">أنواع الأعمدة</span><span class="text-slate-600">: id(), string(), text(), foreignId(), boolean(), enum(), date(), timestamps(), softDeletes().</span></div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">6</span>
+                            <div><span class="font-bold text-slate-900">التسلسل الصحيح</span><span class="text-slate-600">: Migrations ← Seeders → Factories → <code>db:seed</code>.</span></div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Navigation -->
             <div class="mt-12 flex justify-between gap-4">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-01/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-sky-600 px-8 py-4 text-white font-black hover:bg-sky-700 transition-all shadow-xl shadow-sky-100" href="../lesson-03/index.html">الدرس التالي: Eloquent Models ←</a>
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-03/lesson-01/index.html">← الدرس السابق: تصميم قواعد البيانات</a>
+                <a class="rounded-2xl bg-sky-600 px-8 py-4 text-white font-black hover:bg-sky-700 transition-all shadow-xl shadow-sky-100" href="../../week-03/lesson-03/index.html">الدرس التالي: Eloquent Models ←</a>
             </div>
         </article>
     </div>
 </main>
 
 <footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
-    © 2025 FlowPilot Academy. أنت الآن تبني هيكل بيانات احترافياً.
+    © 2025 FlowPilot Academy. الـ Migrations هي أساس أي تطبيق Laravel قوي.
 </footer>
 
 <script src="../../../assets/js/app.js"></script>

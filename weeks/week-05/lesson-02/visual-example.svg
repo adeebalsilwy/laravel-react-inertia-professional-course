@@ -1,1 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360"><rect width="900" height="360" rx="30" fill="#f8fafc"/><circle cx="150" cy="120" r="54" fill="#dbeafe"/><text x="150" y="128" text-anchor="middle" font-family="Tahoma" font-size="18" font-weight="700">طالب</text><rect x="280" y="70" width="180" height="100" rx="22" fill="#eef2ff" stroke="#6366f1"/><text x="370" y="112" text-anchor="middle" font-family="Tahoma" font-size="18" font-weight="700">يفهم الفكرة</text><text x="370" y="142" text-anchor="middle" font-family="Tahoma" font-size="13" fill="#64748b">شرح نظري واضح</text><rect x="520" y="70" width="180" height="100" rx="22" fill="#ecfeff" stroke="#06b6d4"/><text x="610" y="112" text-anchor="middle" font-family="Tahoma" font-size="18" font-weight="700">يطبق عملياً</text><text x="610" y="142" text-anchor="middle" font-family="Tahoma" font-size="13" fill="#64748b">خطوات وكود</text><rect x="360" y="220" width="220" height="88" rx="22" fill="#f0fdf4" stroke="#22c55e"/><text x="470" y="258" text-anchor="middle" font-family="Tahoma" font-size="18" font-weight="700">نتيجة داخل FlowPilot</text><text x="470" y="287" text-anchor="middle" font-family="Tahoma" font-size="13" fill="#64748b">صفحة أو ميزة قابلة للمشاهدة</text><path d="M205 120 H280" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M460 120 H520" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M610 170 C610 205 555 220 510 235" stroke="#0f172a" stroke-width="3" fill="none" marker-end="url(#a)"/><defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#0f172a"/></marker></defs><text x="450" y="35" text-anchor="middle" font-family="Tahoma" font-size="22" font-weight="700" fill="#111827">بناء لوحة مهام Kanban</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="300" viewBox="0 0 800 300">
+  <rect width="800" height="300" rx="20" fill="#f8fafc"/>
+  <text x="400" y="40" text-anchor="middle" font-family="Tajawal, Arial" font-size="20" font-weight="800" fill="#0f172a">من القائمة العادية إلى لوحة Kanban</text>
+
+  <!-- Before: Simple list -->
+  <rect x="20" y="70" width="350" height="210" rx="16" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+  <text x="195" y="100" text-anchor="middle" font-family="Tajawal, Arial" font-size="14" font-weight="700" fill="#dc2626">قائمة مهام عادية (قبل)</text>
+  <rect x="35" y="115" width="320" height="35" rx="6" fill="white" stroke="#fca5a5"/>
+  <text x="45" y="137" font-family="Tajawal, Arial" font-size="12" fill="#475569">□ تصميم الصفحة الرئيسية</text>
+  <rect x="35" y="158" width="320" height="35" rx="6" fill="white" stroke="#fca5a5"/>
+  <text x="45" y="180" font-family="Tajawal, Arial" font-size="12" fill="#475569">□ بناء API للمستخدمين</text>
+  <rect x="35" y="201" width="320" height="35" rx="6" fill="white" stroke="#fca5a5"/>
+  <text x="45" y="223" font-family="Tajawal, Arial" font-size="12" fill="#475569">□ إعداد قاعدة البيانات</text>
+  <rect x="35" y="242" width="320" height="25" rx="6" fill="white" stroke="#fca5a5"/>
+  <text x="45" y="259" font-family="Tajawal, Arial" font-size="11" fill="#94a3b8">... المهام مختلطة، لا تعرف أيهم بدأت</text>
+
+  <!-- Arrow -->
+  <path d="M380 175 L410 175" stroke="#0f172a" stroke-width="3" marker-end="url(#arr)"/>
+
+  <!-- After: Kanban -->
+  <rect x="420" y="70" width="360" height="210" rx="16" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+  <text x="600" y="100" text-anchor="middle" font-family="Tajawal, Arial" font-size="14" font-weight="700" fill="#16a34a">لوحة Kanban (بعد)</text>
+
+  <!-- Mini Kanban columns -->
+  <rect x="432" y="112" width="108" height="155" rx="8" fill="#fff7ed" stroke="#f97316"/>
+  <text x="486" y="132" text-anchor="middle" font-family="Tajawal, Arial" font-size="10" font-weight="700" fill="#c2410c">معلق</text>
+  <rect x="438" y="140" width="96" height="30" rx="6" fill="white" stroke="#fed7aa"/>
+  <text x="444" y="158" font-family="Tajawal, Arial" font-size="9" fill="#475569">تصميم</text>
+  <rect x="438" y="175" width="96" height="30" rx="6" fill="white" stroke="#fed7aa"/>
+  <text x="444" y="193" font-family="Tajawal, Arial" font-size="9" fill="#475569">تقرير</text>
+  <rect x="438" y="210" width="96" height="30" rx="6" fill="white" stroke="#fed7aa"/>
+  <text x="444" y="228" font-family="Tajawal, Arial" font-size="9" fill="#475569">مراجعة</text>
+
+  <rect x="548" y="112" width="108" height="155" rx="8" fill="#eff6ff" stroke="#3b82f6"/>
+  <text x="602" y="132" text-anchor="middle" font-family="Tajawal, Arial" font-size="10" font-weight="700" fill="#1d4ed8">قيد التنفيذ</text>
+  <rect x="554" y="140" width="96" height="30" rx="6" fill="white" stroke="#bfdbfe"/>
+  <text x="560" y="158" font-family="Tajawal, Arial" font-size="9" fill="#475569">API</text>
+  <rect x="554" y="175" width="96" height="30" rx="6" fill="white" stroke="#bfdbfe"/>
+  <text x="560" y="193" font-family="Tajawal, Arial" font-size="9" fill="#475569">اختبار</text>
+
+  <rect x="664" y="112" width="108" height="155" rx="8" fill="#f0fdf4" stroke="#22c55e"/>
+  <text x="718" y="132" text-anchor="middle" font-family="Tajawal, Arial" font-size="10" font-weight="700" fill="#15803d">مكتمل</text>
+  <rect x="670" y="140" width="96" height="30" rx="6" fill="white" stroke="#bbf7d0"/>
+  <text x="676" y="158" font-family="Tajawal, Arial" font-size="9" fill="#475569">✓ قاعدة بيانات</text>
+  <rect x="670" y="175" width="96" height="30" rx="6" fill="white" stroke="#bbf7d0"/>
+  <text x="676" y="193" font-family="Tajawal, Arial" font-size="9" fill="#475569">✓ أدوات</text>
+
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#0f172a"/></marker>
+  </defs>
+</svg>

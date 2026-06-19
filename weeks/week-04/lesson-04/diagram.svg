@@ -1,1 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="240" viewBox="0 0 900 240"><defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#0f172a"/></marker></defs><rect width="900" height="240" rx="28" fill="#ffffff"/><text x="450" y="40" text-anchor="middle" font-size="24" font-weight="700" font-family="Tahoma" fill="#111827">صفحة الملف الشخصي وإعدادات الحساب</text><rect x="40" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="105" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">الفكرة</text><rect x="210" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="275" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">Laravel</text><rect x="380" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="445" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">Inertia</text><rect x="550" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="615" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">React</text><rect x="720" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="785" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">FlowPilot</text><path d="M 170 115 L 205 115" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M 340 115 L 375 115" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M 510 115 L 545 115" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M 680 115 L 715 115" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><text x="450" y="205" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#64748b">مخطط مبسط يوضح انتقال الفكرة من الشرح النظري إلى التطبيق العملي داخل FlowPilot</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <rect width="800" height="400" fill="#fdf2f8" rx="20"/>
+  
+  <text x="400" y="40" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="bold" font-size="22" fill="#831843">تدفق تحديث الملف الشخصي</text>
+  
+  <!-- Step 1: User opens profile -->
+  <rect x="20" y="80" width="160" height="60" rx="10" fill="white" stroke="#f472b6" stroke-width="2"/>
+  <text x="100" y="115" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="bold" font-size="13" fill="#9d174d">المستخدم</text>
+  
+  <path d="M 180 110 L 220 110" stroke="#f472b6" stroke-width="2" marker-end="url(#ar_pink)"/>
+  
+  <!-- Step 2: Profile page -->
+  <rect x="230" y="70" width="160" height="80" rx="10" fill="#fce7f3" stroke="#f472b6" stroke-width="2"/>
+  <text x="310" y="100" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="bold" font-size="11" fill="#9d174d">صفحة الملف الشخصي</text>
+  <text x="310" y="122" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#be185d">Edit.jsx (React)</text>
+  
+  <path d="M 390 110 L 430 110" stroke="#f472b6" stroke-width="2" marker-end="url(#ar_pink)"/>
+  
+  <!-- Step 3: ProfileController -->
+  <rect x="440" y="70" width="160" height="80" rx="10" fill="white" stroke="#f472b6" stroke-width="2"/>
+  <text x="520" y="100" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="bold" font-size="11" fill="#9d174d">ProfileController</text>
+  <text x="520" y="120" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#be185d">update(Request)</text>
+  
+  <path d="M 600 110 L 640 110" stroke="#f472b6" stroke-width="2" marker-end="url(#ar_pink)"/>
+  
+  <!-- Step 4: Validation + DB -->
+  <rect x="650" y="70" width="140" height="80" rx="10" fill="#fce7f3" stroke="#f472b6" stroke-width="2"/>
+  <text x="720" y="100" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="bold" font-size="11" fill="#9d174d">Validation</text>
+  <text x="720" y="120" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#be185d">قاعدة البيانات</text>
+  
+  <!-- Arrow back with success -->
+  <path d="M 720 150 L 720 220 L 310 220 L 310 150" stroke="#22c55e" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#ar_green)"/>
+  <text x="510" y="240" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="12" fill="#15803d">إعادة توجيه مع رسالة نجاح Flash</text>
+  
+  <!-- Failure path -->
+  <path d="M 520 150 L 520 270 L 310 270 L 310 150" stroke="#ef4444" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#ar_red)"/>
+  <text x="400" y="290" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#dc2626">خطأ Validation → إعادة مع رسائل errors</text>
+  
+  <!-- Details section -->
+  <text x="400" y="340" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="12" fill="#64748b">يستخدم useForm من Inertia لإرسال طلب PUT مع CSRF protection تلقائي</text>
+  
+  <defs>
+    <marker id="ar_pink" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#f472b6"/></marker>
+    <marker id="ar_green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#22c55e"/></marker>
+    <marker id="ar_red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#ef4444"/></marker>
+  </defs>
+</svg>

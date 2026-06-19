@@ -3,26 +3,169 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 15: حماية المسارات</title>
+    <title>واجب الدرس 15: تطبيق Middleware | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .step-box { border-right: 4px solid #8b5cf6; background: #f8fafc; padding: 1.5rem; border-radius: 1rem; margin-bottom: 1.5rem; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
-<main class="mx-auto max-w-3xl px-4 py-12">
-    <div class="card p-12 space-y-8">
-        <h1 class="text-3xl font-black text-center text-indigo-600">واجب حماية الخصوصية</h1>
-        <div class="space-y-6 text-right">
-            <h3 class="font-black text-xl">المطلوب:</h3>
-            <ol class="list-decimal pr-6 space-y-4 font-bold text-slate-700">
-                <li>قم بوضع مسار <code>/dashboard</code> داخل مجموعة Middleware الـ <code>auth</code>.</li>
-                <li>حاول زيارة الرابط وأنت غير مسجل دخول. ماذا يحدث؟</li>
-                <li>سجل دخولك وحاول الزيارة مجدداً. هل نجحت؟</li>
-            </ol>
-        </div>
+<body class="bg-slate-50 text-slate-900">
+
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
+</header>
+
+<main class="mx-auto max-w-4xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة لشرح الدرس</a>
+    
+    <section class="space-y-8">
+        <div class="card p-8 bg-gradient-to-br from-violet-600 to-indigo-800 text-white shadow-xl shadow-violet-100 rounded-3xl">
+            <h1 class="text-3xl font-black">واجب الدرس 15: تطبيق Middleware في FlowPilot</h1>
+            <p class="mt-4 text-violet-100 leading-relaxed italic text-lg">
+                "اليوم نضيف طبقة حماية إضافية. كل طلب سيمر عبر نقطة تفتيش تتأكد من هوية المستخدم وصلاحياته."
+            </p>
+        </div>
+
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3">
+                <span class="w-10 h-10 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center text-sm font-black">01</span>
+                الهدف من الواجب
+            </h2>
+            <p class="text-slate-600 leading-relaxed">
+                إنشاء Middleware مخصص اسمه <code>CheckProjectAccess</code> يمنع المستخدمين من الوصول إلى مشاريع لا يملكونها. سنطبقه على مسارات المشاريع في FlowPilot بالإضافة إلى <code>auth</code> Middleware.
+            </p>
+        </section>
+
+        <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-violet-600">
+                <span class="w-10 h-10 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center text-sm font-black">02</span>
+                خطوات التنفيذ بالتفصيل
+            </h2>
+            
+            <div class="step-box">
+                <h4 class="font-black text-lg text-violet-700">1. إنشاء Middleware مخصص</h4>
+                <div class="bg-slate-900 rounded-xl p-4 font-mono text-sm text-amber-400 mt-2 text-left">
+                    <span>php artisan make:middleware CheckProjectAccess</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">📌 <strong>الملف الناتج:</strong> <code>app/Http/Middleware/CheckProjectAccess.php</code></p>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-violet-700">2. كتابة منطق الفحص في Middleware</h4>
+                <p class="text-sm text-slate-600 mt-2">افتح الملف واكتب الكود التالي داخل الدالة <code>handle()</code>:</p>
+                <div class="bg-slate-900 rounded-xl p-4 font-mono text-sm text-green-400 mt-2 text-left">
+                    <span>$user = $request-&gt;user();</span><br>
+                    <span>$projectId = $request-&gt;route('project');</span><br>
+                    <span>$project = Project::find($projectId);</span><br>
+                    <span> </span><br>
+                    <span>if (!$project) {</span><br>
+                    <span>    abort(404, 'المشروع غير موجود');</span><br>
+                    <span>}</span><br>
+                    <span> </span><br>
+                    <span>if ($user-&gt;id !== $project-&gt;user_id && </span><br>
+                    <span>    !$project-&gt;members()-&gt;where('user_id', $user-&gt;id)-&gt;exists()) {</span><br>
+                    <span>    abort(403, 'ليس لديك صلاحية الوصول لهذا المشروع');</span><br>
+                    <span>}</span><br>
+                    <span> </span><br>
+                    <span>return $next($request);</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">📌 <strong>تذكر:</strong> أضف <code>use App\Models\Project;</code> في أعلى الملف.</p>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-violet-700">3. تسجيل Middleware في Kernel.php</h4>
+                <p class="text-sm text-slate-600 mt-2">افتح <code>app/Http/Kernel.php</code> وأضف السطر التالي في مصفوفة <code>$middlewareAliases</code>:</p>
+                <div class="bg-slate-900 rounded-xl p-4 font-mono text-sm text-purple-400 mt-2 text-left">
+                    <span>'check.project' =&gt; \App\Http\Middleware\CheckProjectAccess::class,</span>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-violet-700">4. تطبيق Middleware على مسارات المشاريع</h4>
+                <p class="text-sm text-slate-600 mt-2">في <code>routes/web.php</code>:</p>
+                <div class="bg-slate-900 rounded-xl p-4 font-mono text-sm text-indigo-400 mt-2 text-left">
+                    <span>Route::middleware(['auth'])-&gt;group(function () {</span><br>
+                    <span>    Route::resource('projects', ProjectController::class)</span><br>
+                    <span>        -&gt;middleware(['check.project']);</span><br>
+                    <span>});</span>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-violet-700">5. اختبار Middleware</h4>
+                <p class="text-sm text-slate-600 mt-2">أنشئ مستخدمين اثنين (أحمد وسارة). سجل بأحمد وأنشئ مشروعاً. سجل الخروج وسجل بسارة. حاول فتح <code>/projects/1</code> (مشروع أحمد). يجب أن تظهر رسالة <strong>403 Forbidden</strong>.</p>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-violet-700">6. (تحدي) Middleware مع Parameter للتحقق من الدور</h4>
+                <p class="text-sm text-slate-600 mt-2">أنشئ Middleware باسم <code>CheckRole</code> يمكنه استقبال أدوار مسموح بها:</p>
+                <div class="bg-slate-900 rounded-xl p-4 font-mono text-sm text-cyan-400 mt-2 text-left">
+                    <span>// إنشاء Middleware</span><br>
+                    <span>php artisan make:middleware CheckRole</span><br>
+                    <span> </span><br>
+                    <span>// في CheckRole.php:</span><br>
+                    <span>public function handle(Request $request, Closure $next, ...$roles)</span><br>
+                    <span>{</span><br>
+                    <span>    if (!in_array($request-&gt;user()-&gt;role, $roles)) {</span><br>
+                    <span>        abort(403);</span><br>
+                    <span>    }</span><br>
+                    <span>    return $next($request);</span><br>
+                    <span>}</span><br>
+                    <span> </span><br>
+                    <span>// التسجيل في Kernel:</span><br>
+                    <span>'role' =&gt; \App\Http\Middleware\CheckRole::class,</span><br>
+                    <span> </span><br>
+                    <span>// الاستخدام:</span><br>
+                    <span>Route::get('/admin', [AdminController::class, 'index'])</span><br>
+                    <span>    -&gt;middleware('role:admin,manager');</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black text-sky-600">📂 الملفات المطلوب مراجعتها</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="p-4 rounded-xl bg-slate-50 border"><p class="font-bold text-slate-900">app/Http/Middleware/CheckProjectAccess.php</p><p class="text-xs text-slate-500">Middleware المخصص لفحص صلاحية المشروع</p></div>
+                <div class="p-4 rounded-xl bg-slate-50 border"><p class="font-bold text-slate-900">app/Http/Kernel.php</p><p class="text-xs text-slate-500">تسجيل الـ Middleware في aliases</p></div>
+                <div class="p-4 rounded-xl bg-slate-50 border"><p class="font-bold text-slate-900">routes/web.php</p><p class="text-xs text-slate-500">تطبيق middleware على المسارات</p></div>
+                <div class="p-4 rounded-xl bg-slate-50 border"><p class="font-bold text-slate-900">app/Http/Middleware/CheckRole.php</p><p class="text-xs text-slate-500">(تحدي) Middleware مع parameter</p></div>
+            </div>
+        </section>
+
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black text-emerald-600">📋 معايير التقييم</h2>
+            <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                <li>✅ إنشاء CheckProjectAccess Middleware.</li>
+                <li>✅ تسجيله في Kernel.php في <code>$middlewareAliases</code>.</li>
+                <li>✅ تطبيقه على مسارات المشاريع في routes/web.php.</li>
+                <li>✅ المستخدم غير المالك يحصل على 403 عند محاولة فتح مشروع غيره.</li>
+                <li>✅ المستخدم المالك يمكنه الوصول لمشروعه بدون مشاكل.</li>
+                <li>✅ [تحدي] إنشاء CheckRole Middleware مع parameter.</li>
+            </ul>
+        </section>
+
+        <div class="p-8 rounded-[2rem] bg-gradient-to-br from-slate-900 to-violet-900 text-white space-y-4">
+            <h3 class="text-xl font-black">🚀 تحدي إضافي: سلسلة Middleware متعددة</h3>
+            <p class="text-slate-300 text-sm">طبق 3 Middleware على مسار واحد:<br>
+            1. <code>auth</code> - يتأكد من تسجيل الدخول.<br>
+            2. <code>verified</code> - يتأكد من توثيق البريد (يتطلب تفعيل <code>MustVerifyEmail</code> في User model).<br>
+            3. <code>check.project</code> - يتأكد من صلاحية الوصول للمشروع.<br>
+            اختبر النتيجة. ماذا يحدث إذا فشل أحدهم؟</p>
+        </div>
+    </section>
 </main>
+
+<footer class="mt-24 border-t bg-white py-12 text-center text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. كلما زادت طبقات الحماية، زادت ثقة المستخدم.
+</footer>
+
+<script src="../../../assets/js/app.js"></script>
 </body>
 </html>

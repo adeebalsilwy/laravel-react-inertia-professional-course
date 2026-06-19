@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 7: فهم مكونات React وتقسيم الواجهة</title>
+    <title>الدرس 7: فهم مكونات React وتقسيم الواجهة | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,13 +13,19 @@
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
         .step-card { border-right: 4px solid #10b981; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .code-line { display: block; padding: 0.1rem 0; }
+        .error-box { background: #fef2f2; border-right: 4px solid #ef4444; padding: 1rem; border-radius: 1rem; margin-bottom: 1rem; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../index.html">الرئيسية</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/curriculum.html">الفهرس</a>
+        </nav>
     </div>
 </header>
 
@@ -27,12 +33,17 @@
     <div class="grid lg:grid-cols-4 gap-8">
         <aside class="hidden lg:block">
             <div class="sidebar-sticky space-y-4">
-                <a class="font-black text-emerald-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الثاني</a>
+                <a class="font-black text-emerald-700 hover:underline block mb-6 text-sm" href="../index.html">← العودة للأسبوع الثاني</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-emerald-50 text-emerald-700" href="#intro">مفهوم الـ Component</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">لماذا نقسم الواجهة؟</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال السيارة</a>
+                    <a class="block p-3 rounded-xl bg-emerald-50 text-emerald-700" href="#importance">لماذا هذا الدرس مهم؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">الشرح النظري</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#analogy">مثال من الحياة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">في مشروع FlowPilot</a>
                     <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#code">شرح الكود</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">الأخطاء الشائعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#visuals">المخططات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#summary">الملخص</a>
                 </div>
             </div>
         </aside>
@@ -40,80 +51,472 @@
         <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
             <section class="border-b pb-8 mb-12">
                 <span class="px-3 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-bold text-xs uppercase tracking-widest">الأسبوع 2 · الدرس 3</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">مكونات React (Components): بناء تطبيقك كقطع تركيب</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"لا تبنِ صفحة كاملة دفعة واحدة، بل ابنِ قطعاً صغيرة واجمعها لتصنع تحفة برمجية."</p>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">مكونات React (Components): تقسيم الواجهة إلى قطع صغيرة قابلة لإعادة الاستخدام</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"لا تبنِ صفحة كاملة دفعة واحدة. ابنِ قطعاً صغيرة كقطع الليغو، ثم اجمعها لتصنع تحفة برمجية."</p>
             </section>
 
-            <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">ما هو الـ Component؟</h2>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    المكون (Component) هو عبارة عن "قطعة" صغيرة من واجهة المستخدم لها وظيفة وشكل محدد. تخيل الزر، أو حقل الإدخال، أو بطاقة المشروع (Project Card). كل واحد من هذه العناصر هو مكون مستقل.
-                </p>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    في FlowPilot، بدلاً من كتابة كود جدول المهام في كل مكان، سنصنع مكوناً اسمه <code>TaskTable</code> ونستخدمه في أي صفحة نحتاجها بكلمة واحدة فقط!
-                </p>
+            <section id="importance" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">🔍 لماذا هذا الدرس مهم؟</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed text-lg">
+                    <p>في الدروس السابقة، كنا نكتب كل الكود داخل صفحة واحدة (مثل Dashboard.jsx). لكن مع نمو التطبيق، ستصبح هذه الملفات ضخمة جداً (1000+ سطر) ويصعب فهمها.</p>
+                    <p><strong>المكونات (Components)</strong> هي الحل. بدلاً من ملف واحد ضخم، نقسّم الواجهة إلى قطع صغيرة، كل قطعة لها وظيفة محددة. كل قطعة تسمى <strong>"مكون" (Component)</strong>.</p>
+                    <p>مثلاً: زر "حفظ" هو مكون، بطاقة مشروع هي مكون، شريط البحث هو مكون. كل مكون يُكتب في ملف منفصل ويمكن استخدامه في أي صفحة.</p>
+                    <p>هذا الدرس هو <strong>أهم درس في React</strong> لأن كل شيء في React عبارة عن مكونات!</p>
+                </div>
             </section>
 
-            <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">لماذا نقسم الواجهة إلى أجزاء؟</h2>
-                <div class="space-y-4 text-slate-600 leading-relaxed">
-                    <p>هناك ثلاثة أسباب رئيسية تجعلنا نستخدم المكونات:</p>
-                    <ul class="list-disc pr-6 space-y-2">
-                        <li><strong>إعادة الاستخدام:</strong> تصمم الزر مرة واحدة وتستخدمه في مئات الصفحات.</li>
-                        <li><strong>سهولة الصيانة:</strong> إذا أردت تغيير لون كل الأزرار، تعدل ملفاً واحداً فقط.</li>
-                        <li><strong>تنظيم الكود:</strong> بدلاً من ملف واحد يحتوي على 1000 سطر، سيكون لديك 10 ملفات صغيرة، كل واحد منها سهل الفهم.</li>
+            <section id="theory" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">📚 الشرح النظري المفصل</h2>
+                <div class="space-y-6 text-slate-600 leading-relaxed text-lg">
+
+                    <div class="p-6 rounded-2xl bg-indigo-50 border border-indigo-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">ما هو المكون (Component)؟</h3>
+                        <p>المكون هو <strong>دالة JavaScript</strong> تعيد (return) كود JSX (يشبه HTML). كل مكون يمثل جزءاً من واجهة المستخدم.</p>
+                        <div class="bg-slate-900 text-green-400 rounded-xl p-4 font-mono text-sm mt-3 text-left overflow-x-auto">
+                            <span class="code-line">function WelcomeMessage() {</span>
+                            <span class="code-line">&nbsp;&nbsp;return &lt;h1&gt;مرحباً بك في FlowPilot!&lt;/h1&gt;;</span>
+                            <span class="code-line">}</span>
+                        </div>
+                        <p class="mt-2 text-sm">ملاحظة: اسم المكون يبدأ <strong>بحرف كبير</strong> (WelcomeMessage وليس welcomeMessage). هذا ليس مجرد تقليد - React تعتبر المكونات التي تبدأ بحرف كبير كمكونات حقيقية.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-blue-50 border border-blue-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">Props: إرسال البيانات إلى المكونات</h3>
+                        <p><strong>Props</strong> (اختصار لـ Properties - خصائص) هي طريقة إرسال البيانات من مكون أب (Parent) إلى مكون ابن (Child).</p>
+                        <p>تخيل أنك تطلب بيتزا: أنت (المكون الأب) تقول للمطعم (المكون الابن): "أريد بيتزا بالجبنة". الـ Props هي "الجبنة" - أي التعليمات أو البيانات التي ترسلها.</p>
+                        <div class="bg-slate-900 text-cyan-400 rounded-xl p-4 font-mono text-sm mt-3 text-left overflow-x-auto">
+                            <span class="code-line">// المكون الأب (Parent)</span>
+                            <span class="code-line">&lt;UserCard name="أحمد" age={25} isActive={true} /&gt;</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">// المكون الابن (Child)</span>
+                            <span class="code-line">function UserCard({ name, age, isActive }) {</span>
+                            <span class="code-line">&nbsp;&nbsp;return &lt;div&gt;{name} - {age} سنة&lt;/div&gt;;</span>
+                            <span class="code-line">}</span>
+                        </div>
+                        <p class="mt-2 text-sm"><strong>ملاحظة مهمة:</strong> Props هي "قراءة فقط" - لا يمكن للمكون الابن تغيير قيمة Prop. البيانات تتدفق في اتجاه واحد فقط: من الأب إلى الابن.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-purple-50 border border-purple-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">تقسيم المكونات (Component Composition)</h3>
+                        <p>المكونات يمكن أن تحتوي على مكونات أخرى. هذا يسمح لنا ببناء واجهات معقدة من قطع صغيرة.</p>
+                        <div class="bg-slate-900 text-pink-400 rounded-xl p-4 font-mono text-sm mt-3 text-left overflow-x-auto">
+                            <span class="code-line">function ProjectCard({ title, status, tasks }) {</span>
+                            <span class="code-line">&nbsp;&nbsp;return (</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="p-4 border rounded-xl"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h3&gt;{title}&lt;/h3&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;StatusBadge status={status} /&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TaskList tasks={tasks} /&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;);</span>
+                            <span class="code-line">}</span>
+                        </div>
+                        <p class="mt-2 text-sm">لاحظ كيف أن ProjectCard يستخدم مكونين آخرين: StatusBadge و TaskList. كل مكون مسؤول عن جزء محدد.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-amber-50 border border-amber-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">التكرار عبر المصفوفات (Mapping Arrays)</h3>
+                        <p>في FlowPilot، سنتعامل مع قوائم: قائمة المشاريع، قائمة المهام، قائمة أعضاء الفريق. لعرض قائمة، نستخدم دالة <code>map()</code> في JavaScript:</p>
+                        <div class="bg-slate-900 text-yellow-400 rounded-xl p-4 font-mono text-sm mt-3 text-left overflow-x-auto">
+                            <span class="code-line">const projects = [</span>
+                            <span class="code-line">&nbsp;&nbsp;{ id: 1, title: 'مشروع أ', status: 'نشط' },</span>
+                            <span class="code-line">&nbsp;&nbsp;{ id: 2, title: 'مشروع ب', status: 'مكتمل' },</span>
+                            <span class="code-line">&nbsp;&nbsp;{ id: 3, title: 'مشروع ج', status: 'قيد التطوير' },</span>
+                            <span class="code-line">];</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">{projects.map(project =&gt; (</span>
+                            <span class="code-line">&nbsp;&nbsp;&lt;ProjectCard key={project.id} project={project} /&gt;</span>
+                            <span class="code-line">))}</span>
+                        </div>
+                        <p class="mt-2 text-sm"><strong>key</strong>: كل عنصر في القائمة يحتاج إلى <code>key</code> فريد. React تستخدمه لتحديد أي عنصر تغير. استخدم id من قاعدة البيانات. لا تستخدم index المصفوفة أبداً!</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-teal-50 border border-teal-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">العرض الشرطي (Conditional Rendering)</h3>
+                        <p>أحياناً نريد عرض شيء فقط إذا تحقق شرط معين. مثلاً: عرض "لا توجد مشاريع" إذا كانت القائمة فارغة.</p>
+                        <div class="bg-slate-900 text-emerald-400 rounded-xl p-4 font-mono text-sm mt-3 text-left overflow-x-auto">
+                            <span class="code-line">// إذا كانت القائمة فارغة</span>
+                            <span class="code-line">{projects.length === 0 ? (</span>
+                            <span class="code-line">&nbsp;&nbsp;&lt;p className="text-slate-500"&gt;لا توجد مشاريع بعد.&lt;/p&gt;</span>
+                            <span class="code-line">) : (</span>
+                            <span class="code-line">&nbsp;&nbsp;{projects.map(project =&gt; &lt;ProjectCard /&gt;)}</span>
+                            <span class="code-line">)}</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">// أو بطريقة أسهل (&&)</span>
+                            <span class="code-line">{projects.length === 0 && &lt;p&gt;لا توجد مشاريع&lt;/p&gt;}</span>
+                        </div>
+                        <p class="mt-2 text-sm"><strong>شرح:</strong> <code>&&</code> تعني "إذا كان الشرط صحيحاً، اعرض العنصر". <code>?:</code> (Ternary) تعني "إذا كان صحيحاً اعرض هذا، وإلا اعرض ذاك".</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="analogy" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">🌍 مثال من الحياة اليومية</h2>
+                <div class="p-8 rounded-3xl bg-emerald-600 text-white shadow-xl shadow-emerald-100">
+                    <h3 class="text-2xl font-black mb-4">تشبيه "قطع الليغو (Lego)"</h3>
+                    <div class="space-y-4 text-emerald-50 leading-relaxed text-lg">
+                        <p>تخيل أنك تبني <strong>بيتاً من قطع الليغو</strong>:</p>
+                        <ul class="list-disc pr-6 space-y-3">
+                            <li><strong>كل قطعة ليغو</strong> هي "مكون" (Component). قطعة صغيرة، لها شكل ولون محدد.</li>
+                            <li><strong>قطعة الباب</strong> هي مكون. يمكنك استخدامها في أي بيت تبنيه. (مثل مكون StatusBadge).</li>
+                            <li><strong>قطعة النافذة</strong> هي مكون آخر. (مثل مكون ProjectCard).</li>
+                            <li><strong>البيت النهائي</strong> هو "الصفحة" التي تجمع كل هذه المكونات معاً.</li>
+                        </ul>
+                        <p class="mt-4 text-emerald-100 italic">المكونات في React تشبه قطع الليغو: كل قطعة تُصنع وتُختبر وحدها، ثم تُستخدم في تركيبات مختلفة. هذا يجعل بناء التطبيق أسرع وأكثر متعة!</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="flowpilot" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">🚀 كيف يخدم هذا الدرس مشروع FlowPilot؟</h2>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                    <p class="text-slate-600 leading-relaxed text-lg">في FlowPilot، سننشئ مكتبة من المكونات القابلة لإعادة الاستخدام:</p>
+                    <div class="grid md:grid-cols-2 gap-4 mt-4">
+                        <div class="p-4 bg-white rounded-xl border border-slate-100">
+                            <p class="font-bold text-indigo-700">📦 ProjectCard</p>
+                            <p class="text-sm text-slate-500">بطاقة لعرض مشروع (عنوان، حالة، تقدم)</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl border border-slate-100">
+                            <p class="font-bold text-emerald-700">🏷️ StatusBadge</p>
+                            <p class="text-sm text-slate-500">شارة ملونة لحالة (نشط، مكتمل، معلق)</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl border border-slate-100">
+                            <p class="font-bold text-amber-700">✅ TaskBadge</p>
+                            <p class="text-sm text-slate-500">عنصر مهمة مع checkbox</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl border border-slate-100">
+                            <p class="font-bold text-rose-700">📊 StatCard</p>
+                            <p class="text-sm text-slate-500">بطاقة إحصائية (عدد، عنوان، أيقونة)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="practice" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">⚡ التطبيق العملي خطوة بخطوة</h2>
+                <div class="space-y-12">
+
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء مكون ProjectCard</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> <code>resources/js/Components/ProjectCard.jsx</code></p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-green-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">export default function ProjectCard({ project }) {</span>
+                            <span class="code-line">&nbsp;&nbsp;const statusColors = {</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;'نشط': 'bg-green-100 text-green-700',</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;'مكتمل': 'bg-blue-100 text-blue-700',</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;'قيد التطوير': 'bg-amber-100 text-amber-700',</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;'معلق': 'bg-red-100 text-red-700',</span>
+                            <span class="code-line">&nbsp;&nbsp;};</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">&nbsp;&nbsp;return (</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="flex items-center justify-between mb-3"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h3 className="font-bold text-lg text-slate-900"&gt;{project.title}&lt;/h3&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span className={`px-3 py-1 rounded-full text-xs font-bold ${statusColors[project.status] || 'bg-slate-100 text-slate-600'}`}&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{project.status}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p className="text-slate-600 text-sm"&gt;{project.description}&lt;/p&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="mt-4 pt-4 border-t border-slate-100 flex justify-between text-sm text-slate-400"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;📅 {project.deadline || 'غير محدد'}&lt;/span&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;👤 {project.owner || 'غير معين'}&lt;/span&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;);</span>
+                            <span class="code-line">}</span>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: إنشاء مكون StatusBadge</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> <code>resources/js/Components/StatusBadge.jsx</code></p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-sky-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">export default function StatusBadge({ status }) {</span>
+                            <span class="code-line">&nbsp;&nbsp;const styles = {</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;'نشط': 'bg-emerald-100 text-emerald-700 border-emerald-200',</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;'مكتمل': 'bg-blue-100 text-blue-700 border-blue-200',</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;'معلق': 'bg-amber-100 text-amber-700 border-amber-200',</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;'ملغي': 'bg-red-100 text-red-700 border-red-200',</span>
+                            <span class="code-line">&nbsp;&nbsp;};</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">&nbsp;&nbsp;return (</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;span className={`px-3 py-1 rounded-full text-xs font-bold border ${styles[status] || 'bg-slate-100 text-slate-600 border-slate-200'}`}&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{status}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;);</span>
+                            <span class="code-line">}</span>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: إنشاء مكون TaskBadge مع عرض شرطي</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> <code>resources/js/Components/TaskBadge.jsx</code></p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">export default function TaskBadge({ task, onToggle }) {</span>
+                            <span class="code-line">&nbsp;&nbsp;return (</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task.completed ? 'bg-green-50 border-green-200 opacity-75' : 'bg-white border-slate-200'</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;}`}&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type="checkbox"</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;checked={task.completed}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;onChange={onToggle}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;className="w-5 h-5 rounded accent-emerald-600"</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span className={`flex-1 ${task.completed ? 'line-through text-slate-400' : 'text-slate-700 font-medium'}`}&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{task.title}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{task.completed ? '✅' : '⏳'}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;);</span>
+                            <span class="code-line">}</span>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: إنشاء مكون StatCard للإحصائيات</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> <code>resources/js/Components/StatCard.jsx</code></p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-amber-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">export default function StatCard({ title, value, icon, color }) {</span>
+                            <span class="code-line">&nbsp;&nbsp;const colors = {</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;indigo: 'bg-indigo-50 text-indigo-600 border-indigo-200',</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;emerald: 'bg-emerald-50 text-emerald-600 border-emerald-200',</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;amber: 'bg-amber-50 text-amber-600 border-amber-200',</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;rose: 'bg-rose-50 text-rose-600 border-rose-200',</span>
+                            <span class="code-line">&nbsp;&nbsp;};</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">&nbsp;&nbsp;return (</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className={`p-6 rounded-2xl border ${colors[color] || colors.indigo}`}&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="text-2xl mb-2"&gt;{icon}&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="text-3xl font-black"&gt;{value}&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="text-sm font-bold mt-1 opacity-80"&gt;{title}&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;);</span>
+                            <span class="code-line">}</span>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: استخدام المكونات في صفحة Dashboard</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> <code>resources/js/Pages/Dashboard.jsx</code></p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">import AppLayout from '../Layouts/AppLayout';</span>
+                            <span class="code-line">import ProjectCard from '../Components/ProjectCard';</span>
+                            <span class="code-line">import StatCard from '../Components/StatCard';</span>
+                            <span class="code-line">import TaskBadge from '../Components/TaskBadge';</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">const projects = [</span>
+                            <span class="code-line">&nbsp;&nbsp;{ id: 1, title: 'موقع الشركة', status: 'نشط', description: 'تصميم وتطوير الموقع الرسمي', deadline: '2026-07-15', owner: 'أحمد' },</span>
+                            <span class="code-line">&nbsp;&nbsp;{ id: 2, title: 'تطبيق الجوال', status: 'قيد التطوير', description: 'تطبيق Android و iOS', deadline: '2026-09-01', owner: 'سارة' },</span>
+                            <span class="code-line">&nbsp;&nbsp;{ id: 3, title: 'لوحة التحكم', status: 'مكتمل', description: 'واجهة إدارة النظام', deadline: '2026-05-01', owner: 'خالد' },</span>
+                            <span class="code-line">];</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">const tasks = [</span>
+                            <span class="code-line">&nbsp;&nbsp;{ id: 1, title: 'مراجعة التصميم', completed: true },</span>
+                            <span class="code-line">&nbsp;&nbsp;{ id: 2, title: 'اختبار الأداء', completed: false },</span>
+                            <span class="code-line">&nbsp;&nbsp;{ id: 3, title: 'توثيق API', completed: false },</span>
+                            <span class="code-line">];</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">export default function Dashboard() {</span>
+                            <span class="code-line">&nbsp;&nbsp;return (</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1 className="text-3xl font-black mb-6"&gt;لوحة التحكم&lt;/h1&gt;</span>
+<span class="code-line"> </span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{/* بطاقات الإحصائيات */}</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8"&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;StatCard title="إجمالي المشاريع" value="12" icon="📁" color="indigo" /&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;StatCard title="المهام المكتملة" value="45" icon="✅" color="emerald" /&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;StatCard title="أعضاء الفريق" value="8" icon="👥" color="amber" /&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+<span class="code-line"> </span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{/* قائمة المشاريع */}</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2 className="text-2xl font-bold mb-4"&gt;المشاريع الأخيرة&lt;/h2&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8"&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{projects.map(project =&gt; (</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ProjectCard key={project.id} project={project} /&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;))}</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+<span class="code-line"> </span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{/* قائمة المهام */}</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2 className="text-2xl font-bold mb-4"&gt;المهام&lt;/h2&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="space-y-2"&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{tasks.map(task =&gt; (</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TaskBadge key={task.id} task={task} /&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;))}</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;);</span>
+                            <span class="code-line">}</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">Dashboard.layout = page =&gt; &lt;AppLayout children={page} /&gt;;</span>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 6: استخدام العرض الشرطي - مثال "لا توجد بيانات"</h3>
+                        <p class="text-slate-600 mb-4">أضف هذا الكود في أي مكان تعرض فيه قائمة قد تكون فارغة:</p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-rose-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">{projects.length === 0 ? (</span>
+                            <span class="code-line">&nbsp;&nbsp;&lt;div className="text-center py-12"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;p className="text-4xl mb-4"&gt;📂&lt;/p&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;p className="text-slate-500 font-bold"&gt;لا توجد مشاريع بعد.&lt;/p&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;p className="text-slate-400 text-sm"&gt;أنشئ مشروعك الأول لتبدأ!&lt;/p&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">) : (</span>
+                            <span class="code-line">&nbsp;&nbsp;projects.map(project =&gt; &lt;ProjectCard key={project.id} project={project} /&gt;)</span>
+                            <span class="code-line">)}</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="code" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">📝 شرح الكود سطراً سطراً</h2>
+                <div class="space-y-8">
+                    <div class="p-6 rounded-2xl bg-slate-900">
+                        <h3 class="text-white font-black mb-4">تحليل ProjectCard.jsx</h3>
+                        <div class="font-mono text-sm text-left space-y-2">
+                            <div class="flex gap-4"><span class="text-gray-500 shrink-0 w-6">1</span><span class="text-code">export default function ProjectCard({ project }) {</span></div>
+                            <div class="flex gap-4"><span class="text-gray-500 shrink-0 w-6">2</span><span class="text-code">&nbsp;&nbsp;const statusColors = { ... };</span></div>
+                            <div class="flex gap-4"><span class="text-gray-500 shrink-0 w-6">8</span><span class="text-code">&nbsp;&nbsp;return ( ... );</span></div>
+                            <div class="flex gap-4"><span class="text-gray-500 shrink-0 w-6">9</span><span class="text-code">}</span></div>
+                        </div>
+                    </div>
+                    <div class="space-y-3 pr-4">
+                        <div class="border-r-4 border-indigo-500 pr-4">
+                            <p class="font-bold text-slate-900">السطر 1: <code>export default function ProjectCard({ project })</code></p>
+                            <p class="text-slate-600 text-sm"><code>export default</code> يعني أن هذا المكون هو "القطعة الرئيسية" التي سيتم استيرادها من هذا الملف. <code>{ project }</code> هو "تفكيك" (Destructuring) للـ Props - نستخرج قيمة <code>project</code> من Props مباشرة.</p>
+                        </div>
+                        <div class="border-r-4 border-indigo-500 pr-4">
+                            <p class="font-bold text-slate-900">السطر 2: <code>const statusColors = { 'نشط': 'bg-green-100...', ... }</code></p>
+                            <p class="text-slate-600 text-sm">هذه <strong>مصفوفة ترابطية (Object)</strong> تربط كل حالة بلون Tailwind. مثلاً عندما تكون الحالة 'نشط'، نستخدم الألوان الخضراء. هذا أفضل من جمل if/else الطويلة.</p>
+                        </div>
+                        <div class="border-r-4 border-indigo-500 pr-4">
+                            <p class="font-bold text-slate-900">السطر: <code>{statusColors[project.status] || 'bg-slate-100'}</code></p>
+                            <p class="text-slate-600 text-sm"><code>||</code> تعني "أو". إذا لم نجد الحالة في statusColors (مثلاً حالة جديدة لم نضفها)، نستخدم اللون الافتراضي (slate). هذا يمنع الخطأ.</p>
+                        </div>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-slate-900 mt-6">
+                        <h3 class="text-white font-black mb-4">تحليل استخدام map() مع key</h3>
+                        <div class="font-mono text-sm text-left space-y-2">
+                            <div class="flex gap-4"><span class="text-gray-500 shrink-0 w-6">1</span><span class="text-code">{projects.map(project =&gt; (</span></div>
+                            <div class="flex gap-4"><span class="text-gray-500 shrink-0 w-6">2</span><span class="text-code">&nbsp;&nbsp;&lt;ProjectCard key={project.id} project={project} /&gt;</span></div>
+                            <div class="flex gap-4"><span class="text-gray-500 shrink-0 w-6">3</span><span class="text-code">))}</span></div>
+                        </div>
+                    </div>
+                    <div class="pr-4">
+                        <div class="border-r-4 border-emerald-500 pr-4">
+                            <p class="font-bold text-slate-900">شرح map و key</p>
+                            <p class="text-slate-600 text-sm"><code>projects.map()</code> يمر على كل عنصر في مصفوفة projects ويعيد عنصر JSX جديد لكل واحد.</p>
+                            <p class="text-slate-600 text-sm"><code>key={project.id}</code> - كل عنصر يحتاج إلى مفتاح فريد. React تستخدمه لمعرفة أي العناصر تغيرت أو أضيفت أو حذفت. بدون <code>key</code>، React ستعيد رسم القائمة كلها (أداء سيء).</p>
+                            <p class="text-slate-600 text-sm"><code>project={project}</code> - نمرر كائن project كاملاً كـ Prop واحد. المكون ProjectCard يستقبل <code>{ project }</code> ويمكنه الوصول لـ project.title, project.status, إلخ.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">✅ النتيجة المتوقعة</h2>
+                <div class="p-6 rounded-2xl bg-green-50 border border-green-200">
+                    <p class="text-green-800 font-bold text-lg">بعد تطبيق المكونات، يجب أن ترى:</p>
+                    <ul class="list-disc pr-6 mt-4 space-y-2 text-green-700">
+                        <li>3 بطاقات إحصائيات (StatCard) في أعلى الصفحة: المشاريع، المهام، الفريق.</li>
+                        <li>3 بطاقات مشاريع (ProjectCard) في شبكة (Grid): كل بطاقة لها عنوان، وصف، تاريخ، مالك.</li>
+                        <li>كل مشروع له شارة حالة (StatusBadge) بلون مختلف: أخضر لنشط، أزرق لمكتمل، أصفر لقيد التطوير.</li>
+                        <li>قائمة مهام (TaskBadge) مع Checkbox: المهام المكتملة تظهر بخط متقطع وخلفية خضراء فاتحة.</li>
+                        <li>التصميم متجاوب: على الموبايل يظهر عمود واحد، على سطح المكتب 3 أعمدة.</li>
                     </ul>
                 </div>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-emerald-600 text-white shadow-xl shadow-indigo-100">
-                <h2 class="text-2xl font-black mb-4">مثال من حياتنا (السيارة)</h2>
-                <p class="text-indigo-50 leading-relaxed text-lg">
-                    تخيل <strong>السيارة</strong> كأنها تطبيق ويب. هل تُصنع السيارة كقطعة حديد واحدة صلبة؟ مستحيل! 
-                    <br><br>
-                    السيارة هي مجموعة من <strong>المكونات</strong>: المحرك، العجلات، المقاعد، المصابيح. كل قطعة تُصنع وتُختبر وحدها، ثم تُجمع معاً. إذا تعطل المصباح، لا نغير السيارة بالكامل، بل نغير "مكون المصباح" فقط!
-                </p>
-            </section>
-
-            <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">التطبيق العملي خطوة بخطوة</h2>
-
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء مكون البطاقة (Card)</h3>
-                    <p class="text-slate-600 mb-4"><strong>المكان:</strong> <code>resources/js/Components/ProjectCard.jsx</code></p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
-                        <p>export default function ProjectCard({ title, description }) {</p>
-                        <p>&nbsp;&nbsp;return (</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="p-4 border rounded shadow"&gt;</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h4 className="font-bold"&gt;{title}&lt;/h4&gt;</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;{description}&lt;/p&gt;</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</p>
-                        <p>&nbsp;&nbsp;);</p>
-                        <p>}</p>
+            <section id="errors" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">⚠️ الأخطاء الشائعة</h2>
+                <div class="space-y-4">
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 1: "Component is not defined" أو "is not exported from"</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> نسيت استيراد (import) المكون في الصفحة، أو اسم الملف خطأ.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> تأكد من أن <code>import ProjectCard from '../Components/ProjectCard'</code> صحيح. تحقق من اسم الملف وامتداده.</p>
+                    </div>
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 2: "Each child in a list should have a unique 'key' prop"</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> نسيت إضافة <code>key</code> عند استخدام <code>map()</code>.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> أضف <code>key={item.id}</code> إلى العنصر الذي تعيده من map. تجنب استخدام <code>key={index}</code> (رقم الترتيب).</p>
+                    </div>
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 3: Prop غير معرف (undefined) عند عرضه</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> أرسلت Prop باسم مختلف عما تتوقعه في المكون الابن.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> تأكد من تطابق اسم Prop في المكون الأب (مثلاً <code>project={p}</code>) مع اسمه في المكون الابن (<code>function Card({ project })</code>).</p>
+                    </div>
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 4: لا يظهر شيء (Nothing renders)</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> غالباً مشكلة في JSX - ربما نسيت <code>return</code> أو استخدمت أقواس معقوفة <code>{}</code> بدلاً من أقواس круглых <code>()</code>.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> تأكد من أن دالة المكون تعيد JSX: <code>const Card = () => ( &lt;div&gt;...&lt;/div&gt; )</code>.</p>
+                    </div>
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 5: المكونات تتداخل بشكل غريب (Layout breaking)</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> نسيان إضافة <code>key</code> في map أو استخدام كلاسات CSS غير صحيحة.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> استخدم أدوات المطور (F12) وتفقد العناصر. تأكد من أن كل مكون له هيكل HTML صحيح (div يُغلق بشكل صحيح).</p>
                     </div>
                 </div>
+            </section>
 
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: استدعاء المكون في الصفحة</h3>
-                    <p class="text-slate-600 mb-4">افتح ملف <code>Dashboard.jsx</code> واستخدم المكون الجديد.</p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-sky-400 overflow-x-auto mb-4 text-left">
-                        <p>import ProjectCard from '@/Components/ProjectCard';</p>
-                        <p>// داخل الـ return</p>
-                        <p>&lt;ProjectCard title="مشروع الموقع" description="تصميم الواجهة" /&gt;</p>
+            <section id="visuals" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">📊 مخططات توضيحية</h2>
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="diagram.svg" alt="مخطط المكونات" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">هيكل المكونات في تطبيق React</p>
+                    </div>
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="visual-example.svg" alt="تشبيه الليغو" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">تشبيه قطع الليغو للمكونات</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="summary" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">📋 ملخص الدرس</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-6 rounded-2xl bg-indigo-50 border border-indigo-100">
+                        <h3 class="font-black text-indigo-800 mb-3">المفاهيم الرئيسية</h3>
+                        <ul class="space-y-2 text-sm text-indigo-700">
+                            <li>🔹 <strong>Component</strong>: دالة JavaScript تعيد JSX (قطعة واجهة).</li>
+                            <li>🔹 <strong>Props</strong>: بيانات تُمرر من المكون الأب إلى المكون الابن.</li>
+                            <li>🔹 <strong>map()</strong>: دالة للتكرار على مصفوفة وعرض قائمة.</li>
+                            <li>🔹 <strong>key</strong>: مفتاح فريد لكل عنصر في القائمة.</li>
+                            <li>🔹 <strong>Conditional Rendering</strong>: عرض شيء فقط إذا تحقق شرط.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-emerald-50 border border-emerald-100">
+                        <h3 class="font-black text-emerald-800 mb-3">قواعد ذهبية</h3>
+                        <ul class="space-y-2 text-sm text-emerald-700">
+                            <li>🔸 اسم المكون يبدأ بحرف كبير: <code>ProjectCard</code>.</li>
+                            <li>🔸 Props هي "قراءة فقط" - لا تغيرها داخل المكون.</li>
+                            <li>🔸 كل عنصر في map يحتاج <code>key</code> فريد.</li>
+                            <li>🔸 مكون واحد = ملف واحد = مسؤولية واحدة.</li>
+                            <li>🔸 استخدم العرض الشرطي للحالات الفارغة.</li>
+                        </ul>
                     </div>
                 </div>
             </section>
 
             <div class="mt-12 flex justify-between gap-4">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-02/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-emerald-600 px-8 py-4 text-white font-black hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-100" href="../lesson-04/index.html">الدرس التالي: تصميم الـ Dashboard ←</a>
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all text-sm" href="../../week-02/lesson-02/index.html">← الدرس السابق: بناء الـ Layout</a>
+                <a class="rounded-2xl bg-emerald-600 px-8 py-4 text-white font-black hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-100 text-sm" href="../../week-02/lesson-04/index.html">الدرس التالي: تصميم الـ Dashboard ←</a>
+            </div>
+
+            <div class="mt-8 flex gap-4 justify-center">
+                <a class="rounded-xl bg-indigo-600 px-6 py-3 text-white font-bold hover:bg-indigo-700 transition-all text-sm" href="assignment.html">📄 عرض الواجب</a>
+                <a class="rounded-xl bg-amber-600 px-6 py-3 text-white font-bold hover:bg-amber-700 transition-all text-sm" href="quiz.html">📝 اختبار فهمك</a>
             </div>
         </article>
     </div>
 </main>
 
-<footer class="mt-24 border-t bg-white text-center py-8 text-slate-400 text-sm font-medium">
-    © 2025 FlowPilot Academy. ابنِ بذكاء، ابنِ بمكونات.
+<footer class="mt-24 border-t bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-8 text-center text-slate-400 text-sm font-medium">
+        © 2026 FlowPilot Academy. ابنِ تطبيقك قطعة قطعة.
+    </div>
 </footer>
 
 <script src="../../../assets/js/app.js"></script>

@@ -3,27 +3,148 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 8: تصميم الـ Dashboard</title>
+    <title>واجب الدرس 8: تصميم الـ Dashboard | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .step-num { width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.1rem; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
-<main class="mx-auto max-w-3xl px-4 py-12 text-center">
-    <div class="card p-12 space-y-8 shadow-2xl">
-        <h1 class="text-3xl font-black">واجب تصميم لوحة التحكم</h1>
-        <p class="text-slate-600">"حان الوقت لبناء أول صفحة حقيقية يراها مستخدم FlowPilot."</p>
-        <div class="text-right space-y-6 bg-slate-50 p-8 rounded-3xl">
-            <h3 class="font-black text-xl text-indigo-700 font-black">تحدي التصميم:</h3>
-            <ul class="list-disc pr-6 space-y-3 font-medium">
-                <li>استخدم نظام الشبكة (Grid) في Tailwind لعرض 3 بطاقات إحصائيات.</li>
-                <li>أضف عنواناً كبيراً: "أهلاً بك يا [اسم المستخدم]".</li>
-                <li>تأكد من أن الصفحة متجاوبة (Responsive) وتعمل جيداً على الموبايل.</li>
-            </ul>
-        </div>
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../index.html">الرئيسية</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/curriculum.html">الفهرس</a>
+        </nav>
     </div>
+</header>
+<main class="mx-auto max-w-4xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8 text-sm" href="index.html">← العودة لشرح الدرس</a>
+    <section class="space-y-8">
+        <div class="card p-8 bg-gradient-to-l from-emerald-600 to-emerald-700 text-white shadow-xl rounded-3xl">
+            <h1 class="text-3xl font-black">🏆 واجب الدرس 8: بناء Dashboard FlowPilot</h1>
+            <p class="mt-4 text-emerald-100 leading-relaxed italic text-lg">"الواجب الختامي للأسبوع الثاني - حان الوقت لبناء أول صفحة حقيقية لمستخدم FlowPilot."</p>
+        </div>
+
+        <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-indigo-600">
+                <span class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">🎯</span>
+                الهدف
+            </h2>
+            <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                <li>إنشاء DashboardController وجلب البيانات الوهمية.</li>
+                <li>تعريف مسار /dashboard في web.php.</li>
+                <li>إنشاء صفحة Dashboard.jsx متكاملة مع Layout.</li>
+                <li>عرض إحصائيات وقائمة مشاريع.</li>
+                <li>جعل التصميم متجاوباً (Responsive).</li>
+            </ul>
+        </section>
+
+        <section class="card p-8 md:p-10 space-y-8 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-emerald-600">
+                <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">📋</span>
+                خطوات الواجب
+            </h2>
+
+            <div class="flex gap-4 items-start">
+                <div class="step-num bg-emerald-100 text-emerald-700 shrink-0 mt-1">1</div>
+                <div>
+                    <h4 class="font-black text-slate-900 text-lg">إنشاء DashboardController</h4>
+                    <p class="text-sm text-slate-500 mt-1">شغّل الأمر وأنشئ دالة index ترجع بيانات إحصائية وقائمة مشاريع وهمية.</p>
+                </div>
+            </div>
+
+            <div class="flex gap-4 items-start">
+                <div class="step-num bg-emerald-100 text-emerald-700 shrink-0 mt-1">2</div>
+                <div>
+                    <h4 class="font-black text-slate-900 text-lg">تعريف مسار /dashboard</h4>
+                    <p class="text-sm text-slate-500 mt-1">في routes/web.php، أضف مساراً باسم <code>dashboard</code>.</p>
+                </div>
+            </div>
+
+            <div class="flex gap-4 items-start">
+                <div class="step-num bg-emerald-100 text-emerald-700 shrink-0 mt-1">3</div>
+                <div>
+                    <h4 class="font-black text-slate-900 text-lg">إنشاء Dashboard.jsx</h4>
+                    <p class="text-sm text-slate-500 mt-1">يجب أن تحتوي الصفحة على:</p>
+                    <ul class="text-sm text-slate-500 list-disc pr-6 mt-1">
+                        <li>تحية ترحيبية تستخدم <code>usePage()</code> لأخذ اسم المستخدم.</li>
+                        <li>4 StatCards: المشاريع، المهام المكتملة، أعضاء الفريق، المهام المعلقة.</li>
+                        <li>قائمة بآخر المشاريع باستخدام ProjectCard.</li>
+                        <li>ربط الـ Layout بالصفحة.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex gap-4 items-start">
+                <div class="step-num bg-emerald-100 text-emerald-700 shrink-0 mt-1">4</div>
+                <div>
+                    <h4 class="font-black text-slate-900 text-lg">تصميم متجاوب</h4>
+                    <p class="text-sm text-slate-500 mt-1">استخدم Grid لجعل:</p>
+                    <ul class="text-sm text-slate-500 list-disc pr-6 mt-1">
+                        <li>StatCards: عمود واحد موبايل → عمودان تابلت → 4 أعمدة سطح مكتب</li>
+                        <li>ProjectCards: عمود واحد موبايل → 3 أعمدة سطح مكتب</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex gap-4 items-start">
+                <div class="step-num bg-emerald-100 text-emerald-700 shrink-0 mt-1">5</div>
+                <div>
+                    <h4 class="font-black text-slate-900 text-lg">اختبار النتيجة</h4>
+                    <p class="text-sm text-slate-500 mt-1">افتح <code>http://localhost:8000/dashboard</code> وتأكد من ظهور كل العناصر.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-emerald-600">
+                <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">✅</span>
+                معايير القبول
+            </h2>
+            <ul class="list-disc pr-6 space-y-3 text-slate-600">
+                <li>الصفحة تعمل على /dashboard بدون أخطاء (3 نقاط)</li>
+                <li>4 بطاقات إحصائيات تعرض الأرقام الصحيحة (2 نقطة)</li>
+                <li>قائمة المشاريع تظهر (2 نقطة)</li>
+                <li>التحية الترحيبية تعرض الاسم (1 نقطة)</li>
+                <li>التصميم متجاوب (1 نقطة)</li>
+                <li>الكود منظم ويستخدم Layout ومكونات (1 نقطة)</li>
+            </ul>
+        </section>
+
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white border-2 border-amber-200">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-amber-600">
+                <span class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-sm font-black">⭐</span>
+                تحديات إضافية
+            </h2>
+            <ul class="list-disc pr-6 space-y-3 text-slate-600">
+                <li>أضف شريط تقدم (ProgressBar) يوضح نسبة إنجاز المشاريع.</li>
+                <li>أضف قائمة بآخر 5 نشاطات (Activity Feed) - أضف مصفوفة في Controller.</li>
+                <li>أضف بطاقة "سريعة" تحتوي على روابط سريعة لإنشاء مشروع جديد أو مهمة جديدة.</li>
+                <li>استخدم <code>appName</code> من Shared Data في عنوان الصفحة.</li>
+            </ul>
+        </section>
+
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-indigo-600">
+                <span class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">📬</span>
+                طريقة التسليم
+            </h2>
+            <ol class="list-decimal pr-6 space-y-3 text-slate-600">
+                <li>لقطة شاشة لصفحة Dashboard على سطح المكتب.</li>
+                <li>لقطة شاشة لصفحة Dashboard على وضع الموبايل.</li>
+                <li>محتوى الملفات: DashboardController.php, Dashboard.jsx, routes/web.php (السطور الجديدة).</li>
+                <li>أرسل كل ما سبق للمدرب.</li>
+            </ol>
+        </section>
+    </section>
 </main>
+<footer class="mt-24 border-t bg-white py-12 text-center text-slate-400 text-sm font-medium">© 2026 FlowPilot Academy. أسبوعان وانتهيت من هيكلة تطبيقك!</footer>
 </body>
 </html>

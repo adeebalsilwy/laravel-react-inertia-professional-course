@@ -3,27 +3,237 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 18: لوحة المهام</title>
+    <title>واجب الدرس 18: بناء لوحة مهام Kanban | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .step-card { border-right: 4px solid #3b82f6; padding-right: 1.5rem; margin-bottom: 2rem; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
-<main class="mx-auto max-w-3xl px-4 py-12">
-    <div class="card p-12 space-y-8">
-        <h1 class="text-3xl font-black text-center text-indigo-600">واجب لوحة الكانبان</h1>
-        <div class="space-y-6 text-right">
-            <h3 class="font-black text-xl">تحدي المبرمج:</h3>
-            <ol class="list-decimal pr-6 space-y-4 font-bold text-slate-700">
-                <li>صمم واجهة تحتوي على 3 أعمدة (Todo, Doing, Done).</li>
-                <li>اجلب المهام المرتبطة بمشروع معين.</li>
-                <li>اعرض كل مهمة داخل عمودها الصحيح بناءً على حالتها في قاعدة البيانات.</li>
-                <li><strong>تحدي:</strong> أضف زراً داخل كل عمود لإضافة مهمة جديدة فوراً في تلك الحالة.</li>
-            </ol>
+<body class="bg-slate-50 text-slate-900">
+
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+    </div>
+</header>
+
+<main class="mx-auto max-w-4xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة لشرح الدرس</a>
+
+    <section class="space-y-8">
+        <div class="card p-8 bg-blue-600 text-white shadow-xl shadow-blue-100 rounded-3xl">
+            <h1 class="text-3xl font-black">واجب الدرس 18: بناء لوحة مهام Kanban</h1>
+            <p class="mt-4 text-blue-100 leading-relaxed italic text-lg">
+                "سنبني لوحة بصرية تسمح للمستخدم برؤية كل مهام مشروعه وفهم أين يقف العمل في لمحة."
+            </p>
         </div>
+
+        <!-- الهدف -->
+        <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black text-blue-600">الهدف من الواجب</h2>
+            <p class="text-slate-600 leading-relaxed">
+                إنشاء Task Model مع جدول tasks في قاعدة البيانات، وبناء TaskController مع دالتين (index و updateStatus)، وتصميم واجهة Kanban بثلاثة أعمدة في React. سيتعلم الطالب كيف يربط الحالة (status) بحركة المهام بين الأعمدة.
+            </p>
+        </section>
+
+        <!-- 9 خطوات -->
+        <section class="card p-8 md:p-10 space-y-8 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black text-blue-600">خطوات الواجب (9 خطوات)</h2>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 1: إنشاء Task Model مع Migration</h3>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-purple-400 overflow-x-auto text-left mt-2">
+                    php artisan make:model Task -m
+                </div>
+                <p class="text-sm text-slate-600 mt-2">تأكد من ظهور ملفين: <code>app/Models/Task.php</code> وملف migration جديد.</p>
+            </div>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 2: كتابة أعمدة جدول tasks في Migration</h3>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-emerald-400 overflow-x-auto text-left mt-2">
+                    Schema::create('tasks', function (Blueprint $table) {<br>
+                    &nbsp;&nbsp;$table->id();<br>
+                    &nbsp;&nbsp;$table->foreignId('project_id')->constrained()->cascadeOnDelete();<br>
+                    &nbsp;&nbsp;$table->string('title', 255);<br>
+                    &nbsp;&nbsp;$table->text('description')->nullable();<br>
+                    &nbsp;&nbsp;$table->string('status', 20)->default('pending');<br>
+                    &nbsp;&nbsp;$table->foreignId('user_id')->constrained()->cascadeOnDelete();<br>
+                    &nbsp;&nbsp;$table->timestamps();<br>
+                    });
+                </div>
+                <p class="text-sm text-slate-600 mt-2">ثم شغّل <code>php artisan migrate</code>.</p>
+            </div>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 3: إضافة العلاقات في Model</h3>
+                <p class="text-sm text-slate-500 mt-1">في <code>Task.php</code>:</p>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-indigo-400 overflow-x-auto text-left mt-2">
+                    protected $fillable = ['project_id', 'title', 'description', 'status', 'user_id'];<br><br>
+                    public function project() { return $this->belongsTo(Project::class); }
+                </div>
+                <p class="text-sm text-slate-500 mt-2">في <code>Project.php</code>:</p>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-pink-400 overflow-x-auto text-left mt-2">
+                    public function tasks() { return $this->hasMany(Task::class); }
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 4: إنشاء TaskController</h3>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-purple-400 overflow-x-auto text-left mt-2">
+                    php artisan make:controller TaskController
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 5: كتابة index()</h3>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-indigo-400 overflow-x-auto text-left mt-2">
+                    public function index()<br>
+                    {<br>
+                    &nbsp;&nbsp;$tasks = Task::with('project')->get();<br>
+                    &nbsp;&nbsp;return Inertia::render('Tasks/Board', [<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;'tasks' => $tasks,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;'success' => session('success'),<br>
+                    &nbsp;&nbsp;]);<br>
+                    }
+                </div>
+                <p class="text-sm text-slate-600 mt-2">تأكد من <code>use App\Models\Task;</code> و <code>use Inertia\Inertia;</code>.</p>
+            </div>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 6: كتابة updateStatus()</h3>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-emerald-400 overflow-x-auto text-left mt-2">
+                    public function updateStatus(Request $request, Task $task)<br>
+                    {<br>
+                    &nbsp;&nbsp;$validated = $request->validate([<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;'status' => 'required|in:pending,in_progress,completed',<br>
+                    &nbsp;&nbsp;]);<br>
+                    &nbsp;&nbsp;$task->update($validated);<br>
+                    &nbsp;&nbsp;return redirect()->back()->with('success', 'تم تحديث الحالة');<br>
+                    }
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 7: تسجيل المسارات</h3>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-yellow-400 overflow-x-auto text-left mt-2">
+                    Route::middleware(['auth'])->group(function () {<br>
+                    &nbsp;&nbsp;Route::get('/tasks/board', [TaskController::class, 'index'])->name('tasks.board');<br>
+                    &nbsp;&nbsp;Route::patch('/tasks/{task}/status', [TaskController::class, 'updateStatus'])->name('tasks.status');<br>
+                    });
+                </div>
+                <p class="text-sm text-slate-600 mt-2">شغّل <code>php artisan route:list</code> لتأكيد المسارات.</p>
+            </div>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 8: بناء واجهة Kanban في React</h3>
+                <p class="text-sm text-slate-500 mt-1">أنشئ <code>resources/js/Pages/Tasks/Board.jsx</code>:</p>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-pink-400 overflow-x-auto text-left mt-2">
+                    import { usePage, router } from '@inertiajs/react';<br><br>
+                    export default function Board() {<br>
+                    &nbsp;&nbsp;const { tasks, success } = usePage().props;<br>
+                    &nbsp;&nbsp;// صنف المهام حسب status<br>
+                    &nbsp;&nbsp;const pending = tasks.filter(t => t.status === 'pending');<br>
+                    &nbsp;&nbsp;const inProgress = tasks.filter(t => t.status === 'in_progress');<br>
+                    &nbsp;&nbsp;const completed = tasks.filter(t => t.status === 'completed');<br>
+                    &nbsp;&nbsp;// اعرض 3 أعمدة مع أزرار التغيير<br>
+                    }
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 9: الاختبار النهائي</h3>
+                <ul class="text-sm text-slate-600 mt-3 space-y-1">
+                    <li>✅ أدخل عدة مهام بحالات مختلفة (يدوياً عبر tinker أو منشئ بيانات).</li>
+                    <li>✅ شغّل <code>php artisan serve</code> واذهب إلى <code>/tasks/board</code>.</li>
+                    <li>✅ كل مهمة تظهر في العمود الصحيح.</li>
+                    <li>✅ اضغط زر "نقل" لتغيير الحالة → المهمة تنتقل للعمود الآخر.</li>
+                    <li>✅ رسالة النجاح تظهر بعد كل تغيير.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- المخرجات -->
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white border border-emerald-200">
+            <h2 class="text-2xl font-black text-emerald-700">المخرجات المتوقعة</h2>
+            <ul class="space-y-2 text-slate-700">
+                <li>📁 <code>app/Models/Task.php</code> → مع <code>$fillable</code> ودالة <code>project()</code>.</li>
+                <li>📁 <code>database/migrations/xxxx_create_tasks_table.php</code> → جدول tasks.</li>
+                <li>📁 <code>app/Http/Controllers/TaskController.php</code> → دوال index و updateStatus.</li>
+                <li>📁 <code>routes/web.php</code> → مسارين: board و status.</li>
+                <li>📁 <code>resources/js/Pages/Tasks/Board.jsx</code> → لوحة Kanban بثلاثة أعمدة.</li>
+                <li>📁 <code>resources/js/Components/KanbanColumn.jsx</code> (اختياري) → مكون عمود قابل لإعادة الاستخدام.</li>
+            </ul>
+        </section>
+
+        <!-- التقييم -->
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white border border-amber-200">
+            <h2 class="text-2xl font-black text-amber-700">معايير التقييم (10 درجات)</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="font-black text-amber-600 text-xl">2</span>
+                    <p class="text-sm text-slate-700">Task Model مع العلاقات (belongsTo + hasMany) (2 درجة)</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="font-black text-amber-600 text-xl">2</span>
+                    <p class="text-sm text-slate-700">دالة updateStatus مع التحقق (2 درجة)</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="font-black text-amber-600 text-xl">2</span>
+                    <p class="text-sm text-slate-700">واجهة Kanban: 3 أعمدة مع أزرار (2 درجة)</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="font-black text-amber-600 text-xl">2</span>
+                    <p class="text-sm text-slate-700">تغيير الحالة يعمل ورسالة النجاح تظهر (2 درجة)</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="font-black text-amber-600 text-xl">2</span>
+                    <p class="text-sm text-slate-700">التصميم الجمالي: ألوان مختلفة لكل عمود (2 درجة)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- تحدي إضافي -->
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white border border-purple-200">
+            <h2 class="text-2xl font-black text-purple-700">تحدي إضافي (للنجوم ⭐)</h2>
+            <p class="text-slate-600">أضف <strong>إحصائيات فوق اللوحة</strong>:</p>
+            <ul class="text-sm text-slate-700 space-y-2 pr-4">
+                <li>1. في أعلى صفحة Board.jsx، أضف شريط إحصائيات.</li>
+                <li>2. احسب العدد الكلي: <code>tasks.length</code>.</li>
+                <li>3. احسب عدد كل حالة: <code>pending.length</code>، <code>inProgress.length</code>، <code>completed.length</code>.</li>
+                <li>4. أضف شريط تقدم (Progress Bar) يعرض النسبة المئوية للإنجاز: <code>(completed / total) * 100</code>.</li>
+            </ul>
+            <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-emerald-400 overflow-x-auto text-left mt-2">
+                const total = tasks.length;<br>
+                const pct = total > 0 ? Math.round((completed.length / total) * 100) : 0;
+            </div>
+        </section>
+
+        <!-- تسليم -->
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white border border-indigo-200">
+            <h2 class="text-2xl font-black text-indigo-700">طريقة التسليم</h2>
+            <ol class="space-y-3 pr-4 text-slate-700">
+                <li>1. تأكد من أن كل المهام تظهر في الأعمدة الصحيحة.</li>
+                <li>2. صوّر فيديو قصير (دقيقتان) تشرح الكود وتختبر تغيير الحالة.</li>
+                <li>3. تأكد من ظهور رسالة النجاح وتغير مكان المهمة.</li>
+                <li>4. ارفع الرابط في منصة الدورة في قسم "واجب الدرس 18".</li>
+            </ol>
+        </section>
+    </section>
+
+    <div class="mt-12 flex justify-between">
+        <a class="font-black text-indigo-700 hover:underline inline-block" href="quiz.html">→ انتقل إلى الكويز</a>
     </div>
 </main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. الرؤية البصرية تجعل العمل أسهل.
+</footer>
+
+<script src="../../../assets/js/app.js"></script>
 </body>
 </html>

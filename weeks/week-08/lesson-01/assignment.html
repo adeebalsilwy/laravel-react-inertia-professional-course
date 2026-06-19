@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 29: الاستعداد للإنتاج</title>
+    <title>واجب الدرس 29: تجهيز Production Build وملفات البيئة</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,11 +11,12 @@
     <link rel="stylesheet" href="../../../assets/css/style.css">
     <style>
         :root { font-family: 'Tajawal', sans-serif; }
+        .step-card { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
-<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
@@ -26,24 +27,103 @@
     
     <section class="space-y-8">
         <div class="card p-8 bg-indigo-600 text-white shadow-xl shadow-indigo-100 rounded-3xl">
-            <h1 class="text-3xl font-black">واجب الدرس 29: تجهيز الـ Build النهائي</h1>
+            <h1 class="text-3xl font-black">واجب الدرس 29: تجهيز الـ Build النهائي وملفات البيئة</h1>
             <p class="mt-4 text-indigo-100 leading-relaxed italic">
-                "اليوم سنحول كود التطوير إلى نسخة سريعة جداً وجاهزة للعمل على السيرفر."
+                "حول مشروع FlowPilot من نسخة تطوير إلى نسخة إنتاج جاهزة للعالم الحقيقي."
             </p>
         </div>
 
         <div class="space-y-8">
             <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
-                <h2 class="text-2xl font-black text-indigo-600">المطلوب تنفيذة:</h2>
-                <ol class="list-decimal pr-6 space-y-4 font-bold text-slate-700">
-                    <li>نفذ أمر <code>npm run build</code> في مجلد مشروعك.</li>
-                    <li>تأكد من ظهور مجلد <code>public/build</code> الجديد.</li>
-                    <li>افتح ملف <code>.env</code> وغير <code>APP_DEBUG</code> إلى <code>false</code>.</li>
-                    <li>لاحظ كيف اختفى شريط الأخطاء المفصل عند محاولة فتح رابط غير موجود.</li>
+                <h2 class="text-2xl font-black text-indigo-600 border-r-4 border-indigo-600 pr-4">هدف الواجب</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    الهدف من هذا الواجب هو تطبيق كل ما تعلمته في الدرس على مشروع FlowPilot الحقيقي. بعد الانتهاء، يجب أن تكون قادراً على شرح الفرق بين بيئة التطوير والإنتاج، وأهمية كل متغير في ملف .env.
+                </p>
+            </section>
+
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+                <h2 class="text-2xl font-black text-indigo-600 border-r-4 border-indigo-600 pr-4">المطلوب تنفيذه (بالترتيب)</h2>
+                
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: بناء ملفات الإنتاج</h3>
+                    <p class="text-slate-600 mb-2">افتح Terminal في مجلد مشروع FlowPilot واكتب:</p>
+                    <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-emerald-400 text-left">
+                        npm run build
+                    </div>
+                    <p class="text-xs text-slate-400 mt-1">تأكد من انتهاء الأمر دون أخطاء.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: فحص الناتج</h3>
+                    <p class="text-slate-600 mb-2">افتح مجلد المشروع وتأكد من وجود:</p>
+                    <div class="bg-slate-100 rounded-xl p-4 font-mono text-sm text-slate-700 text-left">
+                        public/build/assets/<br>
+                        public/build/manifest.json
+                    </div>
+                    <p class="text-xs text-slate-400 mt-1"><code>manifest.json</code> هو ملف يخبر Laravel بأسماء الملفات المضغوطة الجديدة.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: تعديل ملف .env</h3>
+                    <p class="text-slate-600 mb-2">افتح ملف <code>.env</code> في جذر المشروع وغير القيم التالية:</p>
+                    <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-emerald-400 text-left">
+                        APP_ENV=production<br>
+                        APP_DEBUG=false<br>
+                        APP_URL=http://localhost:8000
+                    </div>
+                    <p class="text-xs text-slate-400 mt-1">إذا كان عندك رابط مختلف استخدمه بدلاً من localhost.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: تشغيل أوامر التحسين</h3>
+                    <p class="text-slate-600 mb-2">نفذ الأوامر التالية بالترتيب:</p>
+                    <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-emerald-400 text-left">
+                        php artisan optimize<br>
+                        php artisan config:cache<br>
+                        php artisan route:cache
+                    </div>
+                    <p class="text-xs text-slate-400 mt-1">لاحظ ظهور رسالة تأكيد بعد كل أمر.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: اختبار النتيجة</h3>
+                    <p class="text-slate-600 mb-2">شغل السيرفر المحلي:</p>
+                    <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-emerald-400 text-left">
+                        php artisan serve
+                    </div>
+                    <p class="text-slate-600 mt-2">افتح المتصفح على الرابط http://localhost:8000. تأكد من أن الموقع يعمل بشكل طبيعي. حاول الدخول إلى رابط غير موجود (مثل /test404) - يجب أن تظهر صفحة خطأ بسيطة بدلاً من التفاصيل التقنية.</p>
+                </div>
+            </section>
+
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+                <h2 class="text-2xl font-black text-indigo-600 border-r-4 border-indigo-600 pr-4">أسئلة للإجابة (سلم مع الواجب)</h2>
+                <ol class="list-decimal pr-6 space-y-4 text-slate-700">
+                    <li>ما الفرق بين <code>npm run dev</code> و <code>npm run build</code>؟ اشرح بجملتين.</li>
+                    <li>ماذا يحدث إذا تركت <code>APP_DEBUG=true</code> في موقع الإنتاج؟</li>
+                    <li>ما هو دور ملف <code>manifest.json</code> الذي يظهر بعد build؟</li>
+                    <li>لماذا نستخدم <code>php artisan config:cache</code> قبل نشر الموقع؟</li>
+                    <li>كم حجماً أصبحت ملفات JavaScript بعد build مقارنة بما كانت عليه في التطوير؟</li>
                 </ol>
+            </section>
+
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+                <h2 class="text-2xl font-black text-green-600 border-r-4 border-green-500 pr-4">📤 تعليمات التسليم</h2>
+                <ul class="list-disc pr-6 space-y-3 text-slate-700">
+                    <li>صور نتيجة تشغيل <code>npm run build</code>.</li>
+                    <li>صور محتوى ملف <code>.env</code> بعد التعديل.</li>
+                    <li>صور رسالة النجاح بعد <code>php artisan config:cache</code>.</li>
+                    <li>أجب عن الأسئلة الخمسة أعلاه في ملف Word أو نصي.</li>
+                    <li>ارفع كل الصور والإجابات في مجلد واحد باسم "Lesson29-Work".</li>
+                </ul>
             </section>
         </div>
     </section>
 </main>
+
+<footer class="mt-24 border-t bg-white py-12 text-center text-slate-400 text-sm font-medium">
+    © 2026 FlowPilot Academy. التعلم بالتطبيق هو الطريق الوحيد للإتقان.
+</footer>
+
+<script src="../../../assets/js/app.js"></script>
 </body>
 </html>

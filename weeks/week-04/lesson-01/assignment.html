@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 13: تفعيل نظام الدخول الاحترافي</title>
+    <title>واجب الدرس 13: تفعيل نظام الدخول الاحترافي | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../../../assets/css/style.css">
     <style>
         :root { font-family: 'Tajawal', sans-serif; }
+        .step-box { border-right: 4px solid #6366f1; background: #f8fafc; padding: 1.5rem; border-radius: 1rem; margin-bottom: 1.5rem; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -25,68 +26,195 @@
     <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة لشرح الدرس</a>
     
     <section class="space-y-8">
-        <div class="card p-8 bg-indigo-600 text-white shadow-xl shadow-indigo-100 rounded-3xl">
-            <h1 class="text-3xl font-black">واجب الدرس 13: تأمين FlowPilot</h1>
-            <p class="mt-4 text-indigo-100 leading-relaxed italic">
-                "اليوم ستضع أول قفل ذكي على مشروعك. هذا الواجب سيعلمك كيف تجعل التطبيق يفرق بين الزوار وبين أعضاء الفريق الحقيقيين."
+        <div class="card p-8 bg-gradient-to-br from-indigo-600 to-indigo-800 text-white shadow-xl shadow-indigo-100 rounded-3xl">
+            <h1 class="text-3xl font-black">واجب الدرس 13: تفعيل نظام المصادقة في FlowPilot</h1>
+            <p class="mt-4 text-indigo-100 leading-relaxed italic text-lg">
+                "اليوم ستضع أول قفل ذكي على مشروعك. هذا الواجب سيعلمك كيف تجعل التطبيق يفرق بين الزوار وأعضاء الفريق."
             </p>
         </div>
 
-        <div class="space-y-8">
-            <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
-                <h2 class="text-2xl font-black flex items-center gap-3">
-                    <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">01</span>
-                    الهدف من الواجب
-                </h2>
-                <p class="text-slate-600 leading-relaxed">
-                    تمكين المستخدم من إنشاء حساب (Register) والدخول (Login) إلى لوحة تحكم FlowPilot باستخدام Laravel Breeze و React.
-                </p>
-            </section>
+        <!-- Objective -->
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3">
+                <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">01</span>
+                الهدف من الواجب
+            </h2>
+            <p class="text-slate-600 leading-relaxed">
+                تمكين المستخدم من إنشاء حساب جديد (Register) وتسجيل الدخول (Login) إلى لوحة تحكم FlowPilot باستخدام <strong>Laravel Breeze</strong> مع <strong>React</strong> و <strong>Inertia.js</strong>. في نهاية هذا الواجب، سيكون لديك نظام مصادقة كامل يعمل بكفاءة.
+            </p>
+        </section>
 
-            <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
-                <h2 class="text-2xl font-black flex items-center gap-3 text-indigo-600">
-                    <span class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">02</span>
-                    خطوات التنفيذ بالتفصيل
-                </h2>
-                <div class="space-y-6">
-                    <div class="border-r-4 border-indigo-500 pr-6">
-                        <h4 class="font-black text-slate-900">1. تثبيت حزمة Breeze</h4>
-                        <p class="text-sm text-slate-500 mt-1">افتح الـ Terminal داخل مجلد مشروعك ونفذ أمر `composer require laravel/breeze --dev`.</p>
-                    </div>
-                    <div class="border-r-4 border-indigo-500 pr-6">
-                        <h4 class="font-black text-slate-900">2. اختيار قالب React</h4>
-                        <p class="text-sm text-slate-500 mt-1">نفذ الأمر `php artisan breeze:install react` واتبع التعليمات (اختر خيار Functional Components).</p>
-                    </div>
-                    <div class="border-r-4 border-indigo-500 pr-6">
-                        <h4 class="font-black text-slate-900">3. تهجير قاعدة البيانات</h4>
-                        <p class="text-sm text-slate-500 mt-1">نفذ `php artisan migrate` لإنشاء جدول المستخدمين.</p>
-                    </div>
-                    <div class="border-r-4 border-indigo-500 pr-6">
-                        <h4 class="font-black text-slate-900">4. التجربة العملية</h4>
-                        <p class="text-sm text-slate-500 mt-1">افتح المتصفح، اذهب لـ `/register` وأنشئ حساباً جديداً. تأكد أن النظام أدخلك لصفحة Dashboard.</p>
-                    </div>
+        <!-- Detailed Steps -->
+        <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-indigo-600">
+                <span class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">02</span>
+                خطوات التنفيذ بالتفصيل
+            </h2>
+            
+            <div class="step-box">
+                <h4 class="font-black text-lg text-indigo-700">1. تثبيت حزمة Breeze</h4>
+                <p class="text-sm text-slate-600 mt-2">افتح Terminal (PowerShell أو CMD) داخل مجلد مشروع FlowPilot ونفذ الأمر:</p>
+                <div class="bg-slate-900 rounded-xl p-4 font-mono text-sm text-emerald-400 mt-2 text-left">
+                    <span>composer require laravel/breeze --dev</span>
                 </div>
-            </section>
+                <p class="text-xs text-slate-500 mt-2">📌 <strong>الملفات المتأثرة:</strong> سيتم إضافة حزمة Breeze إلى <code>composer.json</code> وتحميلها إلى مجلد <code>vendor/</code>.</p>
+            </div>
 
-            <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
-                <h2 class="text-2xl font-black text-emerald-600">معايير التقييم</h2>
-                <ul class="list-disc pr-6 space-y-2 text-slate-600">
-                    <li>نجاح عملية التسجيل بدون أخطاء.</li>
-                    <li>ظهور اسم المستخدم في شريط التنقل العلوي.</li>
-                    <li>القدرة على تسجيل الخروج والعودة بنجاح.</li>
+            <div class="step-box">
+                <h4 class="font-black text-lg text-indigo-700">2. تثبيت Breeze مع React + Inertia</h4>
+                <div class="bg-slate-900 rounded-xl p-4 font-mono text-sm text-amber-400 mt-2 text-left">
+                    <span>php artisan breeze:install react</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">📌 <strong>الملفات المتأثرة:</strong></p>
+                <ul class="text-xs text-slate-500 pr-6 list-disc space-y-1">
+                    <li><code>app/Http/Controllers/Auth/</code> - جميع Controllers المصادقة (Login, Register, Password Reset)</li>
+                    <li><code>resources/js/Pages/Auth/</code> - صفحات React (Login.jsx, Register.jsx, ForgotPassword.jsx, ResetPassword.jsx)</li>
+                    <li><code>routes/auth.php</code> - مسارات المصادقة</li>
+                    <li><code>resources/js/Components/</code> - مكونات React المشتركة (Input, Button, ValidationErrors)</li>
                 </ul>
-            </section>
-        </div>
+            </div>
 
-        <div class="p-8 rounded-[2rem] bg-slate-900 text-white space-y-4">
-            <h3 class="text-xl font-black">تحدي إضافي 🚀</h3>
-            <p class="text-slate-400 text-sm">هل يمكنك تغيير لون زر "تسجيل الدخول" في ملف React ليتناسب مع لون ماركة FlowPilot البنفسجي؟</p>
+            <div class="step-box">
+                <h4 class="font-black text-lg text-indigo-700">3. تثبيت مكتبات JavaScript (NPM)</h4>
+                <div class="bg-slate-900 rounded-xl p-4 font-mono text-sm text-cyan-400 mt-2 text-left">
+                    <span>npm install</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">📌 <strong>الملفات المتأثرة:</strong> <code>node_modules/</code> (مكتبات: React, React DOM, Inertia.js, Tailwind CSS, Axios).</p>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-indigo-700">4. إعداد ملف البيئة (.env)</h4>
+                <p class="text-sm text-slate-600 mt-2">افتح ملف <code>.env</code> في جذر المشروع وتأكد من صحة إعدادات قاعدة البيانات:</p>
+                <div class="bg-slate-900 rounded-xl p-4 font-mono text-sm text-purple-400 mt-2 text-left">
+                    <span>DB_CONNECTION=mysql</span><br>
+                    <span>DB_HOST=127.0.0.1</span><br>
+                    <span>DB_PORT=3306</span><br>
+                    <span>DB_DATABASE=flowpilot</span><br>
+                    <span>DB_USERNAME=root</span><br>
+                    <span>DB_PASSWORD=</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">📌 إذا كنت تستخدم XAMPP، اترك كلمة المرور فارغة. إذا كنت تستخدم MAMP أو Laragon، عدّل حسب إعداداتك.</p>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-indigo-700">5. تشغيل التهجير (Migration)</h4>
+                <div class="bg-slate-900 rounded-xl p-4 font-mono text-sm text-green-400 mt-2 text-left">
+                    <span>php artisan migrate</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">📌 هذا الأمر ينشئ الجداول في قاعدة البيانات: <code>users</code>، <code>password_reset_tokens</code>، <code>personal_access_tokens</code>، <code>sessions</code>.</p>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-indigo-700">6. تشغيل خادم التطوير</h4>
+                <p class="text-sm text-slate-600 mt-2">افتح نافذتي Terminal:</p>
+                <div class="bg-slate-900 rounded-xl p-4 font-mono text-sm text-amber-400 mt-2 text-left">
+                    <span># النافذة 1: خادم Laravel</span><br>
+                    <span>php artisan serve</span><br>
+                    <span> </span><br>
+                    <span># النافذة 2: خادم Vite (JavaScript)</span><br>
+                    <span>npm run dev</span>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-indigo-700">7. إنشاء حساب جديد (اختبار)</h4>
+                <p class="text-sm text-slate-600 mt-2">افتح المتصفح واذهب إلى <code>http://127.0.0.1:8000/register</code>.</p>
+                <p class="text-sm text-slate-600 mt-2">املأ البيانات التالية:</p>
+                <ul class="text-sm text-slate-600 pr-6 list-disc space-y-1 mt-2">
+                    <li><strong>Name:</strong> أحمد السيد</li>
+                    <li><strong>Email:</strong> ahmed@flowpilot.com</li>
+                    <li><strong>Password:</strong> password123 (8 أحرف على الأقل)</li>
+                    <li><strong>Confirm Password:</strong> password123</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-indigo-700">8. التحقق من النتيجة</h4>
+                <p class="text-sm text-slate-600 mt-2">بعد الضغط على "Register"، تأكد من:</p>
+                <ul class="text-sm text-slate-600 pr-6 list-disc space-y-1 mt-2">
+                    <li>✅ تم توجيهك إلى صفحة <code>/dashboard</code>.</li>
+                    <li>✅ يظهر اسم المستخدم "أحمد السيد" في أعلى الصفحة.</li>
+                    <li>✅ تظهر رسالة ترحيبية (إن وجدت).</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-indigo-700">9. اختبار تسجيل الخروج والدخول مرة أخرى</h4>
+                <p class="text-sm text-slate-600 mt-2">اضغط على زر "Logout" (تسجيل الخروج)، ثم حاول فتح <code>/dashboard</code> مباشرة. يجب أن يتم تحويلك إلى صفحة تسجيل الدخول. سجل الدخول مرة أخرى بالبيانات نفسها وتأكد من نجاح الدخول.</p>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-indigo-700">10. [تحدي إضافي] تخصيص واجهة FlowPilot</h4>
+                <p class="text-sm text-slate-600 mt-2">افتح ملف <code>resources/js/Pages/Auth/Login.jsx</code> وقم بالتالي:</p>
+                <ul class="text-sm text-slate-600 pr-6 list-disc space-y-1 mt-2">
+                    <li>غيّر عنوان الصفحة من "Log in" إلى "تسجيل الدخول إلى FlowPilot".</li>
+                    <li>غيّر لون الزر الرئيسي من <code>bg-gray-900</code> إلى <code>bg-indigo-600</code>.</li>
+                    <li>أضف شعار FlowPilot (نص "FlowPilot" بخط كبير) أعلى النموذج.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Files to check -->
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black text-emerald-600">📂 الملفات التي يجب مراجعتها</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="p-4 rounded-xl bg-slate-50 border">
+                    <p class="font-bold text-slate-900">routes/auth.php</p>
+                    <p class="text-xs text-slate-500">مسارات المصادقة (Login, Register, Logout, Password Reset)</p>
+                </div>
+                <div class="p-4 rounded-xl bg-slate-50 border">
+                    <p class="font-bold text-slate-900">app/Models/User.php</p>
+                    <p class="text-xs text-slate-500">نموذج المستخدم مع دوال المصادقة</p>
+                </div>
+                <div class="p-4 rounded-xl bg-slate-50 border">
+                    <p class="font-bold text-slate-900">resources/js/Pages/Auth/Login.jsx</p>
+                    <p class="text-xs text-slate-500">صفحة تسجيل الدخول (React)</p>
+                </div>
+                <div class="p-4 rounded-xl bg-slate-50 border">
+                    <p class="font-bold text-slate-900">resources/js/Pages/Auth/Register.jsx</p>
+                    <p class="text-xs text-slate-500">صفحة إنشاء حساب جديد (React)</p>
+                </div>
+                <div class="p-4 rounded-xl bg-slate-50 border">
+                    <p class="font-bold text-slate-900">app/Http/Middleware/HandleInertiaRequests.php</p>
+                    <p class="text-xs text-slate-500">مشاركة بيانات المستخدم مع React</p>
+                </div>
+                <div class="p-4 rounded-xl bg-slate-50 border">
+                    <p class="font-bold text-slate-900">routes/web.php</p>
+                    <p class="text-xs text-slate-500">مسارات التطبيق الرئيسية (مع or بدون middleware)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Evaluation Criteria -->
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black text-sky-600">📋 معايير التقييم</h2>
+            <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                <li>✅ نجاح عملية التسجيل (Register) بدون أخطاء.</li>
+                <li>✅ نجاح عملية تسجيل الدخول (Login) بالبيانات المسجلة.</li>
+                <li>✅ ظهور اسم المستخدم في شريط التنقل العلوي بعد الدخول.</li>
+                <li>✅ تحويل الزوار غير المسجلين إلى صفحة Login عند محاولة فتح /dashboard.</li>
+                <li>✅ القدرة على تسجيل الخروج والعودة بنجاح.</li>
+                <li>✅ [تحدي إضافي] تخصيص ألوان ونصوص واجهة الدخول لتناسب هوية FlowPilot.</li>
+            </ul>
+        </section>
+
+        <!-- Challenge -->
+        <div class="p-8 rounded-[2rem] bg-gradient-to-br from-slate-900 to-indigo-900 text-white space-y-4">
+            <h3 class="text-xl font-black">🚀 تحدي إضافي: قم ببناء صفحه "مرحباً بك"</h3>
+            <p class="text-slate-300 text-sm">بعد نجاح المصادقة، قم بإنشاء صفحة Dashboard بسيطة في React تعرض:<br>
+            1. اسم المستخدم المسجل.<br>
+            2. بريده الإلكتروني.<br>
+            3. تاريخ انضمامه (created_at).<br>
+            استخدم <code>usePage().props.auth.user</code> لجلب هذه البيانات.</p>
+            <p class="text-indigo-300 text-xs mt-2">💡 تلميح: أنشئ ملف <code>resources/js/Pages/Dashboard.jsx</code> واربطه بمسار في <code>routes/web.php</code>.</p>
         </div>
     </section>
 </main>
 
-<footer class="mt-24 border-t py-8 text-center text-slate-400 text-sm">
+<footer class="mt-24 border-t bg-white py-12 text-center text-slate-400 text-sm font-medium">
     © 2025 FlowPilot Academy. التزامك هو طريقك للاحتراف.
 </footer>
+
+<script src="../../../assets/js/app.js"></script>
 </body>
 </html>

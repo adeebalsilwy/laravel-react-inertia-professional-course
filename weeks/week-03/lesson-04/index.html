@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 12: قراءة البيانات بكفاءة وتحسين الاستعلامات</title>
+    <title>الدرس 12: قراءة البيانات بكفاءة وتحسين الاستعلامات | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,26 +13,43 @@
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
         .step-card { border-right: 4px solid #0ea5e9; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 1.5rem; border-radius: 16px; direction: ltr; text-align: left; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.8; }
+        .error-box { border-right: 4px solid #ef4444; background: #fef2f2; padding: 1rem; border-radius: 12px; margin-bottom: 1rem; }
+        .highlight-box { border-right: 4px solid #0ea5e9; background: #f0f9ff; padding: 1rem; border-radius: 12px; margin-bottom: 1rem; }
+        .perf-bad { background: #fef2f2; border: 2px solid #ef4444; }
+        .perf-good { background: #ecfdf5; border: 2px solid #10b981; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
-
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../index.html">الرئيسية</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/curriculum.html">الفهرس</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/lessons.html">الدروس</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/beginner-guide.html">دليل الطالب</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/project.html">المشروع</a>
+        </nav>
     </div>
 </header>
-
 <main class="mx-auto max-w-7xl px-4 py-8">
     <div class="grid lg:grid-cols-4 gap-8">
         <aside class="hidden lg:block">
             <div class="sidebar-sticky space-y-4">
                 <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الثالث</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-sky-50 text-sky-700" href="#intro">مقدمة في الجلب</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">مشكلة N+1</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال السوبر ماركت</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl bg-sky-50 text-sky-700" href="#intro">لماذا الأداء مهم؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#eager">Eager Loading (::with)</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#lazy">Lazy vs Eager</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#scopes">Query Scopes</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#when">::when() للشروط</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#chunk">Chunking (تقسيم)</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#cache">Caching (Cache::remember)</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#select">select() والحد من الأعمدة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">FlowPilot: التحسين</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">الأخطاء الشائعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#summary">ملخص الدرس</a>
                 </div>
             </div>
         </aside>
@@ -40,66 +57,399 @@
         <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
             <section class="border-b pb-8 mb-12">
                 <span class="badge bg-sky-50 text-sky-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 3 · الدرس 4</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">تحسين القراءة: كيف تجلب بيانات FlowPilot بسرعة البرق؟</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"التطبيق الجيد ليس فقط من يعمل، بل من يعمل بسرعة تجعل المستخدم سعيداً."</p>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">قراءة البيانات بكفاءة وتحسين الاستعلامات</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"التطبيق البطيء يخسر المستخدمين. تعلم كيف تجعل استعلاماتك أسرع بثلاث طرق."</p>
             </section>
 
-            <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">ما هي مشكلة البطء؟</h2>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    عندما يزداد عدد المشاريع والمهام في FlowPilot، قد تبدأ صفحة Dashboard في البطء. السبب غالباً هو أن التطبيق يقوم بـ "رحلات كثيرة جداً وغير ضرورية" لقاعدة البيانات.
-                </p>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    اليوم سنتعرف على تقنية تسمى <strong>Eager Loading</strong>، وهي باختصار "جلب كل ما تحتاجه في رحلة واحدة" بدلاً من الذهاب والعودة مئات المرات.
-                </p>
-            </section>
-
-            <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">مشكلة N+1 الشهيرة</h2>
-                <p class="text-slate-600 leading-relaxed">
-                    إذا طلبت "كل المشاريع"، ثم داخل كل مشروع طلبت "مهامه"، فإن Laravel سيقوم بعمل استعلام (Query) واحد للمشاريع، ثم استعلام <strong>لكل مشروع على حدة</strong> ليجلب مهامه. إذا كان لديك 100 مشروع، ستقوم بعمل 101 استعلام! وهذا كارثي للأداء.
-                </p>
-                <div class="p-6 rounded-2xl bg-slate-900 text-indigo-400 font-mono text-sm text-left">
-                    // الطريقة الصحيحة (Eager Loading)<br>
-                    Project::with('tasks')->get();
+            <!-- Section 1: Why Performance Matters -->
+            <section id="intro" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">لماذا أداء قاعدة البيانات مهم جداً؟</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed text-lg">
+                    <p>تخيل تطبيق FlowPilot مع 1000 مستخدم، كل مستخدم لديه 10 مشاريع، وكل مشروع لديه 20 مهمة. الآن تخيل أن كل مرة يفتح فيها المستخدم صفحة المشاريع، يتم تنفيذ 1000 استعلام MySQL. النتيجة: <strong>صفحة تفتح بعد 10 ثوانٍ!</strong></p>
+                    <p>المستخدم العادي يتوقع أن تفتح الصفحة في أقل من <strong>2-3 ثوانٍ</strong>. إذا كان تطبيقك بطيئاً، سيتجه المستخدمون إلى تطبيق آخر. لذا تحسين الاستعلامات ليس "تطرياً" - إنه <strong>ضرورة</strong>.</p>
+                    <p>في هذا الدرس، سنتعلم 6 تقنيات قوية لتحسين أداء استعلامات Eloquent. يمكنك تطبيقها فوراً في FlowPilot.</p>
                 </div>
-            </section>
-
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-sky-600 text-white shadow-xl shadow-indigo-100">
-                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (السوبر ماركت)</h2>
-                <p class="text-sky-50 leading-relaxed text-lg">
-                    تخيل أنك في السوبر ماركت وتريد شراء 10 أغراض.
-                    <br><br>
-                    - <strong>البطء (Lazy Loading):</strong> تذهب للرف، تأخذ غرضاً واحداً، تخرج تدفع الحساب، ثم تعود مرة ثانية لتأخذ الغرض الثاني.. وهكذا 10 مرات!
-                    <br>
-                    - <strong>السرعة (Eager Loading):</strong> تأخذ "عربة تسوق"، تضع فيها الـ 10 أغراض في جولة واحدة، وتخرج تدفع مرة واحدة فقط.
-                </p>
-            </section>
-
-            <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">التطبيق العملي</h2>
-
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: استخدام with لجلب العلاقات</h3>
-                    <p class="text-slate-600 mb-4">في الـ Controller الخاص بك، بدلاً من جلب المشاريع فقط، اجلبها مع مهامها ومستخدميها.</p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
-                        <p>$projects = Project::with(['tasks', 'user'])->get();</p>
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                    <div class="perf-bad p-5 rounded-2xl">
+                        <h4 class="font-bold text-rose-800 mb-2">👎 قبل التحسين</h4>
+                        <p class="text-rose-600 text-sm">100 استعلام لصفحة واحدة<br>زمن التحميل: 8 ثوانٍ<br>تجربة مستخدم سيئة</p>
+                    </div>
+                    <div class="perf-good p-5 rounded-2xl">
+                        <h4 class="font-bold text-emerald-800 mb-2">👍 بعد التحسين</h4>
+                        <p class="text-emerald-600 text-sm">3 استعلامات لصفحة واحدة<br>زمن التحميل: 0.5 ثانية<br>تجربة مستخدم ممتازة</p>
                     </div>
                 </div>
             </section>
 
+            <!-- Section 2: Eager Loading -->
+            <section id="eager" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">Eager Loading: جلب العلاقات مقدماً بـ ::with()</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <p>كما تعلمنا في الدرس السابق عن N+1، استخدام <code>::with()</code> يقلل عدد الاستعلامات بشكل كبير. لكنه ليس مجرد حل لـ N+1. يمكن لـ <code>::with()</code> القيام بأمور أكثر تقدماً.</p>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">جلب علاقات متداخلة (Nested):</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// جلب المشاريع + المستخدم + المهام + المسؤول عن كل مهمة</span></span>
+                    <span class="code-line"><span class="code-keyword">$projects</span> = Project::<span class="code-php">with</span>([</span>
+                    <span class="code-line">    <span class="code-string">'user'</span>,                    <span class="code-comment">// صاحب المشروع</span></span>
+                    <span class="code-line">    <span class="code-string">'tasks'</span>,                   <span class="code-comment">// مهام المشروع</span></span>
+                    <span class="code-line">    <span class="code-string">'tasks.assignee'</span>,          <span class="code-comment">// المسؤول عن كل مهمة (علاقة متداخلة)</span></span>
+                    <span class="code-line">    <span class="code-string">'members'</span>,                  <span class="code-comment">// أعضاء الفريق</span></span>
+                    <span class="code-line">])-><span class="code-php">get</span>();</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-comment">// استعلام واحد فقط + 4 استعلامات JOIN = 5 استعلامات بدلاً من N+1</span></span>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-8">constrain مع with (شروط على العلاقات):</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// جلب المشاريع والمهام النشطة فقط</span></span>
+                    <span class="code-line"><span class="code-keyword">$projects</span> = Project::<span class="code-php">with</span>([</span>
+                    <span class="code-line">    <span class="code-string">'tasks'</span> => <span class="code-keyword">function</span> (<span class="code-keyword">$query</span>) {</span>
+                    <span class="code-line">        <span class="code-keyword">$query</span>-><span class="code-php">where</span>(<span class="code-string">'status'</span>, <span class="code-string">'in_progress'</span>)  <span class="code-comment">// فقط المهام النشطة</span></span>
+                    <span class="code-line">              -><span class="code-php">orderBy</span>(<span class="code-string">'priority'</span>, <span class="code-string">'desc'</span>);    <span class="code-comment">// الأعلى أولوية أولاً</span></span>
+                    <span class="code-line">    },</span>
+                    <span class="code-line">])-><span class="code-php">get</span>();</span>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-8">withCount (جلب عدد العناصر في العلاقة):</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-keyword">$projects</span> = Project::<span class="code-php">withCount</span>([</span>
+                    <span class="code-line">    <span class="code-string">'tasks'</span>,                                    <span class="code-comment">// $project->tasks_count</span></span>
+                    <span class="code-line">    <span class="code-string">'tasks as completed_tasks_count'</span> => <span class="code-keyword">function</span> (<span class="code-keyword">$query</span>) {</span>
+                    <span class="code-line">        <span class="code-keyword">$query</span>-><span class="code-php">where</span>(<span class="code-string">'status'</span>, <span class="code-string">'completed'</span>);   <span class="code-comment">// $project->completed_tasks_count</span></span>
+                    <span class="code-line">    },</span>
+                    <span class="code-line">    <span class="code-string">'members'</span>,                                   <span class="code-comment">// $project->members_count</span></span>
+                    <span class="code-line">])-><span class="code-php">get</span>();</span>
+                </div>
+                <p class="text-sm text-slate-600 mt-2">هذا يضيف أعمدة إضافية للنتيجة مثل <code>tasks_count</code> و <code>members_count</code> - بدون استعلامات إضافية!</p>
+            </section>
+
+            <!-- Section 3: Lazy vs Eager -->
+            <section id="lazy" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">Lazy Loading vs Eager Loading: متى تستخدم كل منهما؟</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-6 rounded-2xl border-2 border-rose-200 bg-rose-50">
+                        <h4 class="font-bold text-rose-800 mb-3">🐌 Lazy Loading (افتراضي)</h4>
+                        <p class="text-rose-700 text-sm">يجلب العلاقة فقط <strong>عند استخدامها</strong>. إذا لم تستخدم العلاقة، لا استعلام إضافي.</p>
+                        <p class="text-rose-600 text-xs mt-2">مفيد عندما: لا تعرف إذا كنت ستحتاج العلاقة أم لا.</p>
+                        <p class="text-rose-600 text-xs">خطير عندما: تستخدم العلاقة في حلقة (يسبب N+1).</p>
+                        <div class="code-block mt-3 text-xs">
+                            $p = Project::find(1); // استعلام واحد<br>
+                            echo $p->user->name;   // استعلام إضافي هنا
+                        </div>
+                    </div>
+                    <div class="p-6 rounded-2xl border-2 border-emerald-200 bg-emerald-50">
+                        <h4 class="font-bold text-emerald-800 mb-3">⚡ Eager Loading (مع ::with)</h4>
+                        <p class="text-emerald-700 text-sm">يجلب العلاقة <strong>مسبقاً</strong> مع الاستعلام الأصلي باستخدام JOIN.</p>
+                        <p class="text-emerald-600 text-xs mt-2">مفيد عندما: تعلم أنك ستحتاج العلاقة (مثلاً في صفحة listing).</p>
+                        <p class="text-emerald-600 text-xs">أفضل أداء عندما: تستخدم العلاقة عدة مرات.</p>
+                        <div class="code-block mt-3 text-xs">
+                            $ps = Project::with('user')->get(); // 2 استعلامات<br>
+                            foreach($ps as $p) { echo $p->user->name; } // لا استعلامات إضافية
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box mt-6">
+                    <p class="font-bold text-sky-800">💡 قاعدة بسيطة:</p>
+                    <p class="text-sky-700">إذا كنت تعلم أنك ستستخدم العلاقة، استخدم <code>::with()</code>. إذا كنت غير متأكد، استخدم Lazy Loading لكن <strong>ليس في حلقة</strong>.</p>
+                </div>
+            </section>
+
+            <!-- Section 4: Query Scopes -->
+            <section id="scopes" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">Query Scopes: دوال استعلام قابلة لإعادة الاستخدام</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <p><strong>Query Scope</strong> هي دالة في الـ Model تسمح لك بإضافة شروط استعلام بشكل متكرر دون تكرار الكود. هناك نوعان:</p>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">1. Local Scope (نطاق محلي) - يبدأ بـ scope</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// في Project Model</span></span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-php">scopeActive</span>(<span class="code-keyword">$query</span>)</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">return</span> <span class="code-keyword">$query</span>-><span class="code-php">where</span>(<span class="code-string">'status'</span>, <span class="code-string">'active'</span>);</span>
+                    <span class="code-line">}</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-php">scopeWithUserAndTasks</span>(<span class="code-keyword">$query</span>)</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">return</span> <span class="code-keyword">$query</span>-><span class="code-php">with</span>([<span class="code-string">'user'</span>, <span class="code-string">'tasks'</span>]);</span>
+                    <span class="code-line">}</span>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">استخدام الـ Scope:</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-keyword">$activeProjects</span> = Project::<span class="code-php">active</span>()    <span class="code-comment">// استدعاء الـ scopeActive</span></span>
+                    <span class="code-line">    -><span class="code-php">withUserAndTasks</span>()                <span class="code-comment">// استدعاء الـ scopeWithUserAndTasks</span></span>
+                    <span class="code-line">    -><span class="code-php">latest</span>()                           <span class="code-comment">// إضافات أخرى</span></span>
+                    <span class="code-line">    -><span class="code-php">get</span>();</span>
+                </div>
+                <p class="text-sm text-slate-600 mt-2">ملاحظة: عند الاستدعاء، نحذف <code>scope</code> من اسم الدالة. <code>scopeActive</code> يصبح <code>active()</code>.</p>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">Scope مع معاملات (Parameters):</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// تعريف</span></span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-php">scopeStatus</span>(<span class="code-keyword">$query</span>, <span class="code-keyword">$status</span>)</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">return</span> <span class="code-keyword">$query</span>-><span class="code-php">where</span>(<span class="code-string">'status'</span>, <span class="code-keyword">$status</span>);</span>
+                    <span class="code-line">}</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-comment">// استخدام</span></span>
+                    <span class="code-line"><span class="code-keyword">$pendingProjects</span> = Project::<span class="code-php">status</span>(<span class="code-string">'pending'</span>)-><span class="code-php">get</span>();</span>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">2. Global Scope (تطبق على كل استعلام)</h3>
+                <p class="text-slate-600">تطبق تلقائياً على جميع استعلامات الـ Model. مثلاً، إخفاء المشاريع المحذوفة (هذا ما يفعله SoftDeletes تلقائياً).</p>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// تسجيل Global Scope في Boot Method</span></span>
+                    <span class="code-line"><span class="code-keyword">protected static function</span> <span class="code-php">booted</span>(): <span class="code-keyword">void</span></span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">static</span>::<span class="code-php">addGlobalScope</span>(<span class="code-string">'active'</span>, <span class="code-keyword">function</span> (<span class="code-keyword">$builder</span>) {</span>
+                    <span class="code-line">        <span class="code-keyword">$builder</span>-><span class="code-php">where</span>(<span class="code-string">'status'</span>, <span class="code-string">'active'</span>);</span>
+                    <span class="code-line">    });</span>
+                    <span class="code-line">}</span>
+                </div>
+                <p class="text-xs text-amber-600 mt-2">⚠️ تحذير: Global Scopes خطيرة لأنها تطبق على كل استعلام. قد تسبب نتائج غير متوقعة. استخدمها بحذر.</p>
+            </section>
+
+            <!-- Section 5: ::when() -->
+            <section id="when" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">::when(): الاستعلام الشرطي الذكي</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <p>تخيل أن لديك صفحة تبحث عن المشاريع. المستخدم قد يختار فلترة حسب الحالة أو لا. كيف تكتب استعلاماً يتعامل مع الحالتين؟</p>
+                    <p>بدون <code>::when()</code>، كنت ستكتب إذا...آخر... (if/else). مع <code>::when()</code>، نكتب شرطاً واحداً أنيقاً:</p>
+                </div>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-keyword">$status</span> = request(<span class="code-string">'status'</span>);  <span class="code-comment">// قد يكون null أو 'active' أو 'completed'</span></span>
+                    <span class="code-line"><span class="code-keyword">$search</span> = request(<span class="code-string">'search'</span>);  <span class="code-comment">// قد يكون null أو نص بحث</span></span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-keyword">$projects</span> = Project::<span class="code-php">with</span>(<span class="code-string">'user'</span>)</span>
+                    <span class="code-line">    -><span class="code-php">when</span>(<span class="code-keyword">$status</span>, <span class="code-keyword">function</span> (<span class="code-keyword">$query</span>) <span class="code-keyword">use</span> (<span class="code-keyword">$status</span>) {</span>
+                    <span class="code-line">        <span class="code-comment">// إذا كان $status موجوداً (غير فارغ)، أضف شرط where</span></span>
+                    <span class="code-line">        <span class="code-keyword">return</span> <span class="code-keyword">$query</span>-><span class="code-php">where</span>(<span class="code-string">'status'</span>, <span class="code-keyword">$status</span>);</span>
+                    <span class="code-line">    })</span>
+                    <span class="code-line">    -><span class="code-php">when</span>(<span class="code-keyword">$search</span>, <span class="code-keyword">function</span> (<span class="code-keyword">$query</span>) <span class="code-keyword">use</span> (<span class="code-keyword">$search</span>) {</span>
+                    <span class="code-line">        <span class="code-comment">// إذا كان $search موجوداً، أضف شرط LIKE</span></span>
+                    <span class="code-line">        <span class="code-keyword">return</span> <span class="code-keyword">$query</span>-><span class="code-php">where</span>(<span class="code-string">'name'</span>, <span class="code-string">'like'</span>, <span class="code-string">"%{$search}%"</span>);</span>
+                    <span class="code-line">    })</span>
+                    <span class="code-line">    -><span class="code-php">latest</span>()</span>
+                    <span class="code-line">    -><span class="code-php">paginate</span>(10);  <span class="code-comment">// تقسيم النتائج إلى صفحات</span></span>
+                </div>
+                <div class="highlight-box mt-4">
+                    <p class="font-bold text-sky-800">💡 شرح ::when():</p>
+                    <p class="text-sky-700">الـ <strong>معامل الأول</strong> هو الشرط. إذا كان true (غير null، غير false، غير '')، يتم تنفيذ الـ Closure في المعامل الثاني. الفكرة: نبني الاستعلام ديناميكياً حسب مدخلات المستخدم.</p>
+                </div>
+            </section>
+
+            <!-- Section 6: Chunking -->
+            <section id="chunk" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">Chunking: تقسيم النتائج الكبيرة إلى أجزاء</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <p>ماذا لو كان لديك 100,000 مشروع واستخدمت <code>::all()</code>؟ سيحاول PHP تحميل جميع المشاريع في الذاكرة دفعة واحدة. هذا سيستهلك ذاكرة هائلة وقد يوقف التطبيق!</p>
+                    <p><strong>Chunking</strong> يقسم النتائج إلى أجزاء صغيرة (مثلاً 100 سجل في كل مرة) ويعالجها واحدة تلو الأخرى. هذا يقلل استهلاك الذاكرة بشكل كبير.</p>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">استخدام chunk():</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// معالجة 100 مشروع في كل دورة</span></span>
+                    <span class="code-line">Project::<span class="code-php">chunk</span>(100, <span class="code-keyword">function</span> (<span class="code-keyword">$projects</span>) {</span>
+                    <span class="code-line">    <span class="code-comment">// $projects تحتوي على 100 مشروع فقط</span></span>
+                    <span class="code-line">    <span class="code-keyword">foreach</span> (<span class="code-keyword">$projects</span> <span class="code-keyword">as</span> <span class="code-keyword">$project</span>) {</span>
+                    <span class="code-line">        <span class="code-comment">// افعل شيئاً مع كل مشروع</span></span>
+                    <span class="code-line">        Log::<span class="code-php">info</span>(<span class="code-string">"معالجة المشروع: {$project->name}"</span>);</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line">});</span>
+                </div>
+                <p class="text-sm text-slate-600 mt-2">هذا يعالج 100,000 مشروع في 1,000 دورة، كل دورة تحمل 100 مشروع فقط. استخدام الذاكرة ثابت ومنخفض.</p>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">chunkById للعمليات الكبيرة:</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// مثالي لتحديث كميات كبيرة من البيانات</span></span>
+                    <span class="code-line">Project::<span class="code-php">chunkById</span>(100, <span class="code-keyword">function</span> (<span class="code-keyword">$projects</span>) {</span>
+                    <span class="code-line">    <span class="code-keyword">foreach</span> (<span class="code-keyword">$projects</span> <span class="code-keyword">as</span> <span class="code-keyword">$project</span>) {</span>
+                    <span class="code-line">        <span class="code-keyword">$project</span>-><span class="code-php">update</span>([<span class="code-string">'status'</span> => <span class="code-string">'archived'</span>]);</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line">});</span>
+                </div>
+            </section>
+
+            <!-- Section 7: Caching -->
+            <section id="cache" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">Caching: حفظ الاستعلامات في الذاكرة المؤقتة</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <p><strong>الـ Cache</strong> هو مكان سريع التخزين (مثل الملفات أو Redis). الفكرة: إذا كان هناك استعلام ثقيل يتكرر كثيراً (مثل قائمة المشاريع في الصفحة الرئيسية)، ننفذه مرة واحدة ونحفظ النتيجة في الـ Cache لمدة معينة.</p>
+                    <p>في الطلبات التالية، نقرأ من الـ Cache (سريع جداً) بدلاً من تنفيذ الاستعلام الثقيل.</p>
+                </div>
+
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// استخدام Cache::remember() - المدة 60 دقيقة</span></span>
+                    <span class="code-line"><span class="code-keyword">$projects</span> = Cache::<span class="code-php">remember</span>(<span class="code-string">'projects.with.tasks'</span>, <span class="code-number">3600</span>, <span class="code-keyword">function</span> () {</span>
+                    <span class="code-line">    <span class="code-comment">// هذا الكود ينفذ مرة واحدة فقط كل ساعة!</span></span>
+                    <span class="code-line">    <span class="code-keyword">return</span> Project::<span class="code-php">with</span>([<span class="code-string">'user'</span>, <span class="code-string">'tasks'</span>])</span>
+                    <span class="code-line">        -><span class="code-php">active</span>()</span>
+                    <span class="code-line">        -><span class="code-php">latest</span>()</span>
+                    <span class="code-line">        -><span class="code-php">get</span>();</span>
+                    <span class="code-line">});</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-comment">// $projects الآن تحتوي على النتيجة سواء من الـ Cache أو من قاعدة البيانات</span></span>
+                </div>
+
+                <div class="highlight-box mt-4">
+                    <p class="font-bold text-sky-800">🔑 شرح Cache::remember():</p>
+                    <ul class="list-disc pr-6 mt-2 text-sky-700 text-sm space-y-1">
+                        <li><strong>المعامل 1 - المفتاح (Key):</strong> اسم فريد لهذا الـ Cache (مثل <code>'projects.with.tasks'</code>)</li>
+                        <li><strong>المعامل 2 - المدة (TTL):</strong> مدة الصلاحية بالثواني (3600 = ساعة واحدة)</li>
+                        <li><strong>المعامل 3 - Closure:</strong> الكود الذي ينفذ لاسترجاع البيانات إذا لم تكن في الـ Cache</li>
+                    </ul>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">مسح الـ Cache عند تحديث البيانات:</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// عند إنشاء مشروع جديد، امسح الـ Cache</span></span>
+                    <span class="code-line">Cache::<span class="code-php">forget</span>(<span class="code-string">'projects.with.tasks'</span>);</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-comment">// أو أفضل: في Model باستخدام booted():</span></span>
+                    <span class="code-line"><span class="code-keyword">protected static function</span> <span class="code-php">booted</span>(): <span class="code-keyword">void</span></span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">static</span>::<span class="code-php">created</span>(<span class="code-keyword">function</span> () {</span>
+                    <span class="code-line">        Cache::<span class="code-php">forget</span>(<span class="code-string">'projects.with.tasks'</span>);</span>
+                    <span class="code-line">    });</span>
+                    <span class="code-line">}</span>
+                </div>
+            </section>
+
+            <!-- Section 8: select() -->
+            <section id="select" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">select(): جلب الأعمدة التي تحتاجها فقط</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <p>عند استخدام <code>::all()</code>، Eloquent يجلب جميع الأعمدة (<code>SELECT *</code>). لكنك قد تحتاج فقط <code>id</code> و <code>name</code> و <code>status</code>. جلب بيانات لا تحتاجها يستهلك ذاكرة وعرض نطاق.</p>
+                    <p>استخدم <code>->select()</code> لتحديد الأعمدة التي تريدها فقط:</p>
+                </div>
+
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// جلب فقط الأعمدة التي نحتاجها</span></span>
+                    <span class="code-line"><span class="code-keyword">$projects</span> = Project::<span class="code-php">select</span>(<span class="code-string">'id'</span>, <span class="code-string">'name'</span>, <span class="code-string">'status'</span>, <span class="code-string">'created_at'</span>)</span>
+                    <span class="code-line">    -><span class="code-php">with</span>(<span class="code-string">'user:id,name'</span>)    <span class="code-comment">// من الـ User: فقط id و name</span></span>
+                    <span class="code-line">    -><span class="code-php">active</span>()</span>
+                    <span class="code-line">    -><span class="code-php">get</span>();</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-comment">// في with، نستخدم: 'relation:column1,column2'</span></span>
+                    <span class="code-line"><span class="code-comment">// لاحظ: يجب تضمين id دائماً لأنه المفتاح الذي يربط العلاقات</span></span>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">مقارنة الأداء:</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right border-collapse">
+                        <thead>
+                            <tr class="bg-slate-800 text-white">
+                                <th class="p-3 border border-slate-700">الطريقة</th>
+                                <th class="p-3 border border-slate-700">البيانات المنقولة</th>
+                                <th class="p-3 border border-slate-700">السرعة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300">Project::all()</td><td class="p-3 border border-slate-300">كل الأعمدة (8+ أعمدة)</td><td class="p-3 border border-slate-300 text-rose-600">بطيء مع كميات كبيرة</td></tr>
+                            <tr class="bg-slate-50"><td class="p-3 border border-slate-300">Project::select('id','name')->get()</td><td class="p-3 border border-slate-300">عمودين فقط</td><td class="p-3 border border-slate-300 text-emerald-600">أسرع بمرتين</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section 9: FlowPilot Optimization -->
+            <section id="flowpilot" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">تطبيق FlowPilot: تحسين صفحة المشاريع</h2>
+                <p class="text-slate-600">الآن سنطبق كل ما تعلمناه لتحسين صفحة عرض المشاريع في FlowPilot. هذه الصفحة ستستخدم بشكل متكرر ويجب أن تكون سريعة جداً.</p>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">قبل التحسين (بطيء):</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-code-comment">// Controller - الطريقة البدائية</span></span>
+                    <span class="code-line"><span class="code-keyword">$projects</span> = Project::<span class="code-php">all</span>();  <span class="code-comment">// كل الأعمدة، بدون علاقات (يسبب N+1)</span></span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-comment">// في Blade/React:</span></span>
+                    <span class="code-line"><span class="code-keyword">foreach</span> (<span class="code-keyword">$projects</span> <span class="code-keyword">as</span> <span class="code-keyword">$project</span>) {</span>
+                    <span class="code-line">    <span class="code-keyword">echo</span> <span class="code-keyword">$project</span>-><span class="code-php">user</span>-><span class="code-php">name</span>;  <span class="code-comment">// N+1: استعلام لكل مشروع!</span></span>
+                    <span class="code-line">    <span class="code-keyword">echo</span> <span class="code-keyword">$project</span>-><span class="code-php">tasks</span>-><span class="code-php">count</span>(); <span class="code-comment">// N+1 آخر!</span></span>
+                    <span class="code-line">}</span>
+                    <span class="code-line"><span class="code-comment">// 100 مشروع = 1 + 100 + 100 = 201 استعلام!</span></span>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-8">بعد التحسين (سريع جداً):</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// Project Model - أضف هذه الـ Scopes</span></span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-php">scopeWithEssential</span>(<span class="code-keyword">$query</span>)</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">return</span> <span class="code-keyword">$query</span>-><span class="code-php">with</span>([<span class="code-string">'user:id,name'</span>, <span class="code-string">'tasks'</span>])</span>
+                    <span class="code-line">                -><span class="code-php">withCount</span>([<span class="code-string">'tasks as completed_count'</span> => <span class="code-keyword">function</span> (<span class="code-keyword">$q</span>) {</span>
+                    <span class="code-line">                    <span class="code-keyword">$q</span>-><span class="code-php">where</span>(<span class="code-string">'status'</span>, <span class="code-string">'completed'</span>);</span>
+                    <span class="code-line">                }]);</span>
+                    <span class="code-line">}</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-comment">// Controller المحسّن:</span></span>
+                    <span class="code-line"><span class="code-keyword">$projects</span> = Cache::<span class="code-php">remember</span>(<span class="code-string">'projects.index'</span>, <span class="code-number">3600</span>, <span class="code-keyword">function</span> () {</span>
+                    <span class="code-line">    <span class="code-keyword">return</span> Project::<span class="code-php">select</span>(<span class="code-string">'id'</span>, <span class="code-string">'name'</span>, <span class="code-string">'status'</span>, <span class="code-string">'deadline'</span>, <span class="code-string">'created_at'</span>)</span>
+                    <span class="code-line">        -><span class="code-php">withEssential</span>()</span>
+                    <span class="code-line">        -><span class="code-php">latest</span>()</span>
+                    <span class="code-line">        -><span class="code-php">paginate</span>(20);</span>
+                    <span class="code-line">});</span>
+                </div>
+
+                <p class="text-slate-600 mt-4"><strong>النتيجة:</strong> 3 استعلامات فقط! واحد للمشاريع، واحد للمستخدمين، واحد لعدد المهام. مقارنة بـ 201 استعلام قبل التحسين. 67 مرة أسرع!</p>
+            </section>
+
+            <!-- Section 10: Common Errors -->
+            <section id="errors" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">الأخطاء الشائعة في تحسين الاستعلامات</h2>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 1: نسيان ::with() في الحلقات (N+1)</h4>
+                    <p class="text-rose-600 text-sm">أشهر خطأ أداء في Laravel! الحل: تعوّد على استخدام <code>::with()</code> لكل استعلام يجلب علاقات.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 2: استخدام ::all() لجلب بيانات ضخمة</h4>
+                    <p class="text-rose-600 text-sm">إذا كان لديك 50,000 سجل، <code>::all()</code> سيحملهم كلهم في الذاكرة. استخدم <code>::paginate()</code> أو <code>::chunk()</code> بدلاً من ذلك.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 3: نسيان مسح الـ Cache بعد التحديث</h4>
+                    <p class="text-rose-600 text-sm">إذا كنت تستخدم Cache، يجب مسحه عند إنشاء/تحديث/حذف البيانات. وإلا سيرى المستخدمون بيانات قديمة.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 4: جلب أعمدة كثيرة غير ضرورية</h4>
+                    <p class="text-rose-600 text-sm">استخدم <code>->select()</code> لتحديد الأعمدة التي تحتاجها فقط. ولا تنسَ جلب <code>id</code> في العلاقات.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 5: استخدام N+1 Queries داخل Scopes</h4>
+                    <p class="text-rose-600 text-sm">إذا كنت تعرّف Scope يستخدم علاقات، تأكد من تمرير <code>$query</code> مع <code>with()</code>. الـ Scope لا يحمي من N+1 تلقائياً.</p>
+                </div>
+            </section>
+
+            <!-- Section 11: Summary -->
+            <section id="summary" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">📝 ملخص الدرس</h2>
+                <div class="bg-gradient-to-r from-indigo-50 to-sky-50 p-6 rounded-2xl border border-indigo-100">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3"><span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">1</span><div><span class="font-bold text-slate-900">Eager Loading</span><span class="text-slate-600"> ::with() يجلب العلاقات مقدماً. يقلل N+1 إلى استعلامين.</span></div></li>
+                        <li class="flex items-start gap-3"><span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">2</span><div><span class="font-bold text-slate-900">Query Scopes</span><span class="text-slate-600"> دوال استعلام قابلة لإعادة الاستخدام (scopeActive, scopeStatus).</span></div></li>
+                        <li class="flex items-start gap-3"><span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">3</span><div><span class="font-bold text-slate-900">::when()</span><span class="text-slate-600"> استعلام شرطي يضيف where فقط إذا كان الشرط محققاً.</span></div></li>
+                        <li class="flex items-start gap-3"><span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">4</span><div><span class="font-bold text-slate-900">Chunking</span><span class="text-slate-600"> يقسم النتائج الكبيرة إلى أجزاء (100 سجل كل مرة) لتوفير الذاكرة.</span></div></li>
+                        <li class="flex items-start gap-3"><span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">5</span><div><span class="font-bold text-slate-900">Caching</span><span class="text-slate-600"> يحفظ نتائج الاستعلامات الثقيلة في ذاكرة سريعة. Cache::remember() لمدة محددة.</span></div></li>
+                        <li class="flex items-start gap-3"><span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">6</span><div><span class="font-bold text-slate-900">select()</span><span class="text-slate-600"> يجلب الأعمدة التي تحتاجها فقط، مما يقلل حجم البيانات المنقولة.</span></div></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Navigation -->
             <div class="mt-12 flex justify-between gap-4">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-03/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-sky-600 px-8 py-4 text-white font-black hover:bg-sky-700 transition-all shadow-xl shadow-sky-100" href="../../week-04/lesson-01/index.html">الأسبوع الرابع: الأمان ←</a>
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-03/lesson-03/index.html">← الدرس السابق: Eloquent Models</a>
+                <a class="rounded-2xl bg-sky-600 px-8 py-4 text-white font-black hover:bg-sky-700 transition-all shadow-xl shadow-sky-100" href="../../week-04/lesson-01/index.html">الدرس التالي: الأسبوع الرابع ←</a>
             </div>
         </article>
     </div>
 </main>
-
-<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
-    © 2025 FlowPilot Academy. المحتوى مصمم لجعل كودك أسرع وأكثر كفاءة.
-</footer>
-
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">© 2025 FlowPilot Academy. الاستعلام السريع = تجربة مستخدم سعيدة.</footer>
 <script src="../../../assets/js/app.js"></script>
 </body>
 </html>

@@ -3,12 +3,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>كويز الدرس 13: احتراف المصادقة</title>
+    <title>كويز الدرس 13: المصادقة | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .correct { background: #f0fdf4 !important; border-color: #22c55e !important; }
+        .incorrect { background: #fef2f2 !important; border-color: #ef4444 !important; }
+        .explain-box { display: none; margin-top: 0.75rem; padding: 1rem; border-radius: 0.75rem; font-size: 0.875rem; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
@@ -23,58 +29,320 @@
     
     <div class="space-y-12">
         <div class="text-center space-y-4">
-            <h1 class="text-3xl font-black text-indigo-600">كويز الدرس 13: المصادقة</h1>
-            <p class="text-slate-600 italic">"افهم كيف يحمي Laravel بيانات فريقك."</p>
+            <h1 class="text-3xl font-black text-amber-600">📝 كويز الدرس 13: المصادقة (Authentication)</h1>
+            <p class="text-slate-600 italic">"اختبر فهمك لكيفية حماية تطبيق FlowPilot بنظام الدخول."</p>
+            <p class="text-slate-400 text-sm">عدد الأسئلة: 9 (5 اختيار من متعدد + 2 صح/خطأ + 1 نظري + 1 عملي)</p>
         </div>
 
-        <div id="quiz-container" class="space-y-8">
+        <div id="quiz-container" class="space-y-8" data-lesson="13">
+
             <!-- MCQ 1 -->
-            <div class="card p-8 space-y-6 shadow-sm bg-white rounded-3xl" data-answer="c">
-                <p class="font-black text-xl leading-relaxed">1. ما الفرق الأساسي بين Authentication و Authorization؟</p>
-                <div class="space-y-3">
-                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer">
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-answer="c" data-type="mcq">
+                <p class="font-black text-lg leading-relaxed">1. (اختيار من متعدد) ما هو تعريف Authentication في تطبيقات الويب؟</p>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
                         <input type="radio" name="q1" value="a" class="hidden">
-                        <span>أ) لا يوجد فرق، كلاهما نفس الشيء.</span>
+                        <span>أ) عملية تغيير تصميم الصفحة الرئيسية</span>
                     </label>
-                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
                         <input type="radio" name="q1" value="b" class="hidden">
-                        <span>ب) الأول لتصميم الألوان والثاني لقاعدة البيانات.</span>
+                        <span>ب) عملية رفع الملفات إلى قاعدة البيانات</span>
                     </label>
-                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
                         <input type="radio" name="q1" value="c" class="hidden">
-                        <span>ج) الأول للتحقق من الهوية، والثاني للتحقق من الصلاحيات.</span>
+                        <span>ج) عملية التحقق من هوية المستخدم (من أنت؟)</span>
                     </label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="d" class="hidden">
+                        <span>د) عملية تحديد صلاحيات المستخدم</span>
+                    </label>
+                </div>
+                <div class="explain-box bg-green-50 border border-green-200 text-green-700" data-explain="q1">
+                    <strong>✅ الشرح:</strong> Authentication هي التحقق من الهوية (من أنت؟). تحديد الصلاحيات هو Authorization (الدرس القادم).
                 </div>
             </div>
 
             <!-- MCQ 2 -->
-            <div class="card p-8 space-y-6 shadow-sm bg-white rounded-3xl" data-answer="b">
-                <p class="font-black text-xl leading-relaxed">2. لماذا نستخدم Laravel Breeze في FlowPilot؟</p>
-                <div class="space-y-3">
-                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer">
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-answer="b" data-type="mcq">
+                <p class="font-black text-lg leading-relaxed">2. (اختيار من متعدد) ما هي وظيفة Laravel Breeze؟</p>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
                         <input type="radio" name="q2" value="a" class="hidden">
-                        <span>أ) لتسريع سرعة الإنترنت في الموقع.</span>
+                        <span>أ) تسريع تحميل الصور في الموقع</span>
                     </label>
-                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
                         <input type="radio" name="q2" value="b" class="hidden">
-                        <span>ب) لتوفير نظام دخول وتسجيل جاهز ومؤمن.</span>
+                        <span>ب) توفير نظام مصادقة جاهز (Login, Register, Password Reset)</span>
                     </label>
-                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
                         <input type="radio" name="q2" value="c" class="hidden">
-                        <span>ج) لإضافة صور للمشاريع.</span>
+                        <span>ج) إضافة قاعدة بيانات SQLite</span>
                     </label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="d" class="hidden">
+                        <span>د) إنشاء صفحات HTML ثابتة</span>
+                    </label>
+                </div>
+                <div class="explain-box bg-green-50 border border-green-200 text-green-700" data-explain="q2">
+                    <strong>✅ الشرح:</strong> Breeze هو Starter Kit جاهز يتضمن كل صفحات المصادقة مع React + Tailwind CSS.
                 </div>
             </div>
 
-            <!-- Final Button -->
-            <div class="card p-10 text-center space-y-6 bg-slate-900 text-white rounded-[2rem]">
-                <p class="font-black text-2xl">درجتك النهائية</p>
-                <div id="quizResult" class="text-5xl font-black text-indigo-400">-- / 2</div>
-                <button data-grade-quiz class="px-10 py-4 bg-indigo-600 rounded-2xl font-black hover:bg-indigo-700 transition-all">صحح كويزي الآن</button>
+            <!-- MCQ 3 -->
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-answer="a" data-type="mcq">
+                <p class="font-black text-lg leading-relaxed">3. (اختيار من متعدد) أي Middleware تستخدم لحماية مسار من الزوار غير المسجلين؟</p>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="a" class="hidden">
+                        <span>أ) <code>middleware(['auth'])</code></span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="b" class="hidden">
+                        <span>ب) <code>middleware(['guest'])</code></span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="c" class="hidden">
+                        <span>ج) <code>middleware(['admin'])</code></span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="d" class="hidden">
+                        <span>د) <code>middleware(['verified'])</code></span>
+                    </label>
+                </div>
+                <div class="explain-box bg-green-50 border border-green-200 text-green-700" data-explain="q3">
+                    <strong>✅ الشرح:</strong> <code>middleware(['auth'])</code> تمنع الزوار غير المسجلين. <code>guest</code> تسمح فقط للزوار غير المسجلين.
+                </div>
+            </div>
+
+            <!-- MCQ 4 -->
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-answer="b" data-type="mcq">
+                <p class="font-black text-lg leading-relaxed">4. (اختيار من متعدد) كيف يمكننا الوصول لبيانات المستخدم المسجل في React مع Inertia؟</p>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="a" class="hidden">
+                        <span>أ) <code>window.user</code></span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="b" class="hidden">
+                        <span>ب) <code>usePage().props.auth.user</code></span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="c" class="hidden">
+                        <span>ج) <code>localStorage.getItem('user')</code></span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="d" class="hidden">
+                        <span>د) <code>axios.get('/api/user')</code></span>
+                    </label>
+                </div>
+                <div class="explain-box bg-green-50 border border-green-200 text-green-700" data-explain="q4">
+                    <strong>✅ الشرح:</strong> Inertia يشارك بيانات المستخدم عبر <code>HandleInertiaRequests</code> ويجعلها متاحة عبر <code>usePage().props.auth.user</code>.
+                </div>
+            </div>
+
+            <!-- MCQ 5 -->
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-answer="c" data-type="mcq">
+                <p class="font-black text-lg leading-relaxed">5. (اختيار من متعدد) ماذا يحدث عندما يحاول زائر غير مسجل فتح <code>/dashboard</code> المحمي بـ <code>auth</code>؟</p>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="a" class="hidden">
+                        <span>أ) تظهر صفحة فارغة</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="b" class="hidden">
+                        <span>ب) تظهر رسالة "غير مصرح" (403)</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="c" class="hidden">
+                        <span>ج) يتم تحويله تلقائياً إلى صفحة تسجيل الدخول (redirect)</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="d" class="hidden">
+                        <span>د) يتم إنشاء حساب جديد له تلقائياً</span>
+                    </label>
+                </div>
+                <div class="explain-box bg-green-50 border border-green-200 text-green-700" data-explain="q5">
+                    <strong>✅ الشرح:</strong> Middleware 'auth' يتحقق من Session. إذا لم يكن المستخدم مسجلاً، يقوم بعمل Redirect إلى route('login').
+                </div>
+            </div>
+
+            <!-- T/F 6 -->
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-answer="true" data-type="tf">
+                <p class="font-black text-lg leading-relaxed">6. (صح/خطأ) المصادقة (Authentication) هي نفسها التفويض (Authorization).</p>
+                <div class="flex gap-4">
+                    <label class="flex-1 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer text-center font-bold transition-all">
+                        <input type="radio" name="q6" value="true" class="hidden">
+                        <span>صح</span>
+                    </label>
+                    <label class="flex-1 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer text-center font-bold transition-all">
+                        <input type="radio" name="q6" value="false" class="hidden">
+                        <span>خطأ</span>
+                    </label>
+                </div>
+                <div class="explain-box bg-green-50 border border-green-200 text-green-700" data-explain="q6">
+                    <strong>✅ الشرح:</strong> العبارة خطأ. Authentication تثبت الهوية، Authorization تحدد الصلاحيات. هما مفهومان مختلفان.
+                </div>
+            </div>
+
+            <!-- T/F 7 -->
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-answer="false" data-type="tf">
+                <p class="font-black text-lg leading-relaxed">7. (صح/خطأ) Laravel Breeze يشتغل فقط مع Vue.js ولا يدعم React.</p>
+                <div class="flex gap-4">
+                    <label class="flex-1 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer text-center font-bold transition-all">
+                        <input type="radio" name="q7" value="true" class="hidden">
+                        <span>صح</span>
+                    </label>
+                    <label class="flex-1 p-3 rounded-xl border-2 border-slate-100 hover:border-amber-300 cursor-pointer text-center font-bold transition-all">
+                        <input type="radio" name="q7" value="false" class="hidden">
+                        <span>خطأ</span>
+                    </label>
+                </div>
+                <div class="explain-box bg-green-50 border border-green-200 text-green-700" data-explain="q7">
+                    <strong>✅ الشرح:</strong> خطأ. Breeze يدعم React و Vue.js معاً. الأمر <code>php artisan breeze:install react</code> يثبته مع React.
+                </div>
+            </div>
+
+            <!-- Theory 8 -->
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-type="theory">
+                <p class="font-black text-lg leading-relaxed">8. (سؤال نظري) اشرح بجملتين: لماذا نستخدم Laravel Breeze بدلاً من كتابة نظام المصادقة من الصفر؟</p>
+                <textarea id="theory-answer" rows="4" class="w-full p-4 rounded-xl border-2 border-slate-200 focus:border-amber-500 outline-none resize-none text-right" placeholder="اكتب إجابتك هنا..."></textarea>
+                <div class="explain-box bg-blue-50 border border-blue-200 text-blue-700" id="theory-feedback" style="display:none">
+                    <strong>💡 الإجابة النموذجية:</strong> نستخدم Laravel Breeze لأنه يوفر نظام مصادقة آمن وجاهز مبني من قبل خبراء أمان، مما يوفر وقت التطوير ويضمن اتباع أفضل الممارسات (Best Practices) في حماية البيانات. بدلاً من كتابة آلاف الأسطر من الكود واختبارها، نحصل على حل متكامل بفضل واحد.
+                </div>
+                <button data-check-theory class="mt-3 px-6 py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all text-sm">عرض الإجابة النموذجية</button>
+            </div>
+
+            <!-- Practical 9 -->
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-type="practical">
+                <p class="font-black text-lg leading-relaxed">9. (سؤال عملي) أكتب كود React (باستخدام Inertia) يعرض اسم المستخدم المسجل إذا كان موجوداً، أو زر "تسجيل الدخول" إذا كان الزائر غير مسجل.</p>
+                <textarea id="practical-answer" rows="6" class="w-full p-4 rounded-xl border-2 border-slate-200 focus:border-amber-500 outline-none resize-none text-right font-mono text-sm" placeholder="اكتب الكود هنا..."></textarea>
+                <div class="explain-box bg-blue-50 border border-blue-200 text-blue-700" id="practical-feedback" style="display:none">
+                    <strong>💡 الإجابة النموذجية:</strong><br>
+                    <div class="bg-slate-900 rounded-xl p-3 font-mono text-xs text-emerald-400 mt-2 text-left">
+                        <span>import { usePage } from '@inertiajs/react';</span><br>
+                        <span> </span><br>
+                        <span>export default function Navbar() {</span><br>
+                        <span>  const { props } = usePage();</span><br>
+                        <span>  const user = props.auth.user;</span><br>
+                        <span> </span><br>
+                        <span>  return (</span><br>
+                        <span>    &lt;div&gt;</span><br>
+                        <span>      {user ? (</span><br>
+                        <span>        &lt;p&gt;مرحباً {user.name}&lt;/p&gt;</span><br>
+                        <span>      ) : (</span><br>
+                        <span>        &lt;a href="/login"&gt;تسجيل الدخول&lt;/a&gt;</span><br>
+                        <span>      )}</span><br>
+                        <span>    &lt;/div&gt;</span><br>
+                        <span>  );</span><br>
+                        <span>}</span>
+                    </div>
+                </div>
+                <button data-check-practical class="mt-3 px-6 py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all text-sm">عرض الإجابة النموذجية</button>
+            </div>
+
+            <!-- Final Grade Section -->
+            <div class="card p-10 text-center space-y-6 bg-gradient-to-br from-slate-900 to-amber-900 text-white rounded-[2rem]">
+                <p class="font-black text-2xl">📊 درجتك النهائية</p>
+                <div id="quizResult" class="text-6xl font-black text-amber-400">-- / 9</div>
+                <div id="quizDetails" class="text-sm text-amber-200 space-y-1">
+                    <p>الأسئلة الموضوعية: <span id="objScore">0</span> / 7</p>
+                    <p>الأسئلة المقالية: يدوية التصحيح</p>
+                </div>
+                <button data-grade-quiz class="px-10 py-4 bg-amber-600 rounded-2xl font-black hover:bg-amber-700 transition-all shadow-xl shadow-amber-900/30 text-lg">
+                    🧮 صحح الكويز الآن
+                </button>
+                <button data-reset-quiz class="px-6 py-2 bg-white/10 rounded-xl font-bold hover:bg-white/20 transition-all text-sm">
+                    إعادة تعيين
+                </button>
             </div>
         </div>
     </div>
 </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-grading logic
+    const gradeBtn = document.querySelector('[data-grade-quiz]');
+    const resetBtn = document.querySelector('[data-reset-quiz]');
+    const resultDiv = document.getElementById('quizResult');
+    const objScoreSpan = document.getElementById('objScore');
+
+    function gradeQuiz() {
+        let correct = 0;
+        const total = 7; // MCQ 5 + TF 2
+
+        // Grade each question container
+        document.querySelectorAll('[data-answer]').forEach(container => {
+            const correctAnswer = container.dataset.answer;
+            const type = container.dataset.type || 'mcq';
+            
+            // Find selected input
+            const selected = container.querySelector('input[type="radio"]:checked');
+            const explain = container.querySelector('.explain-box');
+
+            if (!selected) {
+                // No answer - mark incorrect
+                container.classList.add('incorrect');
+                container.classList.remove('correct');
+                if (explain) explain.style.display = 'block';
+                return;
+            }
+
+            const userAnswer = selected.value;
+
+            if (type === 'mcq' || type === 'tf') {
+                if (userAnswer === correctAnswer) {
+                    correct++;
+                    container.classList.add('correct');
+                    container.classList.remove('incorrect');
+                    if (explain) {
+                        explain.style.display = 'block';
+                        explain.className = 'explain-box bg-green-50 border border-green-200 text-green-700';
+                    }
+                } else {
+                    container.classList.add('incorrect');
+                    container.classList.remove('correct');
+                    if (explain) {
+                        explain.style.display = 'block';
+                        explain.className = 'explain-box bg-red-50 border border-red-200 text-red-700';
+                    }
+                }
+            }
+        });
+
+        objScoreSpan.textContent = correct;
+        resultDiv.textContent = correct + ' / ' + total;
+    }
+
+    function resetQuiz() {
+        document.querySelectorAll('input[type="radio"]').forEach(input => input.checked = false);
+        document.querySelectorAll('.explain-box').forEach(box => box.style.display = 'none');
+        document.querySelectorAll('[data-answer]').forEach(container => {
+            container.classList.remove('correct', 'incorrect');
+        });
+        document.querySelectorAll('textarea').forEach(ta => ta.value = '');
+        document.getElementById('theory-feedback').style.display = 'none';
+        document.getElementById('practical-feedback').style.display = 'none';
+        resultDiv.textContent = '-- / 9';
+        objScoreSpan.textContent = '0';
+    }
+
+    gradeBtn.addEventListener('click', gradeQuiz);
+    if (resetBtn) resetBtn.addEventListener('click', resetQuiz);
+
+    // Theory toggle
+    document.querySelector('[data-check-theory]')?.addEventListener('click', function() {
+        const fb = document.getElementById('theory-feedback');
+        fb.style.display = fb.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // Practical toggle
+    document.querySelector('[data-check-practical]')?.addEventListener('click', function() {
+        const fb = document.getElementById('practical-feedback');
+        fb.style.display = fb.style.display === 'none' ? 'block' : 'none';
+    });
+});
+</script>
 
 <script src="../../../assets/js/app.js"></script>
 </body>

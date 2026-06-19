@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 16: صفحة الملف الشخصي وإعدادات الحساب</title>
+    <title>الدرس 16: صفحة الملف الشخصي وإعدادات الحساب | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,13 @@
     <style>
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
-        .step-card { border-right: 4px solid #f59e0b; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .step-card { border-right: 4px solid #f472b6; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .code-line { display: block; padding: 2px 0; }
+        .code-comment { color: #6b7280; }
+        .code-keyword { color: #818cf8; }
+        .code-string { color: #34d399; }
+        .error-box { background: #fef2f2; border-right: 4px solid #ef4444; padding: 1.5rem; border-radius: 1rem; margin-bottom: 1.5rem; }
+        .success-box { background: #f0fdf4; border-right: 4px solid #22c55e; padding: 1.5rem; border-radius: 1rem; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -29,72 +35,532 @@
             <div class="sidebar-sticky space-y-4">
                 <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الرابع</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-amber-50 text-amber-700" href="#intro">مقدمة في الحساب</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">تعديل البيانات</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال بطاقة الهوية</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl bg-pink-50 text-pink-700" href="#intro">مقدمة: صفحة الملف الشخصي</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#profile">عرض معلومات المستخدم</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#edit">نموذج تعديل الاسم والبريد</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#password">تغيير كلمة المرور</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#validation">التحقق من صحة البيانات (Validation)</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#messages">رسائل النجاح (Flash Messages)</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#photo">رفع الصورة الشخصية</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">FlowPilot: صفحة الإعدادات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي (7 خطوات)</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">الأخطاء الشائعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#summary">ملخص</a>
                 </div>
             </div>
         </aside>
 
         <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
             <section class="border-b pb-8 mb-12">
-                <span class="badge bg-amber-50 text-amber-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 4 · الدرس 4</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">الملف الشخصي (Profile): كيف يدير المستخدم حسابه؟</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"يجب أن يشعر المستخدم بالسيطرة الكاملة على بياناته داخل التطبيق."</p>
+                <span class="badge bg-pink-50 text-pink-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 4 · الدرس 4 (الدرس 16)</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">صفحة الملف الشخصي وإعدادات الحساب</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"يجب أن يشعر المستخدم بالسيطرة الكاملة على بياناته. صفحة الإعدادات هي مكانه لضبط حسابه."</p>
             </section>
 
-            <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">لماذا صفحة الملف الشخصي؟</h2>
+            <!-- INTRO -->
+            <section id="intro" class="space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-pink-600 pr-4">1. لماذا نحتاج صفحة الملف الشخصي؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    أي نظام احترافي يحتاج لمكان يستطيع فيه المستخدم تغيير اسمه، تحديث بريده الإلكتروني، أو حتى حذف حسابه بالكامل. هذه هي صفحة <strong>الملف الشخصي (Profile)</strong>.
+                    أي تطبيق احترافي يجب أن يسمح للمستخدم بإدارة بياناته الشخصية. <strong>صفحة الملف الشخصي (Profile Page)</strong> هي المكان الذي يمكن للمستخدم من خلاله:
                 </p>
+                <ul class="list-disc pr-6 space-y-3 text-slate-600 text-lg">
+                    <li>رؤية معلوماته (الاسم، البريد الإلكتروني، تاريخ التسجيل).</li>
+                    <li>تغيير اسمه أو بريده الإلكتروني.</li>
+                    <li>تغيير كلمة المرور الخاصة به.</li>
+                    <li>رفع صورة شخصية (Avatar).</li>
+                    <li>حذف حسابه بالكامل (اختياري).</li>
+                </ul>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    في هذا الدرس، سنقوم بتخصيص صفحة الملف الشخصي التي وفرها لنا Laravel Breeze لنجعلها تتناسب مع هوية وتصميم <strong>FlowPilot</strong>.
+                    في هذا الدرس، سنقوم بتخصيص صفحة الملف الشخصي التي يوفرها <strong>Laravel Breeze</strong> لتتناسب مع هوية FlowPilot، مع إضافة تحسينات مثل رفع الصور والرسائل الفورية.
                 </p>
             </section>
 
-            <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">تعديل البيانات والحماية</h2>
+            <!-- PROFILE INFO -->
+            <section id="profile" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-pink-600 pr-4">2. عرض معلومات المستخدم</h2>
                 <p class="text-slate-600 leading-relaxed">
-                    عملية تحديث البيانات تحتاج لـ <strong>Validation</strong> (تحقق) قوي. لا نسمح للمستخدم مثلاً بترك اسمه فارغاً، أو تغيير بريده لبريد مسجل مسبقاً لمستخدم آخر. Laravel يتكفل بكل هذه التعقيدات خلف الكواليس.
+                    Laravel Breeze يوفر صفحة ملف شخصي جاهزة. يمكننا الوصول إليها عبر المسار <code>/profile</code>. المعلومات تظهر من خلال دالة <code>edit()</code> في <code>ProfileController</code>:
+                </p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// app/Http/Controllers/ProfileController.php</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">class</span> ProfileController <span class="code-keyword">extends</span> Controller</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-comment">// عرض صفحة تعديل الملف الشخصي</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-function">edit</span>(Request <span class="code-function">$request</span>)</span>
+                    <span class="code-line">    {</span>
+                    <span class="code-line">        <span class="code-comment">// يمرر المستخدم الحالي إلى صفحة React</span></span>
+                    <span class="code-line">        <span class="code-keyword">return</span> Inertia::render(<span class="code-string">'Profile/Edit'</span>, [</span>
+                    <span class="code-line">            <span class="code-string">'user'</span> =&gt; <span class="code-function">$request</span>-&gt;user(),</span>
+                    <span class="code-line">        ]);</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// تحديث معلومات المستخدم (الاسم والبريد)</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-function">update</span>(Request <span class="code-function">$request</span>)</span>
+                    <span class="code-line">    {</span>
+                    <span class="code-line">        <span class="code-comment">// ... (سنشرحها لاحقاً)</span></span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line">}</span>
+                </div>
+                <p class="text-slate-600 text-sm">🔍 <code>Inertia::render('Profile/Edit', ['user' => $request->user()])</code> يمرر بيانات المستخدم إلى صفحة React <code>Profile/Edit.jsx</code>.</p>
+
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// resources/js/Pages/Profile/Edit.jsx - عرض بيانات المستخدم</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">import</span> { usePage } <span class="code-keyword">from</span> <span class="code-string">'@inertiajs/react'</span>;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">export default function</span> <span class="code-function">Edit</span>() {</span>
+                    <span class="code-line">    <span class="code-keyword">const</span> { props } = <span class="code-function">usePage</span>();</span>
+                    <span class="code-line">    <span class="code-keyword">const</span> user = props.auth.user; <span class="code-comment">// أو props.user</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-keyword">return</span> (</span>
+                    <span class="code-line">        &lt;div className=<span class="code-string">"max-w-2xl mx-auto p-6"</span>&gt;</span>
+                    <span class="code-line">            &lt;h1 className=<span class="code-string">"text-3xl font-black"</span>&gt;الملف الشخصي&lt;/h1&gt;</span>
+                    <span class="code-line">            </span>
+                    <span class="code-line">            &lt;div className=<span class="code-string">"bg-white rounded-2xl p-6 shadow-sm mt-6"</span>&gt;</span>
+                    <span class="code-line">                &lt;p&gt;&lt;strong&gt;الاسم:&lt;/strong&gt; {user.name}&lt;/p&gt;</span>
+                    <span class="code-line">                &lt;p&gt;&lt;strong&gt;البريد:&lt;/strong&gt; {user.email}&lt;/p&gt;</span>
+                    <span class="code-line">                &lt;p&gt;&lt;strong&gt;تاريخ التسجيل:&lt;/strong&gt; {user.created_at}&lt;/p&gt;</span>
+                    <span class="code-line">            &lt;/div&gt;</span>
+                    <span class="code-line">        &lt;/div&gt;</span>
+                    <span class="code-line">    );</span>
+                    <span class="code-line">}</span>
+                </div>
+                <p class="text-slate-600 text-sm">🔍 <strong>user.name:</strong> يجلب اسم المستخدم. <strong>user.email:</strong> البريد الإلكتروني. <strong>user.created_at:</strong> تاريخ إنشاء الحساب.</p>
+            </section>
+
+            <!-- EDIT NAME/EMAIL FORM -->
+            <section id="edit" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-pink-600 pr-4">3. نموذج تعديل الاسم والبريد الإلكتروني</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    نموذج التعديل يستخدم <code>useForm</code> من Inertia لإرسال البيانات بطريقة غير متزامنة (AJAX) مع الحفاظ على الـ CSRF Protection:
+                </p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// resources/js/Pages/Profile/Edit.jsx - نموذج التعديل</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">import</span> { useForm } <span class="code-keyword">from</span> <span class="code-string">'@inertiajs/react'</span>;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">export default function</span> <span class="code-function">Edit</span>() {</span>
+                    <span class="code-line">    <span class="code-comment">// useForm: يعطي دوال لإدارة النموذج (data, setData, post, put, errors, processing)</span></span>
+                    <span class="code-line">    <span class="code-keyword">const</span> { data, setData, put, errors, processing } = <span class="code-function">useForm</span>({</span>
+                    <span class="code-line">        name: <span class="code-string">''</span>,   <span class="code-comment">// القيمة الافتراضية</span></span>
+                    <span class="code-line">        email: <span class="code-string">''</span>,</span>
+                    <span class="code-line">    });</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// عند إرسال النموذج</span></span>
+                    <span class="code-line">    <span class="code-keyword">function</span> <span class="code-function">submit</span>(e) {</span>
+                    <span class="code-line">        e.preventDefault(); <span class="code-comment">// منع إعادة تحميل الصفحة</span></span>
+                    <span class="code-line">        put(<span class="code-string">'/profile'</span>); <span class="code-comment">// إرسال طلب PUT إلى /profile</span></span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-keyword">return</span> (</span>
+                    <span class="code-line">        &lt;form onSubmit={submit} className=<span class="code-string">"space-y-4"</span>&gt;</span>
+                    <span class="code-line">            &lt;div&gt;</span>
+                    <span class="code-line">                &lt;label className=<span class="code-string">"block font-bold mb-1"</span>&gt;الاسم&lt;/label&gt;</span>
+                    <span class="code-line">                &lt;input</span>
+                    <span class="code-line">                    type=<span class="code-string">"text"</span></span>
+                    <span class="code-line">                    value={data.name}</span>
+                    <span class="code-line">                    onChange={e =&gt; setData(<span class="code-string">'name'</span>, e.target.value)}</span>
+                    <span class="code-line">                    className=<span class="code-string">"w-full p-3 border rounded-xl"</span></span>
+                    <span class="code-line">                /&gt;</span>
+                    <span class="code-line">                {errors.name &amp;&amp; &lt;p className=<span class="code-string">"text-red-500 text-sm mt-1"</span>&gt;{errors.name}&lt;/p&gt;}</span>
+                    <span class="code-line">            &lt;/div&gt;</span>
+                    <span class="code-line">            </span>
+                    <span class="code-line">            &lt;div&gt;</span>
+                    <span class="code-line">                &lt;label className=<span class="code-string">"block font-bold mb-1"</span>&gt;البريد الإلكتروني&lt;/label&gt;</span>
+                    <span class="code-line">                &lt;input</span>
+                    <span class="code-line">                    type=<span class="code-string">"email"</span></span>
+                    <span class="code-line">                    value={data.email}</span>
+                    <span class="code-line">                    onChange={e =&gt; setData(<span class="code-string">'email'</span>, e.target.value)}</span>
+                    <span class="code-line">                    className=<span class="code-string">"w-full p-3 border rounded-xl"</span></span>
+                    <span class="code-line">                /&gt;</span>
+                    <span class="code-line">                {errors.email &amp;&amp; &lt;p className=<span class="code-string">"text-red-500 text-sm mt-1"</span>&gt;{errors.email}&lt;/p&gt;}</span>
+                    <span class="code-line">            &lt;/div&gt;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">            &lt;button</span>
+                    <span class="code-line">                type=<span class="code-string">"submit"</span></span>
+                    <span class="code-line">                disabled={processing}</span>
+                    <span class="code-line">                className=<span class="code-string">"bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-indigo-700"</span></span>
+                    <span class="code-line">            &gt;</span>
+                    <span class="code-line">                {processing ? <span class="code-string">'جاري الحفظ...'</span> : <span class="code-string">'حفظ التغييرات'</span>}</span>
+                    <span class="code-line">            &lt;/button&gt;</span>
+                    <span class="code-line">        &lt;/form&gt;</span>
+                    <span class="code-line">    );</span>
+                    <span class="code-line">}</span>
+                </div>
+                <div class="space-y-3 mt-4">
+                    <h4 class="font-black text-slate-900">🔍 شرح الكود:</h4>
+                    <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                        <li><strong>useForm({name: '', email: ''}):</strong> Hook من Inertia يدير حالة النموذج. <code>data</code> يحمل القيم الحالية، <code>setData</code> يحدثها، <code>errors</code> يحمل أخطاء التحقق من الخادم.</li>
+                        <li><strong>put('/profile'):</strong> يرسل طلب PUT (تحديث) إلى المسار <code>/profile</code> مع بيانات النموذج. Inertia يتعامل مع الـ CSRF تلقائياً.</li>
+                        <li><strong>e.preventDefault():</strong> يمنع المتصفح من إعادة تحميل الصفحة (السلوك الافتراضي للنماذج).</li>
+                        <li><strong>errors.name && (<p>...):</strong> إذا وجد خطأ في حقل <code>name</code> من Laravel Validation، يعرض رسالة الخطأ.</li>
+                        <li><strong>disabled={processing}:</strong> يعطل الزر أثناء إرسال الطلب لمنع الضغط المتكرر.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- CHANGE PASSWORD -->
+            <section id="password" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-pink-600 pr-4">4. نموذج تغيير كلمة المرور مع التحقق من كلمة المرور الحالية</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    لتغيير كلمة المرور، يجب على المستخدم إدخال كلمة المرور الحالية أولاً (كإجراء أمني). Laravel Breeze يوفر هذا النموذج جاهزاً:
+                </p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// app/Http/Controllers/Auth/PasswordController.php</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-function">update</span>(Request <span class="code-function">$request</span>)</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-comment">// 1. التحقق من صحة البيانات (Validation)</span></span>
+                    <span class="code-line">    <span class="code-function">$request</span>-&gt;validate([</span>
+                    <span class="code-line">        <span class="code-comment">// current_password: يجب أن يطابق كلمة المرور الحالية للمستخدم</span></span>
+                    <span class="code-line">        <span class="code-string">'current_password'</span> =&gt; [<span class="code-string">'required'</span>, <span class="code-string">'current_password'</span>],</span>
+                    <span class="code-line">        <span class="code-comment">// password: مطلوب، 8 أحرف على الأقل، ويجب أن يطابق حقل confirmation</span></span>
+                    <span class="code-line">        <span class="code-string">'password'</span> =&gt; [<span class="code-string">'required'</span>, <span class="code-string">'min:8'</span>, <span class="code-string">'confirmed'</span>],</span>
+                    <span class="code-line">    ]);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// 2. تحديث كلمة المرور (Laravel يقوم بتشفيرها تلقائياً)</span></span>
+                    <span class="code-line">    <span class="code-function">$request</span>-&gt;user()-&gt;update([</span>
+                    <span class="code-line">        <span class="code-string">'password'</span> =&gt; bcrypt(<span class="code-function">$request</span>-&gt;password),</span>
+                    <span class="code-line">    ]);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// 3. إعادة التوجيه مع رسالة نجاح</span></span>
+                    <span class="code-line">    <span class="code-keyword">return</span> redirect()-&gt;back()</span>
+                    <span class="code-line">        -&gt;with(<span class="code-string">'message'</span>, <span class="code-string">'تم تغيير كلمة المرور بنجاح'</span>);</span>
+                    <span class="code-line">}</span>
+                </div>
+                <div class="space-y-3 mt-4">
+                    <h4 class="font-black text-slate-900">🔍 شرح الكود:</h4>
+                    <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                        <li><strong>'current_password' => ['required', 'current_password']:</strong> قاعدة <code>current_password</code> هي قاعدة تحقق مدمجة في Laravel تتحقق من أن القيمة المدخلة تطابق كلمة مرور المستخدم الحالية.</li>
+                        <li><strong>'password' => ['required', 'min:8', 'confirmed']:</strong> <code>min:8</code> تتطلب 8 أحرف على الأقل. <code>confirmed</code> تتطلب وجود حقل <code>password_confirmation</code> وأن يطابق <code>password</code>.</li>
+                        <li><strong>bcrypt($request->password):</strong> تشفير كلمة المرور قبل تخزينها في قاعدة البيانات.</li>
+                        <li><strong>redirect()->back()->with('message', ...):</strong> إعادة التوجيه إلى الصفحة السابقة مع رسالة flash (مؤقتة).</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mt-6 text-left">
+                    <span class="code-line"><span class="code-comment">// resources/js/Pages/Profile/Edit.jsx - نموذج تغيير كلمة المرور في React</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">const</span> passwordForm = <span class="code-function">useForm</span>({</span>
+                    <span class="code-line">    current_password: <span class="code-string">''</span>,</span>
+                    <span class="code-line">    password: <span class="code-string">''</span>,</span>
+                    <span class="code-line">    password_confirmation: <span class="code-string">''</span>,</span>
+                    <span class="code-line">});</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">function</span> <span class="code-function">updatePassword</span>(e) {</span>
+                    <span class="code-line">    e.preventDefault();</span>
+                    <span class="code-line">    passwordForm.put(<span class="code-string">'/password'</span>);</span>
+                    <span class="code-line">}</span>
+                </div>
+            </section>
+
+            <!-- VALIDATION -->
+            <section id="validation" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-pink-600 pr-4">5. التحقق من صحة البيانات (Validation)</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    <strong>Validation</strong> (التحقق من الصحة) هو عملية التأكد من أن البيانات المدخلة تستوفي شروطاً معينة قبل حفظها. Laravel يوفر نظام Validation قوي وسهل.
+                </p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// في ProfileController - التحقق من تحديث الاسم والبريد</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-function">update</span>(Request <span class="code-function">$request</span>)</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-comment">// 1. قواعد التحقق</span></span>
+                    <span class="code-line">    <span class="code-function">$request</span>-&gt;validate([</span>
+                    <span class="code-line">        <span class="code-string">'name'</span> =&gt; [<span class="code-string">'required'</span>, <span class="code-string">'string'</span>, <span class="code-string">'max:255'</span>],</span>
+                    <span class="code-line">        <span class="code-comment">// required: الحقل مطلوب</span></span>
+                    <span class="code-line">        <span class="code-comment">// string: يجب أن يكون نصاً</span></span>
+                    <span class="code-line">        <span class="code-comment">// max:255: الحد الأقصى 255 حرف</span></span>
+                    <span class="code-line">        <span class="code-string">'email'</span> =&gt; [</span>
+                    <span class="code-line">            <span class="code-string">'required'</span>,</span>
+                    <span class="code-line">            <span class="code-string">'string'</span>,</span>
+                    <span class="code-line">            <span class="code-string">'email'</span>, <span class="code-comment">// يجب أن يكون بريداً إلكترونياً صحيحاً</span></span>
+                    <span class="code-line">            <span class="code-string">'max:255'</span>,</span>
+                    <span class="code-line">            <span class="code-comment">// unique: البريد يجب أن يكون فريداً في جدول users</span></span>
+                    <span class="code-line">            <span class="code-comment">// ignore: يتجاهل بريد المستخدم الحالي (يسمح بنفس البريد)</span></span>
+                    <span class="code-line">            Rule::unique(User::class)-&gt;ignore(<span class="code-function">$request</span>-&gt;user()-&gt;id),</span>
+                    <span class="code-line">        ],</span>
+                    <span class="code-line">    ]);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// 2. تحديث البيانات إذا نجح التحقق</span></span>
+                    <span class="code-line">    <span class="code-function">$request</span>-&gt;user()-&gt;update([</span>
+                    <span class="code-line">        <span class="code-string">'name'</span> =&gt; <span class="code-function">$request</span>-&gt;name,</span>
+                    <span class="code-line">        <span class="code-string">'email'</span> =&gt; <span class="code-function">$request</span>-&gt;email,</span>
+                    <span class="code-line">    ]);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// 3. إعادة التوجيه مع رسالة نجاح</span></span>
+                    <span class="code-line">    <span class="code-keyword">return</span> redirect()-&gt;back()</span>
+                    <span class="code-line">        -&gt;with(<span class="code-string">'message'</span>, <span class="code-string">'تم تحديث الملف الشخصي بنجاح'</span>);</span>
+                    <span class="code-line">}</span>
+                </div>
+                <div class="space-y-3 mt-4">
+                    <h4 class="font-black text-slate-900">🔍 شرح قواعد التحقق:</h4>
+                    <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                        <li><strong>required:</strong> الحقل لا يمكن أن يكون فارغاً.</li>
+                        <li><strong>string:</strong> يجب أن يكون الحقل من نوع نص.</li>
+                        <li><strong>email:</strong> يجب أن يكون بصيغة بريد إلكتروني صحيحة (name@domain.com).</li>
+                        <li><strong>max:255:</strong> الحد الأقصى لطول النص (255 حرف).</li>
+                        <li><strong>Rule::unique(User::class)->ignore(...):</strong> يتأكد من أن البريد غير مسجل مسبقاً، مع تجاهل بريد المستخدم الحالي (حتى لا يمنعه من تحديث بياناته دون تغيير البريد).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- FLASH MESSAGES -->
+            <section id="messages" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-pink-600 pr-4">6. رسائل النجاح (Flash Messages)</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    <strong>Flash Messages</strong> (الرسائل المؤقتة) هي رسائل تظهر مرة واحدة للمستخدم بعد تنفيذ عملية (مثل "تم الحفظ بنجاح"). بعد تحديث الصفحة، تختفي الرسالة.
+                </p>
+                <p class="text-slate-600">في React مع Inertia، نقرأ رسالة الفلاش من <code>usePage().props.flash</code>:</p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// resources/js/Pages/Profile/Edit.jsx - عرض رسالة النجاح</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">const</span> { props } = <span class="code-function">usePage</span>();</span>
+                    <span class="code-line"><span class="code-keyword">const</span> flash = props.flash; <span class="code-comment">// { message: 'تم الحفظ بنجاح' }</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">return</span> (</span>
+                    <span class="code-line">        &lt;div&gt;</span>
+                    <span class="code-line">            {flash.message &amp;&amp; (</span>
+                    <span class="code-line">                &lt;div className=<span class="code-string">"bg-green-100 border-r-4 border-green-500 text-green-700 p-4 rounded-xl mb-4"</span>&gt;</span>
+                    <span class="code-line">                    {flash.message}</span>
+                    <span class="code-line">                &lt;/div&gt;</span>
+                    <span class="code-line">            )}</span>
+                    <span class="code-line">            <span class="code-comment">// ... باقي النموذج</span></span>
+                    <span class="code-line">        &lt;/div&gt;</span>
+                    <span class="code-line">    );</span>
+                    <span class="code-line">}</span>
+                </div>
+                <p class="text-slate-600 text-sm">🔍 <strong>flash.message:</strong> إذا كانت موجودة (غير null)، نعرضها في مربع أخضر. تحت الغطاء، <code>HandleInertiaRequests</code> هو المسؤول عن تمرير هذه الرسالة من Laravel Session إلى React Props.</p>
+            </section>
+
+            <!-- ANALOGY -->
+            <section id="analogy" class="mt-16 p-8 rounded-3xl bg-pink-600 text-white shadow-xl shadow-pink-100">
+                <h2 class="text-2xl font-black mb-4">🎯 مثال من الواقع: بطاقة الهوية الذكية</h2>
+                <p class="text-pink-50 leading-relaxed text-lg">
+                    تخيل أن <strong>الملف الشخصي</strong> هو "بطاقة هوية" ذكية.<br><br>
+                    <strong>عرض المعلومات:</strong> مثل النظر إلى بطاقة هويتك - ترى اسمك وصورتك وتاريخ ميلادك.<br><br>
+                    <strong>تعديل الاسم:</strong> مثل الذهاب إلى مكتب الأحوال المدنية لتغيير اسمك - تحتاج لتقديم طلب (Request) مع البيانات الجديدة.<br><br>
+                    <strong>تغيير كلمة المرور:</strong> مثل تغيير رمز PIN لبطاقتك البنكية - يجب أن تعرف الرمز القديم أولاً لتتمكن من تعيين رمز جديد.<br><br>
+                    <strong>رسالة النجاح:</strong> مثل إيصال ورقي يقول "تم التحديث بنجاح". تمسكه بيدك ثم ترميه بعد قراءته (Flash Message - تظهر مرة واحدة فقط).
                 </p>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-amber-600 text-white shadow-xl shadow-indigo-100">
-                <h2 class="text-2xl font-black mb-4">مثال من الواقع (بطاقة الهوية)</h2>
-                <p class="text-white leading-relaxed text-lg">
-                    تخيل <strong>الملف الشخصي</strong> كـ "بطاقة هوية" ذكية. 
-                    <br><br>
-                    - يمكنك النظر إليها لترى بياناتك.
-                    <br>
-                    - يمكنك الذهاب للمكتب المختص (صفحة الإعدادات) لتغيير صورتك أو عنوانك.
-                    <br>
-                    - لكن لا يحق لأحد غيرك (أو غير الموظف المسؤول) القيام بهذه التعديلات!
+            <!-- PHOTO UPLOAD -->
+            <section id="photo" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-pink-600 pr-4">7. رفع الصورة الشخصية (Profile Photo)</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    إضافة صورة شخصية تجعل التطبيق أكثر احترافية. في Laravel، يمكننا رفع الصور باستخدام <code>store()</code> (تخزين الملفات):
                 </p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// app/Http/Controllers/ProfileController.php - رفع الصورة</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-function">updatePhoto</span>(Request <span class="code-function">$request</span>)</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-comment">// 1. التحقق: الملف مطلوب، يجب أن يكون صورة، الحد الأقصى 2 ميجابايت</span></span>
+                    <span class="code-line">    <span class="code-function">$request</span>-&gt;validate([</span>
+                    <span class="code-line">        <span class="code-string">'photo'</span> =&gt; [<span class="code-string">'required'</span>, <span class="code-string">'image'</span>, <span class="code-string">'mimes:jpeg,png,jpg'</span>, <span class="code-string">'max:2048'</span>],</span>
+                    <span class="code-line">    ]);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// 2. تخزين الصورة في مجلد 'profile-photos' داخل storage/app/public</span></span>
+                    <span class="code-line">    <span class="code-function">$path</span> = <span class="code-function">$request</span>-&gt;file(<span class="code-string">'photo'</span>)-&gt;store(<span class="code-string">'profile-photos'</span>, <span class="code-string">'public'</span>);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// 3. حفظ المسار في قاعدة البيانات</span></span>
+                    <span class="code-line">    <span class="code-function">$request</span>-&gt;user()-&gt;update([</span>
+                    <span class="code-line">        <span class="code-string">'profile_photo_path'</span> =&gt; <span class="code-function">$path</span>,</span>
+                    <span class="code-line">    ]);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// 4. إنشاء رابط مباشر للصورة</span></span>
+                    <span class="code-line">    <span class="code-keyword">return</span> redirect()-&gt;back()</span>
+                    <span class="code-line">        -&gt;with(<span class="code-string">'message'</span>, <span class="code-string">'تم تحديث الصورة الشخصية'</span>);</span>
+                    <span class="code-line">}</span>
+                </div>
+                <div class="space-y-3 mt-4">
+                    <h4 class="font-black text-slate-900">🔍 شرح الكود:</h4>
+                    <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                        <li><strong>'image':</strong> يتأكد من أن الملف المرفوع هو صورة.</li>
+                        <li><strong>'mimes:jpeg,png,jpg':</strong> يقبل فقط الصيغ: JPEG, PNG, JPG.</li>
+                        <li><strong>'max:2048':</strong> الحد الأقصى لحجم الملف 2 ميجابايت (2048 كيلوبايت).</li>
+                        <li><strong>store('profile-photos', 'public'):</strong> يحفظ الملف في مجلد <code>storage/app/public/profile-photos</code>.</li>
+                        <li><strong>profile_photo_path:</strong> عمود في جدول users لحفظ مسار الصورة (يجب إضافته عبر Migration جديد).</li>
+                    </ul>
+                </div>
+                <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-200 mt-4">
+                    <p class="font-bold text-indigo-800">🔗 إنشاء رابط للصورة في React:</p>
+                    <div class="bg-slate-900 rounded-xl p-3 font-mono text-xs text-emerald-400 mt-2 text-left">
+                        <span class="code-line">&lt;img src={<span class="code-string">`/storage/${user.profile_photo_path}`</span>} alt=<span class="code-string">"الصورة الشخصية"</span></span>
+                        <span class="code-line">     className=<span class="code-string">"w-24 h-24 rounded-full object-cover"</span> /&gt;</span>
+                    </div>
+                    <p class="text-indigo-700 text-xs mt-2">📌 <strong>تذكر:</strong> شغّل <code>php artisan storage:link</code> لإنشاء رابط رمزي (Symbolic Link) من <code>/public/storage</code> إلى <code>/storage/app/public</code>.</p>
+                </div>
             </section>
 
+            <!-- FLOWPILOT -->
+            <section id="flowpilot" class="mt-16 p-8 rounded-3xl bg-gradient-to-br from-pink-600 to-rose-800 text-white shadow-xl shadow-pink-100">
+                <h2 class="text-2xl font-black mb-4">8. FlowPilot: صفحة إعدادات المستخدم</h2>
+                <p class="text-pink-100 leading-relaxed">
+                    في FlowPilot، صفحة الإعدادات ستكون مقسمة إلى أقسام (Tabs):<br>
+                    <strong>القسم 1 - المعلومات الشخصية:</strong> تعديل الاسم والبريد.<br>
+                    <strong>القسم 2 - الأمان:</strong> تغيير كلمة المرور.<br>
+                    <strong>القسم 3 - الصورة:</strong> رفع صورة شخصية.<br>
+                    <strong>القسم 4 - حذف الحساب:</strong> زر لحذف الحساب بالكامل (مع تأكيد).
+                </p>
+                <div class="bg-pink-900/40 rounded-2xl p-6 font-mono text-sm overflow-x-auto mt-4 text-left">
+                    <span class="code-line"><span class="code-comment">// resources/js/Pages/Profile/Edit.jsx - بنية صفحة الإعدادات في FlowPilot</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">&lt;div className=<span class="code-string">"max-w-3xl mx-auto space-y-8"</span>&gt;</span>
+                    <span class="line">    <span class="code-comment">// قسم المعلومات الشخصية</span></span>
+                    <span class="code-line">    &lt;SectionCard title=<span class="code-string">"المعلومات الشخصية"</span>&gt;</span>
+                    <span class="code-line">        &lt;ProfileInfoForm /&gt;</span>
+                    <span class="code-line">    &lt;/SectionCard&gt;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// قسم تغيير كلمة المرور</span></span>
+                    <span class="code-line">    &lt;SectionCard title=<span class="code-string">"تغيير كلمة المرور"</span>&gt;</span>
+                    <span class="code-line">        &lt;UpdatePasswordForm /&gt;</span>
+                    <span class="code-line">    &lt;/SectionCard&gt;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// قسم الصورة الشخصية</span></span>
+                    <span class="code-line">    &lt;SectionCard title=<span class="code-string">"الصورة الشخصية"</span>&gt;</span>
+                    <span class="code-line">        &lt;ProfilePhotoForm /&gt;</span>
+                    <span class="code-line">    &lt;/SectionCard&gt;</span>
+                    <span class="code-line">&lt;/div&gt;</span>
+                </div>
+                <p class="text-pink-200 text-sm mt-4">🔑 هذا التقسيم يجعل الصفحة سهلة الاستخدام ويسمح للمستخدم بالتركيز على قسم واحد في كل مرة.</p>
+            </section>
+
+            <!-- PRACTICE -->
             <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">التطبيق العملي</h2>
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-pink-600 pr-4">9. التطبيق العملي: 7 خطوات</h2>
 
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: استعراض ملفات البروفايل</h3>
-                    <p class="text-slate-600 mb-4">اذهب للمجلد <code>resources/js/Pages/Profile</code>. ستجد هناك ملفات جاهزة للتحرير والحذف وتغيير كلمة المرور.</p>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: استعراض ملفات البروفايل الجاهزة</h3>
+                    <p class="text-slate-500 text-sm mb-3">اذهب إلى المجلد <code>resources/js/Pages/Profile/</code>. ستجد ملفات جاهزة من Breeze: <code>Edit.jsx</code> (الصفحة الرئيسية) و <code>Partials/</code> (مكونات فرعية).</p>
                 </div>
 
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تخصيص الواجهة العربية</h3>
-                    <p class="text-slate-600 mb-4">سنقوم بتغيير النصوص الإنجليزية في النماذج إلى نصوص عربية واضحة تناسب مستخدم FlowPilot.</p>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تخصيص صفحة الملف الشخصي</h3>
+                    <p class="text-slate-500 text-sm mb-3">عدّل <code>Edit.jsx</code>:</p>
+                    <ul class="text-sm text-slate-500 pr-6 list-disc space-y-1">
+                        <li>غيّر النصوص من الإنجليزية إلى العربية.</li>
+                        <li>غيّر ألوان Tailwind لتناسب FlowPilot (indigo, pink).</li>
+                        <li>أضف شعار FlowPilot في أعلى الصفحة.</li>
+                    </ul>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: تعديل دالة update في ProfileController</h3>
+                    <p class="text-slate-500 text-sm mb-3">افتح <code>app/Http/Controllers/ProfileController.php</code> وتأكد من وجود التحقق (Validation) الصحيح للتحديث.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: إضافة نموذج تغيير كلمة المرور</h3>
+                    <p class="text-slate-500 text-sm mb-3">Breeze يوفر <code>UpdatePasswordForm</code> في <code>resources/js/Pages/Profile/Partials/</code>. تأكد من أنه مضمن في صفحة Edit.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: إضافة رسائل النجاح Flash</h3>
+                    <p class="text-slate-500 text-sm mb-3">أضف مكوناً صغيراً في أعلى صفحة البروفايل يعرض رسالة النجاح من <code>usePage().props.flash.message</code>.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 6: [تحدي] إضافة رفع الصورة الشخصية</h3>
+                    <p class="text-slate-500 text-sm mb-3">أنشئ مكون <code>ProfilePhotoForm</code> في React يسمح برفع صورة. أضف مساراً في Controller لاستقبال الصورة وحفظها.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 7: [تحدي] إضافة رسالة تأكيد قبل الحفظ</h3>
+                    <p class="text-slate-500 text-sm mb-3">عند تغيير البريد الإلكتروني، أضف رسالة تأكيد (Confirm Dialog) تسأل المستخدم "هل أنت متأكد من تغيير البريد؟".</p>
                 </div>
             </section>
 
+            <!-- EXPECTED RESULT -->
+            <section class="mt-16 success-box">
+                <h2 class="text-xl font-black text-slate-900 mb-4">10. النتيجة المتوقعة</h2>
+                <ul class="list-disc pr-6 space-y-3 text-slate-700">
+                    <li>✅ صفحة الملف الشخصي تعرض اسم المستخدم وبريده وتاريخ التسجيل.</li>
+                    <li>✅ المستخدم يستطيع تحديث اسمه وبريده الإلكتروني.</li>
+                    <li>✅ المستخدم يستطيع تغيير كلمة المرور بإدخال القديمة أولاً.</li>
+                    <li>✅ ظهور رسالة نجاح خضراء بعد كل عملية تحديث.</li>
+                    <li>✅ [تحدي] المستخدم يستطيع رفع صورة شخصية ورؤيتها.</li>
+                    <li>✅ [تحدي] رسالة تأكيد تظهر قبل تغيير البريد.</li>
+                </ul>
+            </section>
+
+            <!-- ERRORS -->
+            <section id="errors" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-pink-600 pr-4">11. الأخطاء الشائعة</h2>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">❌ الخطأ 1: "The email field is required." يظهر رغم ملء الحقل</p>
+                    <p class="text-red-600 text-sm"><strong>السبب:</strong> اسم الحقل في Form React لا يطابق اسم الحقل المتوقع في Laravel.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> تأكد أن اسم الحقل في <code>setData('email', ...)</code> هو نفسه اسم الحقل في <code>$request->validate([...])</code>.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">❌ الخطأ 2: "The password field confirmation does not match."</p>
+                    <p class="text-red-600 text-sm"><strong>السبب:</strong> حقل <code>password_confirmation</code> لا يطابق <code>password</code>.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> تأكد من وجود حقل باسم <code>password_confirmation</code> في النموذج React.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">❌ الخطأ 3: Flash message لا يظهر في React</p>
+                    <p class="text-red-600 text-sm"><strong>السبب:</strong> <code>HandleInertiaRequests.php</code> لا يشارك flash messages.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> تأكد من وجود مفتاح <code>'flash'</code> في دالة <code>share()</code> داخل HandleInertiaRequests.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">❌ الخطأ 4: الصورة لا تظهر بعد الرفع</p>
+                    <p class="text-red-600 text-sm"><strong>السبب:</strong> لم يتم إنشاء الرابط الرمزي (Symbolic Link) للتخزين.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> شغّل <code>php artisan storage:link</code>.</p>
+                </div>
+            </section>
+
+            <!-- DIAGRAMS -->
+            <section id="visuals" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-pink-600 pr-4">12. مخططات توضيحية</h2>
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="diagram.svg" alt="مخطط البروفايل" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط: تدفق تحديث الملف الشخصي</p>
+                    </div>
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="visual-example.svg" alt="تشبيه البطاقة" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">تشبيه: بطاقة الهوية الذكية</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SUMMARY -->
+            <section id="summary" class="mt-16 p-8 rounded-3xl bg-slate-900 text-white">
+                <h2 class="text-2xl font-black mb-6">🧠 ملخص الدرس</h2>
+                <div class="space-y-4 text-slate-300">
+                    <p>🔹 <strong>صفحة الملف الشخصي:</strong> تسمح للمستخدم برؤية وتحديث بياناته.</p>
+                    <p>🔹 <strong>نموذج التعديل:</strong> يستخدم <code>useForm</code> من Inertia لإرسال طلبات PUT مع التحقق من الأخطاء.</p>
+                    <p>🔹 <strong>تغيير كلمة المرور:</strong> يتطلب إدخال كلمة المرور الحالية أولاً (قاعدة <code>current_password</code>).</p>
+                    <p>🔹 <strong>التحقق (Validation):</strong> قواعد مثل <code>required</code>, <code>email</code>, <code>unique</code>, <code>confirmed</code>.</p>
+                    <p>🔹 <strong>رسائل النجاح (Flash):</strong> تظهر مرة واحدة عبر <code>redirect()->with('message', ...)</code>.</p>
+                    <p>🔹 <strong>رفع الصور:</strong> يستخدم <code>store()</code> مع التحقق من نوع وحجم الملف.</p>
+                    <p>🔹 <strong>FlowPilot:</strong> صفحة إعدادات مقسمة لأقسام (معلومات شخصية، أمان، صورة).</p>
+                </div>
+                <div class="mt-8 p-6 bg-pink-600 rounded-2xl">
+                    <p class="font-black text-lg">💡 صفحة الملف الشخصي هي واجهة المستخدم مع بياناته. اجعلها سهلة، آمنة، وجميلة!</p>
+                </div>
+            </section>
+
+            <!-- NAV -->
             <div class="mt-12 flex justify-between gap-4">
                 <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-03/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-amber-600 px-8 py-4 text-white font-black hover:bg-amber-700 transition-all shadow-xl shadow-indigo-100" href="../../week-05/lesson-01/index.html">الأسبوع الخامس: CRUD ←</a>
+                <a class="rounded-2xl bg-pink-600 px-8 py-4 text-white font-black hover:bg-pink-700 transition-all shadow-xl shadow-pink-100" href="../../week-05/lesson-01/index.html">الأسبوع 5: CRUD ←</a>
             </div>
         </article>
     </div>
 </main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. المستخدم هو محور كل شيء. اجعل تجربته ممتازة.<br>
+    <a href="assignment.html" class="text-indigo-600 hover:underline font-bold">→ اذهب إلى الواجب العملي</a>
+    <span class="mx-2">·</span>
+    <a href="quiz.html" class="text-indigo-600 hover:underline font-bold">→ اذهب إلى الكويز</a>
+</footer>
 
 <script src="../../../assets/js/app.js"></script>
 </body>

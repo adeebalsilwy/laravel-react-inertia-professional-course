@@ -1,1 +1,243 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>كويز - تصميم قاعدة بيانات FlowPilot قبل كتابة الجداول - FlowPilot Academy</title><link rel="stylesheet" href="../../../assets/css/style.css"></head><body><nav class="nav"><div class="container inner"><a class="brand" href="../../../index.html"><span class="logo">F</span><span>FlowPilot Academy</span></a><div class="links"><a href="../../../index.html">الرئيسية</a><a href="../../../pages/curriculum.html">الفهرس</a><a href="../../../pages/lessons.html">الدروس</a><a href="../../../pages/beginner-guide.html">دليل الطالب</a><a href="../../../pages/project.html">المشروع</a><a href="../../../pages/plan.html">خطة التطوير</a><a href="../../../pages/references.html">المراجع</a></div></div></nav><main class="container section"><a class="btn" href="index.html">← العودة إلى الدرس</a><section class="card"><span class="badge">كويز الأسبوع 3 · الدرس 1</span><h1 class="title">كويز: تصميم قاعدة بيانات FlowPilot قبل كتابة الجداول</h1><p class="lead">الكويز يقيس الفهم الحقيقي: لماذا نستخدم المفهوم، وكيف يظهر داخل FlowPilot، وما العلاقة بين النظرية والتطبيق.</p></section><section class="grid" style="margin-top:20px"><div class="card" data-answer="b"><h3>السؤال 1: ما الهدف الأساسي من هذا الدرس؟</h3><label class="quiz-option"><input type="radio" name="q1" value="a"> حفظ أسماء الملفات فقط</label><label class="quiz-option"><input type="radio" name="q1" value="b"> فهم مفهوم عملي وربطه بمشروع FlowPilot</label><label class="quiz-option"><input type="radio" name="q1" value="c"> تغيير ألوان الصفحة فقط</label><label class="quiz-option"><input type="radio" name="q1" value="d"> تجاهل التطبيق العملي</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> الهدف هو الفهم والتطبيق، وليس الحفظ أو التزيين فقط.</p></div><div class="card" data-answer="c"><h3>السؤال 2: ما العلاقة الصحيحة بين Laravel وReact وInertia؟</h3><label class="quiz-option"><input type="radio" name="q2" value="a"> Laravel يعرض الواجهة فقط</label><label class="quiz-option"><input type="radio" name="q2" value="b"> React يدير قاعدة البيانات</label><label class="quiz-option"><input type="radio" name="q2" value="c"> Inertia يربط Laravel بصفحات React</label><label class="quiz-option"><input type="radio" name="q2" value="d"> Tailwind يحفظ البيانات</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> Inertia يعمل كجسر بين Laravel وReact.</p></div><div class="card" data-answer="b"><h3>السؤال 3: لماذا نشرح السبب قبل الكود؟</h3><label class="quiz-option"><input type="radio" name="q3" value="a"> حتى ينسخ الطالب بسرعة</label><label class="quiz-option"><input type="radio" name="q3" value="b"> حتى يفهم الطالب وظيفة الخطوة ويكررها لاحقاً</label><label class="quiz-option"><input type="radio" name="q3" value="c"> حتى نقلل الشرح</label><label class="quiz-option"><input type="radio" name="q3" value="d"> لأن الكود غير مهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> فهم السبب يجعل الطالب قادراً على حل الأخطاء وتطبيق الفكرة في مكان آخر.</p></div><div class="card" data-answer="b"><h3>السؤال 4: ما أفضل طريقة للتعامل مع خطأ يظهر أثناء التطبيق؟</h3><label class="quiz-option"><input type="radio" name="q4" value="a"> حذف الملفات</label><label class="quiz-option"><input type="radio" name="q4" value="b"> قراءة رسالة الخطأ ومراجعة المسار والاسم</label><label class="quiz-option"><input type="radio" name="q4" value="c"> تجاهل الخطأ</label><label class="quiz-option"><input type="radio" name="q4" value="d"> إغلاق المشروع</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> رسالة الخطأ غالباً توضح مكان المشكلة أو سببها.</p></div><div class="card" data-answer="b"><h3>السؤال 5: ماذا يعني نجاح الدرس داخل FlowPilot؟</h3><label class="quiz-option"><input type="radio" name="q5" value="a"> وجود عنوان فقط</label><label class="quiz-option"><input type="radio" name="q5" value="b"> ظهور نتيجة عملية مفهومة يمكن البناء عليها</label><label class="quiz-option"><input type="radio" name="q5" value="c"> عدم تشغيل المشروع</label><label class="quiz-option"><input type="radio" name="q5" value="d"> نسخ الكود دون فهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> كل درس يجب أن يضيف نتيجة تعليمية وعملية واضحة.</p></div></section><section class="card"><button class="btn" data-grade-quiz>تصحيح الكويز</button><p id="quizResult" class="result"></p></section></main><footer class="footer"><div class="container">© FlowPilot Academy - دورة Laravel 12 + React + Inertia.js + Tailwind CSS</div></footer><script src="../../../assets/js/app.js"></script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>كويز الدرس 9: تصميم قاعدة بيانات FlowPilot | FlowPilot Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .quiz-option { display: block; padding: 12px 16px; border: 2px solid #e2e8f0; border-radius: 12px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; }
+        .quiz-option:hover { border-color: #93c5fd; background: #f0f9ff; }
+        .quiz-option input { display: none; }
+        .quiz-option.selected { border-color: #6366f1; background: #eef2ff; }
+        .explain { background: #f8fafc; padding: 12px; border-radius: 10px; margin-top: 8px; font-size: 13px; border-right: 3px solid #6366f1; }
+        .tf-option { display: inline-block; padding: 10px 24px; border: 2px solid #e2e8f0; border-radius: 10px; cursor: pointer; margin: 4px; transition: all 0.2s; }
+        .tf-option:hover { border-color: #93c5fd; }
+        .tf-option.selected { border-color: #6366f1; background: #eef2ff; font-weight: bold; }
+        textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; font-family: 'Tajawal', sans-serif; resize: vertical; min-height: 100px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../index.html">الرئيسية</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/curriculum.html">الفهرس</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/lessons.html">الدروس</a>
+        </nav>
+    </div>
+</header>
+
+<main class="mx-auto max-w-3xl px-4 py-12 text-right" id="quizContainer">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة إلى شرح الدرس</a>
+
+    <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl">
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-widest mb-3">الأسبوع 3 · الدرس 1</span>
+        <h1 class="text-3xl font-black text-slate-900 mb-2">📝 كويز: تصميم قاعدة بيانات FlowPilot</h1>
+        <p class="text-slate-600">أجب على جميع الأسئلة. الكويز يقيس فهمك للمفاهيم الأساسية لتصميم قواعد البيانات.</p>
+        <div class="flex flex-wrap gap-2 mt-4">
+            <span class="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-bold">5 أسئلة اختيار من متعدد</span>
+            <span class="px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-xs font-bold">2 صح/خطأ</span>
+            <span class="px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-bold">1 سؤال نظري</span>
+            <span class="px-3 py-1 bg-sky-50 text-sky-700 rounded-full text-xs font-bold">1 سؤال عملي</span>
+        </div>
+    </div>
+
+    <!-- MCQ Section -->
+    <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl mt-6" data-quiz-labels>
+        <h2 class="text-xl font-black text-slate-900 mb-6 border-r-4 border-sky-600 pr-4">الأسئلة الموضوعية</h2>
+
+        <!-- Q1 -->
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent transition-all" data-answer="b" id="q1">
+            <h3 class="font-bold text-slate-900 mb-3">1. ما هو المفتاح الأساسي (Primary Key) في قاعدة البيانات؟</h3>
+            <label class="quiz-option"><input type="radio" name="q1" value="a"> عمود يمكن أن يكون NULL ويتكرر عدة مرات</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="b"> عمود فريد لا يتكرر ولا يمكن أن يكون NULL، ويُستخدم لتعريف كل سجل</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="c"> عمود يربط الجدول بجدول آخر</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="d"> عمود من نوع نص طويل</label>
+            <div class="explain hidden"><strong>الشرح:</strong> Primary Key هو عمود فريد (Unique) وإلزامي (NOT NULL) يعرّف كل سجل. مثلاً، id=1 يختلف عن id=2. لا يمكن أن يترك فارغاً أو يتكرر. المفتاح الأجنبي (Foreign Key) هو الذي يربط الجداول.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent transition-all" data-answer="c" id="q2">
+            <h3 class="font-bold text-slate-900 mb-3">2. أي نوع علاقة بين جدول Users وجدول Projects (المشاريع التي يملكها المستخدم)؟</h3>
+            <label class="quiz-option"><input type="radio" name="q2" value="a"> One-to-One (واحد لواحد)</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="b"> Many-to-Many (متعدد لمتعدد)</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="c"> One-to-Many (واحد لمتعدد)</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="d"> ليس هناك علاقة</label>
+            <div class="explain hidden"><strong>الشرح:</strong> مستخدم واحد يمكنه امتلاك عدة مشاريع، لذا هي One-to-Many. لو كانت Many-to-Many، فهذا يعني أن المشروع له عدة "مالكين" وهذا غير منطقي. المفتاح الأجنبي user_id في جدول projects يحقق هذه العلاقة.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent transition-all" data-answer="a" id="q3">
+            <h3 class="font-bold text-slate-900 mb-3">3. متى نحتاج إلى جدول Pivot (مثل project_user)؟</h3>
+            <label class="quiz-option"><input type="radio" name="q3" value="a"> عندما تكون العلاقة Many-to-Many بين جدولين</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="b"> عندما نريد حذف البيانات بشكل دائم</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="c"> في كل علاقة One-to-Many</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="d"> فقط عندما يكون الجدول كبيراً جداً</label>
+            <div class="explain hidden"><strong>الشرح:</strong> في علاقة Many-to-Many (مشاريع ←← مستخدمين كأعضاء)، لا يمكن وضع FK واحد في أي جدول. نحتاج جدولاً وسيطاً (Pivot) يحتوي على FK لكل من الجدولين. هذا الجدول يحل العلاقة ويسمح بربط عدة مشاريع بعدة مستخدمين.</div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent transition-all" data-answer="b" id="q4">
+            <h3 class="font-bold text-slate-900 mb-3">4. ما نوع البيانات المناسب لتخزين حالة المشروع (pending, active, completed)؟</h3>
+            <label class="quiz-option"><input type="radio" name="q4" value="a"> integer</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="b"> enum</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="c"> text</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="d"> boolean</label>
+            <div class="explain hidden"><strong>الشرح:</strong> enum (Enumerated) يسمح بحصر القيم في قائمة محددة. هذا يضمن أن الحالة لا تأخذ قيمة غير متوقعة. لو استخدمنا string، يمكن للمستخدم كتابة "Active"، "active"، "ACTIVE" بطرق مختلفة مما يسبب مشاكل.</div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent transition-all" data-answer="d" id="q5">
+            <h3 class="font-bold text-slate-900 mb-3">5. ما معنى softDeletes() في جدول قاعدة البيانات؟</h3>
+            <label class="quiz-option"><input type="radio" name="q5" value="a"> حذف الجدول بأكمله من قاعدة البيانات</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="b"> حذف جميع السجلات نهائياً</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="c"> جعل الجدل قابل للحذف التلقائي</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="d"> إضافة عمود deleted_at لحذف السجلات بشكل غير دائم (قابل للاستعادة)</label>
+            <div class="explain hidden"><strong>الشرح:</strong> softDeletes() يضيف عمود deleted_at. عند "حذف" سجل، لا يُحذف فعلياً بل يُسجّل وقت الحذف. هذا يسمح باستعادة السجلات المحذوفة لاحقاً. مفيد جداً في تطبيقات إدارة المشاريع حيث قد يرغب المستخدم باستعادة مهمة حُذفت بالخطأ.</div>
+        </div>
+    </div>
+
+    <!-- True/False Section -->
+    <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl mt-6" data-quiz-labels>
+        <h2 class="text-xl font-black text-slate-900 mb-6 border-r-4 border-amber-500 pr-4">أسئلة صح أم خطأ</h2>
+
+        <!-- Q6 -->
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent transition-all" data-answer="false" id="q6">
+            <h3 class="font-bold text-slate-900 mb-3">6. يمكن أن يكون عمود المفتاح الأساسي (Primary Key) فارغاً (NULL).</h3>
+            <div class="flex gap-2">
+                <span class="tf-option" data-value="true">✅ صح</span>
+                <span class="tf-option" data-value="false">❌ خطأ</span>
+            </div>
+            <input type="radio" name="q6" value="true" class="hidden">
+            <input type="radio" name="q6" value="false" class="hidden">
+            <div class="explain hidden"><strong>الشرح:</strong> خطأ. المفتاح الأساسي يجب أن يكون UNIQUE و NOT NULL. لا يمكن أن يكون فارغاً لأننا نحتاجه لتعريف وتحديد كل سجل بشكل فريد. تخيل لو كان رقم الهوية الوطنية فارغاً - كيف سنميز بين شخصين؟</div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent transition-all" data-answer="true" id="q7">
+            <h3 class="font-bold text-slate-900 mb-3">7. في علاقة One-to-Many، نضع المفتاح الأجنبي (Foreign Key) في جدول الجانب "Many" (المتعدد).</h3>
+            <div class="flex gap-2">
+                <span class="tf-option" data-value="true">✅ صح</span>
+                <span class="tf-option" data-value="false">❌ خطأ</span>
+            </div>
+            <input type="radio" name="q7" value="true" class="hidden">
+            <input type="radio" name="q7" value="false" class="hidden">
+            <div class="explain hidden"><strong>الشرح:</strong> صح. في علاقة User → Projects، User هو الواحد (One) و Projects هي المتعدد (Many). نضع FK (user_id) في جدول Projects. كل مشروع يشير إلى مستخدم واحد. لو وضعنا FK في جدول Users، فهذا يعني أن كل مستخدم يرتبط بمشروع واحد فقط!</div>
+        </div>
+    </div>
+
+    <!-- Theory Question -->
+    <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl mt-6">
+        <h2 class="text-xl font-black text-slate-900 mb-6 border-r-4 border-purple-500 pr-4">سؤال نظري</h2>
+        <div data-theory="q8" id="q8">
+            <h3 class="font-bold text-slate-900 mb-3">8. اشرح باختصار (3-5 جمل) الفرق بين المفتاح الأساسي (Primary Key) والمفتاح الأجنبي (Foreign Key)، مع إعطاء مثال من FlowPilot.</h3>
+            <textarea placeholder="اكتب إجابتك هنا..." class="w-full p-4 border-2 border-slate-200 rounded-xl min-h-[120px]"></textarea>
+        </div>
+    </div>
+
+    <!-- Practical Question -->
+    <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl mt-6">
+        <h2 class="text-xl font-black text-slate-900 mb-6 border-r-4 border-emerald-500 pr-4">سؤال عملي</h2>
+        <div data-theory="q9" id="q9">
+            <h3 class="font-bold text-slate-900 mb-3">9. أنت مطور FlowPilot. صمم جدولاً للمهام (tasks) يحتوي على الأعمدة التالية: id، project_id، assigned_to، title، status، priority، due_date. اكتب لكل عمود: اسمه بالإنجليزية، نوع البيانات المناسب، وهل هو مطلوب (Required) أم اختياري (Nullable).</h3>
+            <textarea placeholder="اكتب إجابتك هنا... مثلاً:
+id → bigIncrements (Required, PK)
+project_id → foreignId (Required, FK → projects.id)
+..." class="w-full p-4 border-2 border-slate-200 rounded-xl min-h-[150px]"></textarea>
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="card p-6 bg-white shadow-sm rounded-3xl mt-6 text-center" id="quizResultCard">
+        <button class="bg-indigo-600 text-white px-10 py-4 rounded-2xl font-black text-lg hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" data-grade-quiz>تصحيح الكويز</button>
+        <p id="quizResult" class="mt-4 text-3xl font-black"></p>
+        <p id="feedback" class="mt-2 text-lg font-bold"></p>
+    </div>
+</main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. اختبر معلوماتك وتأكد من فهمك للمفاهيم.
+</footer>
+
+<script src="../../../assets/js/app.js"></script>
+<script>
+    // Enhanced TF selection
+    document.querySelectorAll('.tf-option').forEach(function(el) {
+        el.addEventListener('click', function() {
+            var container = this.closest('[data-answer]');
+            container.querySelectorAll('.tf-option').forEach(function(opt) {
+                opt.classList.remove('selected', 'bg-indigo-50', 'border-indigo-500');
+                opt.classList.add('border-slate-200');
+            });
+            this.classList.add('selected', 'bg-indigo-50', 'border-indigo-500');
+            this.classList.remove('border-slate-200');
+            var radio = container.querySelector('input[value="' + this.dataset.value + '"]');
+            if (radio) radio.checked = true;
+        });
+    });
+    // Theory questions display explain assist
+    document.querySelectorAll('[data-theory]').forEach(function(container) {
+        var existing = container.querySelector('.explain');
+        if (!existing) {
+            var div = document.createElement('div');
+            div.className = 'explain hidden';
+            div.id = 'explain-' + container.id;
+            container.appendChild(div);
+        }
+    });
+    // Override grade to show theory feedback
+    document.addEventListener('DOMContentLoaded', function() {
+        var gradeBtn = document.querySelector('[data-grade-quiz]');
+        if (gradeBtn) {
+            gradeBtn.addEventListener('click', function() {
+                var total = 0, score = 0;
+                var questions = document.querySelectorAll('[data-answer]');
+                questions.forEach(function(q) {
+                    total++;
+                    var correct = q.getAttribute('data-answer');
+                    var selected = q.querySelector('input:checked');
+                    var explanation = q.querySelector('.explain');
+                    q.classList.remove('border-emerald-500', 'border-rose-500', 'bg-emerald-50', 'bg-rose-50', 'border-rose-300');
+                    if (selected) {
+                        if (selected.value === correct) {
+                            score++;
+                            q.classList.add('border-emerald-500', 'bg-emerald-50');
+                        } else {
+                            q.classList.add('border-rose-500', 'bg-rose-50');
+                        }
+                    } else {
+                        q.classList.add('border-rose-300');
+                    }
+                    if (explanation) {
+                        explanation.classList.remove('hidden');
+                    }
+                });
+                document.getElementById('quizResult').textContent = score + ' / ' + total + ' في الأسئلة الموضوعية';
+                var feedbackP = document.getElementById('feedback');
+                if (feedbackP) {
+                    if (score === total) {
+                        feedbackP.textContent = 'أحسنت! إجاباتك مثالية. فهمك للمفاهيم ممتاز.';
+                        feedbackP.className = 'text-emerald-600 font-bold text-lg';
+                    } else if (score >= Math.ceil(total * 0.7)) {
+                        feedbackP.textContent = 'جيد جداً! راجع الأخطاء لتعزيز فهمك.';
+                        feedbackP.className = 'text-amber-600 font-bold text-lg';
+                    } else {
+                        feedbackP.textContent = 'حاول مرة أخرى. اقرأ شرح الدرس جيداً وركز على المفاهيم الأساسية.';
+                        feedbackP.className = 'text-rose-600 font-bold text-lg';
+                    }
+                }
+                document.getElementById('quizResultCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        }
+    });
+</script>
+</body>
+</html>

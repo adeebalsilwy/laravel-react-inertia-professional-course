@@ -1,14 +1,43 @@
 {
   "lesson": 21,
-  "title": "Laravel API Resources وتنظيم البيانات",
+  "title": "API Resources وتنظيم البيانات",
   "questions": [
     {
-      "q": "ما أهم هدف من الدرس؟",
-      "answer": "فهم المفهوم وتطبيقه داخل FlowPilot"
+      "id": 1,
+      "type": "mcq",
+      "q": "ما هو الهدف الرئيسي من API Resource؟",
+      "options": ["تحسين سرعة قاعدة البيانات", "تحويل وتنظيم البيانات قبل إرسالها للواجهة", "إنشاء جداول جديدة", "تسجيل الدخول"],
+      "answer": 1,
+      "explanation": "API Resource هو طبقة تحويل بين DB والواجهة."
     },
     {
-      "q": "لماذا نكتب خطوات عملية مفصلة؟",
-      "answer": "حتى يفهم الطالب الهدف والمكان والكود والنتيجة"
+      "id": 2,
+      "type": "mcq",
+      "q": "ما الدالة المسؤولة عن تحديد الحقول في Resource؟",
+      "options": ["index()", "show()", "toArray()", "render()"],
+      "answer": 2,
+      "explanation": "toArray() تحدد ماذا نرسل من بيانات."
+    },
+    {
+      "id": 3,
+      "type": "mcq",
+      "q": "كيف نطبق Resource على مجموعة مشاريع في Controller؟",
+      "options": ["ProjectResource::all()", "ProjectResource::collection($projects)", "new ProjectResource($projects)", "collect(ProjectResource)"],
+      "answer": 1,
+      "explanation": "::collection() يطبق Resource على كل عنصر في القائمة."
+    },
+    {
+      "id": 4,
+      "type": "tf",
+      "q": "API Resources يمكنها إضافة حقول محسوبة غير موجودة في قاعدة البيانات.",
+      "answer": true,
+      "explanation": "نعم، مثل إضافة tasks_count المحسوب."
+    },
+    {
+      "id": 5,
+      "type": "theory",
+      "q": "اشرح باختصار: لماذا نستخدم API Resources في FlowPilot بدلاً من إرسال البيانات الخام؟",
+      "answer": "لتنقية البيانات من الحساسة، وإضافة محسوبات، وتوحيد شكل الـ JSON لواجهة React."
     }
   ]
 }

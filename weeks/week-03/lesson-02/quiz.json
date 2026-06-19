@@ -1,14 +1,63 @@
 {
-  "lesson": 10,
-  "title": "Migrations وSeeders وFactories للمبتدئين",
-  "questions": [
-    {
-      "q": "ما أهم هدف من الدرس؟",
-      "answer": "فهم المفهوم وتطبيقه داخل FlowPilot"
-    },
-    {
-      "q": "لماذا نكتب خطوات عملية مفصلة؟",
-      "answer": "حتى يفهم الطالب الهدف والمكان والكود والنتيجة"
-    }
-  ]
+    "lesson": 10,
+    "week": 3,
+    "title": "Migrations و Seeders و Factories للمبتدئين",
+    "questions": [
+        {
+            "q": "ما الفرق بين up() و down() في ملف Migration؟ أعط مثالاً من FlowPilot.",
+            "answer": "up() تنفذ التغيير (مثال: Schema::create('projects', ...)). down() تعكس التغيير (مثال: Schema::dropIfExists('projects')). up() للبناء و down() للهدم عند التراجع."
+        },
+        {
+            "q": "اشرح باختصار كيف تعمل Factory مع Faker لتوليد بيانات وهمية.",
+            "answer": "Factory تعرّف method definition() يحدد شكل البيانات. تستخدم fake()->sentence() للاسم، fake()->paragraph() للوصف، إلخ. عند استدعاء Model::factory()->count(20)->create()، يتم توليد 20 سجلاً بقيم عشوائية وحفظها في قاعدة البيانات."
+        },
+        {
+            "q": "لماذا نستخدم cascadeOnDelete() في المفاتيح الأجنبية؟ ومتى لا نستخدمه؟",
+            "answer": "cascadeOnDelete() يحذف تلقائياً السجلات المرتبطة عند حذف السجل الأصلي. نستخدمه عندما تكون السجلات تابعة تماماً (مثل حذف المهام عند حذف المشروع). لا نستخدمه عندما نريد الاحتفاظ بالبيانات (مثل حذف مستخدم ولكن الإبقاء على تعليقاته)."
+        }
+    ],
+    "mcq": [
+        {
+            "q": "أي أمر Artisan يقوم بحذف جميع الجداول وإعادة إنشائها؟",
+            "options": ["php artisan migrate", "php artisan migrate:rollback", "php artisan migrate:fresh", "php artisan migrate:status"],
+            "correct": 2,
+            "explanation": "migrate:fresh يحذف جميع الجداول (drop) ثم يعيد تشغيل جميع Migrations من البداية. مفيد جداً في بيئة التطوير."
+        },
+        {
+            "q": "ما وظيفة ->constrained() في تعريف Foreign Key؟",
+            "options": ["يجعل العمود فريداً", "يحدد أن هذا العمود مفتاح أجنبي ويشير تلقائياً للجدول المناسب", "يجعل العمود إلزامياً", "يضيف قيمة افتراضية"],
+            "correct": 1,
+            "explanation": "constrained() تخبر Laravel أن هذا العمود هو Foreign Key. يستنتج Laravel اسم الجدول من اسم العمود: user_id → users.id."
+        },
+        {
+            "q": "أي دالة Faker تولد جملة عشوائية من 5 كلمات؟",
+            "options": ["fake()->paragraph(5)", "fake()->sentence(5)", "fake()->word(5)", "fake()->text(5)"],
+            "correct": 1,
+            "explanation": "fake()->sentence(5) تولد جملة من 5 كلمات. paragraph تولد فقرات. word تولد كلمة واحدة. text تولد نصاً طويلاً."
+        },
+        {
+            "q": "ماذا يحدث عند تشغيل php artisan db:seed؟",
+            "options": ["تنفيذ Migrations فقط", "تنفيذ Seeders المسجلة في DatabaseSeeder", "حذف قاعدة البيانات", "إنشاء Models جديدة"],
+            "correct": 1,
+            "explanation": "db:seed ينفذ الطريقة run() في DatabaseSeeder.php، والتي تستدعي جميع Seeders المسجلة باستخدام $this->call()."
+        },
+        {
+            "q": "ما نوع العمود الذي ينشئه الكود: $table->timestamps()؟",
+            "options": ["عمود واحد createdAt", "عمودين: created_at و updated_at", "ثلاثة أعمدة: created_at, updated_at, deleted_at", "عمود timestamp واحد"],
+            "correct": 1,
+            "explanation": "timestamps() ينشئ عمودين: created_at (وقت الإنشاء) و updated_at (وقت آخر تحديث). كلاهما من نوع TIMESTAMP ويملأهما Laravel تلقائياً."
+        }
+    ],
+    "tf": [
+        {
+            "q": "يمكن تشغيل php artisan migrate --seed لتنفيذ Migrations و Seeders في أمر واحد",
+            "answer": true,
+            "explanation": "نعم، --seed تشغل DatabaseSeeder تلقائياً بعد انتهاء Migrations. هذا مفيد جداً بعد إنشاء مشروع جديد."
+        },
+        {
+            "q": "لا يمكن أن يكون عمود المفتاح الأجنبي (FK) NULL في قاعدة البيانات",
+            "answer": false,
+            "explanation": "يمكن أن يكون FK = NULL إذا أضفنا ->nullable(). مثلاً، assigned_to في جدول tasks يمكن أن يكون NULL إذا لم تُسند المهمة لأحد بعد."
+        }
+    ]
 }

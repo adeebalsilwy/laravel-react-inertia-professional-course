@@ -3,26 +3,180 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 14: كتابة قواعد الصلاحيات</title>
+    <title>واجب الدرس 14: تطبيق Policies | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .step-box { border-right: 4px solid #10b981; background: #f8fafc; padding: 1.5rem; border-radius: 1rem; margin-bottom: 1.5rem; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
-<main class="mx-auto max-w-3xl px-4 py-12">
-    <div class="card p-12 space-y-8">
-        <h1 class="text-3xl font-black text-center text-indigo-600">واجب حارس البوابة</h1>
-        <div class="space-y-6 text-right">
-            <h3 class="font-black text-xl">تحدي المبرمج:</h3>
-            <ol class="list-decimal pr-6 space-y-4 font-bold text-slate-700">
-                <li>أنشئ <code>ProjectPolicy</code>.</li>
-                <li>اكتب قاعدة تسمح بحذف المشروع (Delete) فقط إذا كان المستخدم "مديراً" (يمكنك افتراض وجود عمود <code>is_admin</code> في جدول المستخدمين).</li>
-                <li>اشرح لزميلك: لماذا لا نكتب هذه الشروط داخل الـ Controller مباشرة؟</li>
-            </ol>
-        </div>
+<body class="bg-slate-50 text-slate-900">
+
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
+</header>
+
+<main class="mx-auto max-w-4xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة لشرح الدرس</a>
+    
+    <section class="space-y-8">
+        <div class="card p-8 bg-gradient-to-br from-emerald-600 to-emerald-800 text-white shadow-xl shadow-emerald-100 rounded-3xl">
+            <h1 class="text-3xl font-black">واجب الدرس 14: تطبيق Policies في FlowPilot</h1>
+            <p class="mt-4 text-emerald-100 leading-relaxed italic text-lg">
+                "حماية بيانات المستخدمين هي مسؤوليتنا كمطورين. اليوم نتعلم كيف نجعل كل مستخدم يتحكم فقط في مشاريعه."
+            </p>
+        </div>
+
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3">
+                <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">01</span>
+                الهدف من الواجب
+            </h2>
+            <p class="text-slate-600 leading-relaxed">
+                إنشاء <strong>ProjectPolicy</strong> تمنع المستخدمين من تعديل أو حذف مشاريع بعضهم البعض، مع السماح لأعضاء الفريق برؤية المشروع. سنطبق هذا باستخدام <code>php artisan make:policy</code> و <code>authorize()</code> ونتأكد من أن التحقق يتم في الخلفية والأمامية.
+            </p>
+        </section>
+
+        <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-emerald-600">
+                <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">02</span>
+                خطوات التنفيذ بالتفصيل
+            </h2>
+            
+            <div class="step-box">
+                <h4 class="font-black text-lg text-emerald-700">1. إنشاء Policy لموديل Project</h4>
+                <p class="text-sm text-slate-600 mt-2">تأكد أنك داخل مجلد مشروع FlowPilot، ثم نفذ:</p>
+                <div class="bg-slate-900 rounded-xl p-4 font-mono text-sm text-amber-400 mt-2 text-left">
+                    <span>php artisan make:policy ProjectPolicy --model=Project</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">📌 <strong>الملف الناتج:</strong> <code>app/Policies/ProjectPolicy.php</code></p>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-emerald-700">2. تسجيل Policy في AuthServiceProvider</h4>
+                <p class="text-sm text-slate-600 mt-2">افتح <code>app/Providers/AuthServiceProvider.php</code> وأضف:</p>
+                <div class="bg-slate-900 rounded-xl p-4 font-mono text-sm text-purple-400 mt-2 text-left">
+                    <span>use App\Models\Project;</span><br>
+                    <span>use App\Policies\ProjectPolicy;</span><br>
+                    <span> </span><br>
+                    <span>protected $policies = [</span><br>
+                    <span>    Project::class =&gt; ProjectPolicy::class,</span><br>
+                    <span>];</span>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-emerald-700">3. كتابة دوال Policy كاملة</h4>
+                <p class="text-sm text-slate-600 mt-2">افتح <code>app/Policies/ProjectPolicy.php</code> واكتب الدوال التالية:</p>
+                <div class="bg-slate-900 rounded-xl p-4 font-mono text-sm text-green-400 mt-2 text-left">
+                    <span>public function view(User $user, Project $project): bool</span><br>
+                    <span>{</span><br>
+                    <span>    // المالك أو عضو الفريق يمكنه رؤية المشروع</span><br>
+                    <span>    if ($user-&gt;id === $project-&gt;user_id) return true;</span><br>
+                    <span>    return $project-&gt;members()-&gt;where('user_id', $user-&gt;id)-&gt;exists();</span><br>
+                    <span>}</span><br>
+                    <span> </span><br>
+                    <span>public function create(User $user): bool</span><br>
+                    <span>{</span><br>
+                    <span>    return true; // أي مستخدم مسجل يمكنه إنشاء مشروع</span><br>
+                    <span>}</span><br>
+                    <span> </span><br>
+                    <span>public function update(User $user, Project $project): bool</span><br>
+                    <span>{</span><br>
+                    <span>    return $user-&gt;id === $project-&gt;user_id;</span><br>
+                    <span>}</span><br>
+                    <span> </span><br>
+                    <span>public function delete(User $user, Project $project): bool</span><br>
+                    <span>{</span><br>
+                    <span>    return $user-&gt;id === $project-&gt;user_id;</span><br>
+                    <span>}</span>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-emerald-700">4. استخدام authorize() في ProjectController</h4>
+                <p class="text-sm text-slate-600 mt-2">أضف <code>$this->authorize()</code> قبل كل عملية في <code>app/Http/Controllers/ProjectController.php</code>:</p>
+                <div class="bg-slate-900 rounded-xl p-4 font-mono text-sm text-indigo-400 mt-2 text-left">
+                    <span>public function show(Project $project)</span><br>
+                    <span>{</span><br>
+                    <span>    $this-&gt;authorize('view', $project);</span><br>
+                    <span>    return Inertia::render('Projects/Show', ['project' =&gt; $project]);</span><br>
+                    <span>}</span><br>
+                    <span> </span><br>
+                    <span>public function update(Request $request, Project $project)</span><br>
+                    <span>{</span><br>
+                    <span>    $this-&gt;authorize('update', $project);</span><br>
+                    <span>    // ... validation and update</span><br>
+                    <span>}</span><br>
+                    <span> </span><br>
+                    <span>public function destroy(Project $project)</span><br>
+                    <span>{</span><br>
+                    <span>    $this-&gt;authorize('delete', $project);</span><br>
+                    <span>    $project-&gt;delete();</span><br>
+                    <span>    return redirect()-&gt;route('projects.index');</span><br>
+                    <span>}</span>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-emerald-700">5. اختبار صلاحيات المشاهدة</h4>
+                <p class="text-sm text-slate-600 mt-2">أنشئ مستخدمين اثنين (مثلاً: ahmed@test.com و sara@test.com). سجل بأحمد وأنشئ مشروعاً. ثم سجل الخروج وسجل بسارة وحاول فتح مشروع أحمد. يجب أن تظهر رسالة 403.</p>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-emerald-700">6. إخفاء الأزرار في واجهة React</h4>
+                <p class="text-sm text-slate-600 mt-2">في <code>resources/js/Pages/Projects/Show.jsx</code> أضف شرطاً لإخفاء أزرار التعديل والحذف عن المستخدمين غير المالكين:</p>
+                <div class="bg-slate-900 rounded-xl p-4 font-mono text-sm text-cyan-400 mt-2 text-left">
+                    <span>const { props } = usePage();</span><br>
+                    <span>const user = props.auth.user;</span><br>
+                    <span>const isOwner = user?.id === project.user_id;</span><br>
+                    <span> </span><br>
+                    <span>{isOwner && (</span><br>
+                    <span>    &lt;Link href={`/projects/${project.id}/edit`}&gt;تعديل&lt;/Link&gt;</span><br>
+                    <span>)}</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black text-sky-600">📂 الملفات المطلوب مراجعتها</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="p-4 rounded-xl bg-slate-50 border"><p class="font-bold text-slate-900">app/Policies/ProjectPolicy.php</p><p class="text-xs text-slate-500">ملف الـ Policy مع دوال الصلاحيات</p></div>
+                <div class="p-4 rounded-xl bg-slate-50 border"><p class="font-bold text-slate-900">app/Providers/AuthServiceProvider.php</p><p class="text-xs text-slate-500">تسجيل الـ Policy</p></div>
+                <div class="p-4 rounded-xl bg-slate-50 border"><p class="font-bold text-slate-900">app/Http/Controllers/ProjectController.php</p><p class="text-xs text-slate-500">استخدام authorize()</p></div>
+                <div class="p-4 rounded-xl bg-slate-50 border"><p class="font-bold text-slate-900">resources/js/Pages/Projects/Show.jsx</p><p class="text-xs text-slate-500">التحقق في React</p></div>
+            </div>
+        </section>
+
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black text-emerald-600">📋 معايير التقييم</h2>
+            <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                <li>✅ إنشاء ProjectPolicy وتسجيله في AuthServiceProvider.</li>
+                <li>✅ كتابة دوال view, create, update, delete بشكل صحيح.</li>
+                <li>✅ استخدام <code>$this->authorize()</code> في جميع دوال Controller.</li>
+                <li>✅ المستخدم لا يمكنه تعديل أو حذف مشروع ليس مالكه.</li>
+                <li>✅ أزرار التعديل والحذف تختفي للمستخدمين غير المالكين في React.</li>
+                <li>✅ ظهور رسالة 403 عند محاولة الوصول غير المصرح به.</li>
+            </ul>
+        </section>
+
+        <div class="p-8 rounded-[2rem] bg-gradient-to-br from-slate-900 to-emerald-900 text-white space-y-4">
+            <h3 class="text-xl font-black">🚀 تحدي إضافي: إضافة صلاحية المشرف</h3>
+            <p class="text-slate-300 text-sm">عدّل <code>delete()</code> في ProjectPolicy ليسمح لمستخدمين يحملون خاصية <code>is_admin = true</code> بحذف أي مشروع. أضف عمود <code>is_admin</code> إلى جدول <code>users</code> عبر Migration جديد.</p>
+        </div>
+    </section>
 </main>
+
+<footer class="mt-24 border-t bg-white py-12 text-center text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. صلاحيات المستخدم هي أساس الخصوصية.
+</footer>
+
+<script src="../../../assets/js/app.js"></script>
 </body>
 </html>

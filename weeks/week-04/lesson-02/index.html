@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 14: الصلاحيات Policies وحماية المشاريع</title>
+    <title>الدرس 14: الصلاحيات Policies وحماية المشاريع | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,13 @@
     <style>
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
-        .step-card { border-right: 4px solid #f59e0b; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .step-card { border-right: 4px solid #10b981; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .code-line { display: block; padding: 2px 0; }
+        .code-comment { color: #6b7280; }
+        .code-keyword { color: #818cf8; }
+        .code-string { color: #34d399; }
+        .error-box { background: #fef2f2; border-right: 4px solid #ef4444; padding: 1.5rem; border-radius: 1rem; margin-bottom: 1.5rem; }
+        .success-box { background: #f0fdf4; border-right: 4px solid #22c55e; padding: 1.5rem; border-radius: 1rem; margin-bottom: 1.5rem; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -29,78 +35,476 @@
             <div class="sidebar-sticky space-y-4">
                 <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الرابع</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-amber-50 text-amber-700" href="#intro">مفهوم الترخيص</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">ما هي الـ Policies؟</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال الحارس الشخصي</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl bg-emerald-50 text-emerald-700" href="#intro">مفهوم Policies (الترخيص)</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">إنشاء Policy وتسجيلها</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#methods">طرق Policy: view, create, update, delete</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#controller">استخدام authorize() في Controller</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#react">التحقق في React بـ @can</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">FlowPilot: ProjectPolicy</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي (6 خطوات)</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">الأخطاء الشائعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#summary">ملخص</a>
                 </div>
             </div>
         </aside>
 
         <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
             <section class="border-b pb-8 mb-12">
-                <span class="badge bg-amber-50 text-amber-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 4 · الدرس 2</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">الترخيص (Authorization): من يحق له تعديل المشروع؟</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"تأكد المستخدم من هويته (المصادقة)، الآن لنتأكد مما يسمح له بفعله داخل التطبيق."</p>
+                <span class="badge bg-emerald-50 text-emerald-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 4 · الدرس 2 (الدرس 14)</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">الصلاحيات Policies: من يحق له تعديل المشروع؟</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"بعد أن عرفنا من أنت (المصادقة)، الآن نحدد ماذا يُسمح لك أن تفعل (الترخيص)."</p>
             </section>
 
-            <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">لماذا نحتاج للترخيص؟</h2>
+            <!-- INTRO -->
+            <section id="intro" class="space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">1. ما هي Policies؟ (الترخيص - Authorization)</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    تخيل أن "أحمد" و "سارة" مستخدمان في FlowPilot. أحمد لديه مشاريعه الخاصة، وسارة لديها مشاريعها. لا نريد لأحمد أن يتمكن من حذف مشاريع سارة بمجرد تخمين الرابط الخاص بها.
+                    في الدرس السابق تعلمنا <strong>المصادقة (Authentication)</strong> - وهي التأكد من هوية المستخدم. لكن تخيل أن "أحمد" و "سارة" مستخدمان مسجلان في FlowPilot. أحمد لديه مشاريعه الخاصة، وسارة لديها مشاريعها الخاصة. هل نريد لأحمد أن يتمكن من <strong>حذف</strong> مشاريع سارة؟ بالتأكيد لا!
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    هنا يأتي دور <strong>الترخيص (Authorization)</strong>. هو وضع قواعد وشروط لكل عملية (تعديل، حذف، عرض) للتأكد من أن المستخدم يمتلك الصلاحية الكافية.
+                    هنا يأتي دور <strong>الترخيص (Authorization)</strong> أو <strong>Policies</strong>. هو نظام يضع قواعد وشروط لكل عملية في التطبيق: من يمكنه عرض هذا المشروع؟ من يمكنه تعديله؟ من يمكنه حذفه؟
                 </p>
+                <div class="bg-emerald-50 p-6 rounded-2xl border border-emerald-200">
+                    <p class="font-bold text-emerald-800">📌 الفرق بين Authentication و Authorization:</p>
+                    <p class="text-emerald-700 text-sm mt-2">
+                        <strong>المصادقة (Authentication):</strong> "من أنت؟" ← البريد الإلكتروني + كلمة المرور.<br>
+                        <strong>الترخيص (Authorization):</strong> "ماذا يُسمح لك أن تفعل؟" ← هل تملك صلاحية تعديل هذا المشروع؟
+                    </p>
+                </div>
             </section>
 
+            <!-- THEORY -->
             <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">ما هي الـ Policy؟</h2>
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">2. إنشاء Policy وتسجيلها (Registering Policies)</h2>
                 <p class="text-slate-600 leading-relaxed">
-                    الـ <strong>Policy</strong> في Laravel هي ملف يحتوي على "منطق الصلاحيات" لنموذج معين. مثلاً، <code>ProjectPolicy</code> سيحتوي على قاعدة تقول: "يسمح بالتعديل فقط إذا كان <code>user_id</code> الخاص بالمشروع يساوي <code>id</code> المستخدم الحالي".
+                    الـ <strong>Policy</strong> في Laravel هي كلاس (فئة) يحتوي على دوال تحدد صلاحيات مستخدم معين لنموذج (Model) معين. مثلاً، <code>ProjectPolicy</code> يحدد من يمكنه <code>view</code> أو <code>update</code> أو <code>delete</code> مشروعاً معيناً.
+                </p>
+                
+                <h3 class="text-xl font-black text-slate-900 mt-6">🔧 إنشاء Policy جديدة</h3>
+                <p class="text-slate-600">لإنشاء Policy، استخدم أمر Artisan:</p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment"># إنشاء Policy لموديل Project مع دوال افتراضية</span></span>
+                    <span class="code-line">php artisan make:policy ProjectPolicy --model=Project</span>
+                </div>
+                <p class="text-slate-600 text-sm">🔍 هذا الأمر ينشئ ملف <code>app/Policies/ProjectPolicy.php</code> يحتوي على دوال جاهزة: <code>viewAny</code>, <code>view</code>, <code>create</code>, <code>update</code>, <code>delete</code>, <code>restore</code>, <code>forceDelete</code>.</p>
+
+                <h3 class="text-xl font-black text-slate-900 mt-6">📋 تسجيل Policy في AuthServiceProvider</h3>
+                <p class="text-slate-600">يجب تسجيل كل Policy في ملف <code>app/Providers/AuthServiceProvider.php</code>:</p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// app/Providers/AuthServiceProvider.php</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">&lt;?php</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">namespace</span> App\Providers;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">use</span> App\Models\Project;</span>
+                    <span class="code-line"><span class="code-keyword">use</span> App\Policies\ProjectPolicy;</span>
+                    <span class="code-line"><span class="code-keyword">use</span> Illuminate\Foundation\Support\Providers\AuthServiceProvider <span class="code-keyword">as</span> ServiceProvider;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">class</span> AuthServiceProvider <span class="code-keyword">extends</span> ServiceProvider</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-comment">// مصفوفة تربط كل Model بـ Policy الخاصة به</span></span>
+                    <span class="code-line">    <span class="code-keyword">protected</span> <span class="code-function">$policies</span> = [</span>
+                    <span class="code-line">        Project::class =&gt; ProjectPolicy::class,</span>
+                    <span class="code-line">    ];</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-function">boot</span>()</span>
+                    <span class="code-line">    {</span>
+                    <span class="code-line">        <span class="code-function">$this</span>-&gt;registerPolicies(); <span class="code-comment">// تسجيل كل الـ Policies</span></span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line">}</span>
+                </div>
+                <div class="space-y-3 mt-4">
+                    <h4 class="font-black text-slate-900">🔍 شرح الكود:</h4>
+                    <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                        <li><strong>$policies:</strong> مصفوفة تخبر Laravel: "عند التعامل مع Project Model، استخدم ProjectPolicy لتحديد الصلاحيات".</li>
+                        <li><strong>Project::class => ProjectPolicy::class:</strong> المفتاح هو اسم الموديل، القيمة هي اسم الـ Policy.</li>
+                        <li><strong>registerPolicies():</strong> تستدعى في الدالة <code>boot()</code> لتفعيل كل الـ Policies المسجلة.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- METHODS -->
+            <section id="methods" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">3. طرق Policy: view, create, update, delete</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    كل Policy تحتوي على دوال (طرق) تمثل العمليات المختلفة التي يمكن تنفيذها على الموديل. دعنا نرى كيف تكتب كل دالة:
+                </p>
+
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// app/Policies/ProjectPolicy.php</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">&lt;?php</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">namespace</span> App\Policies;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">use</span> App\Models\Project;</span>
+                    <span class="code-line"><span class="code-keyword">use</span> App\Models\User;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">class</span> ProjectPolicy</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-comment">// 1. view: هل يمكن للمستخدم رؤية هذا المشروع؟</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-function">view</span>(User <span class="code-function">$user</span>, Project <span class="code-function">$project</span>): <span class="code-function">bool</span></span>
+                    <span class="code-line">    {</span>
+                    <span class="code-line">        <span class="code-comment">// يسمح بالعرض إذا كان المستخدم هو المالك</span></span>
+                    <span class="code-line">        <span class="code-keyword">return</span> <span class="code-function">$user</span>-&gt;id === <span class="code-function">$project</span>-&gt;user_id;</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// 2. create: هل يمكن للمستخدم إنشاء مشروع جديد؟</span></span>
+                    <span class="code-line">    <span class="code-comment">// لا يحتاج $project لأنه لم يتم إنشاؤه بعد</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-function">create</span>(User <span class="code-function">$user</span>): <span class="code-function">bool</span></span>
+                    <span class="code-line">    {</span>
+                    <span class="code-line">        <span class="code-comment">// أي مستخدم مسجل يمكنه إنشاء مشروع</span></span>
+                    <span class="code-line">        <span class="code-keyword">return</span> <span class="code-keyword">true</span>;</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// 3. update: هل يمكن للمستخدم تعديل هذا المشروع؟</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-function">update</span>(User <span class="code-function">$user</span>, Project <span class="code-function">$project</span>): <span class="code-function">bool</span></span>
+                    <span class="code-line">    {</span>
+                    <span class="code-line">        <span class="code-comment">// فقط المالك يسمح له بالتعديل</span></span>
+                    <span class="code-line">        <span class="code-keyword">return</span> <span class="code-function">$user</span>-&gt;id === <span class="code-function">$project</span>-&gt;user_id;</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// 4. delete: هل يمكن للمستخدم حذف هذا المشروع؟</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-function">delete</span>(User <span class="code-function">$user</span>, Project <span class="code-function">$project</span>): <span class="code-function">bool</span></span>
+                    <span class="code-line">    {</span>
+                    <span class="code-line">        <span class="code-comment">// فقط المالك (أو مشرف) يمكنه الحذف</span></span>
+                    <span class="code-line">        <span class="code-keyword">return</span> <span class="code-function">$user</span>-&gt;id === <span class="code-function">$project</span>-&gt;user_id || <span class="code-function">$user</span>-&gt;is_admin;</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line">}</span>
+                </div>
+                <div class="space-y-3 mt-4">
+                    <h4 class="font-black text-slate-900">🔍 شرح الكود سطراً سطراً:</h4>
+                    <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                        <li><strong>public function view(User $user, Project $project):</strong> تستقبل المستخدم الحالي والمشروع المطلوب. ترجع <code>true</code> إذا سمحت، <code>false</code> إذا منعت.</li>
+                        <li><strong>return $user->id === $project->user_id:</strong> تقارن معرف المستخدم الحالي مع معرف المالك (user_id) للمشروع. إذا تطابقا، يرجع <code>true</code>.</li>
+                        <li><strong>create(User $user):</strong> لا تأخذ <code>$project</code> لأنه لم يتم إنشاؤه بعد. ترجع <code>true</code> لكل المستخدمين المسجلين.</li>
+                        <li><strong>delete(...):</strong> نسمح بالحذف إذا كان المستخدم هو المالك <strong>أو</strong> (<code>||</code>) إذا كان المستخدم مشرفاً (<code>is_admin</code>).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- AUTHORIZE IN CONTROLLER -->
+            <section id="controller" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">4. استخدام <code>authorize()</code> في Controller</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    بعد أن كتبنا الـ Policy، كيف نستخدمها داخل الـ Controller؟ ببساطة، نستدعي الدالة <code>authorize()</code> التي توفرها Laravel:
+                </p>
+
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// app/Http/Controllers/ProjectController.php</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">class</span> ProjectController <span class="code-keyword">extends</span> Controller</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-comment">// 1. عرض مشروع واحد</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-function">show</span>(Project <span class="code-function">$project</span>)</span>
+                    <span class="code-line">    {</span>
+                    <span class="code-line">        <span class="code-comment">// يتحقق: هل المستخدم يملك صلاحية view على هذا المشروع؟</span></span>
+                    <span class="code-line">        <span class="code-function">$this</span>-&gt;authorize(<span class="code-string">'view'</span>, <span class="code-function">$project</span>);</span>
+                    <span class="code-line">        </span>
+                    <span class="code-line">        <span class="code-comment">// إذا وصلنا هنا، معناه أن المستخدم مخول - نعرض المشروع</span></span>
+                    <span class="code-line">        <span class="code-keyword">return</span> Inertia::render(<span class="code-string">'Projects/Show'</span>, [</span>
+                    <span class="code-line">            <span class="code-string">'project'</span> =&gt; <span class="code-function">$project</span></span>
+                    <span class="code-line">        ]);</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// 2. تحديث مشروع</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-function">update</span>(Request <span class="code-function">$request</span>, Project <span class="code-function">$project</span>)</span>
+                    <span class="code-line">    {</span>
+                    <span class="code-line">        <span class="code-comment">// يتحقق: هل المستخدم يمكنه update هذا المشروع؟</span></span>
+                    <span class="code-line">        <span class="code-function">$this</span>-&gt;authorize(<span class="code-string">'update'</span>, <span class="code-function">$project</span>);</span>
+                    <span class="code-line">        </span>
+                    <span class="code-line">        <span class="code-comment">// التحقق من صحة البيانات المدخلة (Validation)</span></span>
+                    <span class="code-line">        <span class="code-function">$request</span>-&gt;validate([</span>
+                    <span class="code-line">            <span class="code-string">'name'</span> =&gt; <span class="code-string">'required|string|max:255'</span>,</span>
+                    <span class="code-line">            <span class="code-string">'description'</span> =&gt; <span class="code-string">'nullable|string'</span>,</span>
+                    <span class="code-line">        ]);</span>
+                    <span class="code-line">        </span>
+                    <span class="code-line">        <span class="code-comment">// تحديث المشروع</span></span>
+                    <span class="code-line">        <span class="code-function">$project</span>-&gt;update(<span class="code-function">$request</span>-&gt;all());</span>
+                    <span class="code-line">        </span>
+                    <span class="code-line">        <span class="code-keyword">return</span> redirect()-&gt;route(<span class="code-string">'projects.show'</span>, <span class="code-function">$project</span>)</span>
+                    <span class="code-line">            -&gt;with(<span class="code-string">'message'</span>, <span class="code-string">'تم تحديث المشروع بنجاح'</span>);</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// 3. حذف مشروع</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-function">destroy</span>(Project <span class="code-function">$project</span>)</span>
+                    <span class="code-line">    {</span>
+                    <span class="code-line">        <span class="code-function">$this</span>-&gt;authorize(<span class="code-string">'delete'</span>, <span class="code-function">$project</span>);</span>
+                    <span class="code-line">        <span class="code-function">$project</span>-&gt;delete();</span>
+                    <span class="code-line">        <span class="code-keyword">return</span> redirect()-&gt;route(<span class="code-string">'projects.index'</span>)</span>
+                    <span class="code-line">            -&gt;with(<span class="code-string">'message'</span>, <span class="code-string">'تم حذف المشروع'</span>);</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// 4. إنشاء مشروع جديد (لا يحتاج $project)</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-function">store</span>(Request <span class="code-function">$request</span>)</span>
+                    <span class="code-line">    {</span>
+                    <span class="code-line">        <span class="code-function">$this</span>-&gt;authorize(<span class="code-string">'create'</span>, Project::class);</span>
+                    <span class="code-line">        <span class="code-comment">// ... إنشاء المشروع ...</span></span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line">}</span>
+                </div>
+                <div class="space-y-3 mt-4">
+                    <h4 class="font-black text-slate-900">🔍 شرح الكود:</h4>
+                    <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                        <li><strong>$this->authorize('view', $project):</strong> هذا السطر يستدعي الدالة <code>view()</code> من <code>ProjectPolicy</code>. إذا رجعت <code>false</code>، Laravel تلقائياً يرسل خطأ 403 (Forbidden). إذا رجعت <code>true</code>، يكمل تنفيذ الكود.</li>
+                        <li><strong>authorize('create', Project::class):</strong> للدوال التي لا تحتاج لكائن موجود (<code>create</code>) نمرر اسم الكلاس (Project::class) بدلاً من الكائن.</li>
+                        <li><strong>redirect()->with('message', ...):</strong> بعد النجاح، نعيد التوجيه مع رسالة flash (مؤقتة) تظهر في الواجهة.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- REACT @can -->
+            <section id="react" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">5. التحقق من الصلاحيات في React باستخدام <code>@can</code></h2>
+                <p class="text-slate-600 leading-relaxed">
+                    أحياناً نريد إخفاء أو إظهار أزرار في الواجهة بناءً على صلاحيات المستخدم. مثلاً، إخفاء زر "تعديل" إذا كان المستخدم لا يملك صلاحية التعديل. في Inertia مع Blade، نستخدم <code>@can</code>. لكن في React، نستخدم نهجاً مختلفاً:
+                </p>
+
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// resources/js/Pages/Projects/Show.jsx</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">import</span> { usePage, Link } <span class="code-keyword">from</span> <span class="code-string">'@inertiajs/react'</span>;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">export default function</span> <span class="code-function">ShowProject</span>({ project }) {</span>
+                    <span class="code-line">    <span class="code-keyword">const</span> { props } = <span class="code-function">usePage</span>();</span>
+                    <span class="code-line">    <span class="code-keyword">const</span> user = props.auth.user;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// نتحقق يدوياً: هل المستخدم الحالي هو مالك المشروع؟</span></span>
+                    <span class="code-line">    <span class="code-keyword">const</span> canUpdate = user?.id === project.user_id;</span>
+                    <span class="code-line">    <span class="code-keyword">const</span> canDelete = user?.id === project.user_id || user?.is_admin;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-keyword">return</span> (</span>
+                    <span class="code-line">        &lt;div className=<span class="code-string">"p-6"</span>&gt;</span>
+                    <span class="code-line">            &lt;h1&gt;{project.name}&lt;/h1&gt;</span>
+                    <span class="code-line">            &lt;p&gt;{project.description}&lt;/p&gt;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">            {canUpdate &amp;&amp; (</span>
+                    <span class="code-line">                &lt;Link href={<span class="code-string">`/projects/${project.id}/edit`</span>}</span>
+                    <span class="code-line">                      className=<span class="code-string">"bg-indigo-600 text-white px-4 py-2 rounded-xl"</span>&gt;</span>
+                    <span class="code-line">                    تعديل المشروع</span>
+                    <span class="code-line">                &lt;/Link&gt;</span>
+                    <span class="code-line">            )}</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">            {canDelete &amp;&amp; (</span>
+                    <span class="code-line">                &lt;button className=<span class="code-string">"bg-red-600 text-white px-4 py-2 rounded-xl"</span>&gt;</span>
+                    <span class="code-line">                    حذف المشروع</span>
+                    <span class="code-line">                &lt;/button&gt;</span>
+                    <span class="code-line">            )}</span>
+                    <span class="code-line">        &lt;/div&gt;</span>
+                    <span class="code-line">    );</span>
+                    <span class="code-line">}</span>
+                </div>
+                <div class="space-y-3 mt-4">
+                    <h4 class="font-black text-slate-900">🔍 شرح الكود:</h4>
+                    <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                        <li><strong>user?.id === project.user_id:</strong> "أم آمنة" (Optional Chaining) تمنع الخطأ إذا كان <code>user</code> يساوي <code>null</code>.</li>
+                        <li><strong>{canUpdate && (...)}:</strong> إذا كان <code>canUpdate</code> يساوي <code>true</code>، يعرض زر التعديل. إذا كان <code>false</code>، لا يظهر أي شيء.</li>
+                        <li><strong>ملاحظة مهمة:</strong> هذا هو التحقق الأمامي (Frontend). التحقق الخلفي (في Controller) هو الأهم والأمن. التحقق الأمامي فقط لتجربة المستخدم.</li>
+                    </ul>
+                </div>
+                <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-200 mt-4">
+                    <p class="font-bold text-indigo-800">🛡️ قاعدة أمان مهمة: التحقق المزدوج</p>
+                    <p class="text-indigo-700 text-sm mt-2">لا تعتمد فقط على التحقق في الواجهة الأمامية (React). يجب أن يكون التحقق في الخلفية (Laravel Controller) هو خط الدفاع الأول. تحقق الواجهة هو لتجربة مستخدم أفضل فقط.</p>
+                </div>
+            </section>
+
+            <!-- ANALOGY -->
+            <section id="analogy" class="mt-16 p-8 rounded-3xl bg-emerald-600 text-white shadow-xl shadow-emerald-100">
+                <h2 class="text-2xl font-black mb-4">🎯 مثال من الواقع: حارس العمارة</h2>
+                <p class="text-emerald-50 leading-relaxed text-lg">
+                    تخيل أنك تدخل عمارة سكنية.<br><br>
+                    <strong>المصادقة:</strong> حارس البوابة يسألك "من أنت؟" وتريه هويتك. هذا هو Authentication - تأكد من أنك شخص حقيقي.<br><br>
+                    <strong>الترخيص (Policy):</strong> بعد أن يدعك الحارس يدخل، تقف أمام شقة جارتك. تريد فتح بابها. هنا يأتي دور "قفل الشقة" أو Policy. حتى لو كنت داخل العمارة (مصادقاً عليه)، لا يمكنك فتح باب شقة لا تملكها.<br><br>
+                    <strong>FlowPilot:</strong> المستخدم (أحمد) داخل التطبيق (مصادق). لكنه يحاول فتح مشروع سارة. هنا <code>ProjectPolicy</code> هو "قفل الشقة" الذي يمنعه لأن <code>user_id</code> لا يساوي <code>id</code> أحمد.
                 </p>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-amber-600 text-white shadow-xl shadow-amber-100">
-                <h2 class="text-2xl font-black mb-4">مثال من الواقع (حارس المبنى)</h2>
-                <p class="text-white leading-relaxed text-lg">
-                    تخيل <strong>المصادقة</strong> هي البطاقة التي سمحت لك بدخول المبنى.
-                    <br><br>
-                    أما <strong>الترخيص (Policy)</strong> فهو الحارس الذي يقف أمام كل شقة. هو يرى بطاقتك ويعرف من أنت، لكنه يمنعك من دخول الشقة رقم 5 لأنك لا تملك عقد إيجار لها، ويسمح لك بدخول الشقة رقم 3 لأنها شقتك!
+            <!-- FLOWPILOT -->
+            <section id="flowpilot" class="mt-16 p-8 rounded-3xl bg-gradient-to-br from-emerald-600 to-emerald-800 text-white shadow-xl shadow-emerald-100">
+                <h2 class="text-2xl font-black mb-4">6. FlowPilot: ProjectPolicy و TeamMember</h2>
+                <p class="text-emerald-100 leading-relaxed">
+                    في FlowPilot، المشاريع ليست مملوكة فقط لشخص واحد. أحياناً يكون فريق العمل بأكمله يحتاج الوصول لنفس المشروع. لهذا، Policy الخاص بنا يجب أن يكون أذكى من مجرد مقارنة <code>user_id</code>.
                 </p>
+                <div class="bg-emerald-900/40 rounded-2xl p-6 font-mono text-sm overflow-x-auto mt-4 text-left">
+                    <span class="code-line"><span class="code-comment">// app/Policies/ProjectPolicy.php - نسخة FlowPilot</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-function">view</span>(User <span class="code-function">$user</span>, Project <span class="code-function">$project</span>): <span class="code-function">bool</span></span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-comment">// 1. المالك يرى المشروع دائماً</span></span>
+                    <span class="code-line">    <span class="code-keyword">if</span> (<span class="code-function">$user</span>-&gt;id === <span class="code-function">$project</span>-&gt;user_id) {</span>
+                    <span class="code-line">        <span class="code-keyword">return</span> <span class="code-keyword">true</span>;</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// 2. أعضاء الفريق المسجلين يرون المشروع أيضاً</span></span>
+                    <span class="code-line">    <span class="code-keyword">return</span> <span class="code-function">$project</span>-&gt;members()</span>
+                    <span class="code-line">        -&gt;where(<span class="code-string">'user_id'</span>, <span class="code-function">$user</span>-&gt;id)</span>
+                    <span class="code-line">        -&gt;exists();</span>
+                    <span class="code-line">}</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-function">update</span>(User <span class="code-function">$user</span>, Project <span class="code-function">$project</span>): <span class="code-function">bool</span></span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-comment">// التعديل مسموح فقط لمالك المشروع</span></span>
+                    <span class="code-line">    <span class="code-keyword">return</span> <span class="code-function">$user</span>-&gt;id === <span class="code-function">$project</span>-&gt;user_id;</span>
+                    <span class="code-line">}</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-function">delete</span>(User <span class="code-function">$user</span>, Project <span class="code-function">$project</span>): <span class="code-function">bool</span></span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-comment">// الحذف فقط لمالك المشروع</span></span>
+                    <span class="code-line">    <span class="code-keyword">return</span> <span class="code-function">$user</span>-&gt;id === <span class="code-function">$project</span>-&gt;user_id;</span>
+                    <span class="code-line">}</span>
+                </div>
+                <p class="text-emerald-200 text-sm mt-4">🔑 بهذه الطريقة، أعضاء الفريق يستطيعون رؤية المشروع والتعاون عليه، لكن التعديل والحذف يبقى حصراً على المالك.</p>
             </section>
 
+            <!-- PRACTICE -->
             <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">التطبيق العملي</h2>
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">7. التطبيق العملي: 6 خطوات لتطبيق Policies</h2>
 
                 <div class="step-card">
                     <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء Policy للمشاريع</h3>
                     <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
-                        <p>php artisan make:policy ProjectPolicy --model=Project</p>
+                        <span class="code-line"><span class="code-comment"># أنشئ Policy لموديل Project</span></span>
+                        <span class="code-line">php artisan make:policy ProjectPolicy --model=Project</span>
+                    </div>
+                    <p class="text-slate-600 text-sm">🔍 هذا الأمر ينشئ الملف <code>app/Policies/ProjectPolicy.php</code> في مشروعك.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تسجيل Policy في AuthServiceProvider</h3>
+                    <p class="text-slate-500 text-sm mb-3">افتح <code>app/Providers/AuthServiceProvider.php</code> وأضف:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-amber-400 overflow-x-auto mb-4 text-left">
+                        <span class="code-line"><span class="code-keyword">use</span> App\Models\Project;</span>
+                        <span class="code-line"><span class="code-keyword">use</span> App\Policies\ProjectPolicy;</span>
+                        <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">protected</span> <span class="code-function">$policies</span> = [</span>
+                    <span class="code-line">    Project::class =&gt; ProjectPolicy::class,</span>
+                    <span class="code-line">];</span>
                     </div>
                 </div>
 
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: كتابة قاعدة التعديل</h3>
-                    <p class="mb-4">داخل ملف <code>app/Policies/ProjectPolicy.php</code>:</p>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: كتابة دوال Policy</h3>
+                    <p class="text-slate-500 text-sm mb-3">افتح <code>app/Policies/ProjectPolicy.php</code> واكتب دوال <code>view</code>, <code>create</code>, <code>update</code>, <code>delete</code> كما شرحنا سابقاً.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: استخدام authorize() في Controller</h3>
+                    <p class="text-slate-500 text-sm mb-3">في <code>ProjectController</code>، أضف سطر <code>$this->authorize()</code> قبل كل عملية:</p>
                     <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
-                        <p>public function update(User $user, Project $project) {</p>
-                        <p>&nbsp;&nbsp;return $user->id === $project->user_id;</p>
-                        <p>}</p>
+                        <span class="code-line"><span class="code-keyword">public function</span> <span class="code-function">show</span>(Project <span class="code-function">$project</span>)</span>
+                        <span class="code-line">{</span>
+                        <span class="code-line">    <span class="code-function">$this</span>-&gt;authorize(<span class="code-string">'view'</span>, <span class="code-function">$project</span>);</span>
+                        <span class="code-line">    <span class="code-comment">// ... باقي الكود</span></span>
+                        <span class="code-line">}</span>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: اختبار الصلاحيات</h3>
+                    <p class="text-slate-500 text-sm mb-3">أنشئ مستخدمين اثنين (أحمد وسارة). اجعل أحمد ينشئ مشروعاً. ثم سجل الدخول بحساب سارة وحاول فتح مشروع أحمد. يجب أن تظهر رسالة 403 (Forbidden).</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-purple-400 overflow-x-auto mb-4 text-left">
+                        <span class="code-line"><span class="code-comment"># إنشاء مستخدمين:</span></span>
+                        <span class="code-line"><span class="code-comment"># 1. سجل بحساب أحمد وأنشئ مشروع</span></span>
+                        <span class="code-line"><span class="code-comment"># 2. سجل الخروج</span></span>
+                        <span class="code-line"><span class="code-comment"># 3. سجل بحساب سارة</span></span>
+                        <span class="code-line"><span class="code-comment"># 4. حاول فتح /projects/1 (مشروع أحمد)</span></span>
+                        <span class="code-line"><span class="code-comment"># يجب أن ترى: 403 This action is unauthorized.</span></span>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 6: (تحدي) إخفاء أزرار التعديل في React</h3>
+                    <p class="text-slate-500 text-sm mb-3">في صفحة عرض المشروع (React)، أضف شرطاً يتحقق من أن المستخدم الحالي هو المالك قبل عرض أزرار "تعديل" و "حذف".</p>
+                </div>
+            </section>
+
+            <!-- EXPECTED RESULT -->
+            <section class="mt-16 success-box">
+                <h2 class="text-xl font-black text-slate-900 mb-4">8. النتيجة المتوقعة</h2>
+                <ul class="list-disc pr-6 space-y-3 text-slate-700">
+                    <li>✅ المستخدم يرى فقط المشاريع التي يملكها (أو هو عضو فيها).</li>
+                    <li>✅ لا يمكن لأي مستخدم حذف أو تعديل مشروع لا يملكه.</li>
+                    <li>✅ تظهر رسالة 403 عند محاولة الوصول غير المصرح به.</li>
+                    <li>✅ أزرار التعديل والحذف تختفي للمستخدمين غير المالكين.</li>
+                </ul>
+            </section>
+
+            <!-- COMMON ERRORS -->
+            <section id="errors" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">9. الأخطاء الشائعة</h2>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">❌ الخطأ 1: "This action is unauthorized." يظهر دائماً حتى للمالك</p>
+                    <p class="text-red-600 text-sm"><strong>السبب:</strong> Policy غير مسجلة في <code>AuthServiceProvider</code> أو أن شرط المقارنة خاطئ.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> تأكد من تسجيل الـ Policy في <code>$policies</code> وتأكد من أن <code>user_id</code> في المشروع يطابق <code>id</code> المستخدم.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">❌ الخطأ 2: "Call to undefined method" عند استخدام authorize()</p>
+                    <p class="text-red-600 text-sm"><strong>السبب:</strong> الـ Controller لا يرث من <code>App\Http\Controllers\Controller</code> الأصلي.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> تأكد أن كلاس Controller يمتد (extends) <code>Controller</code>.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">❌ الخطأ 3: Policy لا تطبق لأنها لم تنشأ بـ --model</p>
+                    <p class="text-red-600 text-sm"><strong>السبب:</strong> إنشاء Policy بدون العلامة <code>--model=Project</code> لا ينشئ الدوال الافتراضية.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> استخدم الأمر <code>php artisan make:policy ProjectPolicy --model=Project</code>.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">❌ الخطأ 4: المستخدم يمكنه رؤية مشاريع الآخرين رغم وجود Policy</p>
+                    <p class="text-red-600 text-sm"><strong>السبب:</strong> قد يكون السبب أنك تنسى استخدام <code>authorize()</code> في بعض الدوال في Controller.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> أضف <code>$this->authorize('view', $project)</code> في كل دوال Controller التي تتعامل مع المشاريع.</p>
+                </div>
+            </section>
+
+            <!-- DIAGRAMS -->
+            <section id="visuals" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">10. مخططات توضيحية</h2>
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="diagram.svg" alt="مخطط الـ Policies" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط: كيف تعمل Policies</p>
+                    </div>
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="visual-example.svg" alt="تشبيه الحارس" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">تشبيه: الحارس وقفل الشقة</p>
                     </div>
                 </div>
             </section>
 
+            <!-- SUMMARY -->
+            <section id="summary" class="mt-16 p-8 rounded-3xl bg-slate-900 text-white">
+                <h2 class="text-2xl font-black mb-6">🧠 ملخص الدرس</h2>
+                <div class="space-y-4 text-slate-300">
+                    <p>🔹 <strong>Policies (الترخيص):</strong> تحدد من يمكنه فعل ماذا في التطبيق.</p>
+                    <p>🔹 <strong>إنشاء Policy:</strong> <code>php artisan make:policy ProjectPolicy --model=Project</code>.</p>
+                    <p>🔹 <strong>تسجيل Policy:</strong> في <code>AuthServiceProvider.php</code> عبر مصفوفة <code>$policies</code>.</p>
+                    <p>🔹 <strong>دوال Policy:</strong> <code>view</code> (عرض)، <code>create</code> (إنشاء)، <code>update</code> (تعديل)، <code>delete</code> (حذف).</p>
+                    <p>🔹 <strong>استخدام authorize():</strong> <code>$this->authorize('update', $project)</code> في Controller.</p>
+                    <p>🔹 <strong>التحقق في React:</strong> مقارنة <code>user.id === project.user_id</code> لإخفاء/إظهار الأزرار.</p>
+                    <p>🔹 <strong>FlowPilot:</strong> المالك يتحكم بالمشروع، والأعضاء يمكنهم فقط المشاهدة.</p>
+                </div>
+                <div class="mt-8 p-6 bg-emerald-600 rounded-2xl">
+                    <p class="font-black text-lg">💡 القاعدة الذهبية: تحقق من الصلاحية في الخلفية (Laravel) أولاً، ثم في الواجهة (React) لتحسين تجربة المستخدم!</p>
+                </div>
+            </section>
+
+            <!-- NAV -->
             <div class="mt-12 flex justify-between gap-4">
                 <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-01/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-amber-600 px-8 py-4 text-white font-black hover:bg-amber-700 transition-all shadow-xl shadow-indigo-100" href="../lesson-03/index.html">الدرس التالي: Middleware ←</a>
+                <a class="rounded-2xl bg-emerald-600 px-8 py-4 text-white font-black hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-100" href="../lesson-03/index.html">الدرس التالي: Middleware ←</a>
             </div>
         </article>
     </div>
 </main>
 
 <footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
-    © 2025 FlowPilot Academy. الخصوصية والأمان هما أساس أي تطبيق ناجح.
+    © 2025 FlowPilot Academy. الأمان ليس رفاهية، بل هو أساس كل تطبيق.<br>
+    <a href="assignment.html" class="text-indigo-600 hover:underline font-bold">→ اذهب إلى الواجب العملي</a>
+    <span class="mx-2">·</span>
+    <a href="quiz.html" class="text-indigo-600 hover:underline font-bold">→ اذهب إلى الكويز</a>
 </footer>
 
 <script src="../../../assets/js/app.js"></script>

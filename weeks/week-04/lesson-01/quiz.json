@@ -1,14 +1,101 @@
 {
   "lesson": 13,
-  "title": "تسجيل الدخول وإنشاء حسابات المستخدمين",
+  "title": "تسجيل الدخول وإنشاء حسابات المستخدمين (Authentication)",
+  "description": "يقيس هذا الكويز فهمك لمفاهيم المصادقة في Laravel و Breeze و Inertia.js",
+  "totalQuestions": 9,
+  "objectiveQuestions": 7,
+  "passingScore": 5,
   "questions": [
     {
-      "q": "ما أهم هدف من الدرس؟",
-      "answer": "فهم المفهوم وتطبيقه داخل FlowPilot"
+      "id": 1,
+      "type": "mcq",
+      "question": "ما هو تعريف Authentication في تطبيقات الويب؟",
+      "options": [
+        "عملية تغيير تصميم الصفحة الرئيسية",
+        "عملية رفع الملفات إلى قاعدة البيانات",
+        "عملية التحقق من هوية المستخدم (من أنت؟)",
+        "عملية تحديد صلاحيات المستخدم"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Authentication هي التحقق من الهوية. تحديد الصلاحيات هو Authorization."
     },
     {
-      "q": "لماذا نكتب خطوات عملية مفصلة؟",
-      "answer": "حتى يفهم الطالب الهدف والمكان والكود والنتيجة"
+      "id": 2,
+      "type": "mcq",
+      "question": "ما هي وظيفة Laravel Breeze؟",
+      "options": [
+        "تسريع تحميل الصور في الموقع",
+        "توفير نظام مصادقة جاهز (Login, Register, Password Reset)",
+        "إضافة قاعدة بيانات SQLite",
+        "إنشاء صفحات HTML ثابتة"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Breeze هو Starter Kit جاهز يتضمن كل صفحات المصادقة مع React + Tailwind CSS."
+    },
+    {
+      "id": 3,
+      "type": "mcq",
+      "question": "أي Middleware تستخدم لحماية مسار من الزوار غير المسجلين؟",
+      "options": [
+        "middleware(['auth'])",
+        "middleware(['guest'])",
+        "middleware(['admin'])",
+        "middleware(['verified'])"
+      ],
+      "correctAnswer": 0,
+      "explanation": "middleware(['auth']) تمنع الزوار غير المسجلين. guest تسمح فقط للزوار."
+    },
+    {
+      "id": 4,
+      "type": "mcq",
+      "question": "كيف نصل لبيانات المستخدم المسجل في React مع Inertia؟",
+      "options": [
+        "window.user",
+        "usePage().props.auth.user",
+        "localStorage.getItem('user')",
+        "axios.get('/api/user')"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Inertia يشارك بيانات المستخدم عبر HandleInertiaRequests ويجعلها متاحة عبر usePage().props.auth.user."
+    },
+    {
+      "id": 5,
+      "type": "mcq",
+      "question": "ماذا يحدث عندما يحاول زائر غير مسجل فتح /dashboard المحمي بـ auth؟",
+      "options": [
+        "تظهر صفحة فارغة",
+        "تظهر رسالة 403",
+        "يتم تحويله تلقائياً إلى صفحة تسجيل الدخول",
+        "يتم إنشاء حساب جديد له"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Middleware 'auth' يتحقق من Session. إذا لم يكن المستخدم مسجلاً، يقوم بعمل Redirect إلى route('login')."
+    },
+    {
+      "id": 6,
+      "type": "tf",
+      "question": "المصادقة (Authentication) هي نفسها التفويض (Authorization).",
+      "correctAnswer": false,
+      "explanation": "Authentication تثبت الهوية، Authorization تحدد الصلاحيات. هما مفهومان مختلفان."
+    },
+    {
+      "id": 7,
+      "type": "tf",
+      "question": "Laravel Breeze يشتغل فقط مع Vue.js ولا يدعم React.",
+      "correctAnswer": false,
+      "explanation": "Breeze يدعم React و Vue.js معاً. الأمر php artisan breeze:install react يثبته مع React."
+    },
+    {
+      "id": 8,
+      "type": "theory",
+      "question": "اشرح بجملتين: لماذا نستخدم Laravel Breeze بدلاً من كتابة نظام المصادقة من الصفر؟",
+      "modelAnswer": "نستخدم Laravel Breeze لأنه يوفر نظام مصادقة آمن وجاهز مبني من قبل خبراء أمان، مما يوفر وقت التطوير ويضمن اتباع أفضل الممارسات في حماية البيانات."
+    },
+    {
+      "id": 9,
+      "type": "practical",
+      "question": "أكتب كود React يعرض اسم المستخدم المسجل إذا كان موجوداً، أو زر تسجيل الدخول إذا كان الزائر غير مسجل.",
+      "modelAnswer": "import { usePage } from '@inertiajs/react';\n\nexport default function Navbar() {\n  const { props } = usePage();\n  const user = props.auth.user;\n\n  return (\n    <div>\n      {user ? (\n        <p>مرحباً {user.name}</p>\n      ) : (\n        <a href=\"/login\">تسجيل الدخول</a>\n      )}\n    </div>\n  );\n}"
     }
   ]
 }

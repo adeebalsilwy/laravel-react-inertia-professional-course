@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 5: أول مسار في FlowPilot</title>
+    <title>واجب الدرس 5: بناء المسارات الذكية | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,50 +11,200 @@
     <link rel="stylesheet" href="../../../assets/css/style.css">
     <style>
         :root { font-family: 'Tajawal', sans-serif; }
+        .step-num { width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.1rem; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../index.html">الرئيسية</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/curriculum.html">الفهرس</a>
+        </nav>
     </div>
 </header>
 
 <main class="mx-auto max-w-4xl px-4 py-12 text-right">
-    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة لشرح الدرس</a>
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8 text-sm" href="index.html">← العودة لشرح الدرس</a>
     
     <section class="space-y-8">
-        <div class="card p-8 bg-indigo-600 text-white shadow-xl shadow-indigo-100 rounded-3xl">
-            <h1 class="text-3xl font-black">واجب الدرس 5: بناء المسارات الذكية</h1>
-            <p class="mt-4 text-indigo-100 leading-relaxed italic">
-                "المسار هو الباب؛ لنتعلم كيف نصمم أبواب تطبيقنا ونربطها بواجهات React."
+        <!-- Hero -->
+        <div class="card p-8 bg-gradient-to-l from-indigo-600 to-indigo-700 text-white shadow-xl rounded-3xl">
+            <h1 class="text-3xl font-black">📄 واجب الدرس 5: بناء المسارات الذكية</h1>
+            <p class="mt-4 text-indigo-100 leading-relaxed italic text-lg">
+                "المسار هو الباب الذي يدخل منه المستخدم. اليوم ستبني أول باب لمشروع FlowPilot بنفسك!"
             </p>
         </div>
 
-        <div class="space-y-8">
-            <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
-                <h2 class="text-2xl font-black flex items-center gap-3 text-indigo-600">
-                    <span class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">01</span>
-                    المطلوب منك
-                </h2>
-                <div class="space-y-6">
-                    <div class="border-r-4 border-indigo-500 pr-6">
-                        <h4 class="font-black text-slate-900">1. إنشاء مسار جديد</h4>
-                        <p class="text-sm text-slate-500 mt-1">افتح ملف <code>routes/web.php</code> وأضف مساراً باسم <code>/about-us</code>.</p>
+        <!-- الهدف -->
+        <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-indigo-600">
+                <span class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">🎯</span>
+                الهدف من الواجب
+            </h2>
+            <p class="text-slate-600 leading-relaxed">بعد إتمام هذا الواجب، ستكون قادراً على:</p>
+            <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                <li>إنشاء Route جديد في Laravel وربطه بصفحة React.</li>
+                <li>استخدام Controller لتمرير البيانات إلى الواجهة.</li>
+                <li>استخدام Named Routes لإنشاء روابط ذكية.</li>
+                <li>فهم دورة حياة الطلب من المتصفح إلى الصفحة النهائية.</li>
+            </ul>
+        </section>
+
+        <!-- الخطوات -->
+        <section class="card p-8 md:p-10 space-y-8 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-emerald-600">
+                <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">📋</span>
+                خطوات الواجب (نفذ بالترتيب)
+            </h2>
+
+            <!-- Step 1 -->
+            <div class="flex gap-4 items-start">
+                <div class="step-num bg-emerald-100 text-emerald-700 shrink-0 mt-1">1</div>
+                <div>
+                    <h4 class="font-black text-slate-900 text-lg">إنشاء مسار "من نحن"</h4>
+                    <p class="text-sm text-slate-500 mt-1">افتح ملف <code>routes/web.php</code> وأضف مساراً جديداً باسم <code>/about-us</code>.</p>
+                    <div class="bg-slate-900 text-green-400 rounded-xl p-4 font-mono text-xs mt-2 text-left overflow-x-auto">
+<span class="code-line">Route::get('/about-us', [AboutController::class, 'index'])</span>
+<span class="code-line">&nbsp;&nbsp;->name('about.index');</span>
                     </div>
-                    <div class="border-r-4 border-indigo-500 pr-6">
-                        <h4 class="font-black text-slate-900">2. ربط المسار بصفحة</h4>
-                        <p class="text-sm text-slate-500 mt-1">اجعل المسار يقوم بعمل <code>Inertia::render</code> لصفحة جديدة تسميها <code>AboutUs</code>.</p>
+                    <p class="text-xs text-slate-400 mt-1"><strong>تلميح:</strong> لا تنس إضافة <code>use</code> في أعلى الملف لاستيراد Controller.</p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex gap-4 items-start">
+                <div class="step-num bg-emerald-100 text-emerald-700 shrink-0 mt-1">2</div>
+                <div>
+                    <h4 class="font-black text-slate-900 text-lg">إنشاء Controller</h4>
+                    <p class="text-sm text-slate-500 mt-1">شغّل الأمر التالي في الطرفية:</p>
+                    <div class="bg-slate-900 text-indigo-400 rounded-xl p-4 font-mono text-xs mt-2 text-left overflow-x-auto">
+<span class="code-line">php artisan make:controller AboutController</span>
                     </div>
-                    <div class="border-r-4 border-indigo-500 pr-6">
-                        <h4 class="font-black text-slate-900">3. إرسال بيانات</h4>
-                        <p class="text-sm text-slate-500 mt-1">أرسل متغيراً باسم <code>version</code> يحتوي على نص "1.0.0" واعرضه داخل الصفحة.</p>
+                    <p class="text-xs text-slate-400 mt-1">تأكد من ظهور الملف في <code>app/Http/Controllers/AboutController.php</code>.</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flex gap-4 items-start">
+                <div class="step-num bg-emerald-100 text-emerald-700 shrink-0 mt-1">3</div>
+                <div>
+                    <h4 class="font-black text-slate-900 text-lg">كتابة دالة index في Controller</h4>
+                    <p class="text-sm text-slate-500 mt-1">افتح <code>AboutController.php</code> وأضف دالة <code>index()</code> ترجع <code>Inertia::render('AboutUs')</code> مع بيانات:</p>
+                    <div class="bg-slate-900 text-green-400 rounded-xl p-4 font-mono text-xs mt-2 text-left overflow-x-auto">
+<span class="code-line">public function index()</span>
+<span class="code-line">{</span>
+<span class="code-line">&nbsp;&nbsp;$data = [</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;'appName' => 'FlowPilot',</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;'version' => '1.0.0',</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;'team' => ['أحمد', 'سارة', 'خالد'],</span>
+<span class="code-line">&nbsp;&nbsp;];</span>
+<span class="code-line">&nbsp;&nbsp;return Inertia::render('AboutUs', [</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;'data' => $data</span>
+<span class="code-line">&nbsp;&nbsp;]);</span>
+<span class="code-line">}</span>
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="flex gap-4 items-start">
+                <div class="step-num bg-emerald-100 text-emerald-700 shrink-0 mt-1">4</div>
+                <div>
+                    <h4 class="font-black text-slate-900 text-lg">إنشاء صفحة React</h4>
+                    <p class="text-sm text-slate-500 mt-1">أنشئ ملفاً جديداً باسم <code>resources/js/Pages/AboutUs.jsx</code>:</p>
+                    <div class="bg-slate-900 text-sky-400 rounded-xl p-4 font-mono text-xs mt-2 text-left overflow-x-auto">
+<span class="code-line">import { Head } from '@inertiajs/react';</span>
+<span class="code-line"> </span>
+<span class="code-line">export default function AboutUs({ data }) {</span>
+<span class="code-line">&nbsp;&nbsp;return (</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Head title="من نحن" /&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="max-w-2xl mx-auto p-8"&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1 className="text-4xl font-black mb-4"&gt;من نحن&lt;/h1&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p className="text-lg mb-2"&gt;اسم التطبيق: {data.appName}&lt;/p&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p className="text-lg mb-4"&gt;الإصدار: {data.version}&lt;/p&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2 className="text-2xl font-bold mb-2"&gt;فريق العمل:&lt;/h2&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ul className="list-disc pr-6"&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{data.team.map((name, i) =&gt; (</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li key={i}&gt;{name}&lt;/li&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;))}</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ul&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/&gt;</span>
+<span class="code-line">&nbsp;&nbsp;);</span>
+<span class="code-line">}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="flex gap-4 items-start">
+                <div class="step-num bg-emerald-100 text-emerald-700 shrink-0 mt-1">5</div>
+                <div>
+                    <h4 class="font-black text-slate-900 text-lg">اختبار المسار</h4>
+                    <p class="text-sm text-slate-500 mt-1">شغّل السيرفر وافتح المتصفح على الرابط <code>http://localhost:8000/about-us</code>.</p>
+                    <div class="bg-slate-900 text-amber-400 rounded-xl p-4 font-mono text-xs mt-2 text-left overflow-x-auto">
+<span class="code-line">php artisan serve</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-1">يجب أن ترى صفحة "من نحن" مع اسم التطبيق، الإصدار، وأعضاء الفريق.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- معايير القبول -->
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-emerald-600">
+                <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">✅</span>
+                معايير القبول (كيف تعرف أنك أنجزت الواجب؟)
+            </h2>
+            <ul class="list-disc pr-6 space-y-3 text-slate-600">
+                <li>الوصول إلى <code>/about-us</code> يعرض الصفحة المطلوبة بدون أخطاء.</li>
+                <li>الصفحة تعرض اسم التطبيق "FlowPilot" والإصدار "1.0.0".</li>
+                <li>قائمة الفريق تظهر (أحمد، سارة، خالد) بشكل صحيح.</li>
+                <li>لا يوجد أخطاء 404 أو 500 في المتصفح.</li>
+                <li>ملف Controller نظيف ومنظم (دالة واحدة فقط).</li>
+            </ul>
+        </section>
+
+        <!-- تحديات إضافية -->
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white border-2 border-amber-200">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-amber-600">
+                <span class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-sm font-black">⭐</span>
+                تحديات إضافية (للطلاب المتقدمين)
+            </h2>
+            <ul class="list-disc pr-6 space-y-3 text-slate-600">
+                <li>أضف مساراً ثانياً باسم <code>/contact</code> يعرض صفحة "اتصل بنا" مع بيانات وهمية (بريد إلكتروني، هاتف).</li>
+                <li>استخدم <code>Route::redirect('/about', '/about-us')</code> لتحويل الزوار من رابط <code>/about</code> القديم إلى الجديد.</li>
+                <li>أضف صفحة <code>Projects/Show.jsx</code> تعرض مشروعاً واحداً بالتفصيل باستخدام Route Parameter (<code>/projects/{id}</code>). <strong>تلميح:</strong> استخدم <code>Route::get('/projects/{id}', ...)</code> و <code>Inertia::render('Projects/Show')</code>.</li>
+            </ul>
+        </section>
+
+        <!-- طريقة التسليم -->
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-indigo-600">
+                <span class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">📬</span>
+                طريقة التسليم
+            </h2>
+            <ol class="list-decimal pr-6 space-y-3 text-slate-600">
+                <li>التقط لقطة شاشة (Screenshot) للصفحة النهائية في المتصفح.</li>
+                <li>انسخ محتوى الملفات التالية في مستند نصي أو تعليق:</li>
+                <ul class="list-disc pr-6 text-sm">
+                    <li>محتوى <code>routes/web.php</code> (السطور التي أضفتها فقط).</li>
+                    <li>محتوى <code>AboutController.php</code> كاملاً.</li>
+                    <li>محتوى <code>AboutUs.jsx</code> كاملاً.</li>
+                </ul>
+                <li>أرسل الصورة والملفات إلى المدرب للمراجعة.</li>
+            </ol>
+        </section>
     </section>
 </main>
+
+<footer class="mt-24 border-t bg-white py-12 text-center text-slate-400 text-sm font-medium">
+    © 2026 FlowPilot Academy. التطبيق هو المفتاح الحقيقي للتعلم.
+</footer>
+
 </body>
 </html>

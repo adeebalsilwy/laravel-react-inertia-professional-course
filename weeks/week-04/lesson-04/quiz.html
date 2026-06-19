@@ -1,1 +1,223 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>كويز - صفحة الملف الشخصي وإعدادات الحساب - FlowPilot Academy</title><link rel="stylesheet" href="../../../assets/css/style.css"></head><body><nav class="nav"><div class="container inner"><a class="brand" href="../../../index.html"><span class="logo">F</span><span>FlowPilot Academy</span></a><div class="links"><a href="../../../index.html">الرئيسية</a><a href="../../../pages/curriculum.html">الفهرس</a><a href="../../../pages/lessons.html">الدروس</a><a href="../../../pages/beginner-guide.html">دليل الطالب</a><a href="../../../pages/project.html">المشروع</a><a href="../../../pages/plan.html">خطة التطوير</a><a href="../../../pages/references.html">المراجع</a></div></div></nav><main class="container section"><a class="btn" href="index.html">← العودة إلى الدرس</a><section class="card"><span class="badge">كويز الأسبوع 4 · الدرس 4</span><h1 class="title">كويز: صفحة الملف الشخصي وإعدادات الحساب</h1><p class="lead">الكويز يقيس الفهم الحقيقي: لماذا نستخدم المفهوم، وكيف يظهر داخل FlowPilot، وما العلاقة بين النظرية والتطبيق.</p></section><section class="grid" style="margin-top:20px"><div class="card" data-answer="b"><h3>السؤال 1: ما الهدف الأساسي من هذا الدرس؟</h3><label class="quiz-option"><input type="radio" name="q1" value="a"> حفظ أسماء الملفات فقط</label><label class="quiz-option"><input type="radio" name="q1" value="b"> فهم مفهوم عملي وربطه بمشروع FlowPilot</label><label class="quiz-option"><input type="radio" name="q1" value="c"> تغيير ألوان الصفحة فقط</label><label class="quiz-option"><input type="radio" name="q1" value="d"> تجاهل التطبيق العملي</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> الهدف هو الفهم والتطبيق، وليس الحفظ أو التزيين فقط.</p></div><div class="card" data-answer="c"><h3>السؤال 2: ما العلاقة الصحيحة بين Laravel وReact وInertia؟</h3><label class="quiz-option"><input type="radio" name="q2" value="a"> Laravel يعرض الواجهة فقط</label><label class="quiz-option"><input type="radio" name="q2" value="b"> React يدير قاعدة البيانات</label><label class="quiz-option"><input type="radio" name="q2" value="c"> Inertia يربط Laravel بصفحات React</label><label class="quiz-option"><input type="radio" name="q2" value="d"> Tailwind يحفظ البيانات</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> Inertia يعمل كجسر بين Laravel وReact.</p></div><div class="card" data-answer="b"><h3>السؤال 3: لماذا نشرح السبب قبل الكود؟</h3><label class="quiz-option"><input type="radio" name="q3" value="a"> حتى ينسخ الطالب بسرعة</label><label class="quiz-option"><input type="radio" name="q3" value="b"> حتى يفهم الطالب وظيفة الخطوة ويكررها لاحقاً</label><label class="quiz-option"><input type="radio" name="q3" value="c"> حتى نقلل الشرح</label><label class="quiz-option"><input type="radio" name="q3" value="d"> لأن الكود غير مهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> فهم السبب يجعل الطالب قادراً على حل الأخطاء وتطبيق الفكرة في مكان آخر.</p></div><div class="card" data-answer="b"><h3>السؤال 4: ما أفضل طريقة للتعامل مع خطأ يظهر أثناء التطبيق؟</h3><label class="quiz-option"><input type="radio" name="q4" value="a"> حذف الملفات</label><label class="quiz-option"><input type="radio" name="q4" value="b"> قراءة رسالة الخطأ ومراجعة المسار والاسم</label><label class="quiz-option"><input type="radio" name="q4" value="c"> تجاهل الخطأ</label><label class="quiz-option"><input type="radio" name="q4" value="d"> إغلاق المشروع</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> رسالة الخطأ غالباً توضح مكان المشكلة أو سببها.</p></div><div class="card" data-answer="b"><h3>السؤال 5: ماذا يعني نجاح الدرس داخل FlowPilot؟</h3><label class="quiz-option"><input type="radio" name="q5" value="a"> وجود عنوان فقط</label><label class="quiz-option"><input type="radio" name="q5" value="b"> ظهور نتيجة عملية مفهومة يمكن البناء عليها</label><label class="quiz-option"><input type="radio" name="q5" value="c"> عدم تشغيل المشروع</label><label class="quiz-option"><input type="radio" name="q5" value="d"> نسخ الكود دون فهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> كل درس يجب أن يضيف نتيجة تعليمية وعملية واضحة.</p></div></section><section class="card"><button class="btn" data-grade-quiz>تصحيح الكويز</button><p id="quizResult" class="result"></p></section></main><footer class="footer"><div class="container">© FlowPilot Academy - دورة Laravel 12 + React + Inertia.js + Tailwind CSS</div></footer><script src="../../../assets/js/app.js"></script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>كويز الدرس 16: الملف الشخصي | FlowPilot Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .correct { background: #f0fdf4 !important; border-color: #22c55e !important; }
+        .incorrect { background: #fef2f2 !important; border-color: #ef4444 !important; }
+        .explain-box { display: none; margin-top: 0.75rem; padding: 1rem; border-radius: 0.75rem; font-size: 0.875rem; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+    </div>
+</header>
+
+<main class="mx-auto max-w-3xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة للدرس</a>
+    
+    <div class="space-y-12">
+        <div class="text-center space-y-4">
+            <h1 class="text-3xl font-black text-pink-600">📝 كويز الدرس 16: الملف الشخصي والإعدادات</h1>
+            <p class="text-slate-600 italic">"اختبر فهمك لكيفية بناء صفحة إعدادات متكاملة وآمنة للمستخدم."</p>
+            <p class="text-slate-400 text-sm">عدد الأسئلة: 9 (5 MCQ + 2 T/F + 1 نظري + 1 عملي)</p>
+        </div>
+
+        <div id="quiz-container" class="space-y-8" data-lesson="16">
+
+            <!-- MCQ 1 -->
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-answer="b" data-type="mcq">
+                <p class="font-black text-lg leading-relaxed">1. أي Hook من Inertia يستخدم لإدارة نموذج (Form) في React؟</p>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q1" value="a" class="hidden"><span>أ) useState</span></label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q1" value="b" class="hidden"><span>ب) useForm</span></label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q1" value="c" class="hidden"><span>ج) usePage</span></label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q1" value="d" class="hidden"><span>د) useEffect</span></label>
+                </div>
+                <div class="explain-box bg-green-50 border border-green-200 text-green-700" data-explain="q1"><strong>✅ الشرح:</strong> <code>useForm</code> هو Hook خاص بـ Inertia لإدارة النماذج مع دوال مثل <code>put</code>, <code>post</code>, <code>errors</code>, <code>processing</code>.</div>
+            </div>
+
+            <!-- MCQ 2 -->
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-answer="c" data-type="mcq">
+                <p class="font-black text-lg leading-relaxed">2. أي طلب HTTP يستخدم لتحديث بيانات المستخدم في ProfileController؟</p>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q2" value="a" class="hidden"><span>أ) GET</span></label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q2" value="b" class="hidden"><span>ب) POST</span></label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q2" value="c" class="hidden"><span>ج) PUT</span></label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q2" value="d" class="hidden"><span>د) DELETE</span></label>
+                </div>
+                <div class="explain-box bg-green-50 border border-green-200 text-green-700" data-explain="q2"><strong>✅ الشرح:</strong> طلب PUT يستخدم لتحديث (Update) الموارد. <code>useForm().put('/profile')</code> يرسل طلب PUT.</div>
+            </div>
+
+            <!-- MCQ 3 -->
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-answer="a" data-type="mcq">
+                <p class="font-black text-lg leading-relaxed">3. ما قاعدة التحقق (Validation Rule) التي تتأكد من أن البريد الإلكتروني غير مكرر في قاعدة البيانات؟</p>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q3" value="a" class="hidden"><span>أ) Rule::unique(User::class)</span></label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q3" value="b" class="hidden"><span>ب) required</span></label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q3" value="c" class="hidden"><span>ج) email</span></label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q3" value="d" class="hidden"><span>د) confirmed</span></label>
+                </div>
+                <div class="explain-box bg-green-50 border border-green-200 text-green-700" data-explain="q3"><strong>✅ الشرح:</strong> <code>Rule::unique(User::class)</code> يتأكد من أن القيمة غير موجودة في جدول users. مع <code>->ignore($id)</code> يتجاهل المستخدم الحالي.</div>
+            </div>
+
+            <!-- MCQ 4 -->
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-answer="b" data-type="mcq">
+                <p class="font-black text-lg leading-relaxed">4. كيف نصل إلى بيانات المستخدم المسجل في صفحة React الخاصة بالبروفايل؟</p>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q4" value="a" class="hidden"><span>أ) window.user</span></label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q4" value="b" class="hidden"><span>ب) usePage().props.auth.user</span></label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q4" value="c" class="hidden"><span>ج) useContext(UserContext)</span></label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q4" value="d" class="hidden"><span>د) axios.get('/api/user')</span></label>
+                </div>
+                <div class="explain-box bg-green-50 border border-green-200 text-green-700" data-explain="q4"><strong>✅ الشرح:</strong> Inertia يشارك بيانات المستخدم عبر HandleInertiaRequests، ويمكن الوصول إليها عبر <code>usePage().props.auth.user</code>.</div>
+            </div>
+
+            <!-- MCQ 5 -->
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-answer="c" data-type="mcq">
+                <p class="font-black text-lg leading-relaxed">5. ماذا يفعل <code>e.preventDefault()</code> في دالة submit للنموذج؟</p>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q5" value="a" class="hidden"><span>أ) يمنع المستخدم من الضغط على الزر</span></label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q5" value="b" class="hidden"><span>ب) يرسل الطلب إلى الخادم</span></label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q5" value="c" class="hidden"><span>ج) يمنع إعادة تحميل الصفحة (السلوك الافتراضي للنموذج)</span></label>
+                    <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer transition-all"><input type="radio" name="q5" value="d" class="hidden"><span>د) يمسح بيانات النموذج</span></label>
+                </div>
+                <div class="explain-box bg-green-50 border border-green-200 text-green-700" data-explain="q5"><strong>✅ الشرح:</strong> <code>e.preventDefault()</code> يمنع المتصفح من إعادة تحميل الصفحة عند إرسال النموذج، مما يسمح لـ Inertia بالتعامل مع الطلب.</div>
+            </div>
+
+            <!-- T/F 6 -->
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-answer="true" data-type="tf">
+                <p class="font-black text-lg leading-relaxed">6. (صح/خطأ) لتغيير كلمة المرور، يجب على المستخدم إدخال كلمة المرور الحالية أولاً.</p>
+                <div class="flex gap-4">
+                    <label class="flex-1 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer text-center font-bold transition-all"><input type="radio" name="q6" value="true" class="hidden"><span>صح</span></label>
+                    <label class="flex-1 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer text-center font-bold transition-all"><input type="radio" name="q6" value="false" class="hidden"><span>خطأ</span></label>
+                </div>
+                <div class="explain-box bg-green-50 border border-green-200 text-green-700" data-explain="q6"><strong>✅ الشرح:</strong> صح. قاعدة <code>current_password</code> تتحقق من أن القيمة تطابق كلمة المرور الحالية للمستخدم. هذا إجراء أمني.</div>
+            </div>
+
+            <!-- T/F 7 -->
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-answer="false" data-type="tf">
+                <p class="font-black text-lg leading-relaxed">7. (صح/خطأ) رسائل Flash Messages تبقى ظاهرة لعدة زيارات للصفحة حتى يغلقها المستخدم يدوياً.</p>
+                <div class="flex gap-4">
+                    <label class="flex-1 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer text-center font-bold transition-all"><input type="radio" name="q7" value="true" class="hidden"><span>صح</span></label>
+                    <label class="flex-1 p-3 rounded-xl border-2 border-slate-100 hover:border-pink-300 cursor-pointer text-center font-bold transition-all"><input type="radio" name="q7" value="false" class="hidden"><span>خطأ</span></label>
+                </div>
+                <div class="explain-box bg-green-50 border border-green-200 text-green-700" data-explain="q7"><strong>✅ الشرح:</strong> خطأ. Flash Messages تظهر مرة واحدة فقط (عند إعادة التوجيه التالية). بعد تحديث الصفحة تختفي تلقائياً.</div>
+            </div>
+
+            <!-- Theory 8 -->
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-type="theory">
+                <p class="font-black text-lg leading-relaxed">8. (نظري) لماذا نستخدم قاعدة <code>Rule::unique(User::class)->ignore($user->id)</code> عند التحقق من البريد الإلكتروني في ProfileController؟</p>
+                <textarea id="theory-answer" rows="4" class="w-full p-4 rounded-xl border-2 border-slate-200 focus:border-pink-500 outline-none resize-none text-right" placeholder="اكتب إجابتك هنا..."></textarea>
+                <div class="explain-box bg-blue-50 border border-blue-200 text-blue-700" id="theory-feedback" style="display:none">
+                    <strong>💡 الإجابة النموذجية:</strong> قاعدة <code>unique</code> تمنع تسجيل بريد إلكتروني مكرر. لكن عند تحديث الملف الشخصي، المستخدم قد لا يغير بريده، مما قد يسبب خطأ "البريد موجود مسبقاً" لأن بريده موجود بالفعل في قاعدة البيانات. <code>ignore($user->id)</code> يقول: "تجاهل السجل الخاص بهذا المستخدم - اسمح بنفس البريد للمالك الحالي".
+                </div>
+                <button data-check-theory class="mt-3 px-6 py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all text-sm">عرض الإجابة النموذجية</button>
+            </div>
+
+            <!-- Practical 9 -->
+            <div class="card p-6 space-y-4 shadow-sm bg-white rounded-3xl" data-type="practical">
+                <p class="font-black text-lg leading-relaxed">9. (عملي) أكتب كود React (باستخدام useForm) لنموذج يرسل طلب PUT إلى /profile لتحديث الاسم فقط. أظهر رسالة خطأ إذا فشل التحقق.</p>
+                <textarea id="practical-answer" rows="6" class="w-full p-4 rounded-xl border-2 border-slate-200 focus:border-pink-500 outline-none resize-none text-right font-mono text-sm" placeholder="اكتب الكود هنا..."></textarea>
+                <div class="explain-box bg-blue-50 border border-blue-200 text-blue-700" id="practical-feedback" style="display:none">
+                    <strong>💡 الإجابة النموذجية:</strong><br>
+                    <div class="bg-slate-900 rounded-xl p-3 font-mono text-xs text-emerald-400 mt-2 text-left">
+                        <span>import { useForm } from '@inertiajs/react';</span><br>
+                        <span> </span><br>
+                        <span>export default function UpdateName() {</span><br>
+                        <span>    const { data, setData, put, errors, processing } = useForm({ name: '' });</span><br>
+                        <span> </span><br>
+                        <span>    function submit(e) {</span><br>
+                        <span>        e.preventDefault();</span><br>
+                        <span>        put('/profile');</span><br>
+                        <span>    }</span><br>
+                        <span> </span><br>
+                        <span>    return (</span><br>
+                        <span>        &lt;form onSubmit={submit}&gt;</span><br>
+                        <span>            &lt;input value={data.name} onChange={e =&gt; setData('name', e.target.value)} /&gt;</span><br>
+                        <span>            {errors.name && &lt;p&gt;{errors.name}&lt;/p&gt;}</span><br>
+                        <span>            &lt;button disabled={processing}&gt;حفظ&lt;/button&gt;</span><br>
+                        <span>        &lt;/form&gt;</span><br>
+                        <span>    );</span><br>
+                        <span>}</span>
+                    </div>
+                </div>
+                <button data-check-practical class="mt-3 px-6 py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all text-sm">عرض الإجابة النموذجية</button>
+            </div>
+
+            <!-- Grade -->
+            <div class="card p-10 text-center space-y-6 bg-gradient-to-br from-slate-900 to-pink-900 text-white rounded-[2rem]">
+                <p class="font-black text-2xl">📊 درجتك النهائية</p>
+                <div id="quizResult" class="text-6xl font-black text-pink-400">-- / 9</div>
+                <div id="quizDetails" class="text-sm text-pink-200"><p>الأسئلة الموضوعية: <span id="objScore">0</span> / 7</p></div>
+                <button data-grade-quiz class="px-10 py-4 bg-pink-600 rounded-2xl font-black hover:bg-pink-700 transition-all shadow-xl shadow-pink-900/30 text-lg">🧮 صحح الكويز الآن</button>
+                <button data-reset-quiz class="px-6 py-2 bg-white/10 rounded-xl font-bold hover:bg-white/20 transition-all text-sm">إعادة تعيين</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const gradeBtn = document.querySelector('[data-grade-quiz]');
+    const resetBtn = document.querySelector('[data-reset-quiz]');
+    const resultDiv = document.getElementById('quizResult');
+    const objScoreSpan = document.getElementById('objScore');
+
+    function gradeQuiz() {
+        let correct = 0;
+        document.querySelectorAll('[data-answer]').forEach(container => {
+            const correctAnswer = container.dataset.answer;
+            const selected = container.querySelector('input[type="radio"]:checked');
+            const explain = container.querySelector('.explain-box');
+            if (!selected) { container.classList.add('incorrect'); container.classList.remove('correct'); if (explain) explain.style.display = 'block'; return; }
+            const userAnswer = selected.value;
+            if (userAnswer === correctAnswer) {
+                correct++; container.classList.add('correct'); container.classList.remove('incorrect');
+                if (explain) { explain.style.display = 'block'; explain.className = 'explain-box bg-green-50 border border-green-200 text-green-700'; }
+            } else {
+                container.classList.add('incorrect'); container.classList.remove('correct');
+                if (explain) { explain.style.display = 'block'; explain.className = 'explain-box bg-red-50 border border-red-200 text-red-700'; }
+            }
+        });
+        objScoreSpan.textContent = correct;
+        resultDiv.textContent = correct + ' / 7';
+    }
+
+    function resetQuiz() {
+        document.querySelectorAll('input[type="radio"]').forEach(input => input.checked = false);
+        document.querySelectorAll('.explain-box').forEach(box => box.style.display = 'none');
+        document.querySelectorAll('[data-answer]').forEach(c => c.classList.remove('correct', 'incorrect'));
+        document.querySelectorAll('textarea').forEach(ta => ta.value = '');
+        document.getElementById('theory-feedback').style.display = 'none';
+        document.getElementById('practical-feedback').style.display = 'none';
+        resultDiv.textContent = '-- / 9';
+        objScoreSpan.textContent = '0';
+    }
+
+    gradeBtn.addEventListener('click', gradeQuiz);
+    if (resetBtn) resetBtn.addEventListener('click', resetQuiz);
+    document.querySelector('[data-check-theory]')?.addEventListener('click', function() {
+        const fb = document.getElementById('theory-feedback');
+        fb.style.display = fb.style.display === 'none' ? 'block' : 'none';
+    });
+    document.querySelector('[data-check-practical]')?.addEventListener('click', function() {
+        const fb = document.getElementById('practical-feedback');
+        fb.style.display = fb.style.display === 'none' ? 'block' : 'none';
+    });
+});
+</script>
+<script src="../../../assets/js/app.js"></script>
+</body>
+</html>

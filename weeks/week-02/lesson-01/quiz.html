@@ -3,25 +3,261 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>كويز الدرس 5: Routing</title>
+    <title>كويز الدرس 5: المسارات Routing | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .quiz-option { display: block; width: 100%; text-align: right; padding: 1rem; border: 2px solid #e2e8f0; border-radius: 1rem; cursor: pointer; transition: all 0.2s; font-weight: 500; }
+        .quiz-option:hover { border-color: #818cf8; background: #eef2ff; }
+        .quiz-option input { margin-left: 0.75rem; }
+        .correct { border-color: #10b981 !important; background: #ecfdf5 !important; }
+        .wrong { border-color: #ef4444 !important; background: #fef2f2 !important; }
+        .explain-box { display: none; padding: 1rem; border-radius: 1rem; margin-top: 0.75rem; font-size: 0.9rem; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
-<main class="mx-auto max-w-2xl px-4 py-12">
-    <div class="card p-8 space-y-8">
-        <h2 class="text-2xl font-black text-center">كويز المسارات السريع</h2>
-        <div class="space-y-6">
-            <p class="font-bold">1. أين يتم كتابة مسارات الويب في Laravel؟</p>
-            <div class="grid gap-2">
-                <button onclick="this.classList.add('bg-emerald-100')" class="p-3 border rounded-xl text-right">routes/web.php</button>
-                <button onclick="this.classList.add('bg-rose-100')" class="p-3 border rounded-xl text-right">app/Http/Controllers</button>
+
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+    </div>
+</header>
+
+<main class="mx-auto max-w-3xl px-4 py-12">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8 text-sm" href="index.html">← العودة لشرح الدرس</a>
+
+    <div class="card p-8 md:p-12 space-y-8 bg-white shadow-sm rounded-3xl">
+        <div class="text-center">
+            <span class="px-3 py-1 rounded-lg bg-amber-50 text-amber-700 font-bold text-xs uppercase tracking-widest">كويز الأسبوع 2 · الدرس 1</span>
+            <h1 class="mt-4 text-3xl font-black text-slate-900">🧪 كويز: فهم المسارات Routing</h1>
+            <p class="mt-2 text-slate-500">أجب عن الأسئلة التالية لقياس فهمك. اضغط على الإجابة لمعرفة النتيجة.</p>
+        </div>
+
+        <!-- السؤال 1: MCQ -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100" data-answer="a">
+            <p class="font-bold text-lg mb-4">1. أين يتم تعريف مسارات الويب في Laravel؟</p>
+            <label class="quiz-option"><input type="radio" name="q1" value="a"> routes/web.php</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="b"> app/Http/Controllers/web.php</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="c"> resources/js/Pages/routes.php</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="d"> config/routes.php</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700">
+                <strong>✅ صحيح! </strong>ملف <code>routes/web.php</code> هو المكان المخصص لتعريف مسارات الويب في Laravel. كل Route تكتبه هناك يستجيب لطلبات المتصفح.
             </div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700">
+                <strong>❌ خطأ. </strong>الإجابة الصحيحة هي <code>routes/web.php</code>. هذا الملف هو "خريطة" تطبيقك - كل الروابط تعرّف هناك.
+            </div>
+        </div>
+
+        <!-- السؤال 2: MCQ -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="b">
+            <p class="font-bold text-lg mb-4">2. ما وظيفة <code>Inertia::render()</code>؟</p>
+            <label class="quiz-option"><input type="radio" name="q2" value="a"> تعرض ملف Blade عادي</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="b"> ترسل البيانات إلى صفحة React وتعرضها</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="c"> تتصل بقاعدة البيانات</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="d"> تنشئ جدولاً في قاعدة البيانات</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700">
+                <strong>✅ صحيح! </strong><code>Inertia::render()</code> تأخذ مسار صفحة React والبيانات، وترسلها للمتصفح لعرضها. هي الجسر بين Laravel و React.
+            </div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700">
+                <strong>❌ خطأ. </strong>الإجابة الصحيحة: ترسل البيانات إلى صفحة React وتعرضها. تذكر تشبيه "صينية التقديم" من الدرس.
+            </div>
+        </div>
+
+        <!-- السؤال 3: MCQ -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="c">
+            <p class="font-bold text-lg mb-4">3. لماذا نستخدم Named Routes (المسارات المسماة)؟</p>
+            <label class="quiz-option"><input type="radio" name="q3" value="a"> لتزيين الكود فقط</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="b"> لجعل المسار أسرع</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="c"> لتسهيل استخدام المسار في الروابط - إذا تغير الرابط نغيّر من مكان واحد</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="d"> لا فائدة حقيقية منها</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700">
+                <strong>✅ صحيح! </strong>Named Routes تسمح لنا باستخدام اسم المسار بدلاً من الرابط النصي. إذا تغير الرابط مستقبلاً، نغيّره في ملف المسار فقط، وكل الروابط في React تتحدّث تلقائياً.
+            </div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700">
+                <strong>❌ خطأ. </strong>الإجابة الصحيحة: استخدام اسم المسار يسهل الصيانة ويمنع تكرار الروابط النصية في كل مكان.
+            </div>
+        </div>
+
+        <!-- السؤال 4: MCQ -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="d">
+            <p class="font-bold text-lg mb-4">4. أي أمر ينشئ Controller جديد في Laravel؟</p>
+            <label class="quiz-option"><input type="radio" name="q4" value="a"> php laravel make:controller</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="b"> npm run controller</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="c"> composer create controller</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="d"> php artisan make:controller</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700">
+                <strong>✅ صحيح! </strong>الأمر <code>php artisan make:controller</code> هو أداة Laravel السحرية لإنشاء Controller جديد بسرعة.
+            </div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700">
+                <strong>❌ خطأ. </strong>الإجابة الصحيحة: <code>php artisan make:controller</code>. Artisan هو اسم أداة الأوامر في Laravel.
+            </div>
+        </div>
+
+        <!-- السؤال 5: MCQ -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="a">
+            <p class="font-bold text-lg mb-4">5. كيف ترسل بيانات من Controller إلى صفحة React عبر Inertia؟</p>
+            <label class="quiz-option"><input type="radio" name="q5" value="a"> return Inertia::render('Page', ['key' => $value])</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="b"> return view('Page')->with(['key' => $value])</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="c"> return Redirect::to('Page', ['key' => $value])</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="d"> return Response::json(['key' => $value])</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700">
+                <strong>✅ صحيح! </strong>الطريقة الصحيحة هي <code>Inertia::render('Page', ['key' => $value])</code>. المعامل الأول هو اسم صفحة React، والمعامل الثاني هو البيانات.
+            </div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700">
+                <strong>❌ خطأ. </strong>الإجابة الصحيحة هي استخدام <code>Inertia::render()</code> مع مصفوفة البيانات في المعامل الثاني.
+            </div>
+        </div>
+
+        <!-- السؤال 6: T/F -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="true">
+            <p class="font-bold text-lg mb-4">6. (صح أم خطأ) يمكن استخدام <code>Route::post()</code> لعرض صفحة عادية في المتصفح.</p>
+            <label class="quiz-option"><input type="radio" name="q6" value="true"> ❌ خطأ</label>
+            <label class="quiz-option"><input type="radio" name="q6" value="false"> ✅ صح</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700">
+                <strong>✅ صحيح! </strong>الجواب <strong>خطأ</strong>. <code>Route::post()</code> يستقبل البيانات المرسلة من نموذج (form)، ولا يستخدم لعرض الصفحات. لعرض صفحة نستخدم <code>Route::get()</code>.
+            </div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700">
+                <strong>❌ خطأ. </strong>الإجابة الصحيحة: الجملة <strong>خطأ</strong>. <code>Route::post()</code> مخصص لاستقبال البيانات، وليس لعرض الصفحات.
+            </div>
+        </div>
+
+        <!-- السؤال 7: T/F -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="true">
+            <p class="font-bold text-lg mb-4">7. (صح أم خطأ) Named Route تسمح لنا باستخدام <code>route('name')</code> في React بدلاً من كتابة الرابط مباشرة.</p>
+            <label class="quiz-option"><input type="radio" name="q7" value="true"> ✅ صح</label>
+            <label class="quiz-option"><input type="radio" name="q7" value="false"> ❌ خطأ</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700">
+                <strong>✅ صحيح! </strong>بالضبط! Named Routes تسمح لنا باستخدام دالة <code>route()</code> التي يوفرها Inertia، مما يجعل الكود أنظف وأسهل للصيانة.
+            </div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700">
+                <strong>❌ خطأ. </strong>الإجابة الصحيحة: <strong>صح</strong>. هذه هي الفائدة الأساسية من Named Routes.
+            </div>
+        </div>
+
+        <!-- السؤال 8: Theory -->
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6">
+            <p class="font-bold text-lg mb-4">8. (سؤال نظري) اشرح بجملتك الخاصة: ما الفرق بين Route و Controller في Laravel؟</p>
+            <textarea id="theoryAnswer" rows="4" class="w-full p-4 border border-slate-200 rounded-xl text-right text-sm" placeholder="اكتب إجابتك هنا..."></textarea>
+            <button onclick="checkTheory()" class="mt-3 px-6 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700">تحقق من الإجابة</button>
+            <div id="theoryFeedback" class="explain-box mt-4 border" style="display:none;"></div>
+        </div>
+
+        <!-- السؤال 9: Practical -->
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6">
+            <p class="font-bold text-lg mb-4">9. (سؤال تطبيقي) اكتب كود Route لرابط <code>/tasks</code> يستخدم TaskController والدالة <code>index</code>، وسمِّ المسار <code>tasks.index</code>.</p>
+            <textarea id="practicalAnswer" rows="4" class="w-full p-4 border border-slate-200 rounded-xl text-left text-sm font-mono" placeholder="اكتب الكود هنا..." dir="ltr"></textarea>
+            <button onclick="checkPractical()" class="mt-3 px-6 py-2 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700">تحقق من الكود</button>
+            <div id="practicalFeedback" class="explain-box mt-4 border" style="display:none;"></div>
+        </div>
+
+        <!-- إعادة تعيين -->
+        <div class="text-center pt-6 border-t">
+            <button onclick="resetQuiz()" class="px-8 py-3 bg-slate-200 text-slate-700 rounded-xl font-bold hover:bg-slate-300">🔄 إعادة تعيين الكويز</button>
         </div>
     </div>
 </main>
+
+<script>
+// Auto-grading for MCQ and T/F
+document.querySelectorAll('.quiz-card').forEach(card => {
+    card.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.addEventListener('click', function() {
+            const card = this.closest('.quiz-card');
+            const correctAnswer = card.dataset.answer;
+            const selectedValue = this.querySelector('input').value;
+            
+            // Disable all options
+            card.querySelectorAll('.quiz-option').forEach(o => {
+                o.style.pointerEvents = 'none';
+                o.style.opacity = '0.7';
+            });
+            
+            // Highlight selected
+            if (selectedValue === correctAnswer) {
+                this.classList.add('correct');
+                card.querySelectorAll('.explain-box')[0].style.display = 'block';
+            } else {
+                this.classList.add('wrong');
+                card.querySelectorAll('.explain-box')[1].style.display = 'block';
+                // Show correct answer
+                card.querySelectorAll('.quiz-option').forEach(o => {
+                    if (o.querySelector('input').value === correctAnswer) {
+                        o.classList.add('correct');
+                    }
+                });
+            }
+        });
+    });
+});
+
+function checkTheory() {
+    const answer = document.getElementById('theoryAnswer').value.trim();
+    const feedback = document.getElementById('theoryFeedback');
+    feedback.style.display = 'block';
+    
+    if (answer.length < 20) {
+        feedback.className = 'explain-box bg-red-50 border border-red-200 text-red-700';
+        feedback.innerHTML = '<strong>الإجابة قصيرة جداً.</strong> حاول أن تشرح بأكثر من جملة. مثال: "الـ Route هو المسار الذي يحدد الرابط، والـ Controller هو الملف الذي يحتوي على الكود الذي يعالج الطلب."';
+    } else if (answer.includes('Route') && answer.includes('Controller') && (answer.includes('ي') || answer.includes('ربط') || answer.includes('يرسل'))) {
+        feedback.className = 'explain-box bg-green-50 border border-green-200 text-green-700';
+        feedback.innerHTML = '<strong>✅ إجابة ممتازة!</strong> يبدو أنك فهمت الفرق. الـ Route يوجّه الطلب، والـ Controller ينفذ الكود الفعلي.';
+    } else {
+        feedback.className = 'explain-box bg-blue-50 border border-blue-200 text-blue-700';
+        feedback.innerHTML = '<strong>💡 تلميح:</strong> حاول أن تشرح أن Route هو "خريطة الطريق" و Controller هو "المصنع" الذي يعالج الطلب. مثلاً: "الـ Route يقرر أي Controller سيعمل، والـ Controller يحتوي على الكود الفعلي."';
+    }
+}
+
+function checkPractical() {
+    const answer = document.getElementById('practicalAnswer').value.trim();
+    const feedback = document.getElementById('practicalFeedback');
+    feedback.style.display = 'block';
+    
+    const hasRoute = answer.includes('Route::get');
+    const hasTasks = answer.includes('/tasks');
+    const hasController = answer.includes('TaskController');
+    const hasIndex = answer.includes('index');
+    const hasName = answer.includes('tasks.index');
+    
+    if (hasRoute && hasTasks && hasController && hasIndex && hasName) {
+        feedback.className = 'explain-box bg-green-50 border border-green-200 text-green-700';
+        feedback.innerHTML = '<strong>✅ إجابة صحيحة تماماً!</strong> الكود المطلوب: <code>Route::get(\'/tasks\', [TaskController::class, \'index\'])->name(\'tasks.index\');</code>';
+    } else {
+        let hints = [];
+        if (!hasRoute) hints.push('استخدم <code>Route::get()</code>');
+        if (!hasTasks) hints.push('الرابط يجب أن يكون <code>/tasks</code>');
+        if (!hasController) hints.push('أضف <code>[TaskController::class</code>');
+        if (!hasIndex) hints.push('أضف <code>\'index\'</code> كدالة');
+        if (!hasName) hints.push('أضف <code>->name(\'tasks.index\')</code>');
+        feedback.className = 'explain-box bg-amber-50 border border-amber-200 text-amber-700';
+        feedback.innerHTML = '<strong>💡 نقص:</strong> ' + hints.join('، ') + '. حاول مرة أخرى!';
+    }
+}
+
+function resetQuiz() {
+    document.querySelectorAll('.quiz-card').forEach(card => {
+        card.querySelectorAll('.quiz-option').forEach(opt => {
+            opt.classList.remove('correct', 'wrong');
+            opt.style.pointerEvents = 'auto';
+            opt.style.opacity = '1';
+            opt.querySelector('input').checked = false;
+        });
+        card.querySelectorAll('.explain-box').forEach(box => {
+            box.style.display = 'none';
+        });
+    });
+    document.getElementById('theoryAnswer').value = '';
+    document.getElementById('practicalAnswer').value = '';
+    document.getElementById('theoryFeedback').style.display = 'none';
+    document.getElementById('practicalFeedback').style.display = 'none';
+}
+</script>
+
+<footer class="mt-12 border-t bg-white py-8 text-center text-slate-400 text-sm font-medium">
+    © 2026 FlowPilot Academy. اختبر معلوماتك باستمرار.
+</footer>
 </body>
 </html>

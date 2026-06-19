@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 11: فهم Eloquent Models والعلاقات</title>
+    <title>الدرس 11: فهم Eloquent Models والعلاقات بين البيانات | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,26 +13,40 @@
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
         .step-card { border-right: 4px solid #0ea5e9; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 1.5rem; border-radius: 16px; direction: ltr; text-align: left; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.8; }
+        .error-box { border-right: 4px solid #ef4444; background: #fef2f2; padding: 1rem; border-radius: 12px; margin-bottom: 1rem; }
+        .highlight-box { border-right: 4px solid #0ea5e9; background: #f0f9ff; padding: 1rem; border-radius: 12px; margin-bottom: 1rem; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
-
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../index.html">الرئيسية</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/curriculum.html">الفهرس</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/lessons.html">الدروس</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/beginner-guide.html">دليل الطالب</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/project.html">المشروع</a>
+        </nav>
     </div>
 </header>
-
 <main class="mx-auto max-w-7xl px-4 py-8">
     <div class="grid lg:grid-cols-4 gap-8">
         <aside class="hidden lg:block">
             <div class="sidebar-sticky space-y-4">
                 <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الثالث</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-sky-50 text-sky-700" href="#intro">مفهوم الـ Model</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">العلاقات بين الجداول</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال الأب والابن</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl bg-sky-50 text-sky-700" href="#intro">ما هو Eloquent ORM؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#model">إنشاء Models</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#fillable">$fillable والحماية</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#relations">تعريف العلاقات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#query">الاستعلام بـ Eloquent</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#accessors">Accessors و Mutators</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#nplus1">مشكلة N+1</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">Models FlowPilot</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">الأخطاء الشائعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#summary">ملخص الدرس</a>
                 </div>
             </div>
         </aside>
@@ -40,77 +54,423 @@
         <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
             <section class="border-b pb-8 mb-12">
                 <span class="badge bg-sky-50 text-sky-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 3 · الدرس 3</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">Eloquent Models: التحدث مع قاعدة البيانات بلغة PHP</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"بدلاً من كتابة استعلامات SQL المعقدة، لنتحدث مع جداولنا كأنها كائنات برمجية بسيطة."</p>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">فهم Eloquent Models والعلاقات بين البيانات</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"Eloquent هو المترجم الذي يسمح لك بالتحدث مع قاعدة البيانات بلغة PHP سهلة ومفهومة."</p>
             </section>
 
-            <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">ما هو الـ Model؟</h2>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    الـ <strong>Model</strong> هو ملف PHP يمثل جدولاً معيناً في قاعدة البيانات. إذا كان لدينا جدول اسمه <code>projects</code>، سيكون لدينا Model اسمه <code>Project</code>.
-                </p>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    لماذا نستخدمه؟ لأن Laravel يوفر أداة عبقرية تسمى <strong>Eloquent</strong>. بفضلها، لا تحتاج لكتابة SQL؛ بل تكتب <code>Project::all()</code> وسيفهم Laravel تلقائياً أنك تريد "كل السجلات من جدول المشاريع".
-                </p>
+            <!-- Section 1: What is Eloquent -->
+            <section id="intro" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">ما هو Eloquent ORM؟</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed text-lg">
+                    <p><strong>Eloquent</strong> هو <strong>ORM</strong> (Object-Relational Mapping) - تقنية تترجم البيانات بين قاعدة البيانات (SQL) ولغة PHP (OOP). ببساطة: هو مترجم بشري يتحدث مع MySQL نيابة عنك.</p>
+                    <p>بدون Eloquent، كنا سنكتب استعلامات SQL مثل: <code>SELECT * FROM projects WHERE user_id = 1</code>. مع Eloquent، نكتب: <code>User::find(1)->projects</code>. الفرق واضح!</p>
+                    <p>كل <strong>Model</strong> في Laravel يمثل <strong>جدولاً</strong> في قاعدة البيانات. كل <strong>instance (كائن)</strong> من الـ Model يمثل <strong>سجلاً (Row)</strong> واحداً. كل <strong>خاصية (Property)</strong> في الـ Model تمثل <strong>عموداً (Column)</strong>.</p>
+                </div>
+                <div class="highlight-box">
+                    <p class="font-bold text-sky-800">🎯 قاعدة ذهبية:</p>
+                    <p class="text-sky-700">Model = Table | Object = Row | Property = Column</p>
+                    <p class="text-sky-600 text-sm mt-1">مثال: <code>Project</code> Model يمثل جدول <code>projects</code>. <code>$project->name</code> يقرأ قيمة عمود <code>name</code> من ذلك السجل.</p>
+                </div>
             </section>
 
-            <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">العلاقات (Relationships)</h2>
-                <div class="space-y-4 text-slate-600">
-                    <p>في FlowPilot، البيانات مرتبطة ببعضها. هناك أنواع عديدة من العلاقات، أهمها:</p>
-                    <ul class="list-disc pr-6 space-y-4">
-                        <li><strong>One to Many (واحد لمتعدد):</strong> المشروع الواحد يحتوي على "مهام كثيرة".</li>
-                        <li><strong>Many to Many (متعدد لمتعدد):</strong> المهمة الواحدة يمكن أن يعمل عليها "أعضاء كثيرون"، والعضو الواحد يمكن أن يعمل على "مهام كثيرة".</li>
+            <!-- Section 2: Creating Models -->
+            <section id="model" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">إنشاء Models باستخدام Artisan</h2>
+                <div class="terminal-box bg-slate-900 text-white p-4 rounded-xl direction-ltr text-left font-mono text-sm">
+                    <span class="text-slate-500"># إنشاء Model مع الـ Migration تلقائياً</span><br>
+                    <span class="text-emerald-400">$</span> php artisan make:model Project -m
+                </div>
+                <p class="text-slate-600 mt-2">الـ <code>-m</code> تخبر Artisan بإنشاء ملف Migration مع الـ Model. يمكنك أيضاً إنشاء Model + Migration + Controller + Seeder معاً بـ <code>-mcs</code>.</p>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">مثال لملف Model (Project.php):</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-keyword">&lt;?php</span></span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-keyword">namespace</span> App\Models;</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-keyword">use</span> Illuminate\Database\Eloquent\Model;</span>
+                    <span class="code-line"><span class="code-keyword">use</span> Illuminate\Database\Eloquent\SoftDeletes;</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-keyword">class</span> Project <span class="code-keyword">extends</span> Model</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">use</span> SoftDeletes;  <span class="code-comment">// تفعيل الحذف الناعم</span></span>
+                    <span class="code-line"></span>
+                    <span class="code-line">    <span class="code-keyword">protected</span> <span class="code-keyword">$fillable</span> = [  <span class="code-comment">// الحقول المسموح بملئها (للحماية)</span></span>
+                    <span class="code-line">        <span class="code-string">'user_id'</span>,</span>
+                    <span class="code-line">        <span class="code-string">'name'</span>,</span>
+                    <span class="code-line">        <span class="code-string">'description'</span>,</span>
+                    <span class="code-line">        <span class="code-string">'status'</span>,</span>
+                    <span class="code-line">        <span class="code-string">'deadline'</span>,</span>
+                    <span class="code-line">    ];</span>
+                    <span class="code-line">}</span>
+                </div>
+                <p class="text-slate-600 mt-4"><strong>شرح الكود:</strong></p>
+                <ul class="list-disc pr-6 text-sm text-slate-600 space-y-2">
+                    <li><code>namespace App\Models</code>: مجلد الـ Models (Laravel 12 ينشئها هنا بدلاً من App).</li>
+                    <li><code>extends Model</code>: يرث من كلاس Eloquent Model الأساسي، مما يمنحه كل القدرات.</li>
+                    <li><code>use SoftDeletes</code>: Trait يضيف دوال الحذف الناعم (مثل <code>trash()</code>, <code>restore()</code>).</li>
+                    <li><code>$fillable</code>: يسمح فقط للأعمدة المذكورة أن تُملأ عبر <code>create()</code> أو <code>update()</code>.</li>
+                </ul>
+            </section>
+
+            <!-- Section 3: $fillable -->
+            <section id="fillable" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">$fillable و $guarded: حماية البيانات (Mass Assignment)</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <p>تخيل أن لديك Model المستخدم، وهناك مهاجم يرسل طلباً HTTP يحتوي على <code>is_admin = true</code>. بدون حماية، سيتحول المستخدم إلى مشرف! لمنع هذا، نستخدم <strong>Mass Assignment Protection</strong>.</p>
+                    <p><strong>$fillable</strong> = القائمة البيضاء: الحقول المسموح فقط بملئها.</p>
+                    <p><strong>$guarded</strong> = القائمة السوداء: الحقول الممنوعة من الملء.</p>
+                </div>
+                <div class="code-block mt-4">
+                    <span class="code-line"><span class="code-comment">// السماح فقط بهذه الحقول:</span></span>
+                    <span class="code-line"><span class="code-keyword">protected</span> <span class="code-keyword">$fillable</span> = [<span class="code-string">'name'</span>, <span class="code-string">'email'</span>];</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-comment">// أو منع هذه الحقول فقط (والباقي مسموح):</span></span>
+                    <span class="code-line"><span class="code-keyword">protected</span> <span class="code-keyword">$guarded</span> = [<span class="code-string">'is_admin'</span>];</span>
+                </div>
+                <div class="highlight-box mt-4">
+                    <p class="font-bold text-sky-800">💡 أفضل ممارسة:</p>
+                    <p class="text-sky-700">استخدم <code>$fillable</code> وحدد الأعمدة المسموحة. هذا أكثر أماناً من <code>$guarded</code>.</p>
+                </div>
+            </section>
+
+            <!-- Section 4: Defining Relationships -->
+            <section id="relations" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">تعريف العلاقات (Relationships) في Models</h2>
+                <p class="text-slate-600">هذا هو <strong>أهم جزء</strong> في هذا الدرس. العلاقات تجعل Eloquent قوياً جداً. سنتعلم 3 أنواع أساسية:</p>
+
+                <div class="grid md:grid-cols-3 gap-6 mt-6">
+                    <div class="p-5 rounded-2xl bg-indigo-50 border-2 border-indigo-200">
+                        <h4 class="font-black text-indigo-700 text-center">belongsTo</h4>
+                        <p class="text-xs text-indigo-600 text-center mt-1">ينتمي إلى (المفتاح الأجنبي هنا)</p>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-200">
+                        <h4 class="font-black text-emerald-700 text-center">hasMany</h4>
+                        <p class="text-xs text-emerald-600 text-center mt-1">يملك عدة (المفتاح الأجنبي في الجدول الآخر)</p>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-purple-50 border-2 border-purple-200">
+                        <h4 class="font-black text-purple-700 text-center">belongsToMany</h4>
+                        <p class="text-xs text-purple-600 text-center mt-1">علاقة متعددة لمتعددة (Pivot)</p>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-8">1. belongsTo (ينتمي إلى)</h3>
+                <p class="text-slate-600">تستخدم عندما يكون <strong>عندك المفتاح الأجنبي</strong> وتريد الوصول للسجل الأصلي.</p>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// في Project Model - المشروع ينتمي لمستخدم واحد</span></span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-php">user</span>()</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">return</span> <span class="code-keyword">$this</span>-><span class="code-php">belongsTo</span>(User::<span class="code-keyword">class</span>);</span>
+                    <span class="code-line">}</span>
+                </div>
+                <p class="text-slate-600 text-sm mt-1">الآن: <code>$project->user</code> يعيد كائن User (صاحب المشروع).</p>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-8">2. hasMany (يملك عدة)</h3>
+                <p class="text-slate-600">تستخدم عندما <strong>لا يوجد عندك المفتاح الأجنبي</strong>، بل هو في الجدول الآخر.</p>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// في User Model - المستخدم يملك عدة مشاريع</span></span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-php">projects</span>()</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">return</span> <span class="code-keyword">$this</span>-><span class="code-php">hasMany</span>(Project::<span class="code-keyword">class</span>);</span>
+                    <span class="code-line">}</span>
+                </div>
+                <p class="text-slate-600 text-sm mt-1">الآن: <code>$user->projects</code> يعيد مجموعة من Projects (جميع مشاريع المستخدم).</p>
+
+                <div class="code-block mt-4">
+                    <span class="code-line"><span class="code-comment">// في Project Model - المشروع يحتوي على عدة مهام</span></span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-php">tasks</span>()</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">return</span> <span class="code-keyword">$this</span>-><span class="code-php">hasMany</span>(Task::<span class="code-keyword">class</span>);</span>
+                    <span class="code-line">}</span>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-8">3. belongsToMany (متعدد لمتعدد)</h3>
+                <p class="text-slate-600">تستخدم للعلاقات Many-to-Many مع جدول Pivot.</p>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// في Project Model - المشروع يضم عدة أعضاء (Users)</span></span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-php">members</span>()</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">return</span> <span class="code-keyword">$this</span>-><span class="code-php">belongsToMany</span>(User::<span class="code-keyword">class</span>)</span>
+                    <span class="code-line">                -><span class="code-php">withPivot</span>(<span class="code-string">'role'</span>, <span class="code-string">'joined_at'</span>)  <span class="code-comment">// أعمدة إضافية من جدول Pivot</span></span>
+                    <span class="code-line">                -><span class="code-php">withTimestamps</span>();</span>
+                    <span class="code-line">}</span>
+                </div>
+                <p class="text-slate-600 text-sm mt-1">الآن: <code>$project->members</code> يعيد مجموعة Users (أعضاء المشروع). <code>$project->members[0]->pivot->role</code> يقرأ الدور من جدول Pivot.</p>
+
+                <div class="code-block mt-4">
+                    <span class="code-line"><span class="code-comment">// وفي User Model - المستخدم عضو في عدة مشاريع</span></span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-php">projects</span>()  <span class="code-comment">// لاحظ: هذا مختلف عن hasMany projects</span></span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">return</span> <span class="code-keyword">$this</span>-><span class="code-php">belongsToMany</span>(Project::<span class="code-keyword">class</span>);</span>
+                    <span class="code-line">}</span>
+                </div>
+                <p class="text-xs text-amber-600 mt-2">⚠️ في User، سنحتاج تسمية مختلفة للعلاقة Many-to-Many (مثلاً <code>memberOfProjects</code>) للتمييز عن <code>hasMany projects</code>.</p>
+            </section>
+
+            <!-- Section 5: Querying -->
+            <section id="query" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">الاستعلام بـ Eloquent: ::all(), ::find(), ::where(), ::with()</h2>
+                <p class="text-slate-600">Eloquent يوفر دوالاً سهلة للاستعلام عن قاعدة البيانات. إليك أهمها:</p>
+
+                <div class="overflow-x-auto mt-6">
+                    <table class="w-full text-right border-collapse">
+                        <thead>
+                            <tr class="bg-slate-800 text-white">
+                                <th class="p-3 border border-slate-700">الدالة</th>
+                                <th class="p-3 border border-slate-700">الاستخدام</th>
+                                <th class="p-3 border border-slate-700">مثال</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300"><code>::all()</code></td><td class="p-3 border border-slate-300">جلب جميع السجلات</td><td class="p-3 border border-slate-300 font-mono text-xs">$projects = Project::all();</td></tr>
+                            <tr class="bg-slate-50"><td class="p-3 border border-slate-300"><code>::find($id)</code></td><td class="p-3 border border-slate-300">جلب سجل واحد بالـ ID</td><td class="p-3 border border-slate-300 font-mono text-xs">$project = Project::find(1);</td></tr>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300"><code>::findOrFail($id)</code></td><td class="p-3 border border-slate-300">جلب أو خطأ 404</td><td class="p-3 border border-slate-300 font-mono text-xs">$project = Project::findOrFail(1);</td></tr>
+                            <tr class="bg-slate-50"><td class="p-3 border border-slate-300"><code>::where()</code></td><td class="p-3 border border-slate-300">استعلام بشرط</td><td class="p-3 border border-slate-300 font-mono text-xs">Project::where('status', 'active')->get();</td></tr>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300"><code>::with()</code></td><td class="p-3 border border-slate-300">Eager Loading (جلب العلاقات)</td><td class="p-3 border border-slate-300 font-mono text-xs">Project::with('tasks')->get();</td></tr>
+                            <tr class="bg-slate-50"><td class="p-3 border border-slate-300"><code>->get()</code></td><td class="p-3 border border-slate-300">تنفيذ الاستعلام وجلب النتائج</td><td class="p-3 border border-slate-300 font-mono text-xs">...->where('status','active')->get();</td></tr>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300"><code>->first()</code></td><td class="p-3 border border-slate-300">جلب أول سجل فقط</td><td class="p-3 border border-slate-300 font-mono text-xs">Project::where('status','active')->first();</td></tr>
+                            <tr class="bg-slate-50"><td class="p-3 border border-slate-300"><code>->count()</code></td><td class="p-3 border border-slate-300">عدد السجلات</td><td class="p-3 border border-slate-300 font-mono text-xs">Project::where('status','active')->count();</td></tr>
+                            <tr class="bg-white"><td class="p-3 border border-slate-300"><code>->pluck()</code></td><td class="p-3 border border-slate-300">جلب عمود واحد كمصفوفة</td><td class="p-3 border border-slate-300 font-mono text-xs">Project::pluck('name'); // ['مشروع 1', 'مشروع 2']</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-8">أمثلة عملية من FlowPilot:</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// جلب جميع المشاريع النشطة</span></span>
+                    <span class="code-line"><span class="code-keyword">$activeProjects</span> = Project::<span class="code-php">where</span>(<span class="code-string">'status'</span>, <span class="code-string">'active'</span>)-><span class="code-php">get</span>();</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-comment">// جلب أول 10 مشاريع مرتبة بالأحدث</span></span>
+                    <span class="code-line"><span class="code-keyword">$recentProjects</span> = Project::<span class="code-php">latest</span>()-><span class="code-php">take</span>(10)-><span class="code-php">get</span>();</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-comment">// جلب مشروع معين مع جميع مهامه ومستخدمه</span></span>
+                    <span class="code-line"><span class="code-keyword">$project</span> = Project::<span class="code-php">with</span>([<span class="code-string">'user'</span>, <span class="code-string">'tasks'</span>])-><span class="code-php">findOrFail</span>(<span class="code-keyword">$id</span>);</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-comment">// جلب عدد المهام لكل مشروع</span></span>
+                    <span class="code-line"><span class="code-keyword">$projectCount</span> = Project::<span class="code-php">withCount</span>(<span class="code-string">'tasks'</span>)-><span class="code-php">get</span>();</span>
+                    <span class="code-line"><span class="code-comment">// الآن $project->tasks_count يعطي العدد</span></span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-comment">// جلب المشاريع التي ليس لها مهام</span></span>
+                    <span class="code-line"><span class="code-keyword">$emptyProjects</span> = Project::<span class="code-php">doesntHave</span>(<span class="code-string">'tasks'</span>)-><span class="code-php">get</span>();</span>
+                </div>
+            </section>
+
+            <!-- Section 6: Accessors & Mutators -->
+            <section id="accessors" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">Accessors و Mutators (تعديل البيانات عند القراءة/الكتابة)</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <p><strong>Accessor</strong> = دالة تُعدّل قيمة العمود <strong>عند القراءة</strong>. مثلاً: تحويل تاريخ الميلاد إلى صيغة معينة.</p>
+                    <p><strong>Mutator</strong> = دالة تُعدّل قيمة العمود <strong>عند الكتابة</strong>. مثلاً: تحويل كلمة المرور إلى Hash قبل الحفظ.</p>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">مثال Accessor في Project Model:</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// عند قراءة status، نترجمها إلى العربية</span></span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-php">getStatusAttribute</span>(<span class="code-keyword">$value</span>)</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">return</span> [</span>
+                    <span class="code-line">        <span class="code-string">'pending'</span>   => <span class="code-string">'قيد الانتظار'</span>,</span>
+                    <span class="code-line">        <span class="code-string">'active'</span>    => <span class="code-string">'نشط'</span>,</span>
+                    <span class="code-line">        <span class="code-string">'completed'</span> => <span class="code-string">'مكتمل'</span>,</span>
+                    <span class="code-line">    ][<span class="code-keyword">$value</span>] ?? <span class="code-keyword">$value</span>;</span>
+                    <span class="code-line">}</span>
+                </div>
+                <p class="text-sm text-slate-600 mt-2">الآن: <code>$project->status</code> سيعيد "نشط" بدلاً من "active". ملاحظة: التسمية <code>getXAttribute</code> حيث X هو اسم العمود بـ PascalCase.</p>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">مثال Mutator في User Model:</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// عند حفظ كلمة المرور، نستخدم Hash تلقائياً</span></span>
+                    <span class="code-line"><span class="code-keyword">public function</span> <span class="code-php">setPasswordAttribute</span>(<span class="code-keyword">$value</span>)</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">$this</span>-><span class="code-php">attributes</span>[<span class="code-string">'password'</span>] = bcrypt(<span class="code-keyword">$value</span>);</span>
+                    <span class="code-line">}</span>
+                </div>
+                <p class="text-sm text-slate-600 mt-2">الآن: <code>User::create(['password' => 'secret'])</code> سيحفظ <code>$2y$10...</code> بدلاً من 'secret'.</p>
+            </section>
+
+            <!-- Section 7: N+1 Problem -->
+            <section id="nplus1" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">مشكلة N+1 (الفخ الخفي للمبتدئين)</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <p><strong>مشكلة N+1</strong> هي واحدة من أشهر مشاكل الأداء في Laravel. تخيل هذا السيناريو:</p>
+                </div>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-comment">// الكود التالي يبدو بريئاً...</span></span>
+                    <span class="code-line"><span class="code-keyword">$projects</span> = Project::<span class="code-php">all</span>();   <span class="code-comment">// استعلام واحد: SELECT * FROM projects</span></span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="code-keyword">foreach</span> (<span class="code-keyword">$projects</span> <span class="code-keyword">as</span> <span class="code-keyword">$project</span>) {</span>
+                    <span class="code-line">    <span class="code-php">echo</span> <span class="code-keyword">$project</span>-><span class="code-php">user</span>-><span class="code-php">name</span>;  <span class="code-comment">// استعلام لكل مشروع: SELECT * FROM users WHERE id = ?</span></span>
+                    <span class="code-line">}</span>
+                </div>
+                <p class="text-slate-600">إذا كان لديك 100 مشروع، سيتم تنفيذ <strong>101 استعلام</strong>! واحد لجلب المشاريع، و100 لجلب المستخدم (لكل مشروع على حدة). هذا هو N+1.</p>
+
+                <div class="highlight-box">
+                    <p class="font-bold text-sky-800">الحل: Eager Loading باستخدام with()</p>
+                    <div class="code-block mt-2">
+                        <span class="code-line"><span class="code-keyword">$projects</span> = Project::<span class="code-php">with</span>(<span class="code-string">'user'</span>)-><span class="code-php">get</span>();  <span class="code-comment">// استعلامان فقط!</span></span>
+                        <span class="code-line"><span class="code-comment">// 1. SELECT * FROM projects</span></span>
+                        <span class="code-line"><span class="code-comment">// 2. SELECT * FROM users WHERE id IN (1, 2, 3, ...)</span></span>
+                    </div>
+                    <p class="text-sky-700 text-sm mt-2">بدلاً من 101 استعلام، أصبح لدينا <strong>2 فقط</strong>. هذا هو الفرق بين تطبيق بطيء وتطبيق سريع.</p>
+                </div>
+            </section>
+
+            <!-- Section 8: FlowPilot Models -->
+            <section id="flowpilot" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">نماذج FlowPilot الكاملة مع العلاقات</h2>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-6">1. User Model</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-keyword">&lt;?php</span></span>
+                    <span class="code-line"><span class="code-keyword">namespace</span> App\Models;</span>
+                    <span class="code-line"><span class="code-keyword">use</span> Illuminate\Database\Eloquent\Model;</span>
+                    <span class="code-line"><span class="code-keyword">class</span> User <span class="code-keyword">extends</span> Model</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-comment">// المشاريع التي يملكها المستخدم (hasMany = هو مالك)</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-php">ownedProjects</span>() {</span>
+                    <span class="code-line">        <span class="code-keyword">return</span> <span class="code-keyword">$this</span>-><span class="code-php">hasMany</span>(Project::<span class="code-keyword">class</span>, <span class="code-string">'user_id'</span>);</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line"></span>
+                    <span class="code-line">    <span class="code-comment">// المشاريع التي هو عضو فيها (belongsToMany = عضو فريق)</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-php">memberOfProjects</span>() {</span>
+                    <span class="code-line">        <span class="code-keyword">return</span> <span class="code-keyword">$this</span>-><span class="code-php">belongsToMany</span>(Project::<span class="code-keyword">class</span>)</span>
+                    <span class="code-line">                    -><span class="code-php">withPivot</span>(<span class="code-string">'role'</span>, <span class="code-string">'joined_at'</span>)</span>
+                    <span class="code-line">                    -><span class="code-php">withTimestamps</span>();</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line"></span>
+                    <span class="code-line">    <span class="code-comment">// المهام المسندة لهذا المستخدم</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-php">tasks</span>() {</span>
+                    <span class="code-line">        <span class="code-keyword">return</span> <span class="code-keyword">$this</span>-><span class="code-php">hasMany</span>(Task::<span class="code-keyword">class</span>, <span class="code-string">'assigned_to'</span>);</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line">}</span>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-8">2. Project Model</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-keyword">class</span> Project <span class="code-keyword">extends</span> Model</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">use</span> SoftDeletes;</span>
+                    <span class="code-line">    <span class="code-keyword">protected</span> <span class="code-keyword">$fillable</span> = [<span class="code-string">'user_id'</span>, <span class="code-string">'name'</span>, <span class="code-string">'description'</span>, <span class="code-string">'status'</span>, <span class="code-string">'deadline'</span>];</span>
+                    <span class="code-line"></span>
+                    <span class="code-line">    <span class="code-comment">// صاحب المشروع</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-php">user</span>() {</span>
+                    <span class="code-line">        <span class="code-keyword">return</span> <span class="code-keyword">$this</span>-><span class="code-php">belongsTo</span>(User::<span class="code-keyword">class</span>);</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line"></span>
+                    <span class="code-line">    <span class="code-comment">// المهام التابعة للمشروع</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-php">tasks</span>() {</span>
+                    <span class="code-line">        <span class="code-keyword">return</span> <span class="code-keyword">$this</span>-><span class="code-php">hasMany</span>(Task::<span class="code-keyword">class</span>);</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line"></span>
+                    <span class="code-line">    <span class="code-comment">// أعضاء الفريق في المشروع</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-php">members</span>() {</span>
+                    <span class="code-line">        <span class="code-keyword">return</span> <span class="code-keyword">$this</span>-><span class="code-php">belongsToMany</span>(User::<span class="code-keyword">class</span>)</span>
+                    <span class="code-line">                    -><span class="code-php">withPivot</span>(<span class="code-string">'role'</span>, <span class="code-string">'joined_at'</span>)</span>
+                    <span class="code-line">                    -><span class="code-php">withTimestamps</span>();</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line"></span>
+                    <span class="code-line">    <span class="code-comment">// Accessor: ترجمة الحالة إلى العربية</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-php">getStatusAttribute</span>(<span class="code-keyword">$value</span>) { ... }</span>
+                    <span class="code-line">}</span>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 mt-8">3. Task Model</h3>
+                <div class="code-block">
+                    <span class="code-line"><span class="code-keyword">class</span> Task <span class="code-keyword">extends</span> Model</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-keyword">use</span> SoftDeletes;</span>
+                    <span class="code-line">    <span class="code-keyword">protected</span> <span class="code-keyword">$fillable</span> = [<span class="code-string">'project_id'</span>, <span class="code-string">'assigned_to'</span>, <span class="code-string">'title'</span>, <span class="code-string">'description'</span>, <span class="code-string">'status'</span>, <span class="code-string">'priority'</span>, <span class="code-string">'due_date'</span>];</span>
+                    <span class="code-line"></span>
+                    <span class="code-line">    <span class="code-comment">// المهمة تنتمي لمشروع</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-php">project</span>() {</span>
+                    <span class="code-line">        <span class="code-keyword">return</span> <span class="code-keyword">$this</span>-><span class="code-php">belongsTo</span>(Project::<span class="code-keyword">class</span>);</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line"></span>
+                    <span class="code-line">    <span class="code-comment">// المهمة مسندة لمستخدم (اختياري)</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-php">assignee</span>() {</span>
+                    <span class="code-line">        <span class="code-keyword">return</span> <span class="code-keyword">$this</span>-><span class="code-php">belongsTo</span>(User::<span class="code-keyword">class</span>, <span class="code-string">'assigned_to'</span>);</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line">}</span>
+                </div>
+            </section>
+
+            <!-- Section 9: Common Errors -->
+            <section id="errors" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">الأخطاء الشائعة في Eloquent Models</h2>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 1: "Column not found: 1054 Unknown column 'user_id'"</h4>
+                    <p class="text-rose-600 text-sm">السبب: علاقة <code>belongsTo</code> تتوقع وجود عمود <code>user_id</code> ولكن لا يوجد في جدول المشاريع.</p>
+                    <p class="text-rose-500 text-xs mt-2">الحل: تأكد من أن الـ Migration يحتوي على <code>$table->foreignId('user_id')->constrained()</code>. أعد تشغيل الـ Migrations.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 2: "Call to undefined method ..." عند استخدام العلاقات</h4>
+                    <p class="text-rose-600 text-sm">السبب: نسيت تعريف الدالة في الـ Model. مثلاً، استخدمت <code>$project->tasks</code> ولكن لا توجد دالة <code>tasks()</code> في Project Model.</p>
+                    <p class="text-rose-500 text-xs mt-2">الحل: أضف العلاقة المفقودة إلى الـ Model: <code>public function tasks() { return $this->hasMany(Task::class); }</code>.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 3: N+1 Query Problem (تطبيق بطيء)</h4>
+                    <p class="text-rose-600 text-sm">السبب: جلب البيانات دون <code>with()</code>، مما يسبب استعلامات متعددة في حلقة foreach.</p>
+                    <p class="text-rose-500 text-xs mt-2">الحل: استخدم <code>::with('user', 'tasks')->get()</code> لجلب العلاقات مقدماً.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 4: "MassAssignmentException" (لا يمكن حفظ البيانات)</h4>
+                    <p class="text-rose-600 text-sm">السبب: لم تحدد <code>$fillable</code> في الـ Model. Eloquent يمنع ملء جميع الحقول للحماية.</p>
+                    <p class="text-rose-500 text-xs mt-2">الحل: أضف <code>protected $fillable = ['name', 'description', ...];</code> في الـ Model.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 5: علاقة عكسية خاطئة (hasMany مكان belongsTo)</h4>
+                    <p class="text-rose-600 text-sm">السبب: استخدام <code>hasMany</code> في Task (بينما Task يحتوي على FK project_id). الصحيح هو <code>belongsTo</code>.</p>
+                    <p class="text-rose-500 text-xs mt-2">الحل: من يملك FK (المفتاح الأجنبي) يستخدم <code>belongsTo</code>. الطرف الآخر يستخدم <code>hasMany</code>.</p>
+                </div>
+            </section>
+
+            <!-- Section 10: Summary -->
+            <section id="summary" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">📝 ملخص الدرس</h2>
+                <div class="bg-gradient-to-r from-indigo-50 to-sky-50 p-6 rounded-2xl border border-indigo-100">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">1</span>
+                            <div><span class="font-bold text-slate-900">Eloquent ORM</span><span class="text-slate-600"> يترجم بين قاعدة البيانات و PHP. Model = Table، Object = Row.</span></div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">2</span>
+                            <div><span class="font-bold text-slate-900">$fillable</span><span class="text-slate-600"> تحدد الحقول المسموح ملؤها. للحماية من هجمات Mass Assignment.</span></div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">3</span>
+                            <div><span class="font-bold text-slate-900">belongsTo</span><span class="text-slate-600"> = عندي FK. <strong>hasMany</strong> = FK عند الآخر. <strong>belongsToMany</strong> = Pivot.</span></div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">4</span>
+                            <div><span class="font-bold text-slate-900">::with()</span><span class="text-slate-600"> يحل مشكلة N+1. يجلب العلاقات في استعلامين بدلاً من N+1.</span></div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">5</span>
+                            <div><span class="font-bold text-slate-900">Accessors</span><span class="text-slate-600"> تعدّل القيمة عند القراءة. <strong>Mutators</strong> تعدّل القيمة عند الكتابة.</span></div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">6</span>
+                            <div><span class="font-bold text-slate-900">N+1</span><span class="text-slate-600"> مشكلة أداء خطيرة. الحل: <code>::with()</code> (Eager Loading).</span></div>
+                        </li>
                     </ul>
                 </div>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-sky-600 text-white shadow-xl shadow-indigo-100">
-                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (العائلة)</h2>
-                <p class="text-indigo-50 leading-relaxed text-lg">
-                    تخيل <strong>الأب</strong> هو "المشروع" و <strong>الأبناء</strong> هم "المهام".
-                    <br><br>
-                    - الأب الواحد يمكن أن يكون له أبناء كثيرون (One to Many).
-                    <br>
-                    - كل ابن ينتمي لأب واحد محدد (Belongs To).
-                    <br><br>
-                    في الكود، عندما تطلب <code>$project->tasks</code>، أنت تطلب من Laravel: "أحضر لي كل أبناء هذا الأب".
-                </p>
-            </section>
-
-            <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">التطبيق العملي</h2>
-
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء Model للمشروع</h3>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
-                        <p>php artisan make:model Project</p>
-                    </div>
-                </div>
-
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تعريف العلاقة مع المهام</h3>
-                    <p class="mb-4">داخل ملف <code>app/Models/Project.php</code>:</p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
-                        <p>public function tasks() {</p>
-                        <p>&nbsp;&nbsp;return $this->hasMany(Task::class);</p>
-                        <p>}</p>
-                    </div>
-                </div>
-            </section>
-
+            <!-- Navigation -->
             <div class="mt-12 flex justify-between gap-4">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-02/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-sky-600 px-8 py-4 text-white font-black hover:bg-sky-700 transition-all shadow-xl shadow-indigo-100" href="../lesson-04/index.html">الدرس التالي: قراءة البيانات ←</a>
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-03/lesson-02/index.html">← الدرس السابق: Migrations و Seeders</a>
+                <a class="rounded-2xl bg-sky-600 px-8 py-4 text-white font-black hover:bg-sky-700 transition-all shadow-xl shadow-sky-100" href="../../week-03/lesson-04/index.html">الدرس التالي: تحسين الاستعلامات ←</a>
             </div>
         </article>
     </div>
 </main>
-
-<footer class="mt-24 border-t bg-white text-center py-8 text-slate-400 text-sm font-medium">
-    © 2025 FlowPilot Academy. قوة Eloquent تجعل برمجتك أسرع بـ 10 أضعاف.
-</footer>
-
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">© 2025 FlowPilot Academy. Models هي قلب تطبيق Laravel.</footer>
 <script src="../../../assets/js/app.js"></script>
 </body>
 </html>

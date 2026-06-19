@@ -3,27 +3,185 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 10: زراعة الجداول والبيانات</title>
+    <title>واجب الدرس 10: Migrations و Seeders و Factories | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .step-box { border-right: 4px solid #0ea5e9; padding: 1rem 1.5rem; background: #f8fafc; border-radius: 12px; margin-bottom: 1.5rem; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 12px; direction: ltr; text-align: left; font-family: 'Courier New', monospace; font-size: 13px; }
+        .terminal { background: #0f172a; color: #e2e8f0; padding: 1rem; border-radius: 12px; direction: ltr; text-align: left; font-family: 'Courier New', monospace; font-size: 13px; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
-<main class="mx-auto max-w-3xl px-4 py-12">
-    <div class="card p-12 space-y-8">
-        <h1 class="text-3xl font-black text-center text-indigo-600">واجب المهاجرة والزراعة</h1>
-        <div class="space-y-6 text-right">
-            <h3 class="font-black text-xl">المطلوب:</h3>
-            <ol class="list-decimal pr-6 space-y-4 font-bold text-slate-700">
-                <li>أنشئ Migration لجدول <code>tasks</code>.</li>
-                <li>أضف الأعمدة: <code>title</code> (نص)، <code>is_completed</code> (boolean).</li>
-                <li>نفذ الأمر <code>php artisan migrate</code>.</li>
-                <li>تأكد من ظهور الجدول في برنامج إدارة قاعدة البيانات الخاص بك.</li>
+<body class="bg-slate-50 text-slate-900">
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../index.html">الرئيسية</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/curriculum.html">الفهرس</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/lessons.html">الدروس</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/beginner-guide.html">دليل الطالب</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/project.html">المشروع</a>
+        </nav>
+    </div>
+</header>
+<main class="mx-auto max-w-4xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة إلى شرح الدرس</a>
+    <section class="space-y-8">
+        <div class="card p-8 bg-gradient-to-l from-sky-600 to-indigo-600 text-white shadow-xl rounded-3xl">
+            <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold uppercase tracking-widest mb-3">الأسبوع 3 · الدرس 2 · الواجب العملي</span>
+            <h1 class="text-3xl md:text-4xl font-black">واجب: إنشاء Migrations و Seeders و Factories لـ FlowPilot</h1>
+            <p class="mt-4 text-sky-100 leading-relaxed italic text-lg">"مخطط البناء (Migration) هو نصف العمل. زراعة البيانات (Seeder) هو النصف الآخر."</p>
+        </div>
+
+        <div class="card p-6 bg-white shadow-sm rounded-3xl">
+            <h2 class="text-xl font-black text-sky-600 mb-4">نظرة عامة</h2>
+            <p class="text-slate-600 leading-relaxed">في هذا الواجب، ستقوم بإنشاء Migrations لجميع جداول FlowPilot، ثم إنشاء Seeders و Factories لزراعة بيانات اختبارية. هذا الواجب يتطلب تنفيذ أوامر Artisan وكتابة كود PHP فعلي.</p>
+            <div class="mt-4 flex flex-wrap gap-3">
+                <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-bold">⏱ الوقت المتوقع: 90-120 دقيقة</span>
+                <span class="px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-xs font-bold">💻 يتطلب تشغيل الأوامر في Terminal</span>
+                <span class="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-bold">⭐ وزن الدرجة: 20% من تقييم الأسبوع</span>
+            </div>
+        </div>
+
+        <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl">
+            <h2 class="text-2xl font-black text-slate-900 mb-6">خطوات الواجب التفصيلية</h2>
+
+            <div class="step-box">
+                <h3 class="text-lg font-bold text-sky-800 mb-2">الخطوة 1: إنشاء مشروع Laravel (إن لم يكن موجوداً)</h3>
+                <div class="terminal">$ composer create-project laravel/laravel flowpilot<br>$ cd flowpilot</div>
+                <p class="text-xs text-slate-500 mt-2">تأكد من إعداد ملف .env للاتصال بقاعدة البيانات <code>flowpilot</code>.</p>
+            </div>
+
+            <div class="step-box">
+                <h3 class="text-lg font-bold text-sky-800 mb-2">الخطوة 2: إنشاء 4 ملفات Migration</h3>
+                <div class="terminal">$ php artisan make:migration create_projects_table<br>$ php artisan make:migration create_tasks_table<br>$ php artisan make:migration create_teams_table<br>$ php artisan make:migration create_project_user_table</div>
+                <p class="text-xs text-slate-500 mt-2">تأكد من ظهور 4 ملفات جديدة في <code>database/migrations/</code>.</p>
+            </div>
+
+            <div class="step-box">
+                <h3 class="text-lg font-bold text-sky-800 mb-2">الخطوة 3: كتابة كود Migration لجدول projects</h3>
+                <p class="text-slate-600 text-sm">افتح ملف <code>create_projects_table.php</code> واكتب الكود التالي داخل <code>up()</code>:</p>
+                <div class="code-block">
+                    Schema::create('projects', function (Blueprint $table) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$table->id();<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$table->foreignId('user_id')->constrained()->cascadeOnDelete();<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$table->string('name');<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$table->text('description')->nullable();<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$table->string('status')->default('pending');<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$table->date('deadline')->nullable();<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$table->timestamps();<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;$table->softDeletes();<br>
+                    });<br>
+                    // في down(): Schema::dropIfExists('projects');
+                </div>
+            </div>
+
+            <div class="step-box">
+                <h3 class="text-lg font-bold text-sky-800 mb-2">الخطوة 4: كتابة كود Migration لجدول tasks</h3>
+                <p class="text-slate-600 text-sm">في <code>create_tasks_table.php</code>، أضف الأعمدة: id, project_id (FK), assigned_to (FK, nullable), title, description (nullable), status (default 'pending'), priority (enum: low, medium, high, critical, default 'medium'), due_date (nullable), timestamps, softDeletes.</p>
+            </div>
+
+            <div class="step-box">
+                <h3 class="text-lg font-bold text-sky-800 mb-2">الخطوة 5: كتابة Migration لجدول teams و project_user</h3>
+                <p class="text-slate-600 text-sm">جدول teams: id, owner_id (FK → users), name, description (nullable), timestamps.</p>
+                <p class="text-slate-600 text-sm">جدول project_user (Pivot): id, project_id (FK), user_id (FK), role (nullable), joined_at (nullable), timestamps.</p>
+            </div>
+
+            <div class="step-box">
+                <h3 class="text-lg font-bold text-sky-800 mb-2">الخطوة 6: إنشاء Seeders</h3>
+                <div class="terminal">$ php artisan make:seeder UserSeeder<br>$ php artisan make:seeder ProjectSeeder<br>$ php artisan make:seeder TaskSeeder</div>
+                <p class="text-slate-600 text-sm mt-2">في UserSeeder: استخدم <code>User::create()</code> لإنشاء 3 مستخدمين (أسماء عربية: أحمد، سارة، محمد).</p>
+            </div>
+
+            <div class="step-box">
+                <h3 class="text-lg font-bold text-sky-800 mb-2">الخطوة 7: إنشاء Factories</h3>
+                <div class="terminal">$ php artisan make:factory ProjectFactory<br>$ php artisan make:factory TaskFactory</div>
+                <p class="text-slate-600 text-sm mt-2">في ProjectFactory: استخدم <code>fake()->sentence(3)</code> للاسم، <code>fake()->paragraph(2)</code> للوصف، <code>fake()->randomElement()</code> للحالة، <code>fake()->dateTimeBetween()</code> للتاريخ.</p>
+            </div>
+
+            <div class="step-box">
+                <h3 class="text-lg font-bold text-sky-800 mb-2">الخطوة 8: ربط كل شيء في DatabaseSeeder</h3>
+                <p class="text-slate-600 text-sm">في <code>DatabaseSeeder.php</code>:</p>
+                <div class="code-block">
+                    $this->call([<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;UserSeeder::class,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;ProjectSeeder::class,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;TaskSeeder::class,<br>
+                    ]);
+                </div>
+                <p class="text-slate-600 text-sm mt-2">في ProjectSeeder، استخدم الـ Factory لإنشاء 10 مشاريع للمستخدم الأول.</p>
+            </div>
+
+            <div class="step-box">
+                <h3 class="text-lg font-bold text-sky-800 mb-2">الخطوة 9: تنفيذ كل شيء</h3>
+                <div class="terminal">$ php artisan migrate:fresh --seed</div>
+                <p class="text-slate-600 text-sm mt-2">يجب أن تظهر رسالة نجاح. تحقق من قاعدة البيانات أن الجداول والبيانات موجودة.</p>
+            </div>
+
+            <div class="step-box">
+                <h3 class="text-lg font-bold text-sky-800 mb-2">الخطوة 10: التحقق والتصدير</h3>
+                <p class="text-slate-600 text-sm">استخدم <code>php artisan migrate:status</code> للتأكد من تنفيذ جميع Migrations. قم بعمل تصدير (Screenshot) لـ phpMyAdmin يظهر الجداول مع البيانات.</p>
+            </div>
+        </div>
+
+        <div class="card p-6 bg-white shadow-sm rounded-3xl">
+            <h2 class="text-xl font-black text-slate-900 mb-4">معايير التقييم (من 20 درجة)</h2>
+            <div class="space-y-3">
+                <div class="border-r-4 border-emerald-500 p-4 bg-emerald-50 rounded-xl flex justify-between items-center">
+                    <div><h4 class="font-bold text-emerald-800">اكتمال جميع Migrations (4 ملفات)</h4><p class="text-xs text-emerald-600">هل أنشأت جميع الجداول المطلوبة؟</p></div>
+                    <span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">5 درجات</span>
+                </div>
+                <div class="border-r-4 border-emerald-500 p-4 bg-emerald-50 rounded-xl flex justify-between items-center">
+                    <div><h4 class="font-bold text-emerald-800">صحة الأعمدة والمفاتيح الأجنبية</h4><p class="text-xs text-emerald-600">هل الأعمدة صحيحة مع أنواع البيانات المناسبة؟</p></div>
+                    <span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">4 درجات</span>
+                </div>
+                <div class="border-r-4 border-emerald-500 p-4 bg-emerald-50 rounded-xl flex justify-between items-center">
+                    <div><h4 class="font-bold text-emerald-800">Seeders تعمل بشكل صحيح</h4><p class="text-xs text-emerald-600">هل توجد بيانات بعد تشغيل db:seed؟</p></div>
+                    <span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">4 درجات</span>
+                </div>
+                <div class="border-r-4 border-emerald-500 p-4 bg-emerald-50 rounded-xl flex justify-between items-center">
+                    <div><h4 class="font-bold text-emerald-800">Factories مع Faker</h4><p class="text-xs text-emerald-600">هل تستخدم Factories مع بيانات وهمية؟</p></div>
+                    <span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">3 درجات</span>
+                </div>
+                <div class="border-r-4 border-emerald-500 p-4 bg-emerald-50 rounded-xl flex justify-between items-center">
+                    <div><h4 class="font-bold text-emerald-800">DatabaseSeeder منظم</h4><p class="text-xs text-emerald-600">هل تم ترتيب استدعاء Seeders بشكل صحيح؟</p></div>
+                    <span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">2 درجات</span>
+                </div>
+                <div class="border-r-4 border-emerald-500 p-4 bg-emerald-50 rounded-xl flex justify-between items-center">
+                    <div><h4 class="font-bold text-emerald-800">توثيق وصور</h4><p class="text-xs text-emerald-600">هل أرفقت صوراً للنتيجة؟</p></div>
+                    <span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">2 درجات</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-6 bg-gradient-to-l from-amber-500 to-orange-500 text-white shadow-xl rounded-3xl">
+            <h2 class="text-2xl font-black mb-4">⭐ التحدي الإضافي</h2>
+            <ol class="list-decimal pr-6 mt-4 space-y-3 text-amber-50">
+                <li>أضف 3 حقول إضافية في جدول project_user: <code>hourly_rate</code> (decimal), <code>is_manager</code> (boolean), <code>notes</code> (text).</li>
+                <li>أنشئ Seeder يضيف 5 أعضاء لكل مشروع بشكل عشوائي.</li>
+                <li>استخدم <code>fake()->imageUrl()</code> في ProjectFactory لإضافة رابط صورة وهمي.</li>
+                <li>أنشئ Migration رابع لإضافة عمود <code>color</code> (string) إلى جدول projects بعد إنشائه. استخدم <code>php artisan make:migration add_color_to_projects_table</code>.</li>
             </ol>
         </div>
-    </div>
+
+        <div class="card p-6 bg-white shadow-sm rounded-3xl">
+            <h2 class="text-xl font-black text-slate-900 mb-4">📤 دليل التسليم</h2>
+            <ol class="list-decimal pr-6 space-y-2 text-slate-600">
+                <li>قم بتصدير ملف SQL لقاعدة البيانات (من phpMyAdmin أو <code>mysqldump</code>)</li>
+                <li>خذ لقطة شاشة تظهر جداول قاعدة البيانات في phpMyAdmin</li>
+                <li>خذ لقطة شاشة لأمر <code>php artisan migrate:status</code></li>
+                <li>ضع جميع الملفات (Migrations, Seeders, Factories) و الصور في مجلد مضغوط باسم <code>week-03-lesson-02-yourname.zip</code></li>
+                <li>ارفع على Google Drive وأرسل الرابط</li>
+            </ol>
+        </div>
+    </section>
 </main>
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">© 2025 FlowPilot Academy. Migrations هي أساس أي تطبيق Laravel قوي.</footer>
+<script src="../../../assets/js/app.js"></script>
 </body>
 </html>

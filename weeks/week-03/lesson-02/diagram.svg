@@ -1,1 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="240" viewBox="0 0 900 240"><defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#0f172a"/></marker></defs><rect width="900" height="240" rx="28" fill="#ffffff"/><text x="450" y="40" text-anchor="middle" font-size="24" font-weight="700" font-family="Tahoma" fill="#111827">Migrations وSeeders وFactories للمبتدئين</text><rect x="40" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="105" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">الفكرة</text><rect x="210" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="275" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">Laravel</text><rect x="380" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="445" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">Inertia</text><rect x="550" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="615" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">React</text><rect x="720" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="785" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">FlowPilot</text><path d="M 170 115 L 205 115" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M 340 115 L 375 115" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M 510 115 L 545 115" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M 680 115 L 715 115" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><text x="450" y="205" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#64748b">مخطط مبسط يوضح انتقال الفكرة من الشرح النظري إلى التطبيق العملي داخل FlowPilot</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <rect width="800" height="400" fill="#f8fafc" rx="20"/>
+  <text x="400" y="35" text-anchor="middle" font-family="Tajawal, sans-serif" font-weight="900" font-size="22" fill="#0f172a">مخطط سير عمل Migrations + Seeders + Factories</text>
+  <text x="400" y="55" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#64748b" font-size="13">من الكود إلى قاعدة البيانات: الرحلة الكاملة</text>
+
+  <!-- Step 1: make:migration -->
+  <rect x="30" y="80" width="200" height="60" rx="10" fill="#fff" stroke="#6366f1" stroke-width="2"/>
+  <text x="130" y="105" text-anchor="middle" font-family="Tajawal, sans-serif" font-weight="800" fill="#4338ca" font-size="13">php artisan</text>
+  <text x="130" y="125" text-anchor="middle" font-family="monospace" font-weight="bold" fill="#6366f1" font-size="12">make:migration</text>
+  <text x="500" y="100" font-family="Tajawal, sans-serif" fill="#475569" font-size="11">ينشئ ملف PHP في database/migrations/</text>
+
+  <!-- Arrow -->
+  <path d="M 230 110 L 280 110" stroke="#64748b" stroke-width="2" marker-end="url(#a)" fill="none"/>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker></defs>
+
+  <!-- Step 2: Migration File -->
+  <rect x="290" y="80" width="200" height="60" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+  <text x="390" y="103" text-anchor="middle" font-family="Tajawal, sans-serif" font-weight="800" fill="#4338ca" font-size="13">📄 ملف Migration</text>
+  <text x="390" y="122" text-anchor="middle" font-family="monospace" fill="#6366f1" font-size="10">Schema::create()</text>
+  <text x="510" y="100" font-family="Tajawal, sans-serif" fill="#475569" font-size="11">نكتب الأعمدة والعلاقات</text>
+
+  <path d="M 490 110 L 540 110" stroke="#64748b" stroke-width="2" marker-end="url(#a)" fill="none"/>
+
+  <!-- Step 3: php artisan migrate -->
+  <rect x="550" y="80" width="200" height="60" rx="10" fill="#d1fae5" stroke="#10b981" stroke-width="2"/>
+  <text x="650" y="105" text-anchor="middle" font-family="Tajawal, sans-serif" font-weight="800" fill="#065f46" font-size="13">php artisan</text>
+  <text x="650" y="125" text-anchor="middle" font-family="monospace" font-weight="bold" fill="#10b981" font-size="12">migrate</text>
+  <text x="400" y="160" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#475569" font-size="11">يُنفّذ up() ويُنشئ الجداول في قاعدة البيانات</text>
+
+  <!-- Database icon -->
+  <rect x="320" y="190" width="160" height="80" rx="10" fill="#f0f9ff" stroke="#0ea5e9" stroke-width="2"/>
+  <ellipse cx="400" cy="210" rx="50" ry="12" fill="#0ea5e9" opacity="0.2"/>
+  <text x="400" y="233" text-anchor="middle" font-family="Tajawal, sans-serif" font-weight="900" fill="#0369a1" font-size="16">🗄️</text>
+  <text x="400" y="255" text-anchor="middle" font-family="Tajawal, sans-serif" font-weight="700" fill="#0369a1" font-size="12">قاعدة البيانات</text>
+
+  <!-- Arrows down from migrate to DB -->
+  <path d="M 650 140 L 650 180 L 490 180 L 490 187" stroke="#10b981" stroke-width="2" marker-end="url(#a)" fill="none" stroke-dasharray="4 2"/>
+
+  <!-- Seeder section -->
+  <rect x="30" y="260" width="200" height="55" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="130" y="283" text-anchor="middle" font-family="Tajawal, sans-serif" font-weight="800" fill="#92400e" font-size="13">php artisan make:seeder</text>
+  <text x="130" y="300" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#92400e" font-size="10">ينشئ Seeder</text>
+
+  <path d="M 230 287 L 280 287" stroke="#f59e0b" stroke-width="2" marker-end="url(#a)" fill="none"/>
+
+  <!-- Seeder file -->
+  <rect x="290" y="260" width="200" height="55" rx="10" fill="#fff" stroke="#f59e0b" stroke-width="2"/>
+  <text x="390" y="283" text-anchor="middle" font-family="Tajawal, sans-serif" font-weight="800" fill="#92400e" font-size="13">📄 Seeder + Factory</text>
+  <text x="390" y="300" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#92400e" font-size="10">Model::factory()->count(N)->create()</text>
+
+  <path d="M 490 287 L 530 287" stroke="#f59e0b" stroke-width="2" marker-end="url(#a)" fill="none"/>
+
+  <!-- db:seed -->
+  <rect x="540" y="260" width="200" height="55" rx="10" fill="#fce7f3" stroke="#ec4899" stroke-width="2"/>
+  <text x="640" y="283" text-anchor="middle" font-family="Tajawal, sans-serif" font-weight="800" fill="#be185d" font-size="13">php artisan db:seed</text>
+  <text x="640" y="300" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#be185d" font-size="10">يزرع البيانات في قاعدة البيانات</text>
+
+  <!-- Arrow from seed to DB -->
+  <path d="M 640 315 L 640 340 L 490 340 L 490 275" stroke="#ec4899" stroke-width="2" marker-end="url(#a)" fill="none" stroke-dasharray="4 2"/>
+
+  <!-- Bottom workflow summary -->
+  <rect x="30" y="355" width="740" height="35" rx="8" fill="#1e293b"/>
+  <text x="400" y="378" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#e2e8f0" font-size="12">
+    التدفق الكامل: make:migration → كتابة Schema → migrate → make:seeder/factory → كتابة البيانات → db:seed
+  </text>
+</svg>

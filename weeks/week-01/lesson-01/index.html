@@ -3,19 +3,21 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 1: تهيئة بيئة العمل وفهم خريطة المشروع</title>
+    <title>الدرس 1: تهيئة بيئة العمل وفهم خريطة مشروع FlowPilot</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../assets/css/style.css">
     <style>
         :root { font-family: 'Tajawal', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
         .sidebar-sticky { position: sticky; top: 5rem; }
         .step-card { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; transition: all 0.3s ease; }
+        code { direction: ltr; display: inline-block; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
@@ -32,16 +34,16 @@
 
 <main class="mx-auto max-w-7xl px-4 py-8">
     <div class="grid lg:grid-cols-4 gap-8">
-        <!-- Sidebar -->
         <aside class="hidden lg:block">
             <div class="sidebar-sticky space-y-4">
                 <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الأول</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">لماذا هذا الدرس؟</a>
+                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#why">لماذا هذا الدرس؟</a>
                     <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">الشرح النظري</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال من الواقع</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال من الحياة</a>
                     <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">في FlowPilot</a>
                     <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#code">شرح الكود</a>
                     <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">أخطاء شائعة</a>
                 </div>
                 <div class="space-y-2">
@@ -51,200 +53,376 @@
             </div>
         </aside>
 
-        <!-- Content -->
         <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
-            <!-- 1. Lesson Title -->
+            <!-- Title -->
             <section class="border-b pb-8 mb-12">
                 <span class="px-3 py-1 rounded-lg bg-indigo-50 text-indigo-700 font-bold text-xs uppercase tracking-widest">الأسبوع 1 · الدرس 1</span>
                 <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">تهيئة بيئة العمل وفهم خريطة طريق مشروع FlowPilot</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"تجهيز الأدوات هو الخطوة الأولى نحو النجاح. في هذا الدرس، سنبني الأساس المتين الذي ستقف عليه طوال الدورة."</p>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"قبل أن تبني ناطحة سحاب، تحتاج إلى أساس متين. هذا الدرس هو أساس رحلتك في عالم البرمجة."</p>
             </section>
 
-            <!-- 2. Introduction -->
-            <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">لماذا هذا الدرس مهم؟</h2>
+            <!-- Why -->
+            <section id="why" class="space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">لماذا هذا الدرس مهم جداً؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    تخيل أنك تريد بناء منزل، هل تبدأ بوضع الطوب مباشرة؟ بالطبع لا، يجب أولاً تمهيد الأرض وإحضار المعدات اللازمة. في عالم البرمجة، "تهيئة البيئة" هي عملية تجهيز جهازك بالأدوات (اللغات والبرامج) التي يفهمها الكمبيوتر لتشغيل كود Laravel و React.
+                    تخيل أنك اشتريت سيارة رياضية رائعة. أنت متحمس جداً لتجربتها. تضع المفتاح... ولا شيء يحدث! لماذا؟ لأنك نسيت أن تملأ البنزين وتشحن البطارية. هذا بالضبط ما يحدث عندما تحاول برمجة تطبيق دون تجهيز البيئة أولاً.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    بدون هذا الدرس، ستواجه رسائل خطأ محبطة لا علاقة لها بكودك البرمجي، بل بجهازك غير الجاهز. بنهاية هذا الدرس، سيكون جهازك مختبراً وجاهزاً للانطلاق في بناء مشروع FlowPilot.
+                    <strong class="text-indigo-600">بيئة العمل (Environment)</strong> هي مجموعة البرامج والأدوات المثبتة على جهاز الكمبيوتر الخاص بك والتي تسمح لك بكتابة وتشغيل التطبيقات البرمجية. في هذه الدورة، سنقوم ببناء مشروع اسمه <strong>FlowPilot</strong> - وهو تطبيق ويب متكامل لإدارة المشاريع. لكي نتمكن من بناء هذا التطبيق، نحتاج إلى تجهيز جهازنا بعدة أدوات أساسية.
+                </p>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    بنهاية هذا الدرس، سيكون جهازك مثل صندوق أدوات مكتمل: كل أداة في مكانها الصحيح، وجاهزة للاستخدام. ستوفر على نفسك ساعات من الإحباط لاحقاً عندما تبدأ في كتابة الكود.
                 </p>
             </section>
 
-            <!-- 3. Detailed Theory -->
+            <!-- Theory -->
             <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما الأدوات التي سنستخدمها ولماذا؟</h2>
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هي الأدوات التي سنستخدمها؟ شرح كل أداة بالتفصيل</h2>
+                
+                <p class="text-slate-600">دعنا نشرح كل أداة كما لو كنا في الصف الأول الابتدائي. كل مصطلح تقني سنشرحه بكلمات بسيطة:</p>
+                
                 <div class="grid md:grid-cols-2 gap-6 mt-8">
-                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-                        <h4 class="font-black text-indigo-600 text-lg mb-2">PHP & Laravel 12</h4>
-                        <p class="text-sm text-slate-600 leading-relaxed">PHP هي اللغة التي يُبنى بها الجزء الخلفي (Back-end)، و Laravel هو "إطار عمل" يوفر لنا أدوات جاهزة لتنظيم الكود، قواعد البيانات، والأمان، بدلاً من كتابة كل شيء من الصفر.</p>
+                    <div class="p-6 rounded-2xl bg-indigo-50 border border-indigo-100">
+                        <h3 class="font-black text-indigo-700 text-lg mb-2">1. PHP 8.2+</h3>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>PHP</strong> هي لغة برمجة - واللغة هي وسيلة التواصل مع الكمبيوتر. مثلما تتحدث العربية للتواصل مع الناس، تستخدم PHP لإعطاء أوامر للكمبيوتر. PHP هي اللغة التي كتب بها Laravel، وهو الإطار الذي سنستخدمه لبناء الجزء الخلفي من FlowPilot.
+                            <br><br>
+                            الرقم <strong>8.2+</strong> يعني أننا نحتاج الإصدار 8.2 أو أحدث. كل إصدار جديد يأتي بميزات أقوى وأمان أفضل.
+                        </p>
                     </div>
-                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-                        <h4 class="font-black text-indigo-600 text-lg mb-2">Node.js & NPM</h4>
-                        <p class="text-sm text-slate-600 leading-relaxed">نحتاجهما لتشغيل وإدارة مكتبات JavaScript مثل React. بدونهما لن نستطيع معالجة ملفات التصميم والواجهات الحديثة.</p>
+                    <div class="p-6 rounded-2xl bg-sky-50 border border-sky-100">
+                        <h3 class="font-black text-sky-700 text-lg mb-2">2. Composer</h3>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Composer</strong> هو "مدير الحزم" (Package Manager). تخيل أنك تريد بناء سيارة. هل ستصنع كل قطعة بنفسك (العجلات، المحرك، المقاعد)؟ بالطبع لا! ستشتري قطعاً جاهزة وتجمّعها. Composer يفعل نفس الشيء للبرمجة: يجلب لك قطعاً جاهزة (مكتبات برمجية) تحتاجها في مشروعك.
+                            <br><br>
+                            مثلاً: عندما نريد تثبيت Laravel، سنستخدم Composer ليقوم بتحميل كل ملفات Laravel إلى جهازنا.
+                        </p>
                     </div>
-                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-                        <h4 class="font-black text-indigo-600 text-lg mb-2">Composer</h4>
-                        <p class="text-sm text-slate-600 leading-relaxed">هو "مدير الحزم" الخاص بلغة PHP. وظيفته جلب الأدوات والمكتبات التي يحتاجها Laravel ليعمل بشكل صحيح.</p>
+                    <div class="p-6 rounded-2xl bg-emerald-50 border border-emerald-100">
+                        <h3 class="font-black text-emerald-700 text-lg mb-2">3. Node.js 18+</h3>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Node.js</strong> هو بيئة تشغيل لـ JavaScript خارج المتصفح. عادةً، JavaScript تعمل فقط في المتصفح (Chrome, Firefox). لكن Node.js تسمح لـ JavaScript بالعمل على جهازك مباشرة، مما يمكننا من تشغيل أدوات بناء الواجهات مثل React و Tailwind CSS.
+                            <br><br>
+                            <strong>NPM (Node Package Manager)</strong> يأتي مع Node.js. مثل Composer لكن لمكتبات JavaScript. NPM هو مخزن ضخم لملايين الأدوات الجاهزة.
+                        </p>
                     </div>
-                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-                        <h4 class="font-black text-indigo-600 text-lg mb-2">Git</h4>
-                        <p class="text-sm text-slate-600 leading-relaxed">هو نظام لتتبع التغييرات في كودك. يسمح لك بالعودة لإصدار قديم إذا حدث خطأ، والتعاون مع مبرمجين آخرين بسهولة.</p>
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h3 class="font-black text-rose-700 text-lg mb-2">4. Git</h3>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Git</strong> هو نظام "التحكم في الإصدارات" (Version Control System). كلمة طويلة، لكن معناها بسيط: Git يسجل تاريخ مشروعك بالكامل. كل تغيير تقوم به يسجل مع timestamp وتاريخ واسم الشخص.
+                            <br><br>
+                            تخيل أنك تكتب بحثاً مهماً، وفي اليوم الأخير تكتشف أنك حذفت فقرة مهمة بالخطأ. مع Git، يمكنك العودة لأي نسخة سابقة في ثانية!
+                        </p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-amber-50 border border-amber-100">
+                        <h3 class="font-black text-amber-700 text-lg mb-2">5. VS Code (محرر النصوص)</h3>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>VS Code</strong> هو برنامج تكتب فيه الكود. مثلما تكتب مقالاً في Word، تكتب الكود في VS Code. لكن VSCode ذكي: يلون الكود، يقترح تصحيحات، ويعرض الأخطاء فوراً.
+                            <br><br>
+                            سنستخدمه طوال الدورة لكتابة وتعديل كل ملفات FlowPilot.
+                        </p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-purple-50 border border-purple-100">
+                        <h3 class="font-black text-purple-700 text-lg mb-2">6. Terminal (شاشة الأوامر)</h3>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>Terminal</strong> هو نافذة سوداء تكتب فيها أوامر نصية للكمبيوتر. بدلاً من النقر على الأيقونات بالماوس، تكتب أوامر مثل <code>php -v</code> أو <code>git status</code>.
+                            <br><br>
+                            في البداية سيبدو مخيفاً، لكن صدقني، بعد أيام قليلة ستشعر وكأنك مخترق محترف وأنت تكتب الأوامر بسرعة!
+                        </p>
                     </div>
                 </div>
             </section>
 
-            <!-- 4. Real-life Example -->
+            <!-- Real-life Example -->
             <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
-                <h2 class="text-2xl font-black mb-4">مثال من حياتنا اليومية</h2>
-                <p class="text-indigo-50 leading-relaxed text-lg">
-                    يمكننا تشبيه تهيئة البيئة بتجهيز "مطبخ احترافي" قبل البدء في الطهي. 
-                    <br><br>
-                    - <strong>PHP</strong> هو الطباخ الرئيسي.
-                    <br>
-                    - <strong>Composer</strong> هو المساعد الذي يشتري المكونات (المكتبات).
-                    <br>
-                    - <strong>Node.js</strong> هو الفرن والأدوات الكهربائية التي تعالج المكونات بسرعة.
-                    <br>
-                    - <strong>Git</strong> هو كاميرا المراقبة التي تسجل كل خطوة لتعرف متى وكيف أفسدت الطبخة لتعيد إصلاحها!
-                </p>
+                <h2 class="text-2xl font-black mb-4">مثال من الحياة اليومية: "المطبخ الاحترافي"</h2>
+                <div class="text-indigo-50 leading-relaxed text-lg space-y-4">
+                    <p>لنقل أنك تريد فتح مطعم. المطعم يحتاج إلى:</p>
+                    <ul class="space-y-3 pr-6 text-indigo-100">
+                        <li><strong>الطباخ (PHP):</strong> هو المسؤول عن طهي الطعام. إذا لم يكن الطباخ موجوداً، لا يوجد مطعم أصلاً.</li>
+                        <li><strong>المساعد (Composer):</strong> يذهب لشراء المكونات (الخضار، اللحم، البهارات) من السوق (سوق Composer). هو من يجلب الأدوات الجاهزة التي يحتاجها الطباخ.</li>
+                        <li><strong>الأجهزة الكهربائية (Node.js):</strong> الفرن، الخلاط، الغسالة - هذه الأجهزة تساعد في تجهيز المكونات بسرعة. Node.js هو الذي يجهّز ويدير أدوات JavaScript.</li>
+                        <li><strong>كاميرا المراقبة (Git):</strong> تسجل كل لحظة في المطبخ. إذا أخطأ الطباخ وأحرق الطعام، نرجع للقطة السابقة ونحاول مرة أخرى.</li>
+                        <li><strong>الوصفات (VS Code):</strong> المكان الذي تكتب فيه خطوات الطبخ. تكتب الكود في VS Code ثم "تطبخه" باستخدام الأدوات الأخرى.</li>
+                    </ul>
+                    <p class="mt-6 text-indigo-200 font-bold text-base">بدون هذه الأدوات، حتى أفضل طباخ في العالم لا يستطيع طهي وجبة واحدة!</p>
+                </div>
             </section>
 
-            <!-- 5. Link to FlowPilot -->
+            <!-- FlowPilot Link -->
             <section id="flowpilot" class="mt-16">
                 <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">كيف يخدم هذا الدرس مشروع FlowPilot؟</h2>
                 <div class="mt-6 p-6 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-900">
                     <p class="leading-relaxed">
-                        مشروع <strong>FlowPilot</strong> هو منصة سحابية حقيقية. لكي نستطيع البدء في بناء "لوحة التحكم" أو "نظام المهام"، يجب أن يكون جهازك قادراً على تشغيل خادم محلي (Local Server). في هذا الدرس، نحن نضع حجر الأساس الذي سيسمح لنا لاحقاً بكتابة أول سطر كود في مشروعنا.
+                        مشروع <strong>FlowPilot</strong> هو تطبيق ويب يتكون من جزأين: <strong>الخلفية (Laravel)</strong> التي تدير قواعد البيانات والمستخدمين، و<strong>الواجهة (React)</strong> التي تظهر للمستخدم وتتفاعل معه.
+                    </p>
+                    <p class="leading-relaxed mt-4">
+                        لكي نتمكن من البدء في كتابة FlowPilot، نحتاج أولاً أن يكون جهازنا قادراً على تشغيل Laravel و React. هذا تماماً مثلما تحتاج إلى فرن لتخبز الكعكة - لا يمكنك البدء بدون تجهيز الفرن أولاً.
+                    </p>
+                    <p class="leading-relaxed mt-4 font-bold">
+                        في هذا الدرس، أنت لا تتعلم البرمجة فقط - أنت تبني المختبر الذي ستبرمج فيه. كل درس قادم سيعتمد على أن جهازك جاهز. إذا تخطيت هذا الدرس، فستواجه أخطاء غامضة في كل درس تالٍ.
                     </p>
                 </div>
             </section>
 
-            <!-- 6. Step-by-Step Practical -->
+            <!-- Practice -->
             <section id="practice" class="mt-16 space-y-12">
                 <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي خطوة بخطوة</h2>
 
                 <!-- Step 1 -->
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: التحقق من وجود PHP و Composer</h3>
-                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> التأكد من أن لغة البرمجة الأساسية ومدير حزمها مثبتان على جهازك.</p>
-                    <p class="text-slate-600 mb-4"><strong>لماذا؟</strong> Laravel يعتمد بالكامل على PHP ويحتاج لـ Composer لجلب ملفاته.</p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4">
-                        <p class="text-slate-500 mb-2"># اكتب هذه الأوامر في Terminal (شاشة الأوامر)</p>
-                        <p>php -v</p>
-                        <p>composer -v</p>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: فتح Terminal (شاشة الأوامر)</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> تعلم كيفية فتح واجهة الأوامر التي سنستخدمها لتنفيذ باقي الخطوات.</p>
+                    <div class="p-6 rounded-2xl bg-amber-50 border border-amber-100 mb-4">
+                        <p class="text-sm font-bold text-amber-800">شرح للمبتدئين: Terminal هي نافذة سوداء (أو بيضاء) تظهر لك وتنتظر منك كتابة أوامر. كل ما تكتبه وتضغط Enter ينفذه الكمبيوتر.</p>
                     </div>
-                    <p class="text-slate-500 text-sm italic">النتيجة المتوقعة: يجب أن تظهر أرقام الإصدارات (مثلاً PHP 8.2 أو أعلى).</p>
+                    <div class="p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
+                        <p class="font-bold mb-2">كيف تفتح Terminal على ويندوز:</p>
+                        <p>1. اضغط على زر <strong>Win + R</strong> (مفتاح ويندوز + حرف R).</p>
+                        <p>2. اكتب <code>cmd</code> ثم اضغط Enter.</p>
+                        <p>أو: اكتب "cmd" في قائمة ابدأ واضغط Enter.</p>
+                    </div>
                 </div>
 
                 <!-- Step 2 -->
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تثبيت Node.js و NPM</h3>
-                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> تجهيز بيئة تشغيل JavaScript لبناء واجهة React.</p>
-                    <p class="text-slate-600 mb-4"><strong>لماذا؟</strong> بدون Node.js، لن نستطيع استخدام Tailwind CSS أو React داخل مشروعنا.</p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4">
-                        <p>node -v</p>
-                        <p>npm -v</p>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: التحقق من وجود PHP</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> التأكد من أن PHP مثبتة على جهازك ومعرفة إصدارها.</p>
+                    <p class="text-slate-600 mb-4"><strong>لماذا؟</strong> Laravel (الذي سنستخدمه لبناء FlowPilot) يحتاج إلى PHP 8.2 أو أعلى.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4" dir="ltr">
+                        <p class="text-slate-500 mb-2 text-right font-sans"># اكتب هذا الأمر ثم اضغط Enter</p>
+                        <p>php -v</p>
                     </div>
-                    <p class="text-slate-500 text-sm italic">النتيجة المتوقعة: ظهور إصدارات Node (مثل v18+) و NPM (مثل v9+).</p>
+                    <div class="p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
+                        <p class="font-bold">النتيجة المتوقعة:</p>
+                        <p class="font-mono" dir="ltr">PHP 8.2.x (cli) (built: ...)</p>
+                        <p class="mt-2">إذا رأيت رقم إصدار يبدأ بـ 8.2 أو 8.3 أو 8.4، فهذا ممتاز! إذا رأيت رسالة <span class="text-rose-600 font-bold">'php' is not recognized</span>، فهذا يعني أن PHP غير مثبتة أو غير مضافة للمسار.</p>
+                    </div>
+                    <div class="mt-4 p-4 rounded-xl bg-emerald-50 border border-emerald-100 text-sm">
+                        <p class="font-bold text-emerald-800">شرح الأمر كلمة كلمة:</p>
+                        <ul class="text-emerald-700 space-y-1 mt-2">
+                            <li><code class="font-mono">php</code>: اسم البرنامج الذي نريد تشغيله (PHP).</li>
+                            <li><code class="font-mono">-v</code>: اختصار لـ "version". هذا "عَلَم" (flag) يطلب من PHP أن تعرض رقم إصدارها.</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <!-- Step 3 -->
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: تثبيت نظام Git</h3>
-                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> تفعيل نظام حفظ نسخ المشروع.</p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-sky-400 overflow-x-auto mb-4">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: التحقق من Composer</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> التأكد من أن Composer (مدير حزم PHP) مثبت ويعمل.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4" dir="ltr">
+                        <p>composer -v</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
+                        <p class="font-bold">النتيجة المتوقعة:</p>
+                        <p>ستظهر شاشة تحتوي على شعار Composer (رجل بقبعة) ورقم الإصدارة. هذا يعني أن Composer جاهز.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: التحقق من Node.js و NPM</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> التأكد من أن بيئة تشغيل JavaScript جاهزة.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-sky-400 overflow-x-auto mb-4" dir="ltr">
+                        <p>node -v</p>
+                        <p>npm -v</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
+                        <p class="font-bold">النتيجة المتوقعة:</p>
+                        <p>يجب أن ترى رقمين: Node.js (مثل v18.0.0 أو أعلى) و NPM (مثل v9.0.0 أو أعلى).</p>
+                    </div>
+                    <div class="mt-4 p-4 rounded-xl bg-emerald-50 border border-emerald-100 text-sm">
+                        <p class="font-bold text-emerald-800">شرح إضافي: لماذا نحتاج Node.js إذا كنا نبرمج بـ PHP؟</p>
+                        <p class="text-emerald-700">سؤال ممتاز! في مشروع FlowPilot، PHP هي لغة الخلفية (البيانات). لكن الواجهة التي يراها المستخدم مبنية بـ React، و React هي مكتبة JavaScript. Node.js هو ما يسمح لنا بتحويل كود React إلى شيء يفهمه المتصفح. بدون Node.js، لا يمكننا استخدام React أو Tailwind CSS.</p>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: التحقق من Git</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> التأكد من أن نظام حفظ النسخ جاهز.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-rose-400 overflow-x-auto mb-4" dir="ltr">
                         <p>git --version</p>
                     </div>
-                </div>
-            </section>
-
-            <!-- 7. Explained Code -->
-            <section id="code" class="mt-16">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">شرح الأوامر البرمجية</h2>
-                <div class="mt-8 space-y-4">
-                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
-                        <code class="text-indigo-600 font-bold block mb-2 text-left">php -v</code>
-                        <p class="text-sm text-slate-600 leading-relaxed">
-                            هذا الأمر يطلب من الكمبيوتر: "أرني نسخة لغة PHP المثبتة حالياً". 
-                            في مشروع <strong>FlowPilot</strong>، نحتاج لنسخة 8.2 على الأقل لأننا نستخدم <strong>Laravel 12</strong>.
-                        </p>
-                    </div>
-                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
-                        <code class="text-indigo-600 font-bold block mb-2 text-left">composer -v</code>
-                        <p class="text-sm text-slate-600 leading-relaxed">
-                            يتحقق من وجود مساعدك الشخصي (Composer). إذا ظهر شعار الرجل الذي يرتدي قبعة، فأنت في أمان!
-                        </p>
+                    <div class="p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
+                        <p class="font-bold">النتيجة المتوقعة:</p>
+                        <p class="font-mono" dir="ltr">git version 2.40.0.windows.1</p>
+                        <p class="mt-2">أي رقم إصدار هو جيد. المهم أن يظهر الأمر دون خطأ.</p>
                     </div>
                 </div>
-            </section>
 
-            <!-- 8. Expected Result -->
-            <section class="mt-16">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">النتيجة النهائية المتوقعة</h2>
-                <div class="mt-6 flex flex-col md:flex-row items-center gap-8">
-                    <div class="flex-1 space-y-4">
-                        <p class="text-slate-600 leading-relaxed">
-                            بعد تنفيذ هذه الخطوات، يجب أن يكون جهازك قادراً على التعرف على جميع هذه الأدوات من أي مكان في شاشة الأوامر (Terminal). 
-                        </p>
-                        <ul class="space-y-2 text-sm font-bold text-slate-700">
-                            <li class="flex gap-2">✅ لا توجد رسائل "Command Not Found"</li>
-                            <li class="flex gap-2">✅ إصدار PHP 8.2+</li>
-                            <li class="flex gap-2">✅ إصدار Node.js 18+</li>
+                <!-- Step 6 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 6: تثبيت VS Code والإضافات الأساسية</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> تثبيت محرر الكود الذي سنستخدمه طوال الدورة.</p>
+                    <p class="text-slate-600 mb-4"><strong>لماذا؟</strong> VS Code يساعدنا في كتابة الكود بشكل أسرع وأسهل. مع الإضافات (Extensions)، يصبح VS Code ذكياً جداً.</p>
+                    <div class="p-6 rounded-2xl bg-amber-50 border border-amber-100 mb-4">
+                        <p class="text-sm font-bold text-amber-800">ما هي الإضافة (Extension)؟ هي قطعة برمجية صغيرة تضيف خاصية جديدة لبرنامج VS Code. مثل إضافة تقويم لتطبيق الهاتف.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="font-bold text-slate-700">الإضافات المهمة التي سنحتاجها:</p>
+                        <ul class="space-y-1 text-sm text-slate-600 pr-6">
+                            <li>• <strong>PHP Intelephense</strong>: يفهم كود PHP ويصحح الأخطاء.</li>
+                            <li>• <strong>Laravel Extension Pack</strong>: إضافات متكاملة لتطوير Laravel.</li>
+                            <li>• <strong>ES7+ React/Redux/React-Native snippets</strong>: يساعد في كتابة كود React بسرعة.</li>
+                            <li>• <strong>Tailwind CSS IntelliSense</strong>: يقترح كلاسات Tailwind أثناء الكتابة.</li>
+                            <li>• <strong>GitLens</strong>: يظهر تاريخ Git مباشرة في VS Code.</li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <!-- 9. Common Errors -->
-            <section id="errors" class="mt-16">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-rose-600 pr-4">أخطاء شائعة للمبتدئين</h2>
+            <!-- Code Explanation -->
+            <section id="code" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">شرح تفصيلي للأوامر البرمجية</h2>
                 <div class="mt-8 space-y-6">
-                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
-                        <h4 class="font-black text-rose-700 mb-2">خطأ: 'php' is not recognized</h4>
-                        <p class="text-sm text-rose-900/70 leading-relaxed mb-4">هذا يعني أن الكمبيوتر لا يعرف أين قمت بتثبيت PHP.</p>
-                        <p class="text-sm font-black text-rose-900">الحل: تأكد من إضافة مسار PHP إلى "Environment Variables" في جهازك، أو أعد تثبيت البرنامج المستخدم (مثل XAMPP أو Herd) وتأكد من اختيار الخيارات الافتراضية.</p>
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
+                        <h4 class="font-black text-slate-900 mb-3">الأمر: <code class="text-indigo-600 font-bold" dir="ltr">php -v</code></h4>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>php</strong> هو اسم البرنامج القابل للتنفيذ (Executable). عندما تكتب <code>php</code> في Terminal، الكمبيوتر يبحث في مجلدات خاصة (تسمى PATH) عن برنامج اسمه "php.exe". إذا وجده، ينفذه. إذا لم يجده، يظهر الخطأ الشهير.
+                            <br><br>
+                            <strong>-v</strong> هو وسيط (Argument) يمرر للبرنامج. الفاصلة "v" تأتي من "version". معظم البرامج تستخدم <code>-v</code> أو <code>--version</code> لعرض الإصدار.
+                            <br><br>
+                            الأوامر في Terminal تتكون من جزأين أساسيين: <strong>اسم البرنامج</strong> + <strong>الوسائط</strong>.
+                        </p>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
+                        <h4 class="font-black text-slate-900 mb-3">الأمر: <code class="text-indigo-600 font-bold" dir="ltr">composer -v</code></h4>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            نفس فكرة الأمر السابق. <strong>composer</strong> هو برنامج مثبت على جهازك. Composer هو المسؤول عن إدارة مكتبات PHP.
+                            <br><br>
+                            تخيل أن Composer هو ساعي البريد: يذهب لمخزن ضخم اسمه <strong>Packagist</strong> (packagist.org)، ويجلب لك الطرود (المكتبات) التي تطلبها، ويضعها في مجلد مشروعك.
+                            <br><br>
+                            كل مشروع Laravel يعتمد على Composer. عندما نقول <code>composer create-project laravel/laravel flowpilot</code> في الدرس القادم، نحن نطلب من Composer أن يذهب إلى Packagist، يحمل أحدث نسخة من Laravel، ويضعها في مجلد اسمه <code>flowpilot</code>.
+                        </p>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
+                        <h4 class="font-black text-slate-900 mb-3">الأمر: <code class="text-indigo-600 font-bold" dir="ltr">node -v</code> و <code class="text-indigo-600 font-bold" dir="ltr">npm -v</code></h4>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>node</strong> هو محرك تشغيل JavaScript. عادةً، JavaScript تعمل فقط في المتصفح. لكن Node.js تسمح لـ JavaScript بالعمل على جهاز الكمبيوتر مباشرة - مثل تشغيل السيرفر، قراءة الملفات، وغيرها.
+                            <br><br>
+                            <strong>npm</strong> هي أداة إدارة الحزم الخاصة بـ JavaScript. عندما نريد إضافة React لمشروعنا، نكتب <code>npm install react</code>. npm يذهب لمخزن ضخم اسمه <strong>npm Registry</strong> (npmjs.com)، ويجلب React ويضيفه لمشروعنا.
+                            <br><br>
+                            الفرق بين Composer و NPM: Composer يدير حزم PHP، NPM يدير حزم JavaScript. كل أداة تخدم لغتها.
+                        </p>
                     </div>
                 </div>
             </section>
 
-            <!-- 10. Diagrams -->
-            <section id="visuals" class="mt-16">
+            <!-- Expected Result -->
+            <section class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">النتيجة المتوقعة بعد إتمام الدرس</h2>
+                <div class="mt-6 p-6 rounded-2xl border border-slate-200 bg-slate-50">
+                    <p class="text-slate-700 leading-relaxed mb-4">بعد تنفيذ جميع الخطوات، يجب أن يكون جهازك قادراً على:</p>
+                    <ul class="space-y-3 text-slate-700">
+                        <li class="flex items-center gap-3 p-3 rounded-xl bg-emerald-50 border border-emerald-100">
+                            <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-black">✓</span>
+                            <span>تشغيل PHP والتحقق من الإصدار (8.2+)</span>
+                        </li>
+                        <li class="flex items-center gap-3 p-3 rounded-xl bg-emerald-50 border border-emerald-100">
+                            <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-black">✓</span>
+                            <span>تشغيل Composer وجاهزيته لتحميل المكتبات</span>
+                        </li>
+                        <li class="flex items-center gap-3 p-3 rounded-xl bg-emerald-50 border border-emerald-100">
+                            <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-black">✓</span>
+                            <span>تشغيل Node.js و NPM لإدارة أدوات JavaScript</span>
+                        </li>
+                        <li class="flex items-center gap-3 p-3 rounded-xl bg-emerald-50 border border-emerald-100">
+                            <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-black">✓</span>
+                            <span>تشغيل Git لحفظ تقدم المشروع</span>
+                        </li>
+                        <li class="flex items-center gap-3 p-3 rounded-xl bg-emerald-50 border border-emerald-100">
+                            <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-black">✓</span>
+                            <span>VS Code مع إضافات Laravel و React و Tailwind مثبتة</span>
+                        </li>
+                        <li class="flex items-center gap-3 p-3 rounded-xl bg-emerald-50 border border-emerald-100">
+                            <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-black">✓</span>
+                            <span>لا توجد أي رسالة "Command Not Found" أو "is not recognized"</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Common Errors -->
+            <section id="errors" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-rose-600 pr-4">الأخطاء الشائعة للمبتدئين (مع الحلول)</h2>
+                <div class="mt-8 space-y-6">
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h4 class="font-black text-rose-700 mb-2">1. خطأ: 'php' is not recognized as an internal or external command</h4>
+                        <p class="text-sm text-rose-900 leading-relaxed mb-4"><strong>السبب:</strong> الكمبيوتر لا يعرف أين ملف PHP.exe. هذا يعني أن PHP غير مثبتة، أو مثبتة لكن Windows لا يعرف مكانها.</p>
+                        <p class="text-sm font-black text-rose-900">الحل: أسهل حل هو تثبيت <strong>XAMPP</strong> أو <strong>Laragon</strong> أو <strong>Herd</strong>. هذه برامج تثبت PHP و MySQL و Apache معاً وتضبط المسار تلقائياً. ننصح بـ Laravel Herd للمبتدئين لأنه مخصص لـ Laravel.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h4 class="font-black text-rose-700 mb-2">2. خطأ: composer is not recognized</h4>
+                        <p class="text-sm text-rose-900 leading-relaxed mb-4"><strong>السبب:</strong> نفس المشكلة مع Composer. إما غير مثبت أو غير مضاف للمسار.</p>
+                        <p class="text-sm font-black text-rose-900">الحل: اذهب لموقع <strong>getcomposer.org</strong> وحمل المثبت. أثناء التثبيت، تأكد من تحديد الخيار "Add Composer to PATH".</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h4 class="font-black text-rose-700 mb-2">3. خطأ: node is not recognized</h4>
+                        <p class="text-sm text-rose-900 leading-relaxed mb-4"><strong>السبب:</strong> Node.js غير مثبت.</p>
+                        <p class="text-sm font-black text-rose-900">الحل: اذهب لموقع <strong>nodejs.org</strong> وحمل الإصدار LTS (Long Term Support - الإصدار المستقر طويل الدعم). الإصدارات LTS هي الأكثر أماناً واستقراراً.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h4 class="font-black text-rose-700 mb-2">4. مشكلة: النسخة قديمة جداً (PHP 7.x أو Node 12)</h4>
+                        <p class="text-sm text-rose-900 leading-relaxed mb-4"><strong>السبب:</strong> الأدوات المثبتة أقدم مما نحتاجه. Laravel 12 يحتاج PHP 8.2+.</p>
+                        <p class="text-sm font-black text-rose-900">الحل: أعد تثبيت PHP من خلال Laragon/Laravel Herd، أو استخدم <strong>php.net</strong> لتحميل أحدث إصدار. تأكد من حذف الإصدار القديم أولاً لتجنب التعارض.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h4 class="font-black text-rose-700 mb-2">5. خطأ شائع: تنزيل برامج خاطئة</h4>
+                        <p class="text-sm text-rose-900 leading-relaxed mb-4"><strong>السبب:</strong> بعض المواقع المزيفة تقدم برامج ضارة. أو تنزيل نسخة PHP غير الصحيحة (مثل PHP 8.2 بدلاً من PHP 8.2 + Thread Safe).</p>
+                        <p class="text-sm font-black text-rose-900">الحل: استخدم الروابط الرسمية فقط: php.net، getcomposer.org، nodejs.org، git-scm.com، code.visualstudio.com. لا تثق بأي رابط آخر.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diagrams -->
+            <section class="mt-16">
                 <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">مخططات توضيحية</h2>
                 <div class="grid md:grid-cols-2 gap-8 mt-8">
                     <div class="card p-4 text-center space-y-4">
                         <img src="diagram.svg" alt="Technical Diagram" class="w-full rounded-xl border">
-                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط العلاقة التقنية</p>
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط يوضح علاقة الأدوات ببعضها في بيئة العمل</p>
                     </div>
                     <div class="card p-4 text-center space-y-4">
-                        <img src="visual-example.svg" alt="Teaching Diagram" class="w-full rounded-xl border">
-                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">التشبيه البصري للأدوات</p>
+                        <img src="visual-example.svg" alt="Analogy Diagram" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">تشبيه المطبخ الاحترافي لفهم دور كل أداة</p>
                     </div>
                 </div>
             </section>
 
-            <!-- 13. Summary -->
+            <!-- Summary -->
             <section class="mt-16 p-10 rounded-[2.5rem] bg-slate-900 text-white">
                 <h2 class="text-2xl font-black mb-6">ملخص الدرس</h2>
                 <div class="grid md:grid-cols-3 gap-8">
-                    <div class="space-y-2">
+                    <div class="space-y-3">
                         <h4 class="text-indigo-400 font-black uppercase text-xs tracking-widest">ماذا تعلمنا؟</h4>
-                        <p class="text-sm text-slate-400 leading-relaxed">تعرفنا على الأدوات الأساسية (PHP, Composer, Node, Git) وكيفية التحقق منها.</p>
+                        <ul class="text-sm text-slate-400 space-y-2">
+                            <li>• PHP هي لغة الخلفية، نحتاج 8.2+</li>
+                            <li>• Composer يدير مكتبات PHP</li>
+                            <li>• Node.js + NPM يديران أدوات JavaScript</li>
+                            <li>• Git يحفظ تاريخ المشروع</li>
+                            <li>• VS Code هو محرر الكود الذكي</li>
+                        </ul>
                     </div>
-                    <div class="space-y-2">
+                    <div class="space-y-3">
                         <h4 class="text-indigo-400 font-black uppercase text-xs tracking-widest">لماذا هو مهم؟</h4>
-                        <p class="text-sm text-slate-400 leading-relaxed">لأنها الأدوات التي ستبني وتدير كود FlowPilot طوال فترة الدورة.</p>
+                        <p class="text-sm text-slate-400 leading-relaxed">بدون هذه الأدوات، لا يمكننا تشغيل Laravel أو React. هذا الدرس يضمن أن جهازك "يتحدث" نفس لغة الأدوات التي سنستخدمها لبناء FlowPilot.</p>
                     </div>
-                    <div class="space-y-2">
+                    <div class="space-y-3">
                         <h4 class="text-indigo-400 font-black uppercase text-xs tracking-widest">الخطوة القادمة</h4>
-                        <p class="text-sm text-slate-400 leading-relaxed">سنقوم بتثبيت مشروع Laravel 12 الأول وربطه بـ React فعلياً!</p>
+                        <p class="text-sm text-slate-400 leading-relaxed">في الدرس القادم، سنستخدم هذه الأدوات لإنشاء أول مشروع Laravel حقيقي، ونربطه بـ React عبر Inertia.js.</p>
                     </div>
+                </div>
+                <div class="mt-8 p-4 rounded-xl bg-slate-800 text-center">
+                    <p class="text-sm text-amber-400 font-bold">تذكير: إذا واجهت أي خطأ في تثبيت الأدوات، عد لهذا الدرس وراجع "الأخطاء الشائعة" أعلاه.</p>
                 </div>
             </section>
 
+            <!-- Navigation -->
             <div class="mt-12 flex justify-between gap-4">
                 <span></span>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 hover:-translate-x-2 transition-all shadow-xl shadow-indigo-100" href="../../week-01/lesson-02/index.html">الدرس التالي: تثبيت Laravel & React ←</a>
+                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 hover:-translate-x-2 transition-all shadow-xl shadow-indigo-100" href="../../week-01/lesson-02/index.html">الدرس التالي: تثبيت Laravel و React ←</a>
             </div>
         </article>
     </div>
@@ -252,10 +430,9 @@
 
 <footer class="mt-24 border-t bg-white">
     <div class="mx-auto max-w-7xl px-4 py-8 text-center text-slate-400 text-sm font-medium">
-        © 2025 FlowPilot Academy. المحتوى مصمم خصيصاً لتعليم المبتدئين.
+        © 2025 FlowPilot Academy. المحتوى مصمم خصيصاً لتعليم المبتدئين من الصفر.
     </div>
 </footer>
 
-<script src="../../../assets/js/app.js"></script>
 </body>
 </html>

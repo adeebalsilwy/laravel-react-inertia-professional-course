@@ -1,28 +1,58 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
   <rect width="800" height="400" fill="#f8fafc" rx="20"/>
-  
-  <!-- CRUD Cycle -->
-  <circle cx="400" cy="220" r="120" fill="none" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="10 5"/>
-  
-  <g transform="translate(340, 60)">
-    <rect width="120" height="60" rx="10" fill="#10b981" />
-    <text x="60" y="35" text-anchor="middle" fill="white" font-weight="bold">Create</text>
-  </g>
-  
-  <g transform="translate(560, 190)">
-    <rect width="120" height="60" rx="10" fill="#3b82f6" />
-    <text x="60" y="35" text-anchor="middle" fill="white" font-weight="bold">Read</text>
-  </g>
-  
-  <g transform="translate(340, 320)">
-    <rect width="120" height="60" rx="10" fill="#f59e0b" />
-    <text x="60" y="35" text-anchor="middle" fill="white" font-weight="bold">Update</text>
-  </g>
-  
-  <g transform="translate(120, 190)">
-    <rect width="120" height="60" rx="10" fill="#ef4444" />
-    <text x="60" y="35" text-anchor="middle" fill="white" font-weight="bold">Delete</text>
-  </g>
-  
-  <text x="400" y="40" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="24" fill="#0f172a">دورة حياة البيانات (CRUD)</text>
+  <text x="400" y="45" text-anchor="middle" font-family="Tajawal, Arial" font-weight="800" font-size="24" fill="#0f172a">دورة حياة البيانات CRUD</text>
+  <text x="400" y="72" text-anchor="middle" font-family="Tajawal, Arial" font-size="14" fill="#64748b">أربع عمليات أساسية تدير بها أي بيانات في تطبيق الويب</text>
+
+  <!-- Center circle -->
+  <circle cx="400" cy="230" r="100" fill="#eef2ff" stroke="#6366f1" stroke-width="3"/>
+  <text x="400" y="220" text-anchor="middle" font-family="Tajawal, Arial" font-weight="700" font-size="20" fill="#6366f1">قاعدة</text>
+  <text x="400" y="250" text-anchor="middle" font-family="Tajawal, Arial" font-weight="700" font-size="20" fill="#6366f1">البيانات</text>
+  <text x="400" y="270" text-anchor="middle" font-family="Tajawal, Arial" font-size="12" fill="#94a3b8">MySQL / PostgreSQL</text>
+
+  <!-- Create - Top -->
+  <rect x="310" y="100" width="180" height="60" rx="15" fill="#10b981"/>
+  <text x="400" y="125" text-anchor="middle" fill="white" font-family="Tajawal, Arial" font-weight="700" font-size="18">إنشاء Create</text>
+  <text x="400" y="148" text-anchor="middle" fill="white" font-family="Tajawal, Arial" font-size="12">POST /projects</text>
+  <line x1="400" y1="160" x2="400" y2="200" stroke="#10b981" stroke-width="3" marker-end="url(#green)"/>
+
+  <!-- Read - Right -->
+  <rect x="610" y="215" width="180" height="60" rx="15" fill="#3b82f6"/>
+  <text x="700" y="240" text-anchor="middle" fill="white" font-family="Tajawal, Arial" font-weight="700" font-size="18">قراءة Read</text>
+  <text x="700" y="263" text-anchor="middle" fill="white" font-family="Tajawal, Arial" font-size="12">GET /projects</text>
+  <line x1="610" y1="245" x2="570" y2="245" stroke="#3b82f6" stroke-width="3" marker-end="url(#blue)"/>
+
+  <!-- Update - Bottom -->
+  <rect x="310" y="330" width="180" height="60" rx="15" fill="#f59e0b"/>
+  <text x="400" y="355" text-anchor="middle" fill="white" font-family="Tajawal, Arial" font-weight="700" font-size="18">تحديث Update</text>
+  <text x="400" y="378" text-anchor="middle" fill="white" font-family="Tajawal, Arial" font-size="12">PUT /projects/id</text>
+  <line x1="400" y1="330" x2="400" y2="290" stroke="#f59e0b" stroke-width="3" marker-end="url(#yellow)"/>
+
+  <!-- Delete - Left -->
+  <rect x="10" y="215" width="180" height="60" rx="15" fill="#ef4444"/>
+  <text x="100" y="240" text-anchor="middle" fill="white" font-family="Tajawal, Arial" font-weight="700" font-size="18">حذف Delete</text>
+  <text x="100" y="263" text-anchor="middle" fill="white" font-family="Tajawal, Arial" font-size="12">DELETE /projects/id</text>
+  <line x1="190" y1="245" x2="230" y2="245" stroke="#ef4444" stroke-width="3" marker-end="url(#red)"/>
+
+  <!-- Arrows between operations -->
+  <path d="M490 130 Q600 130 610 215" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 4"/>
+  <path d="M610 275 Q600 360 490 360" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 4"/>
+  <path d="M310 360 Q200 360 190 275" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 4"/>
+  <path d="M190 215 Q200 130 310 130" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 4"/>
+
+  <!-- Legend at bottom -->
+  <rect x="180" y="70" width="12" height="12" fill="#10b981"/>
+  <text x="195" y="81" font-family="Tajawal, Arial" font-size="11" fill="#475569">إنشاء</text>
+  <rect x="280" y="70" width="12" height="12" fill="#3b82f6"/>
+  <text x="295" y="81" font-family="Tajawal, Arial" font-size="11" fill="#475569">قراءة</text>
+  <rect x="380" y="70" width="12" height="12" fill="#f59e0b"/>
+  <text x="395" y="81" font-family="Tajawal, Arial" font-size="11" fill="#475569">تحديث</text>
+  <rect x="480" y="70" width="12" height="12" fill="#ef4444"/>
+  <text x="495" y="81" font-family="Tajawal, Arial" font-size="11" fill="#475569">حذف</text>
+
+  <defs>
+    <marker id="green" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#10b981"/></marker>
+    <marker id="blue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#3b82f6"/></marker>
+    <marker id="yellow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#f59e0b"/></marker>
+    <marker id="red" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#ef4444"/></marker>
+  </defs>
 </svg>

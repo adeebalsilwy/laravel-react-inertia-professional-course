@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 22: البحث والفلاتر المتقدمة</title>
+    <title>الدرس 22: البحث والفلاتر المتقدمة | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +13,8 @@
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
         .step-card { border-right: 4px solid #4f46e5; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .error-card { border-right: 4px solid #ef4444; padding-right: 1.5rem; margin-bottom: 1.5rem; background: #fef2f2; border-radius: 1rem; padding: 1rem 1.5rem; }
+        .code-line { display: block; padding: 0.125rem 0; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
@@ -29,10 +31,14 @@
             <div class="sidebar-sticky space-y-4">
                 <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع السادس</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم البحث</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">الاستعلام المتغير</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال الفهرس</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">ما هو البحث والفلاتر؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">where() و LIKE</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#analogy">تشبيه المكتبة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">الربط مع FlowPilot</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#steps">6 خطوات تطبيقية</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#explain">شرح الكود</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#result">النتيجة المتوقعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">الأخطاء الشائعة</a>
                 </div>
             </div>
         </aside>
@@ -40,64 +46,260 @@
         <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm">
             <section class="border-b pb-8 mb-12">
                 <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 6 · الدرس 2</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">البحث والفلاتر: كيف نساعد المستخدم في الوصول لبياناته؟</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"عندما يزداد عدد المشاريع، يصبح البحث هو الأداة الأهم للمستخدم؛ لنتعلم كيف نبنيه باحترافية."</p>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">البحث والفلاتر المتقدمة: كيف نجد أي شيء بثوانٍ؟</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"لم يعد أحد يبحث يدوياً. تعلم كيف تبني محرك بحث ذكي لمشاريع FlowPilot."</p>
             </section>
 
             <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">لماذا نحتاج للبحث؟</h2>
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هو البحث والفلاتر المتقدمة؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    تخيل أن لدى شركتك 200 مشروع. هل سيبحث المستخدم يدوياً في القائمة؟ بالتأكيد لا. يحتاج المستخدم لكتابة اسم المشروع أو اختيار حالته (مثل "منجز") لتظهر له النتائج فوراً.
+                    <strong>البحث (Search)</strong> يعني إدخال كلمة (مثل "تصميم") لنجد كل المشاريع التي تحتوي على هذه الكلمة في اسمها أو وصفها.
+                    <strong>الفلاتر (Filters)</strong> هي اختيارات مثل "حالة = مكتمل" أو "تاريخ = هذا الأسبوع".
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    في FlowPilot، سنبني محرك بحث داخلي ذكي يستخدم قوة Laravel في الخلفية وسرعة React في الواجهة.
+                    في Laravel، نستخدم <strong>Query Builder</strong> (أداة بناء الاستعلامات) لإنشاء استعلامات SQL ديناميكية (تتغير حسب ما يختاره المستخدم).
                 </p>
+                <div class="bg-indigo-50 rounded-2xl p-6 mt-4">
+                    <p class="font-bold text-indigo-800">📌 مصطلحات المبتدئ:</p>
+                    <ul class="list-disc pr-6 mt-2 space-y-1 text-indigo-700">
+                        <li><strong>where()</strong>: دالة تضيف شرطاً للاستعلام (مثل WHERE في SQL).</li>
+                        <li><strong>orWhere()</strong>: دالة تضيف شرطاً "أو" (OR).</li>
+                        <li><strong>LIKE</strong>: عامل (Operator) في SQL للبحث عن نص داخل حقل.</li>
+                        <li><strong>when()</strong>: دالة Laravel ذكية تنفذ الكود فقط إذا تحقق الشرط.</li>
+                        <li><strong>Preserve State</strong>: الحفاظ على حالة البحث عند التنقل بين صفحات النتائج.</li>
+                    </ul>
+                </div>
             </section>
 
             <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">الاستعلامات المشروطة (Conditional Queries)</h2>
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">كيف يعمل البحث باختصار؟</h2>
                 <p class="text-slate-600 leading-relaxed">
-                    بدلاً من قول <code>Project::all()</code>، سنقول لـ Laravel: "أحضر لي المشاريع <strong>إذا</strong> كان اسمها يحتوي على كلمة البحث، <strong>وإذا</strong> كانت حالتها تساوي القيمة التي اختارها المستخدم".
+                    بدلاً من كتابة استعلام SQL ثابت مثل:
                 </p>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
+                    <p class="code-line"><span class="text-slate-500">// SQL عادي: يجيب كل المشاريع</span></p>
+                    <p class="code-line"><span class="text-indigo-400">SELECT</span> * <span class="text-indigo-400">FROM</span> projects;</p>
+                </div>
+                <p class="text-slate-600 leading-relaxed">
+                    نكتب استعلاماً "ذكياً" يضيف الشروط حسب ما يرسله المستخدم:
+                </p>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                    <p class="code-line"><span class="text-slate-500">// إذا كتب المستخدم "تصميم" + اختار "مكتمل"</span></p>
+                    <p class="code-line"><span class="text-indigo-400">SELECT</span> * <span class="text-indigo-400">FROM</span> projects</p>
+                    <p class="code-line"><span class="text-indigo-400">WHERE</span> name <span class="text-indigo-400">LIKE</span> <span class="text-emerald-400">'%تصميم%'</span></p>
+                    <p class="code-line"><span class="text-indigo-400">AND</span> status = <span class="text-emerald-400">'completed'</span>;</p>
+                </div>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
-                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (فهرس المكتبة)</h2>
+            <section id="analogy" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">🧪 تشبيه واقعي: فهرس المكتبة الذكي</h2>
                 <p class="text-indigo-50 leading-relaxed text-lg">
-                    تخيل أنك في مكتبة ضخمة. 
+                    تخيل مكتبة ضخمة تحتوي على 10,000 كتاب. كيف تجد كتاباً معيناً؟
                     <br><br>
-                    - <strong>البحث:</strong> هو كتابة "اسم المؤلف" لتجد كتبه فقط.
+                    - <strong>البحث (Search):</strong> تكتب اسم المؤلف "نجيب محفوظ" → تظهر كل كتبه.
                     <br>
-                    - <strong>الفلترة:</strong> هي اختيار "قسم التاريخ" لترى فقط الكتب التاريخية.
+                    - <strong>الفلتر (Filter):</strong> تختار "قسم الروايات" → تظهر رواياته فقط.
+                    <br>
+                    - <strong>الجمع:</strong> تبحث عن "نجيب محفوظ" + تختار "روايات" + "سنة 1950" → نتيجة محددة جداً.
                     <br><br>
-                    نحن سنبني هذا الفهرس الذكي لبيانات FlowPilot اليوم!
+                    هذا بالضبط ما سنبنيه لبيانات FlowPilot!
                 </p>
             </section>
 
-            <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي</h2>
+            <section id="flowpilot" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">🔗 الربط مع FlowPilot</h2>
+                <div class="bg-gradient-to-l from-indigo-50 to-white rounded-2xl p-6">
+                    <p class="text-slate-700 leading-relaxed">في صفحة المشاريع، نريد أن نعطي المستخدم القدرة على:</p>
+                    <ul class="list-disc pr-6 mt-3 space-y-2 text-slate-600">
+                        <li>كتابة اسم مشروع في صندوق البحث (Search box).</li>
+                        <li>اختيار حالة: <code>active</code> أو <code>completed</code> أو <code>archived</code>.</li>
+                        <li>تحديد نطاق تاريخي: من تاريخ - إلى تاريخ.</li>
+                        <li>اختيار أولوية للمهام: <code>high</code> أو <code>medium</code> أو <code>low</code>.</li>
+                        <li>كل هذه الخيارات تبقى محفوظة عند التنقل بين الصفحات (Preserve State).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="steps" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">🛠 6 خطوات تطبيقية عملية</h2>
 
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: استخدام when في Laravel</h3>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: استقبال معاملات البحث من الـ Request</h3>
+                    <p class="text-slate-500 text-sm mb-3">في <code>ProjectController</code>، نستقبل المدخلات من المستخدم:</p>
                     <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
-                        <p>$query = Project::query();</p>
-                        <p>$query->when($request->search, function ($q, $search) {</p>
-                        <p>&nbsp;&nbsp;$q->where('name', 'like', "%{$search}%");</p>
-                        <p>});</p>
+                        <p class="code-line"><span class="text-indigo-400">public function</span> <span class="text-yellow-300">index</span>(<span class="text-sky-300">Request</span> $request)</p>
+                        <p class="code-line">{</p>
+                        <p class="code-line">  $search = $request-><span class="text-yellow-300">input</span>(<span class="text-emerald-400">'search'</span>);</p>
+                        <p class="code-line">  $status = $request-><span class="text-yellow-300">input</span>(<span class="text-emerald-400">'status'</span>);</p>
+                        <p class="code-line">  $dateFrom = $request-><span class="text-yellow-300">input</span>(<span class="text-emerald-400">'date_from'</span>);</p>
+                        <p class="code-line">  <span class="text-slate-500">// ... باقي الفلاتر</span></p>
+                        <p class="code-line">}</p>
+                    </div>
+                    <p class="text-slate-600"><strong>الشرح:</strong> <code>$request->input('search')</code> تجلب قيمة حقل <code>search</code> المرسل من الواجهة. إذا لم يرسل المستخدم قيمة، ترجع <code>null</code>.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: بناء الاستعلام باستخدام when()</h3>
+                    <p class="text-slate-500 text-sm mb-3">نستخدم <code>when()</code> لبناء استعلام ديناميكي:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <p class="code-line">$projects = <span class="text-sky-300">Project</span>::<span class="text-yellow-300">query</span>()</p>
+                        <p class="code-line">  -><span class="text-yellow-300">when</span>($search, <span class="text-indigo-400">function</span> ($q, $search) {</p>
+                        <p class="code-line">    $q-><span class="text-yellow-300">where</span>(<span class="text-emerald-400">'name'</span>, <span class="text-emerald-400">'like'</span>, <span class="text-emerald-400">"%{$search}%"</span>);</p>
+                        <p class="code-line">  })</p>
+                        <p class="code-line">  -><span class="text-yellow-300">when</span>($status, <span class="text-indigo-400">function</span> ($q, $status) {</p>
+                        <p class="code-line">    $q-><span class="text-yellow-300">where</span>(<span class="text-emerald-400">'status'</span>, $status);</p>
+                        <p class="code-line">  })</p>
+                        <p class="code-line">  -><span class="text-yellow-300">paginate</span>(10);</p>
+                    </div>
+                    <p class="text-slate-600"><strong>الشرح:</strong> <code>when(condition, callback)</code> تشبه "IF" في PHP. إذا كان <code>$search</code> غير فارغ (ليس null أو empty)، ينفذ الـ callback ويضيف <code>WHERE name LIKE '%search%'</code>. إذا كان فارغاً، يتجاوز الشرط كلياً.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: إضافة فلتر التاريخ (Date Range)</h3>
+                    <p class="text-slate-500 text-sm mb-3">للبحث بين تاريخين (من - إلى):</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <p class="code-line">-><span class="text-yellow-300">when</span>($dateFrom, <span class="text-indigo-400">function</span> ($q, $dateFrom) <span class="text-indigo-400">use</span> ($dateTo) {</p>
+                        <p class="code-line">  $q-><span class="text-yellow-300">whereDate</span>(<span class="text-emerald-400">'created_at'</span>, <span class="text-emerald-400">'&gt;='</span>, $dateFrom);</p>
+                        <p class="code-line">  <span class="text-indigo-400">if</span> ($dateTo) {</p>
+                        <p class="code-line">    $q-><span class="text-yellow-300">whereDate</span>(<span class="text-emerald-400">'created_at'</span>, <span class="text-emerald-400">'&lt;='</span>, $dateTo);</p>
+                        <p class="code-line">  }</p>
+                        <p class="code-line">})</p>
+                    </div>
+                    <p class="text-slate-600"><strong>الشرح:</strong> <code>whereDate()</code> تقارن التواريخ. <code>&gt;=</code> يعني "أكبر من أو يساوي" (من تاريخ البدء). <code>&lt;=</code> يعني "أصغر من أو يساوي" (حتى تاريخ الانتهاء).</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: البحث في حقول متعددة بـ orWhere()</h3>
+                    <p class="text-slate-500 text-sm mb-3">للبحث في الاسم والوصف معاً:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <p class="code-line">-><span class="text-yellow-300">when</span>($search, <span class="text-indigo-400">function</span> ($q, $search) {</p>
+                        <p class="code-line">  $q-><span class="text-yellow-300">where</span>(<span class="text-emerald-400">'name'</span>, <span class="text-emerald-400">'like'</span>, <span class="text-emerald-400">"%{$search}%"</span>)</p>
+                        <p class="code-line">    -><span class="text-yellow-300">orWhere</span>(<span class="text-emerald-400">'description'</span>, <span class="text-emerald-400">'like'</span>, <span class="text-emerald-400">"%{$search}%"</span>);</p>
+                        <p class="code-line">})</p>
+                    </div>
+                    <p class="text-slate-600"><strong>الشرح:</strong> <code>orWhere()</code> تضيف شرط OR. يعني: "اسمه يحتوي على search<strong> أو</strong> وصفه يحتوي على search".</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: إرسال معاملات البحث للواجهة (Preserve State)</h3>
+                    <p class="text-slate-500 text-sm mb-3">نمرر معاملات البحث إلى Inertia للحفاظ عليها:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <p class="code-line"><span class="text-indigo-400">return</span> <span class="text-yellow-300">Inertia::render</span>(<span class="text-emerald-400">'Projects/Index'</span>, [</p>
+                        <p class="code-line">  <span class="text-sky-300">'projects'</span> => ProjectResource::collection($projects),</p>
+                        <p class="code-line">  <span class="text-sky-300">'filters'</span> => $request-><span class="text-yellow-300">only</span>([<span class="text-emerald-400">'search'</span>, <span class="text-emerald-400">'status'</span>, <span class="text-emerald-400">'date_from'</span>, <span class="text-emerald-400">'date_to'</span>]),</p>
+                        <p class="code-line">]);</p>
+                    </div>
+                    <p class="text-slate-600"><strong>الشرح:</strong> <code>$request->only()</code> ترجع مصفوفة (Array) تحتوي فقط على الحقول المحددة. نرسلها للواجهة كـ <code>filters</code> لتستخدمها في React للحفاظ على القيم في صندوق البحث والفلاتر.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 6: الحفاظ على الفلاتر في الترقيم (Pagination)</h3>
+                    <p class="text-slate-500 text-sm mb-3">نضيف <code>appends()</code> لروابط الصفحات:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <p class="code-line">$projects = Project::query()</p>
+                        <p class="code-line">  -><span class="text-yellow-300">when</span>(...)</p>
+                        <p class="code-line">  -><span class="text-yellow-300">paginate</span>(10)</p>
+                        <p class="code-line">  -><span class="text-yellow-300">appends</span>($request-><span class="text-yellow-300">only</span>([<span class="text-emerald-400">'search'</span>, <span class="text-emerald-400">'status'</span>]));</p>
+                    </div>
+                    <p class="text-slate-600"><strong>الشرح:</strong> <code>appends()</code> تضيف معاملات البحث إلى روابط الترقيم (Paginate links). مثلاً: <code>?page=2&search=تصميم&status=active</code>. بدونها، ستفقد معاملات البحث عند الانتقال للصفحة التالية.</p>
+                </div>
+            </section>
+
+            <section id="explain" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">🔍 شرح الكود سطراً سطراً</h2>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto text-right">
+                    <p class="code-line text-white"><span class="text-slate-400">// when($search, fn($q, $search) => ...)</span></p>
+                    <p class="code-line text-white"><span class="text-slate-400">// ▶</span> if(isset($search) && $search != '') { ... }</p>
+                    <p class="code-line text-white"><span class="text-slate-400">// $q->where('name', 'like', "%{$search}%")</span></p>
+                    <p class="code-line text-white"><span class="text-slate-400">// ▶</span> WHERE name LIKE '%تصميم%'</p>
+                    <p class="code-line text-white"><span class="text-slate-400">// ->paginate(10)</span></p>
+                    <p class="code-line text-white"><span class="text-slate-400">// ▶</span> LIMIT 10 OFFSET (page-1)*10</p>
+                    <p class="code-line text-white"><span class="text-slate-400">// $request->only(['search', 'status'])</span></p>
+                    <p class="code-line text-white"><span class="text-slate-400">// ▶</span> ['search' => 'تصميم', 'status' => 'active']</p>
+                </div>
+            </section>
+
+            <section id="result" class="mt-16 p-8 rounded-3xl bg-emerald-50 border border-emerald-200">
+                <h2 class="text-2xl font-black text-slate-900 mb-4">✅ النتيجة المتوقعة</h2>
+                <p class="text-slate-600 mb-4">عند فتح صفحة المشاريع في FlowPilot، سيظهر:</p>
+                <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                    <li>صندوق بحث (Search Input) يبحث في اسم المشروع ووصفه.</li>
+                    <li>قائمة منسدلة (Dropdown) لاختيار الحالة (الكل/نشط/مكتمل/مؤرشف).</li>
+                    <li>منتقي تاريخ (Date Picker) من - إلى.</li>
+                    <li>قائمة مشاريع محدثة بناءً على الفلاتر.</li>
+                    <li>أزرار ترقيم تحافظ على الفلاتر (لن تفقد البحث عند التنقل بين الصفحات).</li>
+                </ul>
+            </section>
+
+            <section id="errors" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">⚠️ الأخطاء الشائعة (4+)</h2>
+
+                <div class="error-card">
+                    <p class="font-black text-red-700">❌ الخطأ 1: نسيان appends() مع الترقيم</p>
+                    <p class="text-red-600 text-sm mt-1"><strong>المشكلة:</strong> عند النقر على صفحة 2، تختفي كلمة البحث وتظهر كل المشاريع.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> أضف <code>->appends($request->only(['search', 'status']))</code> بعد paginate().</p>
+                </div>
+
+                <div class="error-card">
+                    <p class="font-black text-red-700">❌ الخطأ 2: استخدام where بدلاً of orWhere للبحث في عدة حقول</p>
+                    <p class="text-red-600 text-sm mt-1"><strong>المشكلة:</strong> كتابة <code>where('name', 'like', ...)</code> ثم <code>where('description', 'like', ...)</code> بدون orWhere. هذا يجعل SQL يطلب <strong>كلا</strong> الشرطين معاً (AND)، ولن يعثر على نتائج.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> استخدم <code>orWhere()</code> للبحث في الاسم <strong>أو</strong> الوصف.</p>
+                </div>
+
+                <div class="error-card">
+                    <p class="font-black text-red-700">❌ الخطأ 3: عدم التحقق من تاريخ null</p>
+                    <p class="text-red-600 text-sm mt-1"><strong>المشكلة:</strong> إذا لم يحدد المستخدم تاريخ "إلى"، وأرسلته للاستعلام، سيبحث عن تاريخ فارغ ولن تظهر نتائج.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> تأكد من وجود قيمة <code>if ($dateTo) { ... }</code> قبل إضافة الشرط.</p>
+                </div>
+
+                <div class="error-card">
+                    <p class="font-black text-red-700">❌ الخطأ 4: عدم حماية الاستعلام من SQL Injection</p>
+                    <p class="text-red-600 text-sm mt-1"><strong>المشكلة:</strong> استخدام <code>"%{$search}%"</code> مباشرة مع LIKE قد يسمح بحقن SQL الخبيث.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> Laravel Query Builder يحمي تلقائياً من SQL Injection. لكن تجنب استخدام <code>DB::raw()</code> مع إدخال المستخدم دون تنظيف.</p>
+                </div>
+
+                <div class="error-card">
+                    <p class="font-black text-red-700">❌ الخطأ 5: إرسال الفلاتر إلى Inertia ولكن لا تستخدمها في React</p>
+                    <p class="text-red-600 text-sm mt-1"><strong>المشكلة:</strong> ترسل <code>filters</code> من Laravel ولكن صفحة React لا تقرأها ولا تضعها في input.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> في React، استخدم <code>usePage().props.filters</code> لقراءة الفلاتر ووضعها كـ <code>defaultValue</code> في inputs.</p>
+                </div>
+            </section>
+
+            <section id="diagrams" class="mt-16 space-y-8">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">📊 الرسوم البيانية</h2>
+                <div class="grid gap-6">
+                    <div>
+                        <p class="text-sm font-bold text-slate-500 mb-2">مخطط: تدفق البحث والفلاتر</p>
+                        <img src="diagram.svg" alt="مخطط البحث والفلاتر" class="w-full rounded-2xl border border-slate-200">
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-slate-500 mb-2">مثال توضيحي: قبل وبعد تطبيق الفلاتر</p>
+                        <img src="visual-example.svg" alt="مثال توضيحي" class="w-full rounded-2xl border border-slate-200">
                     </div>
                 </div>
             </section>
 
+            <section class="mt-16 p-8 rounded-3xl bg-slate-900 text-white">
+                <h2 class="text-2xl font-black mb-4">📝 الخلاصة</h2>
+                <ul class="space-y-3 text-slate-300 leading-relaxed">
+                    <li>✅ نستخدم <code>when()</code> لبناء استعلامات ديناميكية تتغير حسب مدخلات المستخدم.</li>
+                    <li>✅ <code>LIKE</code> مع <code>% %</code> يسمح بالبحث الجزئي داخل النصوص.</li>
+                    <li>✅ <code>appends()</code> تحافظ على معاملات البحث في الترقيم.</li>
+                    <li>✅ نمرر <code>filters</code> إلى Inertia للحفاظ على حالة الواجهة (Preserve State).</li>
+                    <li>✅ في FlowPilot: نبحث في المشاريع والمهام حسب الاسم والحالة والتاريخ والأولوية.</li>
+                </ul>
+            </section>
+
             <div class="mt-12 flex justify-between gap-4">
                 <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-01/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../../week-06/lesson-03/index.html">الدرس التالي: التنبيهات ←</a>
+                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../lesson-03/index.html">الدرس التالي: التنبيهات ←</a>
             </div>
         </article>
     </div>
 </main>
 
 <footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
-    © 2025 FlowPilot Academy. البحث السهل يجعل المستخدم سعيداً.
+    © 2025 FlowPilot Academy. بحث ذكي = مستخدم سعيد.
 </footer>
 
 <script src="../../../assets/js/app.js"></script>

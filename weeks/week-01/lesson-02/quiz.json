@@ -1,14 +1,26 @@
 {
   "lesson": 2,
-  "title": "تثبيت Laravel 12 وربطه بـ React وInertia",
+  "title": "تثبيت Laravel 12 وربطه بـ React و Inertia",
   "questions": [
     {
-      "q": "ما أهم هدف من الدرس؟",
-      "answer": "فهم المفهوم وتطبيقه داخل FlowPilot"
+      "q": "ما هو Inertia.js؟ اشرح بجملتين",
+      "answer": "Inertia.js هو جسر (Bridge) يربط Laravel بـ React. يسمح ببناء تطبيقات SPA (صفحة واحدة) دون الحاجة إلى بناء واجهة API منفصلة، حيث يقوم Laravel بتحضير البيانات و Inertia يمررها مباشرة لمكونات React."
     },
     {
-      "q": "لماذا نكتب خطوات عملية مفصلة؟",
-      "answer": "حتى يفهم الطالب الهدف والمكان والكود والنتيجة"
+      "q": "لماذا نستخدم Breeze بدلاً من تثبيت Inertia و React يدوياً؟",
+      "answer": "Breeze هو Starter Kit يوفر الوقت. بأمر واحد، يضيف Inertia، React، Tailwind، ونظام مصادقة كامل. لو فعلناها يدوياً، كنا سنحتاج 15-20 دقيقة من التهيئة اليدوية."
+    },
+    {
+      "q": "ما الفرق بين php artisan serve و npm run dev؟",
+      "answer": "php artisan serve يشغل خادم Laravel (PHP) المسؤول عن المنطق والبيانات. npm run dev يشغل Vite (JavaScript) المسؤول عن معالجة وعرض الواجهات (React + CSS). كلاهما يجب أن يعمل في نفس الوقت."
+    },
+    {
+      "q": "أين توجد صفحات React في مشروع Laravel؟",
+      "answer": "في مجلد resources/js/Pages/. كل ملف .jsx في هذا المجلد يمثل صفحة كاملة يمكن لـ Inertia عرضها."
+    },
+    {
+      "q": "ماذا يعني الاختصار SPA؟ ولماذا هو مهم؟",
+      "answer": "SPA = Single Page Application (تطبيق بصفحة واحدة). يعني أن التنقل بين الصفحات يحدث دون إعادة تحميل المتصفح، مما يجعل التطبيق أسرع ويشبه تطبيقات الموبايل. Inertia يجعل Laravel + React يعملان كـ SPA."
     }
   ]
 }

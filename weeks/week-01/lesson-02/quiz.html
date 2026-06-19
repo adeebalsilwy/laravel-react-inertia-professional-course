@@ -3,55 +3,204 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>كويز الدرس 2: تكامل التقنيات</title>
+    <title>كويز الدرس 2: تثبيت Laravel وربطه بـ React</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; }
+        code { direction: ltr; display: inline-block; }
+        .correct { background: #ecfdf5 !important; border-color: #10b981 !important; color: #065f46 !important; }
+        .wrong { background: #fef2f2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
-        <a href="../../../index.html" class="font-black text-2xl text-slate-900">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
 </header>
 
-<main class="mx-auto max-w-3xl px-4 py-12">
-    <a class="font-black text-indigo-700 hover:underline" href="index.html">← العودة للدرس</a>
+<main class="mx-auto max-w-3xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة للدرس</a>
     
-    <div class="mt-8 space-y-12">
+    <div class="space-y-12">
         <div class="text-center space-y-4">
-            <h1 class="text-3xl font-black">كويز الربط الذكي (Lesson 02)</h1>
-            <p class="text-slate-600 italic">"كيف يعمل FlowPilot من الداخل؟ اختبر ذكاءك البرمجي."</p>
+            <h1 class="text-3xl font-black">اختبر فهمك: Laravel + React + Inertia</h1>
+            <p class="text-slate-600">أجب عن الأسئلة ثم اضغط "تصحيح الإجابات".</p>
         </div>
 
         <div id="quiz-container" class="space-y-8">
-            <!-- Question 1 -->
-            <div class="card p-8 space-y-6 shadow-sm">
-                <p class="font-black text-xl leading-relaxed">1. ما هو الدور الأساسي لـ Inertia.js في مشروعنا؟</p>
+            <!-- MCQ 1 -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="1" data-answer="b">
+                <p class="font-black text-xl leading-relaxed">1. ما هو الدور الأساسي لـ Inertia.js في تطبيق FlowPilot؟</p>
                 <div class="space-y-3">
-                    <button onclick="checkAnswer(this, false)" class="w-full text-right p-4 rounded-2xl border-2 border-slate-100 hover:border-indigo-300 transition-all font-bold">بناء قاعدة البيانات</button>
-                    <button onclick="checkAnswer(this, true)" class="w-full text-right p-4 rounded-2xl border-2 border-slate-100 hover:border-indigo-300 transition-all font-bold">العمل كجسر يربط Laravel بصفحات React دون تعقيد APIs</button>
-                    <button onclick="checkAnswer(this, false)" class="w-full text-right p-4 rounded-2xl border-2 border-slate-100 hover:border-indigo-300 transition-all font-bold">تصميم الألوان والخطوط</button>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="a" class="hidden">
+                        <span>أ) إدارة قاعدة بيانات MySQL</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="b" class="hidden">
+                        <span>ب) العمل كجسر بين Laravel (الخلفية) و React (الواجهة) ينقل البيانات بينهما</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="c" class="hidden">
+                        <span>ج) تصميم الألوان والخطوط في الموقع</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="d" class="hidden">
+                        <span>د) ترجمة الكود من PHP إلى JavaScript</span>
+                    </label>
                 </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: Inertia.js يربط Laravel بـ React دون الحاجة لبناء APIs منفصلة. عندما يطلب المستخدم صفحة، Laravel يجهز البيانات، Inertia يمررها، و React يعرضها - كل هذا بسلاسة.</p>
             </div>
 
-            <!-- Question 2 -->
-            <div class="card p-8 space-y-6 shadow-sm">
-                <p class="font-black text-xl leading-relaxed">2. لماذا نحتاج لتشغيل `npm run dev` أثناء التطوير؟</p>
+            <!-- MCQ 2 -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="2" data-answer="c">
+                <p class="font-black text-xl leading-relaxed">2. أي أمر تستخدم لإنشاء مشروع Laravel جديد باسم "flowpilot"؟</p>
                 <div class="space-y-3">
-                    <button onclick="checkAnswer(this, true)" class="w-full text-right p-4 rounded-2xl border-2 border-slate-100 hover:border-indigo-300 transition-all font-bold">لأنها تشغل محرّك Vite المسؤول عن عرض تغييرات React و Tailwind فوراً</button>
-                    <button onclick="checkAnswer(this, false)" class="w-full text-right p-4 rounded-2xl border-2 border-slate-100 hover:border-indigo-300 transition-all font-bold">لأنها تقوم بنسخ الكود إلى الإنترنت</button>
-                    <button onclick="checkAnswer(this, false)" class="w-full text-right p-4 rounded-2xl border-2 border-slate-100 hover:border-indigo-300 transition-all font-bold">لأنها تحذف الملفات القديمة من الجهاز</button>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="a" class="hidden">
+                        <span>أ) npm create laravel flowpilot</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="b" class="hidden">
+                        <span>ب) php new laravel flowpilot</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="c" class="hidden">
+                        <span>ج) composer create-project laravel/laravel flowpilot</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="d" class="hidden">
+                        <span>د) git clone laravel/laravel flowpilot</span>
+                    </label>
                 </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: Composer هو مدير حزم PHP، و create-project هو أمره لإنشاء مشروع جديد من حزمة موجودة. laravel/laravel هو اسم الحزمة في Packagist.</p>
             </div>
 
-            <!-- Score Display -->
-            <div class="card p-8 space-y-6 text-center bg-slate-900 text-white">
-                <p class="font-black text-xl uppercase tracking-widest text-indigo-400">النتيجة</p>
-                <div id="score" class="text-6xl font-black">--</div>
+            <!-- MCQ 3 -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="3" data-answer="a">
+                <p class="font-black text-xl leading-relaxed">3. ماذا يفعل الأمر <code class="text-sm">php artisan serve</code>؟</p>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="a" class="hidden">
+                        <span>أ) يشغل خادماً محلياً (Local Server) لتطبيق Laravel على http://localhost:8000</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="b" class="hidden">
+                        <span>ب) ينشئ قاعدة بيانات جديدة للمشروع</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="c" class="hidden">
+                        <span>ج) يفتح VS Code تلقائياً</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="d" class="hidden">
+                        <span>د) يرفع المشروع على الإنترنت مباشرة</span>
+                    </label>
+                </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: php artisan serve يشغل خادم PHP المدمج. هذا يسمح لك برؤية تطبيقك في المتصفح محلياً (على جهازك فقط). للرفع للإنترنت هناك طرق أخرى (مثل Laravel Forge).</p>
+            </div>
+
+            <!-- MCQ 4 -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="4" data-answer="d">
+                <p class="font-black text-xl leading-relaxed">4. ما وظيفة ملف <code>routes/web.php</code> في Laravel؟</p>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="a" class="hidden">
+                        <span>أ) تخزين كلمة مرور قاعدة البيانات</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="b" class="hidden">
+                        <span>ب) تنسيق شكل الصفحات (CSS)</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="c" class="hidden">
+                        <span>ج) إدارة مكتبات JavaScript</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="d" class="hidden">
+                        <span>د) تحديد أي رابط (URL) يقود لأي صفحة أو وظيفة في التطبيق</span>
+                    </label>
+                </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: ملف routes/web.php يحتوي على جميع مسارات (URLs) تطبيقك. مثلاً، Route::get('/') يحدد ماذا يحدث عندما يزور المستخدم الصفحة الرئيسية. Laravel يقرأ هذا الملف لتوجيه الطلبات.</p>
+            </div>
+
+            <!-- MCQ 5 -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="5" data-answer="b">
+                <p class="font-black text-xl leading-relaxed">5. لماذا نحتاج إلى تشغيل <code class="text-sm">npm run dev</code> بجانب <code class="text-sm">php artisan serve</code>؟</p>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="a" class="hidden">
+                        <span>أ) لتشغيل قاعدة البيانات</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="b" class="hidden">
+                        <span>ب) لتشغيل أداة Vite التي تعالج ملفات React و CSS وتعرضها في المتصفح بشكل حي</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="c" class="hidden">
+                        <span>ج) لحذف الملفات المؤقتة من المشروع</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="d" class="hidden">
+                        <span>د) إنشاء ملفات جديدة تلقائياً</span>
+                    </label>
+                </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: Vite هي أداة بناء JavaScript حديثة. تقوم بتحويل كود React (JSX) إلى JavaScript عادي يفهمه المتصفح. كما أنها تراقب تغييرات الكود وتحدث المتصفح تلقائياً (Hot Reload).</p>
+            </div>
+
+            <!-- T/F 6 -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="6" data-answer="true">
+                <p class="font-black text-xl leading-relaxed">6. صح أم خطأ: Breeze هو قالب جاهز يضيف نظام مصادقة (تسجيل دخول) و Inertia مع React تلقائياً.</p>
+                <div class="flex gap-4">
+                    <label class="flex-1 text-center p-4 rounded-xl border-2 border-slate-100 hover:border-emerald-300 cursor-pointer transition-all font-bold">
+                        <input type="radio" name="q6" value="true" class="hidden"> صح
+                    </label>
+                    <label class="flex-1 text-center p-4 rounded-xl border-2 border-slate-100 hover:border-rose-300 cursor-pointer transition-all font-bold">
+                        <input type="radio" name="q6" value="false" class="hidden"> خطأ
+                    </label>
+                </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: صح. Laravel Breeze هو "Starter Kit" (قالب بداية). بأمر واحد <code>php artisan breeze:install react</code>، يضيف Inertia، React، Tailwind، ونظام تسجيل دخول كامل.</p>
+            </div>
+
+            <!-- T/F 7 -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="7" data-answer="false">
+                <p class="font-black text-xl leading-relaxed">7. صح أم خطأ: يمكن العمل على FlowPilot بنافذة Terminal واحدة فقط.</p>
+                <div class="flex gap-4">
+                    <label class="flex-1 text-center p-4 rounded-xl border-2 border-slate-100 hover:border-emerald-300 cursor-pointer transition-all font-bold">
+                        <input type="radio" name="q7" value="true" class="hidden"> صح
+                    </label>
+                    <label class="flex-1 text-center p-4 rounded-xl border-2 border-slate-100 hover:border-rose-300 cursor-pointer transition-all font-bold">
+                        <input type="radio" name="q7" value="false" class="hidden"> خطأ
+                    </label>
+                </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: خطأ. نحتاج نافذتين: الأولى لتشغيل Laravel (<code>php artisan serve</code>) والثانية لتشغيل Vite (<code>npm run dev</code>). يمكنك فتح نافذتين في نفس Terminal أو استخدام علامتي تبويب (Tabs).</p>
+            </div>
+
+            <!-- Theory 8 -->
+            <div class="card p-8 space-y-6 shadow-sm">
+                <p class="font-black text-xl leading-relaxed">8. سؤال نظري: اشرح بأسلوبك الخاص العلاقة بين Laravel و Inertia و React. استخدم تشبيه المطعم أو أي تشبيه آخر.</p>
+                <textarea class="w-full p-4 rounded-xl border-2 border-slate-100 outline-none focus:border-indigo-300 text-sm" rows="4" placeholder="اكتب إجابتك هنا..."></textarea>
+                <p class="explain hidden text-sm text-indigo-600 font-bold">مثال للإجابة: Laravel هو المطبخ (يجهز البيانات والوجبات)، React هو صالة الطعام (المكان الذي يراه الزبون)، Inertia هو النادل (يأخذ الطلب للمطبخ ويعود بالوجبة للزبون). بدون النادل، الزبون سيضطر للذهاب للمطبخ بنفسه.</p>
+            </div>
+
+            <!-- Practical 9 -->
+            <div class="card p-8 space-y-6 shadow-sm">
+                <p class="font-black text-xl leading-relaxed">9. سؤال تطبيقي: لنفترض أنك في Terminal داخل مجلد flowpilot. ما الأمر الذي تكتبه لتشغيل خادم التطوير المحلي؟</p>
+                <input type="text" class="w-full p-4 rounded-xl border-2 border-slate-100 outline-none focus:border-indigo-300 font-mono text-sm" placeholder="اكتب الأمر هنا..." dir="ltr">
+                <p class="explain hidden text-sm text-indigo-600 font-bold">الإجابة الصحيحة: <code>php artisan serve</code>. هذا الأمر يشغل خادم Laravel على port 8000. إذا أردت port آخر: <code>php artisan serve --port=8080</code>.</p>
+            </div>
+
+            <!-- Result -->
+            <div class="card p-10 text-center space-y-6 bg-slate-900 text-white">
+                <p class="font-black text-2xl">النتيجة النهائية</p>
+                <div id="quizResult" class="text-5xl font-black text-indigo-400">-- / 7</div>
+                <button data-grade-quiz class="px-10 py-4 bg-indigo-600 rounded-2xl font-black hover:bg-indigo-700 transition-all">تصحيح الإجابات</button>
                 <p id="feedback" class="text-slate-400 font-bold italic"></p>
             </div>
         </div>
@@ -59,30 +208,74 @@
 </main>
 
 <script>
-    let correctAnswers = 0;
-    let totalQuestions = 2;
-    let answeredCount = 0;
+    document.addEventListener('DOMContentLoaded', () => {
+        const labels = document.querySelectorAll('label');
+        labels.forEach(label => {
+            label.addEventListener('click', () => {
+                const radio = label.querySelector('input[type="radio"]');
+                const group = radio.name;
+                document.querySelectorAll(`input[name="${group}"]`).forEach(input => {
+                    input.parentElement.classList.remove('bg-indigo-50', 'border-indigo-500');
+                    input.parentElement.classList.add('border-slate-100');
+                });
+                label.classList.remove('border-slate-100');
+                label.classList.add('bg-indigo-50', 'border-indigo-500');
+                radio.checked = true;
+            });
+        });
 
-    function checkAnswer(btn, isCorrect) {
-        if (btn.parentElement.dataset.answered) return;
-        
-        btn.parentElement.dataset.answered = "true";
-        answeredCount++;
+        document.querySelector('[data-grade-quiz]').addEventListener('click', () => {
+            let score = 0;
+            let total = 7;
+            const questions = document.querySelectorAll('[data-question]');
+            
+            questions.forEach(question => {
+                const correct = question.dataset.answer;
+                const selected = question.querySelector('input[type="radio"]:checked');
+                const labels = question.querySelectorAll('label');
+                
+                labels.forEach(l => {
+                    l.classList.remove('correct', 'wrong', 'border-slate-100', 'bg-indigo-50', 'border-indigo-500');
+                });
 
-        if (isCorrect) {
-            correctAnswers++;
-            btn.classList.remove('border-slate-100');
-            btn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-700');
-        } else {
-            btn.classList.remove('border-slate-100');
-            btn.classList.add('bg-rose-50', 'border-rose-500', 'text-rose-700');
-        }
+                if (selected) {
+                    if (selected.value === correct) {
+                        score++;
+                        labels.forEach(l => {
+                            if (l.contains(selected)) {
+                                l.classList.add('correct');
+                            }
+                        });
+                    } else {
+                        labels.forEach(l => {
+                            if (l.contains(selected)) {
+                                l.classList.add('wrong');
+                            }
+                            const radio = l.querySelector('input[type="radio"]');
+                            if (radio && radio.value === correct) {
+                                l.classList.add('correct');
+                            }
+                        });
+                    }
+                }
 
-        if (answeredCount === totalQuestions) {
-            document.getElementById('score').innerText = correctAnswers + ' / ' + totalQuestions;
-            document.getElementById('feedback').innerText = correctAnswers === totalQuestions ? "مذهل! أنت الآن تفهم هيكلية التطبيقات الحديثة." : "لا بأس، راجع دور Inertia و Vite وحاول مجدداً.";
-        }
-    }
+                const explain = question.querySelector('.explain');
+                if (explain) explain.classList.remove('hidden');
+            });
+
+            document.getElementById('quizResult').innerText = score + ' / ' + total;
+            
+            let feedback = document.getElementById('feedback');
+            if (score === total) {
+                feedback.innerText = '🎉 ممتاز! أنت فهمت كيفية ربط Laravel بـ React عبر Inertia!';
+            } else if (score >= 5) {
+                feedback.innerText = '👏 جيد جداً! راجع إجاباتك الخاطئة وحاول مرة أخرى.';
+            } else {
+                feedback.innerText = '📚 حاول مرة أخرى بعد إعادة قراءة الدرس. التركيز على شرح Inertia و Breeze.';
+            }
+        });
+    });
 </script>
+
 </body>
 </html>

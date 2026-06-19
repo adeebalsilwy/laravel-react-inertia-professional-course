@@ -1,25 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
-  <rect width="800" height="300" fill="#fffbeb" rx="20"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <rect width="800" height="400" fill="#fffbeb" rx="20"/>
   
-  <!-- Auth flow -->
-  <rect x="50" y="100" width="180" height="120" rx="10" fill="white" stroke="#f59e0b" stroke-width="2"/>
-  <text x="140" y="150" text-anchor="middle" font-weight="bold">المستخدم</text>
-  <text x="140" y="175" text-anchor="middle" font-size="12">إدخال البيانات</text>
+  <text x="400" y="40" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="bold" font-size="22" fill="#78350f">دورة حياة المصادقة من البداية للنهاية</text>
   
-  <rect x="310" y="100" width="180" height="120" rx="10" fill="white" stroke="#f59e0b" stroke-width="2"/>
-  <text x="400" y="150" text-anchor="middle" font-weight="bold" fill="#92400e">Laravel Auth</text>
-  <text x="400" y="175" text-anchor="middle" font-size="12" fill="#b45309">التحقق من الصحة</text>
+  <!-- Step 1: User enters browser -->
+  <rect x="30" y="80" width="170" height="100" rx="12" fill="white" stroke="#f59e0b" stroke-width="2"/>
+  <text x="115" y="120" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="bold" font-size="14" fill="#92400e">المستخدم</text>
+  <text x="115" y="145" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#b45309">يفتح /login في المتصفح</text>
   
-  <rect x="570" y="100" width="180" height="120" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
-  <text x="660" y="150" text-anchor="middle" font-weight="bold" fill="#92400e">Session / Cookie</text>
-  <text x="660" y="175" text-anchor="middle" font-size="12" fill="#b45309">إصدار بطاقة الدخول</text>
+  <path d="M 200 130 L 240 130" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr)"/>
   
-  <path d="M 230 160 L 300 160" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr3)"/>
-  <path d="M 490 160 L 560 160" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr3)"/>
+  <!-- Step 2: Login Form (React) -->
+  <rect x="250" y="80" width="170" height="100" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="335" y="115" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="bold" font-size="13" fill="#92400e">واجهة تسجيل الدخول</text>
+  <text x="335" y="135" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#b45309">(مكون React من Breeze)</text>
+  <text x="335" y="155" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#b45309">يدخل البريد + كلمة المرور</text>
+  
+  <path d="M 420 130 L 460 130" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr)"/>
+  
+  <!-- Step 3: Laravel Auth Check -->
+  <rect x="470" y="70" width="170" height="130" rx="12" fill="white" stroke="#f59e0b" stroke-width="2"/>
+  <text x="555" y="100" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="bold" font-size="13" fill="#92400e">Laravel Backend</text>
+  <text x="555" y="120" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#b45309">1. يفحص البريد</text>
+  <text x="555" y="136" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#b45309">2. يتحقق من كلمة المرور</text>
+  <text x="555" y="152" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#b45309">3. يتأكد من وجود الحساب</text>
+  <text x="555" y="172" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#b45309">4. يستخدم Bcrypt لتشفير</text>
+  
+  <path d="M 640 130 L 680 130" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr)"/>
+  
+  <!-- Step 4: Session Created -->
+  <rect x="690" y="80" width="100" height="100" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="740" y="115" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="bold" font-size="13" fill="#92400e">Session</text>
+  <text x="740" y="140" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#b45309">جلسة مستخدم</text>
+  <text x="740" y="156" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#b45309">+ Cookie</text>
+  
+  <!-- Arrow down from Step 4 back to Step 1 (redirect) -->
+  <path d="M 740 180 L 740 260 L 115 260 L 115 180" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arr)"/>
+  <text x="430" y="280" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="12" fill="#92400e">توجيه (Redirect) إلى /dashboard</text>
+  
+  <!-- Failure path -->
+  <path d="M 555 200 L 555 310 L 335 310 L 335 180" stroke="#ef4444" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arr2)"/>
+  <text x="440" y="330" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#dc2626">في حالة فشل المصادقة: إعادة توجيه مع رسالة خطأ</text>
+  
+  <!-- Legend -->
+  <rect x="30" y="360" width="12" height="12" fill="#f59e0b" rx="2"/>
+  <text x="50" y="370" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#64748b">تدفق ناجح</text>
+  <rect x="150" y="360" width="12" height="12" fill="#ef4444" rx="2"/>
+  <text x="170" y="370" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#64748b">تدفق فاشل</text>
   
   <defs>
-    <marker id="arr3" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#f59e0b" /></marker>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#f59e0b"/></marker>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#ef4444"/></marker>
   </defs>
-  
-  <text x="400" y="40" text-anchor="middle" font-weight="bold" font-size="22" fill="#78350f">دورة حياة المصادقة (Authentication)</text>
 </svg>

@@ -1,1 +1,130 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>كويز - قراءة البيانات بكفاءة وتحسين الاستعلامات - FlowPilot Academy</title><link rel="stylesheet" href="../../../assets/css/style.css"></head><body><nav class="nav"><div class="container inner"><a class="brand" href="../../../index.html"><span class="logo">F</span><span>FlowPilot Academy</span></a><div class="links"><a href="../../../index.html">الرئيسية</a><a href="../../../pages/curriculum.html">الفهرس</a><a href="../../../pages/lessons.html">الدروس</a><a href="../../../pages/beginner-guide.html">دليل الطالب</a><a href="../../../pages/project.html">المشروع</a><a href="../../../pages/plan.html">خطة التطوير</a><a href="../../../pages/references.html">المراجع</a></div></div></nav><main class="container section"><a class="btn" href="index.html">← العودة إلى الدرس</a><section class="card"><span class="badge">كويز الأسبوع 3 · الدرس 4</span><h1 class="title">كويز: قراءة البيانات بكفاءة وتحسين الاستعلامات</h1><p class="lead">الكويز يقيس الفهم الحقيقي: لماذا نستخدم المفهوم، وكيف يظهر داخل FlowPilot، وما العلاقة بين النظرية والتطبيق.</p></section><section class="grid" style="margin-top:20px"><div class="card" data-answer="b"><h3>السؤال 1: ما الهدف الأساسي من هذا الدرس؟</h3><label class="quiz-option"><input type="radio" name="q1" value="a"> حفظ أسماء الملفات فقط</label><label class="quiz-option"><input type="radio" name="q1" value="b"> فهم مفهوم عملي وربطه بمشروع FlowPilot</label><label class="quiz-option"><input type="radio" name="q1" value="c"> تغيير ألوان الصفحة فقط</label><label class="quiz-option"><input type="radio" name="q1" value="d"> تجاهل التطبيق العملي</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> الهدف هو الفهم والتطبيق، وليس الحفظ أو التزيين فقط.</p></div><div class="card" data-answer="c"><h3>السؤال 2: ما العلاقة الصحيحة بين Laravel وReact وInertia؟</h3><label class="quiz-option"><input type="radio" name="q2" value="a"> Laravel يعرض الواجهة فقط</label><label class="quiz-option"><input type="radio" name="q2" value="b"> React يدير قاعدة البيانات</label><label class="quiz-option"><input type="radio" name="q2" value="c"> Inertia يربط Laravel بصفحات React</label><label class="quiz-option"><input type="radio" name="q2" value="d"> Tailwind يحفظ البيانات</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> Inertia يعمل كجسر بين Laravel وReact.</p></div><div class="card" data-answer="b"><h3>السؤال 3: لماذا نشرح السبب قبل الكود؟</h3><label class="quiz-option"><input type="radio" name="q3" value="a"> حتى ينسخ الطالب بسرعة</label><label class="quiz-option"><input type="radio" name="q3" value="b"> حتى يفهم الطالب وظيفة الخطوة ويكررها لاحقاً</label><label class="quiz-option"><input type="radio" name="q3" value="c"> حتى نقلل الشرح</label><label class="quiz-option"><input type="radio" name="q3" value="d"> لأن الكود غير مهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> فهم السبب يجعل الطالب قادراً على حل الأخطاء وتطبيق الفكرة في مكان آخر.</p></div><div class="card" data-answer="b"><h3>السؤال 4: ما أفضل طريقة للتعامل مع خطأ يظهر أثناء التطبيق؟</h3><label class="quiz-option"><input type="radio" name="q4" value="a"> حذف الملفات</label><label class="quiz-option"><input type="radio" name="q4" value="b"> قراءة رسالة الخطأ ومراجعة المسار والاسم</label><label class="quiz-option"><input type="radio" name="q4" value="c"> تجاهل الخطأ</label><label class="quiz-option"><input type="radio" name="q4" value="d"> إغلاق المشروع</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> رسالة الخطأ غالباً توضح مكان المشكلة أو سببها.</p></div><div class="card" data-answer="b"><h3>السؤال 5: ماذا يعني نجاح الدرس داخل FlowPilot؟</h3><label class="quiz-option"><input type="radio" name="q5" value="a"> وجود عنوان فقط</label><label class="quiz-option"><input type="radio" name="q5" value="b"> ظهور نتيجة عملية مفهومة يمكن البناء عليها</label><label class="quiz-option"><input type="radio" name="q5" value="c"> عدم تشغيل المشروع</label><label class="quiz-option"><input type="radio" name="q5" value="d"> نسخ الكود دون فهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> كل درس يجب أن يضيف نتيجة تعليمية وعملية واضحة.</p></div></section><section class="card"><button class="btn" data-grade-quiz>تصحيح الكويز</button><p id="quizResult" class="result"></p></section></main><footer class="footer"><div class="container">© FlowPilot Academy - دورة Laravel 12 + React + Inertia.js + Tailwind CSS</div></footer><script src="../../../assets/js/app.js"></script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>كويز الدرس 12: تحسين الاستعلامات | FlowPilot Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>.quiz-option{display:block;padding:12px 16px;border:2px solid #e2e8f0;border-radius:12px;margin-bottom:8px;cursor:pointer}.quiz-option:hover{border-color:#93c5fd;background:#f0f9ff}.quiz-option.selected{border-color:#6366f1;background:#eef2ff}.tf-option{display:inline-block;padding:10px 24px;border:2px solid #e2e8f0;border-radius:10px;cursor:pointer;margin:4px}.tf-option:hover{border-color:#93c5fd}.tf-option.selected{border-color:#6366f1;background:#eef2ff}textarea{width:100%;padding:12px;border:2px solid #e2e8f0;border-radius:12px;font-family:'Tajawal',sans-serif;resize:vertical}.explain{background:#f8fafc;padding:12px;border-radius:10px;margin-top:8px;font-size:13px;border-right:3px solid #6366f1;display:none}</style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+    </div>
+</header>
+<main class="mx-auto max-w-3xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة إلى شرح الدرس</a>
+    <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl">
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-widest mb-3">الأسبوع 3 · الدرس 4</span>
+        <h1 class="text-3xl font-black text-slate-900 mb-2">📝 كويز: تحسين الاستعلامات</h1>
+        <p class="text-slate-600">اختبر فهمك لتقنيات تحسين أداء استعلامات Eloquent.</p>
+    </div>
+
+    <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl mt-6" data-quiz-labels>
+        <h2 class="text-xl font-black text-slate-900 mb-6 border-r-4 border-sky-600 pr-4">الأسئلة الموضوعية</h2>
+
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent" data-answer="b" id="q1">
+            <h3 class="font-bold text-slate-900 mb-3">1. ما الحل الصحيح لمشكلة N+1 في Eloquent؟</h3>
+            <label class="quiz-option"><input type="radio" name="q1" value="a"> استخدام ::all()</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="b"> استخدام ::with()</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="c"> استخدام ::find()</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="d"> استخدام ::count()</label>
+            <div class="explain"><strong>الشرح:</strong> ::with('relation') يقوم بـ Eager Loading والذي يجلب العلاقات في استعلام واحد بدلاً من استعلام لكل سجل.</div>
+        </div>
+
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent" data-answer="b" id="q2">
+            <h3 class="font-bold text-slate-900 mb-3">2. ماذا يفعل Cache::remember('key', 3600, $callback)؟</h3>
+            <label class="quiz-option"><input type="radio" name="q2" value="a"> ينفذ $callback كل 60 دقيقة</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="b"> ينفذ $callback مرة واحدة ويخزن النتيجة 3600 ثانية</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="c"> يحذف Cache كل 3600 ثانية</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="d"> ينشئ Cache فارغاً</label>
+            <div class="explain"><strong>الشرح:</strong> remember = تذكر. إذا كان المفتاح موجوداً، أعد قيمته. وإلا، نفذ $callback واحفظ النتيجة لمدة 3600 ثانية.</div>
+        </div>
+
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent" data-answer="a" id="q3">
+            <h3 class="font-bold text-slate-900 mb-3">3. كيف نعرّف Query Scope للمشاريع النشطة؟</h3>
+            <label class="quiz-option"><input type="radio" name="q3" value="a"> scopeActive($query) { return $query->where('status', 'active'); }</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="b"> activeScope($query) { return $query->where('status', 'active'); }</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="c"> scope_active($query) { return $query->where('status', 'active'); }</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="d"> getActive($query) { return $query->where('status', 'active'); }</label>
+            <div class="explain"><strong>الشرح:</strong> Local Scope يبدأ بـ scope ثم اسم PascalCase: scopeActive. الاستدعاء: Model::active()->get().</div>
+        </div>
+
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent" data-answer="a" id="q4">
+            <h3 class="font-bold text-slate-900 mb-3">4. لماذا نستخدم chunk(100, $callback)؟</h3>
+            <label class="quiz-option"><input type="radio" name="q4" value="a"> لتقسيم النتائج الكبيرة لتوفير الذاكرة</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="b"> لتسريع الكتابة إلى قاعدة البيانات</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="c"> لحذف السجلات</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="d"> لترتيب النتائج</label>
+            <div class="explain"><strong>الشرح:</strong> chunk تقسم النتائج إلى أجزاء صغيرة (chunks). كل جزء يحوي 100 سجل. هذا يمنع تحميل كل شيء في الذاكرة مرة واحدة.</div>
+        </div>
+
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent" data-answer="c" id="q5">
+            <h3 class="font-bold text-slate-900 mb-3">5. كيف نستخدم ::when() لإضافة فلتر بحث؟</h3>
+            <label class="quiz-option"><input type="radio" name="q5" value="a"> Model::if($search, fn($q) => $q->where(...))</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="b"> Model::whereWhen($search, fn($q) => $q->where(...))</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="c"> Model::when($search, fn($q) => $q->where('name', 'like', "%{$search}%"))</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="d"> Model::search($search, fn($q) => $q->where(...))</label>
+            <div class="explain"><strong>الشرح:</strong> ::when($condition, $callback) ينفذ $callback فقط إذا كان $condition true (غير فارغ). مثالي للبحث والفلترة.</div>
+        </div>
+    </div>
+
+    <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl mt-6" data-quiz-labels>
+        <h2 class="text-xl font-black text-slate-900 mb-6 border-r-4 border-amber-500 pr-4">صح أم خطأ</h2>
+
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent" data-answer="true" id="q6">
+            <h3 class="font-bold text-slate-900 mb-3">6. Global Scope يطبق تلقائياً على جميع استعلامات الـ Model.</h3>
+            <div class="flex gap-2"><span class="tf-option" data-value="true">✅ صح</span><span class="tf-option" data-value="false">❌ خطأ</span></div>
+            <input type="radio" name="q6" value="true" class="hidden"><input type="radio" name="q6" value="false" class="hidden">
+            <div class="explain"><strong>الشرح:</strong> صح. Global Scope يسجل في booted() ويطبق على كل استعلام. SoftDeletes هو مثال: يضيف whereNull('deleted_at') تلقائياً.</div>
+        </div>
+
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent" data-answer="false" id="q7">
+            <h3 class="font-bold text-slate-900 mb-3">7. استخدام Model::all() مع 100,000 سجل هو أفضل ممارسة.</h3>
+            <div class="flex gap-2"><span class="tf-option" data-value="true">✅ صح</span><span class="tf-option" data-value="false">❌ خطأ</span></div>
+            <input type="radio" name="q7" value="true" class="hidden"><input type="radio" name="q7" value="false" class="hidden">
+            <div class="explain"><strong>الشرح:</strong> خطأ. ::all() تحمل كل السجلات في الذاكرة. مع 100,000 سجل، قد يتجاوز PHP حد الذاكرة (memory_limit). استخدم chunk() أو paginate().</div>
+        </div>
+    </div>
+
+    <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl mt-6">
+        <h2 class="text-xl font-black text-slate-900 mb-6 border-r-4 border-purple-500 pr-4">سؤال نظري</h2>
+        <div data-theory="q8" id="q8">
+            <h3 class="font-bold text-slate-900 mb-3">8. اشرح الفرق بين Lazy Loading و Eager Loading. متى تستخدم كل منهما؟ لماذا يعتبر Eager Loading أفضل للحلقات؟</h3>
+            <textarea placeholder="اكتب إجابتك هنا..." class="w-full min-h-[100px]"></textarea>
+        </div>
+    </div>
+
+    <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl mt-6">
+        <h2 class="text-xl font-black text-slate-900 mb-6 border-r-4 border-emerald-500 pr-4">سؤال عملي</h2>
+        <div data-theory="q9" id="q9">
+            <h3 class="font-bold text-slate-900 mb-3">9. اكتب كوداً كاملاً لصفحة عرض المشاريع في FlowPilot (دالة index في Controller) تستخدم: select (id, name, status)، with('user:id,name')، ::when() للفلترة حسب status، Cache::remember لمدة ساعة، paginate(15).</h3>
+            <textarea placeholder="اكتب كود الـ Controller..." class="w-full min-h-[150px]"></textarea>
+        </div>
+    </div>
+
+    <div class="card p-6 bg-white shadow-sm rounded-3xl mt-6 text-center" id="quizResultCard">
+        <button class="bg-indigo-600 text-white px-10 py-4 rounded-2xl font-black text-lg hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" data-grade-quiz>تصحيح الكويز</button>
+        <p id="quizResult" class="mt-4 text-3xl font-black"></p>
+        <p id="feedback" class="mt-2 text-lg font-bold"></p>
+    </div>
+</main>
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">© 2025 FlowPilot Academy.</footer>
+<script src="../../../assets/js/app.js"></script>
+<script>
+document.querySelectorAll('.tf-option').forEach(function(el) {
+    el.addEventListener('click', function() {
+        var container = this.closest('[data-answer]');
+        container.querySelectorAll('.tf-option').forEach(function(o) { o.classList.remove('selected','bg-indigo-50','border-indigo-500'); o.classList.add('border-slate-200'); });
+        this.classList.add('selected','bg-indigo-50','border-indigo-500'); this.classList.remove('border-slate-200');
+        var r = container.querySelector('input[value="'+this.dataset.value+'"]'); if (r) r.checked = true;
+    });
+});
+</script>
+</body>
+</html>

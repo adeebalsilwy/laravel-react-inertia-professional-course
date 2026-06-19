@@ -3,12 +3,78 @@
   "title": "بناء Layout رئيسي وشريط تنقل ثابت",
   "questions": [
     {
-      "q": "ما أهم هدف من الدرس؟",
-      "answer": "فهم المفهوم وتطبيقه داخل FlowPilot"
+      "type": "mcq",
+      "question": "ما الهدف الرئيسي من استخدام Layout في React؟",
+      "options": [
+        "جعل الكود أطول وأكثر تعقيداً",
+        "تجنب تكرار العناصر المشتركة (Navbar, Sidebar) في كل صفحة",
+        "إبطاء تحميل الصفحات",
+        "لا فائدة منه - كل صفحة تكتب كودها بنفسها"
+      ],
+      "correctIndex": 1,
+      "explanation": "الـ Layout يمنع تكرار الكود ويجعل الصيانة أسهل. هذا هو مبدأ DRY."
     },
     {
-      "q": "لماذا نكتب خطوات عملية مفصلة؟",
-      "answer": "حتى يفهم الطالب الهدف والمكان والكود والنتيجة"
+      "type": "mcq",
+      "question": "ماذا يعني اختصار DRY في البرمجة؟",
+      "options": ["Don't Run Yourself", "Do Repeat Yourself", "Don't Repeat Yourself", "Delete Repeated Yarns"],
+      "correctIndex": 2,
+      "explanation": "DRY = Don't Repeat Yourself (لا تكرر نفسك). مبدأ ذهبي في البرمجة."
+    },
+    {
+      "type": "mcq",
+      "question": "كيف نربط Layout بصفحة React في Inertia؟",
+      "options": [
+        "PageName.layout = page => <AppLayout children={page} />",
+        "import AppLayout ثم <AppLayout> بالداخل",
+        "لا يمكن ربط Layout في Inertia",
+        "يتم الربط تلقائياً"
+      ],
+      "correctIndex": 0,
+      "explanation": "نستخدم خاصية layout على الدالة لإرجاع مكون Layout."
+    },
+    {
+      "type": "mcq",
+      "question": "ما وظيفة children في مكون Layout؟",
+      "options": [
+        "يعرض قائمة الأطفال",
+        "يخفي المحتوى",
+        "يستورد مكتبة خارجية",
+        "يمثل المحتوى الداخلي المتغير الذي يأتي من الصفحة"
+      ],
+      "correctIndex": 3,
+      "explanation": "children هو Prop خاص في React يمثل أي شيء يوضع داخل المكون."
+    },
+    {
+      "type": "mcq",
+      "question": "كيف نخفي القائمة الجانبية في شاشات الموبايل باستخدام Tailwind؟",
+      "options": ["visible sm:hidden", "hidden md:block", "block sm:hidden", "hide show-md"],
+      "correctIndex": 1,
+      "explanation": "hidden md:block تعني: مخفي في الشاشات الصغيرة، يظهر عندما md فأكبر."
+    },
+    {
+      "type": "truefalse",
+      "question": "يجب كتابة كود Navbar مرة أخرى في كل صفحة جديدة.",
+      "correctAnswer": false,
+      "explanation": "بفضل Layout، نكتب الـ Navbar مرة واحدة فقط."
+    },
+    {
+      "type": "truefalse",
+      "question": "مكون Link من Inertia يمنع إعادة تحميل الصفحة بالكامل.",
+      "correctAnswer": true,
+      "explanation": "Link يستخدم AJAX للتنقل دون إعادة تحميل الصفحة."
+    },
+    {
+      "type": "theory",
+      "question": "اشرح بجملتك الخاصة: لماذا نفضل استخدام Layout بدلاً من نسخ Navbar في كل صفحة؟",
+      "keywords": ["تكر", "DRY", "مرة"],
+      "minLength": 30,
+      "sampleAnswer": "نستخدم Layout لتجنب تكرار كود Navbar في كل صفحة، مما يسهل الصيانة والتعديل. هذا هو مبدأ DRY."
+    },
+    {
+      "type": "practical",
+      "question": "اكتب السطر البرمجي الذي يربط Layout بصفحة Dashboard في Inertia.",
+      "expectedCode": "Dashboard.layout = page => <AppLayout children={page} />;"
     }
   ]
 }

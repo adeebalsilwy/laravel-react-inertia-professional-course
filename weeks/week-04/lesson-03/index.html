@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 15: Middleware وحماية الصفحات</title>
+    <title>الدرس 15: Middleware وحماية الصفحات الخاصة | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,13 @@
     <style>
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
-        .step-card { border-right: 4px solid #f59e0b; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .step-card { border-right: 4px solid #8b5cf6; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .code-line { display: block; padding: 2px 0; }
+        .code-comment { color: #6b7280; }
+        .code-keyword { color: #818cf8; }
+        .code-string { color: #34d399; }
+        .error-box { background: #fef2f2; border-right: 4px solid #ef4444; padding: 1.5rem; border-radius: 1rem; margin-bottom: 1.5rem; }
+        .success-box { background: #f0fdf4; border-right: 4px solid #22c55e; padding: 1.5rem; border-radius: 1rem; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -29,73 +35,434 @@
             <div class="sidebar-sticky space-y-4">
                 <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الرابع</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-amber-50 text-amber-700" href="#intro">مفهوم الـ Middleware</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">حماية المسارات</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال البواب الإلكتروني</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl bg-violet-50 text-violet-700" href="#intro">مفهوم Middleware</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#builtin">Middleware الجاهزة: auth, guest</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#custom">إنشاء Middleware مخصص</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#register">تسجيل Middleware في Kernel</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#routes">تطبيق Middleware على المسارات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#params">Middleware مع parameters</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">FlowPilot: Verified + Project Access</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي (7 خطوات)</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">الأخطاء الشائعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#summary">ملخص</a>
                 </div>
             </div>
         </aside>
 
         <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
             <section class="border-b pb-8 mb-12">
-                <span class="badge bg-amber-50 text-amber-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 4 · الدرس 3</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">Middleware: كيف نمنع الغرباء من دخول صفحاتنا؟</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"لا تسمح لأي طلب بالمرور إلا إذا كان مستوفياً للشروط."</p>
+                <span class="badge bg-violet-50 text-violet-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 4 · الدرس 3 (الدرس 15)</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">Middleware: كيف نمنع الغرباء من دخول الصفحات الخاصة؟</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"Middleware هو البواب الإلكتروني الذي يفحص كل طلب قبل أن يدخل إلى التطبيق."</p>
             </section>
 
-            <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">ما هو الـ Middleware؟</h2>
+            <!-- INTRO -->
+            <section id="intro" class="space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-violet-600 pr-4">1. ما هو الـ Middleware؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    الـ <strong>Middleware</strong> (البرمجية الوسيطة) هي طبقة فحص تقف بين "طلب المستخدم" و "كود التطبيق". وظيفتها أن تسأل: "هل يحق لهذا المستخدم الوصول لهذه الصفحة؟" قبل أن تفتح له الباب.
+                    <strong>Middleware</strong> (البرمجية الوسيطة) هي طبقة برمجية تقف بين "طلب المستخدم" (Request) و "التطبيق" (Application). وظيفتها الأساسية هي <strong>الفحص والتصفية</strong>. كل طلب يأتي من المتصفح يجب أن يمر عبر الـ Middleware قبل أن يصل إلى الـ Controller.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    في FlowPilot، سنستخدم الـ Middleware لنقول لـ Laravel: "إذا حاول شخص غير مسجل الدخول فتح صفحة <code>/dashboard</code>، اطرده فوراً وأعده لصفحة تسجيل الدخول".
+                    تخيل أنك تدخل إلى مبنى حكومي. هناك العديد من نقاط التفتيش: عند البوابة الرئيسية، عند مدخل الطابق، عند باب المكتب. كل نقطة تفتيش هذه هي "Middleware". تتحقق من شيء معين قبل أن تسمح لك بالمرور إلى المستوى التالي.
                 </p>
+                <div class="bg-violet-50 p-6 rounded-2xl border border-violet-200">
+                    <p class="font-bold text-violet-800">🔍 كيف يعمل Middleware في Laravel؟</p>
+                    <p class="text-violet-700 text-sm mt-2">1. المتصفح يرسل طلب (Request) إلى الخادم.<br>
+                    2. الطلب يمر عبر سلسلة من Middleware (كل واحد يفحص شيئاً).<br>
+                    3. إذا فشل الفحص، يرد الطلب برسالة خطأ أو يعيد التوجيه.<br>
+                    4. إذا نجح الفحص، يمر الطلب إلى الـ Controller المناسب.<br>
+                    5. الـ Controller ينفذ العملية ويرسل الرد (Response).</p>
+                </div>
             </section>
 
-            <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">Middleware 'auth'</h2>
+            <!-- BUILT-IN MIDDLEWARE -->
+            <section id="builtin" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-violet-600 pr-4">2. Middleware الجاهزة: auth و guest</h2>
                 <p class="text-slate-600 leading-relaxed">
-                    Laravel يوفر لنا Middleware جاهزاً اسمه <code>auth</code>. وظيفته بسيطة جداً: التأكد من أن المستخدم "مُصادق عليه" (دخل ببريد وكلمة مرور). إذا لم يكن كذلك، سيمنعه من الوصول للمسار.
+                    Laravel يأتي مع مجموعة من Middleware جاهزة. الأكثر استخداماً هما <code>auth</code> و <code>guest</code>.
+                </p>
+
+                <h3 class="text-xl font-black text-slate-900">🔒 Middleware 'auth'</h3>
+                <p class="text-slate-600">يستخدم لمنع الزوار غير المسجلين من الوصول إلى صفحات معينة. إذا حاول زائر فتح صفحة محمية، يتم تحويله إلى صفحة تسجيل الدخول.</p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// تطبيق auth على مسار واحد</span></span>
+                    <span class="code-line">Route::get(<span class="code-string">'/dashboard'</span>, [DashboardController::class, <span class="code-string">'index'</span>])</span>
+                    <span class="code-line">    ->middleware([<span class="code-string">'auth'</span>])->name(<span class="code-string">'dashboard'</span>);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-comment">// تطبيق auth على مجموعة مسارات</span></span>
+                    <span class="code-line">Route::middleware([<span class="code-string">'auth'</span>])->group(<span class="code-keyword">function</span> () {</span>
+                    <span class="code-line">    Route::resource(<span class="code-string">'projects'</span>, ProjectController::class);</span>
+                    <span class="code-line">    Route::get(<span class="code-string">'/profile'</span>, [ProfileController::class, <span class="code-string">'edit'</span>]);</span>
+                    <span class="code-line">});</span>
+                </div>
+
+                <h3 class="text-xl font-black text-slate-900">🚶 Middleware 'guest'</h3>
+                <p class="text-slate-600">العكس تماماً. يسمح فقط للزوار غير المسجلين برؤية الصفحة. إذا كان المستخدم مسجلاً، يتم تحويله إلى لوحة التحكم.</p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// صفحات الدخول والتسجيل - فقط للزوار</span></span>
+                    <span class="code-line">Route::get(<span class="code-string">'/login'</span>, [LoginController::class, <span class="code-string">'create'</span>])</span>
+                    <span class="code-line">    ->middleware([<span class="code-string">'guest'</span>])->name(<span class="code-string">'login'</span>);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">Route::get(<span class="code-string">'/register'</span>, [RegisterController::class, <span class="code-string">'create'</span>])</span>
+                    <span class="code-line">    ->middleware([<span class="code-string">'guest'</span>])->name(<span class="code-string">'register'</span>);</span>
+                </div>
+                <div class="space-y-3 mt-4">
+                    <h4 class="font-black text-slate-900">🔍 شرح الكود:</h4>
+                    <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                        <li><strong>middleware(['auth']):</strong> يحمي المسار. المستخدم غير المسجل يُعاد توجيهه إلى <code>route('login')</code>.</li>
+                        <li><strong>middleware(['guest']):</strong> يسمح فقط للزوار. المستخدم المسجل يُعاد توجيهه إلى <code>route('dashboard')</code>.</li>
+                        <li><strong>->group(function() {...}):</strong> يجمع مسارات متعددة تحت نفس الـ Middleware.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- CUSTOM MIDDLEWARE -->
+            <section id="custom" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-violet-600 pr-4">3. إنشاء Middleware مخصص</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    أحياناً نحتاج Middleware يفحص شيئاً خاصاً بتطبيقنا. مثلاً، هل المستخدم لديه وصول إلى هذا المشروع؟ هل حسابه موثق (Verified)؟ لإنشاء Middleware مخصص:
+                </p>
+
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment"># إنشاء Middleware جديد باسم CheckProjectAccess</span></span>
+                    <span class="code-line">php artisan make:middleware CheckProjectAccess</span>
+                </div>
+
+                <p class="text-slate-600 mt-4">الأمر ينشئ ملف <code>app/Http/Middleware/CheckProjectAccess.php</code>. دعنا نكتب منطق الفحص:</p>
+
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// app/Http/Middleware/CheckProjectAccess.php</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">&lt;?php</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">namespace</span> App\Http\Middleware;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">use</span> Closure;</span>
+                    <span class="code-line"><span class="code-keyword">use</span> Illuminate\Http\Request;</span>
+                    <span class="code-line"><span class="code-keyword">use</span> Symfony\Component\HttpFoundation\Response;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">class</span> CheckProjectAccess</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-comment">// الدالة الرئيسية: يتم استدعاؤها لكل طلب</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-function">handle</span>(Request <span class="code-function">$request</span>, Closure <span class="code-function">$next</span>): Response</span>
+                    <span class="code-line">    {</span>
+                    <span class="code-line">        <span class="code-comment">// 1. نجلب المستخدم الحالي</span></span>
+                    <span class="code-line">        <span class="code-function">$user</span> = <span class="code-function">$request</span>-&gt;user();</span>
+                    <span class="code-line">        </span>
+                    <span class="code-line">        <span class="code-comment">// 2. نجلب الـ project_id من المسار (Route Parameter)</span></span>
+                    <span class="code-line">        <span class="code-function">$projectId</span> = <span class="code-function">$request</span>-&gt;route(<span class="code-string">'project'</span>);</span>
+                    <span class="code-line">        </span>
+                    <span class="code-line">        <span class="code-comment">// 3. نبحث عن المشروع في قاعدة البيانات</span></span>
+                    <span class="code-line">        <span class="code-function">$project</span> = Project::find(<span class="code-function">$projectId</span>);</span>
+                    <span class="code-line">        </span>
+                    <span class="code-line">        <span class="code-comment">// 4. إذا لم يوجد المشروع، نعيد 404</span></span>
+                    <span class="code-line">        <span class="code-keyword">if</span> (!<span class="code-function">$project</span>) {</span>
+                    <span class="code-line">            abort(404, <span class="code-string">'المشروع غير موجود'</span>);</span>
+                    <span class="code-line">        }</span>
+                    <span class="code-line">        </span>
+                    <span class="code-line">        <span class="code-comment">// 5. نتحقق: هل المستخدم هو المالك أو عضو في الفريق؟</span></span>
+                    <span class="code-line">        <span class="code-keyword">if</span> (<span class="code-function">$user</span>-&gt;id !== <span class="code-function">$project</span>-&gt;user_id &amp;&amp; </span>
+                    <span class="code-line">            !<span class="code-function">$project</span>-&gt;members()-&gt;where(<span class="code-string">'user_id'</span>, <span class="code-function">$user</span>-&gt;id)-&gt;exists()) {</span>
+                    <span class="code-line">            <span class="code-comment">// إذا لا: نعيد 403 ممنوع</span></span>
+                    <span class="code-line">            abort(403, <span class="code-string">'ليس لديك صلاحية الوصول لهذا المشروع'</span>);</span>
+                    <span class="code-line">        }</span>
+                    <span class="code-line">        </span>
+                    <span class="code-line">        <span class="code-comment">// 6. إذا كل شيء تمام: نمرر الطلب إلى الخطوة التالية</span></span>
+                    <span class="code-line">        <span class="code-keyword">return</span> <span class="code-function">$next</span>(<span class="code-function">$request</span>);</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line">}</span>
+                </div>
+                <div class="space-y-3 mt-4">
+                    <h4 class="font-black text-slate-900">🔍 شرح الكود سطراً سطراً:</h4>
+                    <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                        <li><strong>handle(Request $request, Closure $next):</strong> الدالة الرئيسية في أي Middleware. تستقبل الطلب ودالة <code>$next</code> التي تمرر الطلب للمرحلة التالية.</li>
+                        <li><strong>$request->user():</strong> تجلب المستخدم المسجل حالياً (أو null إذا لم يسجل).</li>
+                        <li><strong>$request->route('project'):</strong> تجلب قيمة معامل المسار (Route Parameter). مثلاً في <code>/projects/{project}</code> تجلب رقم المشروع.</li>
+                        <li><strong>abort(404):</strong> توقف التنفيذ وترسل صفحة خطأ 404 (غير موجود).</li>
+                        <li><strong>abort(403):</strong> توقف التنفيذ وترسل خطأ 403 (ممنوع - Forbidden).</li>
+                        <li><strong>return $next($request):</strong> تمرر الطلب إلى الـ Middleware التالي في السلسلة أو إلى الـ Controller.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- REGISTER IN KERNEL -->
+            <section id="register" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-violet-600 pr-4">4. تسجيل Middleware في Kernel</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    بعد إنشاء Middleware، يجب تسجيله في <code>app/Http/Kernel.php</code> حتى يعرفه Laravel. هناك ثلاث طرق للتسجيل:
+                </p>
+
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// app/Http/Kernel.php</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">protected</span> <span class="code-function">$middleware</span> = [</span>
+                    <span class="code-line">    <span class="code-comment">// 1. Middleware عام: ينفذ على كل طلب (Global)</span></span>
+                    <span class="code-line">    \App\Http\Middleware\TrustProxies::class,</span>
+                    <span class="code-line">    \Illuminate\Http\Middleware\HandleCors::class,</span>
+                    <span class="code-line">];</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">protected</span> <span class="code-function">$middlewareGroups</span> = [</span>
+                    <span class="code-line">    <span class="code-string">'web'</span> =&gt; [</span>
+                    <span class="code-line">        <span class="code-comment">// 2. مجموعة 'web': تنفذ على كل طلبات الويب</span></span>
+                    <span class="code-line">        \App\Http\Middleware\EncryptCookies::class,</span>
+                    <span class="code-line">        \Illuminate\Session\Middleware\StartSession::class,</span>
+                    <span class="code-line">        \App\Http\Middleware\HandleInertiaRequests::class,</span>
+                    <span class="code-line">    ],</span>
+                    <span class="code-line">];</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">protected</span> <span class="code-function">$middlewareAliases</span> = [</span>
+                    <span class="code-line">    <span class="code-comment">// 3. Aliases: أسماء مختصرة لاستخدامها في Routes</span></span>
+                    <span class="code-line">    <span class="code-string">'auth'</span> =&gt; \App\Http\Middleware\Authenticate::class,</span>
+                    <span class="code-line">    <span class="code-string">'guest'</span> =&gt; \App\Http\Middleware\RedirectIfAuthenticated::class,</span>
+                    <span class="code-line">    <span class="code-comment">// ↑ هذه جاهزة من Laravel</span></span>
+                    <span class="code-line">    <span class="code-comment">// ↓ هذه مخصصة (سنضيفها)</span></span>
+                    <span class="code-line">    <span class="code-string">'check.project'</span> =&gt; \App\Http\Middleware\CheckProjectAccess::class,</span>
+                    <span class="code-line">];</span>
+                </div>
+                <div class="space-y-3 mt-4">
+                    <h4 class="font-black text-slate-900">🔍 شرح طرق التسجيل الثلاث:</h4>
+                    <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                        <li><strong>$middleware (Global):</strong> ينفذ على <strong>كل</strong> طلب يصل إلى التطبيق (مثل TrustProxies, HandleCors).</li>
+                        <li><strong>$middlewareGroups:</strong> مجموعات مسماة. مجموعة <code>web</code> تنفذ على كل طلبات الويب (التي تمر عبر routes/web.php).</li>
+                        <li><strong>$middlewareAliases:</strong> أسماء مختصرة. نضيف <code>'check.project'</code> لنتمكن من استخدامه في المسارات: <code>->middleware(['check.project'])</code>.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- APPLY TO ROUTES -->
+            <section id="routes" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-violet-600 pr-4">5. تطبيق Middleware على المسارات</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    بعد التسجيل، يمكننا استخدام الاسم المختصر في المسارات بعدة طرق:
+                </p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// routes/web.php - طرق تطبيق Middleware</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-comment">// الطريقة 1: على مسار واحد</span></span>
+                    <span class="code-line">Route::get(<span class="code-string">'/projects/{project}/edit'</span>, [ProjectController::class, <span class="code-string">'edit'</span>])</span>
+                    <span class="code-line">    ->middleware([<span class="code-string">'auth'</span>, <span class="code-string">'check.project'</span>]);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-comment">// الطريقة 2: على مجموعة مسارات</span></span>
+                    <span class="code-line">Route::middleware([<span class="code-string">'auth'</span>, <span class="code-string">'check.project'</span>])->group(<span class="code-keyword">function</span> () {</span>
+                    <span class="code-line">    Route::resource(<span class="code-string">'projects'</span>, ProjectController::class);</span>
+                    <span class="code-line">});</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-comment">// الطريقة 3: داخل Controller (في المنشئ)</span></span>
+                    <span class="code-line">Route::resource(<span class="code-string">'projects'</span>, ProjectController::class)</span>
+                    <span class="code-line">    ->middleware(<span class="code-string">'check.project'</span>);</span>
+                </div>
+                <p class="text-slate-600 text-sm">🔍 <strong>ملاحظة:</strong> يمكنك تطبيق أكثر من Middleware على نفس المسار بفصلها بفواصل في المصفوفة: <code>['auth', 'check.project', 'verified']</code>.</p>
+            </section>
+
+            <!-- MIDDLEWARE WITH PARAMETERS -->
+            <section id="params" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-violet-600 pr-4">6. Middleware مع Parameters</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    أحياناً نريد Middleware مرن يمكنه قبول معاملات. مثلاً Middleware يتحقق من دور المستخدم (role) ويمكننا تحديد الأدوار المسموح بها:
+                </p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                    <span class="code-line"><span class="code-comment">// app/Http/Middleware/CheckRole.php</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-keyword">class</span> CheckRole</span>
+                    <span class="code-line">{</span>
+                    <span class="code-line">    <span class="code-comment">// المعامل الثالث هو الـ parameter المرسل</span></span>
+                    <span class="code-line">    <span class="code-keyword">public function</span> <span class="code-function">handle</span>(Request <span class="code-function">$request</span>, Closure <span class="code-function">$next</span>, ...<span class="code-function">$roles</span>)</span>
+                    <span class="code-line">    {</span>
+                    <span class="code-line">        <span class="code-comment">// نتحقق: هل دور المستخدم موجود في قائمة الأدوار المسموح بها؟</span></span>
+                    <span class="code-line">        <span class="code-keyword">if</span> (!in_array(<span class="code-function">$request</span>-&gt;user()-&gt;role, <span class="code-function">$roles</span>)) {</span>
+                    <span class="code-line">            abort(403, <span class="code-string">'غير مصرح'</span>);</span>
+                    <span class="code-line">        }</span>
+                    <span class="code-line">        <span class="code-keyword">return</span> <span class="code-function">$next</span>(<span class="code-function">$request</span>);</span>
+                    <span class="code-line">    }</span>
+                    <span class="code-line">}</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line"><span class="code-comment">// الاستخدام في routes:</span></span>
+                    <span class="code-line">Route::get(<span class="code-string">'/admin'</span>, [AdminController::class, <span class="code-string">'index'</span>])</span>
+                    <span class="code-line">    ->middleware(<span class="code-string">'role:admin,super-admin'</span>);</span>
+                </div>
+                <p class="text-slate-600 text-sm">🔍 <strong>شرح:</strong> <code>'role:admin,super-admin'</code> يعني استخدم Middleware <code>CheckRole</code> وأرسل له المعاملات <code>admin</code> و <code>super-admin</code> كأدوار مسموح بها.</p>
+            </section>
+
+            <!-- ANALOGY -->
+            <section id="analogy" class="mt-16 p-8 rounded-3xl bg-violet-600 text-white shadow-xl shadow-violet-100">
+                <h2 class="text-2xl font-black mb-4">🎯 مثال من الواقع: البواب الإلكتروني للمطار</h2>
+                <p class="text-violet-50 leading-relaxed text-lg">
+                    تخيل أنك مسافر إلى الخارج. تمر بعدة نقاط تفتيش:<br><br>
+                    <strong>نقطة 1 - جواز السفر (Middleware 'auth'):</strong> يتحقق من هويتك. هل أنت شخص حقيقي مسجل في النظام؟<br><br>
+                    <strong>نقطة 2 - التأشيرة (Middleware 'check.project'):</strong> يتحقق من أن لديك إذن للدخول إلى هذا البلد المحدد. في FlowPilot، هل لديك صلاحية لدخول هذا المشروع؟<br><br>
+                    <strong>نقطة 3 - التصوير الأمني (Middleware 'verified'):</strong> يتحقق من أن وجهك يطابق الصورة في الجواز. في FlowPilot، هل حسابك موثق (Email Verified)؟<br><br>
+                    إذا فشلت في أي نقطة، لن تسمح لك بالمرور إلى الطائرة (الـ Controller). هذه هي قوة الـ Middleware!
                 </p>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-amber-600 text-white shadow-xl shadow-indigo-100">
-                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (البواب الإلكتروني)</h2>
-                <p class="text-white leading-relaxed text-lg">
-                    تخيل الـ <strong>Middleware</strong> كبواب يقف عند مدخل سينما. 
-                    <br><br>
-                    - أي شخص يمكنه الوصول لمنطقة بيع التذاكر (صفحة الهبوط).
-                    <br>
-                    - لكن لا أحد يمكنه دخول قاعة العرض (الـ Dashboard) إلا إذا أظهر "تذكرة" (Session/Cookie تثبت تسجيل الدخول).
-                    <br>
-                    - البواب (Middleware) يفحص التذكرة؛ إذا كانت صالحة يمررك، وإذا لم تكن، يطلب منك العودة لشباك التذاكر!
+            <!-- FLOWPILOT -->
+            <section id="flowpilot" class="mt-16 p-8 rounded-3xl bg-gradient-to-br from-violet-600 to-indigo-800 text-white shadow-xl shadow-violet-100">
+                <h2 class="text-2xl font-black mb-4">7. FlowPilot: Verified + Project Access Middleware</h2>
+                <p class="text-violet-100 leading-relaxed">
+                    في FlowPilot، نريد طبقتين من الحماية:<br>
+                    <strong>1. CheckProjectAccess:</strong> يتحقق من أن المستخدم يملك صلاحية الدخول للمشروع المطلوب.<br>
+                    <strong>2. verified:</strong> يتحقق من أن البريد الإلكتروني للمستخدم مؤكد (إذا طبقنا هذه الميزة).
                 </p>
+                <div class="bg-violet-900/40 rounded-2xl p-6 font-mono text-sm overflow-x-auto mt-4 text-left">
+                    <span class="code-line"><span class="code-comment">// مسارات FlowPilot المحمية بعدة طبقات</span></span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">Route::middleware([<span class="code-string">'auth'</span>, <span class="code-string">'verified'</span>])->group(<span class="code-keyword">function</span> () {</span>
+                    <span class="code-line">    <span class="code-comment">// Dashboard - يحتاج Auth + Verified</span></span>
+                    <span class="code-line">    Route::get(<span class="code-string">'/dashboard'</span>, [DashboardController::class, <span class="code-string">'index'</span>])</span>
+                    <span class="code-line">        ->name(<span class="code-string">'dashboard'</span>);</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">    <span class="code-comment">// المشاريع - يحتاج Auth + Verified + CheckProject</span></span>
+                    <span class="code-line">    Route::resource(<span class="code-string">'projects'</span>, ProjectController::class)</span>
+                    <span class="code-line">        ->middleware([<span class="code-string">'check.project'</span>]);</span>
+                    <span class="code-line">});</span>
+                </div>
+                <p class="text-violet-200 text-sm mt-4">🔑 بهذا الترتيب، كل مسار يحصل على طبقة الحماية التي يحتاجها. <code>check.project</code> يضاف فقط لمسارات المشاريع.</p>
             </section>
 
+            <!-- PRACTICE -->
             <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">التطبيق العملي</h2>
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-violet-600 pr-4">8. التطبيق العملي: 7 خطوات</h2>
 
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: حماية مسارات الـ Dashboard</h3>
-                    <p class="text-slate-600 mb-4">افتح ملف <code>routes/web.php</code> وقم بتغليف المسارات بالـ Middleware.</p>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء Middleware مخصص</h3>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-amber-400 overflow-x-auto mb-4 text-left">
+                        <span>php artisan make:middleware CheckProjectAccess</span>
+                    </div>
+                    <p class="text-slate-600 text-sm">🔍 ينشئ ملف <code>app/Http/Middleware/CheckProjectAccess.php</code>.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: كتابة منطق الفحص</h3>
+                    <p class="text-slate-500 text-sm mb-3">افتح الملف وأضف كود التحقق من صلاحية المستخدم للمشروع (كما شرحنا سابقاً).</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: تسجيل الـ Middleware في Kernel</h3>
+                    <p class="text-slate-500 text-sm mb-3">افتح <code>app/Http/Kernel.php</code> وأضف الـ Alias:</p>
                     <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
-                        <p>Route::middleware(['auth'])->group(function () {</p>
-                        <p>&nbsp;&nbsp;Route::get('/dashboard', [DashboardController::class, 'index']);</p>
-                        <p>&nbsp;&nbsp;Route::get('/projects', [ProjectController::class, 'index']);</p>
-                        <p>});</p>
+                        <span class="code-line"><span class="code-string">'check.project'</span> =&gt; \App\Http\Middleware\CheckProjectAccess::class,</span>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: تطبيق Middleware على المسارات</h3>
+                    <p class="text-slate-500 text-sm mb-3">في <code>routes/web.php</code>:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <span class="code-line">Route::middleware([<span class="code-string">'auth'</span>])->group(<span class="code-keyword">function</span> () {</span>
+                        <span class="code-line">    Route::resource(<span class="code-string">'projects'</span>, ProjectController::class)</span>
+                        <span class="code-line">        ->middleware([<span class="code-string">'check.project'</span>]);</span>
+                        <span class="code-line">});</span>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: اختبار Middleware</h3>
+                    <p class="text-slate-500 text-sm mb-3">سجل الدخول كمستخدم (أحمد) وأنشئ مشروعاً. ثم سجل الدخول كمستخدم آخر (سارة) وحاول فتح مشروع أحمد عبر الرابط المباشر. يجب أن تظهر رسالة 403.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 6: استخدام Middleware 'verified' (اختياري)</h3>
+                    <p class="text-slate-500 text-sm mb-3">إذا أردت تفعيل توثيق البريد الإلكتروني، أضف <code>->middleware(['verified'])</code> للمسارات التي تريدها. هذا يتطلب تفعيل ميزة <code>MustVerifyEmail</code> في موديل User.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 7: Middleware مع Parameter (تحدي)</h3>
+                    <p class="text-slate-500 text-sm mb-3">أنشئ Middleware اسمه <code>CheckRole</code> يفحص دور المستخدم، وطبقه على مسار لوحة التحكم:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-purple-400 overflow-x-auto mb-4 text-left">
+                        <span class="code-line"><span class="code-comment">// يسمح فقط للمستخدمين بدور admin أو manager</span></span>
+                        <span class="code-line">Route::get(<span class="code-string">'/admin'</span>, [AdminController::class, <span class="code-string">'index'</span>])</span>
+                        <span class="code-line">    ->middleware(<span class="code-string">'role:admin,manager'</span>);</span>
                     </div>
                 </div>
             </section>
 
+            <!-- EXPECTED RESULT -->
+            <section class="mt-16 success-box">
+                <h2 class="text-xl font-black text-slate-900 mb-4">9. النتيجة المتوقعة</h2>
+                <ul class="list-disc pr-6 space-y-3 text-slate-700">
+                    <li>✅ الزوار غير المسجلين لا يمكنهم فتح أي صفحة محمية بـ auth.</li>
+                    <li>✅ المستخدم لا يمكنه رؤية مشروع ليس مالكاً له أو عضواً فيه.</li>
+                    <li>✅ إذا حاول المستخدم خرق الصلاحية، تظهر رسالة 403 مناسبة.</li>
+                    <li>✅ [اختياري] المستخدمون غير الموثقين (unverified) لا يمكنهم الوصول لصفحات معينة.</li>
+                </ul>
+            </section>
+
+            <!-- ERRORS -->
+            <section id="errors" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-violet-600 pr-4">10. الأخطاء الشائعة</h2>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">❌ الخطأ 1: "Call to undefined method" عند استخدام Middleware</p>
+                    <p class="text-red-600 text-sm"><strong>السبب:</strong> الـ Middleware غير مسجل في <code>Kernel.php</code> أو الاسم المختصر غير مضبوط.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> تأكد من إضافة الـ Alias في <code>$middlewareAliases</code> في Kernel.php.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">❌ الخطأ 2: "Target class [CheckProjectAccess] does not exist"</p>
+                    <p class="text-red-600 text-sm"><strong>السبب:</strong> الملف غير موجود أو اسم الكلاس خطأ.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> تأكد من وجود الملف في <code>app/Http/Middleware/</code> ومن أن اسم الكلاس يطابق اسم الملف.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">❌ الخطأ 3: Middleware لا يعمل رغم تسجيله</p>
+                    <p class="text-red-600 text-sm"><strong>السبب:</strong> قد يكون السبب أنك تستخدم <code>$middleware</code> (Global) بدل <code>$middlewareAliases</code>.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> تأكد من إضافته في <code>$middlewareAliases</code> إذا كنت تريد استخدامه على مسارات محددة.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">❌ الخطأ 4: 403 يظهر لكل المستخدمين حتى المالك</p>
+                    <p class="text-red-600 text-sm"><strong>السبب:</strong> منطق الفحص في Middleware خاطئ (مثلاً <code>$user->id !== $project->user_id</code> دائماً true).</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> افحص الشروط بكتابة <code>dd($user->id, $project->user_id)</code> داخل Middleware لترى القيم الحقيقية.</p>
+                </div>
+            </section>
+
+            <!-- DIAGRAMS -->
+            <section id="visuals" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-violet-600 pr-4">11. مخططات توضيحية</h2>
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="diagram.svg" alt="Middleware Flow" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط: تدفق Middleware</p>
+                    </div>
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="visual-example.svg" alt="تشبيه المطار" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">تشبيه: نقاط التفتيش في المطار</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SUMMARY -->
+            <section id="summary" class="mt-16 p-8 rounded-3xl bg-slate-900 text-white">
+                <h2 class="text-2xl font-black mb-6">🧠 ملخص الدرس</h2>
+                <div class="space-y-4 text-slate-300">
+                    <p>🔹 <strong>Middleware:</strong> طبقة فحص تقف بين الطلب والتطبيق.</p>
+                    <p>🔹 <strong>Middleware الجاهزة:</strong> <code>auth</code> (للمسجلين)، <code>guest</code> (للزوار)، <code>verified</code> (للموثقين).</p>
+                    <p>🔹 <strong>إنشاء Middleware مخصص:</strong> <code>php artisan make:middleware CheckProjectAccess</code>.</p>
+                    <p>🔹 <strong>تسجيله في Kernel:</strong> أضف الاسم المختصر في <code>$middlewareAliases</code>.</p>
+                    <p>🔹 <strong>تطبيقه على Routes:</strong> <code>->middleware(['auth', 'check.project'])</code>.</p>
+                    <p>🔹 <strong>Middleware مع Parameters:</strong> <code>'role:admin,manager'</code> لتحديد أدوار مسموح بها.</p>
+                    <p>🔹 <strong>FlowPilot:</strong> check.project للتأكد من صلاحية الوصول للمشروع + verified للتوثيق.</p>
+                </div>
+                <div class="mt-8 p-6 bg-violet-600 rounded-2xl">
+                    <p class="font-black text-lg">💡 تذكر: الـ Middleware هو خط الدفاع الأول. ضع فيه كل فحص ضروري قبل أن يصل الطلب إلى الـ Controller!</p>
+                </div>
+            </section>
+
+            <!-- NAV -->
             <div class="mt-12 flex justify-between gap-4">
                 <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-02/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-amber-600 px-8 py-4 text-white font-black hover:bg-amber-700 transition-all shadow-xl shadow-indigo-100" href="../lesson-04/index.html">الدرس التالي: الملف الشخصي ←</a>
+                <a class="rounded-2xl bg-violet-600 px-8 py-4 text-white font-black hover:bg-violet-700 transition-all shadow-xl shadow-violet-100" href="../lesson-04/index.html">الدرس التالي: إعدادات الحساب ←</a>
             </div>
         </article>
     </div>
 </main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. كلما زادت طبقات الأمان، زادت ثقة المستخدم.<br>
+    <a href="assignment.html" class="text-indigo-600 hover:underline font-bold">→ اذهب إلى الواجب العملي</a>
+    <span class="mx-2">·</span>
+    <a href="quiz.html" class="text-indigo-600 hover:underline font-bold">→ اذهب إلى الكويز</a>
+</footer>
 
 <script src="../../../assets/js/app.js"></script>
 </body>

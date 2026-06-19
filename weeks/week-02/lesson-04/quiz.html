@@ -1,1 +1,206 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>كويز - إنشاء Dashboard أولية لمؤشرات FlowPilot - FlowPilot Academy</title><link rel="stylesheet" href="../../../assets/css/style.css"></head><body><nav class="nav"><div class="container inner"><a class="brand" href="../../../index.html"><span class="logo">F</span><span>FlowPilot Academy</span></a><div class="links"><a href="../../../index.html">الرئيسية</a><a href="../../../pages/curriculum.html">الفهرس</a><a href="../../../pages/lessons.html">الدروس</a><a href="../../../pages/beginner-guide.html">دليل الطالب</a><a href="../../../pages/project.html">المشروع</a><a href="../../../pages/plan.html">خطة التطوير</a><a href="../../../pages/references.html">المراجع</a></div></div></nav><main class="container section"><a class="btn" href="index.html">← العودة إلى الدرس</a><section class="card"><span class="badge">كويز الأسبوع 2 · الدرس 4</span><h1 class="title">كويز: إنشاء Dashboard أولية لمؤشرات FlowPilot</h1><p class="lead">الكويز يقيس الفهم الحقيقي: لماذا نستخدم المفهوم، وكيف يظهر داخل FlowPilot، وما العلاقة بين النظرية والتطبيق.</p></section><section class="grid" style="margin-top:20px"><div class="card" data-answer="b"><h3>السؤال 1: ما الهدف الأساسي من هذا الدرس؟</h3><label class="quiz-option"><input type="radio" name="q1" value="a"> حفظ أسماء الملفات فقط</label><label class="quiz-option"><input type="radio" name="q1" value="b"> فهم مفهوم عملي وربطه بمشروع FlowPilot</label><label class="quiz-option"><input type="radio" name="q1" value="c"> تغيير ألوان الصفحة فقط</label><label class="quiz-option"><input type="radio" name="q1" value="d"> تجاهل التطبيق العملي</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> الهدف هو الفهم والتطبيق، وليس الحفظ أو التزيين فقط.</p></div><div class="card" data-answer="c"><h3>السؤال 2: ما العلاقة الصحيحة بين Laravel وReact وInertia؟</h3><label class="quiz-option"><input type="radio" name="q2" value="a"> Laravel يعرض الواجهة فقط</label><label class="quiz-option"><input type="radio" name="q2" value="b"> React يدير قاعدة البيانات</label><label class="quiz-option"><input type="radio" name="q2" value="c"> Inertia يربط Laravel بصفحات React</label><label class="quiz-option"><input type="radio" name="q2" value="d"> Tailwind يحفظ البيانات</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> Inertia يعمل كجسر بين Laravel وReact.</p></div><div class="card" data-answer="b"><h3>السؤال 3: لماذا نشرح السبب قبل الكود؟</h3><label class="quiz-option"><input type="radio" name="q3" value="a"> حتى ينسخ الطالب بسرعة</label><label class="quiz-option"><input type="radio" name="q3" value="b"> حتى يفهم الطالب وظيفة الخطوة ويكررها لاحقاً</label><label class="quiz-option"><input type="radio" name="q3" value="c"> حتى نقلل الشرح</label><label class="quiz-option"><input type="radio" name="q3" value="d"> لأن الكود غير مهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> فهم السبب يجعل الطالب قادراً على حل الأخطاء وتطبيق الفكرة في مكان آخر.</p></div><div class="card" data-answer="b"><h3>السؤال 4: ما أفضل طريقة للتعامل مع خطأ يظهر أثناء التطبيق؟</h3><label class="quiz-option"><input type="radio" name="q4" value="a"> حذف الملفات</label><label class="quiz-option"><input type="radio" name="q4" value="b"> قراءة رسالة الخطأ ومراجعة المسار والاسم</label><label class="quiz-option"><input type="radio" name="q4" value="c"> تجاهل الخطأ</label><label class="quiz-option"><input type="radio" name="q4" value="d"> إغلاق المشروع</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> رسالة الخطأ غالباً توضح مكان المشكلة أو سببها.</p></div><div class="card" data-answer="b"><h3>السؤال 5: ماذا يعني نجاح الدرس داخل FlowPilot؟</h3><label class="quiz-option"><input type="radio" name="q5" value="a"> وجود عنوان فقط</label><label class="quiz-option"><input type="radio" name="q5" value="b"> ظهور نتيجة عملية مفهومة يمكن البناء عليها</label><label class="quiz-option"><input type="radio" name="q5" value="c"> عدم تشغيل المشروع</label><label class="quiz-option"><input type="radio" name="q5" value="d"> نسخ الكود دون فهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> كل درس يجب أن يضيف نتيجة تعليمية وعملية واضحة.</p></div></section><section class="card"><button class="btn" data-grade-quiz>تصحيح الكويز</button><p id="quizResult" class="result"></p></section></main><footer class="footer"><div class="container">© FlowPilot Academy - دورة Laravel 12 + React + Inertia.js + Tailwind CSS</div></footer><script src="../../../assets/js/app.js"></script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>كويز الدرس 8: Dashboard | FlowPilot Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .quiz-option { display: block; width: 100%; text-align: right; padding: 1rem; border: 2px solid #e2e8f0; border-radius: 1rem; cursor: pointer; transition: all 0.2s; font-weight: 500; }
+        .quiz-option:hover { border-color: #818cf8; background: #eef2ff; }
+        .quiz-option input { margin-left: 0.75rem; }
+        .correct { border-color: #10b981 !important; background: #ecfdf5 !important; }
+        .wrong { border-color: #ef4444 !important; background: #fef2f2 !important; }
+        .explain-box { display: none; padding: 1rem; border-radius: 1rem; margin-top: 0.75rem; font-size: 0.9rem; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+    </div>
+</header>
+<main class="mx-auto max-w-3xl px-4 py-12">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8 text-sm" href="index.html">← العودة لشرح الدرس</a>
+    <div class="card p-8 md:p-12 space-y-8 bg-white shadow-sm rounded-3xl">
+        <div class="text-center">
+            <span class="px-3 py-1 rounded-lg bg-amber-50 text-amber-700 font-bold text-xs uppercase tracking-widest">كويز الأسبوع 2 · الدرس 4</span>
+            <h1 class="mt-4 text-3xl font-black text-slate-900">🧪 كويز: Dashboard و Shared Data</h1>
+            <p class="mt-2 text-slate-500">اختبر فهمك للـ Dashboard وبيانات Inertia المشتركة.</p>
+        </div>
+
+        <!-- MCQ 1 -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100" data-answer="c">
+            <p class="font-bold text-lg mb-4">1. ما هي وظيفة Dashboard في تطبيق ويب؟</p>
+            <label class="quiz-option"><input type="radio" name="q1" value="a"> عرض جميع بيانات قاعدة البيانات</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="b"> إخفاء البيانات عن المستخدم</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="c"> تلخيص مؤشرات الأداء في صفحة واحدة</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="d"> تسجيل خروج المستخدم</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700"><strong>✅ صحيح! </strong>Dashboard تلخص المؤشرات المهمة في مكان واحد.</div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700"><strong>❌ خطأ. </strong>الإجابة الصحيحة: تلخيص مؤشرات الأداء.</div>
+        </div>
+
+        <!-- MCQ 2 -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="b">
+            <p class="font-bold text-lg mb-4">2. كيف تصل إلى البيانات المشتركة (Shared Data) من Inertia داخل React؟</p>
+            <label class="quiz-option"><input type="radio" name="q2" value="a"> import { useData } from 'react'</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="b"> import { usePage } from '@inertiajs/react'</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="c"> window.sharedData</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="d"> axios.get('/shared-data')</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700"><strong>✅ صحيح! </strong>usePage() هو Hook Inertia للوصول للبيانات المشتركة.</div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700"><strong>❌ خطأ. </strong>الإجابة الصحيحة: usePage() من @inertiajs/react.</div>
+        </div>
+
+        <!-- MCQ 3 -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="a">
+            <p class="font-bold text-lg mb-4">3. ماذا يفعل auth?.user?.name في JavaScript؟</p>
+            <label class="quiz-option"><input type="radio" name="q3" value="a"> يصل إلى name بأمان - إذا كان auth أو user null لا يسبب خطأ</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="b"> يغير اسم المستخدم</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="c"> يحذف المستخدم</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="d"> يعيد خطأ دائماً</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700"><strong>✅ صحيح! </strong>Optional Chaining (?.) يمنع الخطأ عند الوصول لـ null.</div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700"><strong>❌ خطأ. </strong>الإجابة الصحيحة: يصل إلى name بأمان دون التسبب بخطأ.</div>
+        </div>
+
+        <!-- MCQ 4 -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="d">
+            <p class="font-bold text-lg mb-4">4. أين نكتب Shared Data لـ Inertia في Laravel؟</p>
+            <label class="quiz-option"><input type="radio" name="q4" value="a"> routes/web.php</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="b"> resources/js/app.js</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="c"> config/app.php</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="d"> app/Http/Middleware/HandleInertiaRequests.php</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700"><strong>✅ صحيح! </strong>HandleInertiaRequests هو المكان الصحيح لمشاركة البيانات.</div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700"><strong>❌ خطأ. </strong>الإجابة الصحيحة: HandleInertiaRequests.php.</div>
+        </div>
+
+        <!-- MCQ 5 -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="c">
+            <p class="font-bold text-lg mb-4">5. أي كلاسات Tailwind تجعل Grid بعمودين في التابلت و 4 أعمدة في سطح المكتب؟</p>
+            <label class="quiz-option"><input type="radio" name="q5" value="a"> grid-cols-2 md:grid-cols-4</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="b"> sm:grid-cols-4 lg:grid-cols-2</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="c"> grid-cols-1 md:grid-cols-2 lg:grid-cols-4</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="d"> flex-cols-2</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700"><strong>✅ صحيح! </strong>1→2→4 أعمدة حسب حجم الشاشة.</div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700"><strong>❌ خطأ. </strong>الإجابة الصحيحة: grid-cols-1 md:grid-cols-2 lg:grid-cols-4.</div>
+        </div>
+
+        <!-- T/F 6 -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="true">
+            <p class="font-bold text-lg mb-4">6. (صح أم خطأ) البيانات المشتركة في Inertia متوفرة في كل الصفحات دون الحاجة لتمريرها من كل Controller.</p>
+            <label class="quiz-option"><input type="radio" name="q6" value="true"> ✅ صح</label>
+            <label class="quiz-option"><input type="radio" name="q6" value="false"> ❌ خطأ</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700"><strong>✅ صحيح! </strong>الجواب <strong>صح</strong>. Shared Data متوفرة في كل الصفحات تلقائياً.</div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700"><strong>❌ خطأ. </strong>الإجابة الصحيحة: <strong>صح</strong>.</div>
+        </div>
+
+        <!-- T/F 7 -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="true">
+            <p class="font-bold text-lg mb-4">7. (صح أم خطأ) Dashboard يمكنها استخدام مكونات مخصصة مثل StatCard و ProjectCard.</p>
+            <label class="quiz-option"><input type="radio" name="q7" value="true"> ✅ صح</label>
+            <label class="quiz-option"><input type="radio" name="q7" value="false"> ❌ خطأ</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700"><strong>✅ صحيح! </strong>الجواب <strong>صح</strong>. إعادة استخدام المكونات هو الهدف منها.</div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700"><strong>❌ خطأ. </strong>الإجابة الصحيحة: <strong>صح</strong>.</div>
+        </div>
+
+        <!-- Theory 8 -->
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6">
+            <p class="font-bold text-lg mb-4">8. (سؤال نظري) لماذا نستخدم Shared Data في Inertia بدلاً من تمرير البيانات في كل Controller على حدة؟</p>
+            <textarea id="theoryAnswer" rows="4" class="w-full p-4 border border-slate-200 rounded-xl text-right text-sm" placeholder="اكتب إجابتك هنا..."></textarea>
+            <button onclick="checkTheory()" class="mt-3 px-6 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700">تحقق</button>
+            <div id="theoryFeedback" class="explain-box mt-4 border" style="display:none;"></div>
+        </div>
+
+        <!-- Practical 9 -->
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6">
+            <p class="font-bold text-lg mb-4">9. (سؤال تطبيقي) اكتب كود Inertia::render() لدالة index في DashboardController ترسل stats و recentProjects.</p>
+            <textarea id="practicalAnswer" rows="4" class="w-full p-4 border border-slate-200 rounded-xl text-left text-sm font-mono" placeholder="اكتب الكود هنا..." dir="ltr"></textarea>
+            <button onclick="checkPractical()" class="mt-3 px-6 py-2 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700">تحقق</button>
+            <div id="practicalFeedback" class="explain-box mt-4 border" style="display:none;"></div>
+        </div>
+
+        <div class="text-center pt-6 border-t">
+            <button onclick="resetQuiz()" class="px-8 py-3 bg-slate-200 text-slate-700 rounded-xl font-bold hover:bg-slate-300">🔄 إعادة تعيين</button>
+        </div>
+    </div>
+</main>
+<script>
+document.querySelectorAll('.quiz-card').forEach(card => {
+    card.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.addEventListener('click', function() {
+            const card = this.closest('.quiz-card');
+            const correctAnswer = card.dataset.answer;
+            const selectedValue = this.querySelector('input').value;
+            card.querySelectorAll('.quiz-option').forEach(o => { o.style.pointerEvents = 'none'; o.style.opacity = '0.7'; });
+            if (selectedValue === correctAnswer) {
+                this.classList.add('correct');
+                card.querySelectorAll('.explain-box')[0].style.display = 'block';
+            } else {
+                this.classList.add('wrong');
+                card.querySelectorAll('.explain-box')[1].style.display = 'block';
+                card.querySelectorAll('.quiz-option').forEach(o => {
+                    if (o.querySelector('input').value === correctAnswer) o.classList.add('correct');
+                });
+            }
+        });
+    });
+});
+function checkTheory() {
+    const answer = document.getElementById('theoryAnswer').value.trim();
+    const feedback = document.getElementById('theoryFeedback');
+    feedback.style.display = 'block';
+    if (answer.length < 20) {
+        feedback.className = 'explain-box bg-red-50 border border-red-200 text-red-700';
+        feedback.innerHTML = '<strong>الإجابة قصيرة.</strong> مثال: "Shared Data يمنع تكرار نفس البيانات في كل Controller، ويوفر الوقت."';
+    } else if (answer.includes('تكر') || answer.includes('مرة') || answer.includes('جميع')) {
+        feedback.className = 'explain-box bg-green-50 border border-green-200 text-green-700';
+        feedback.innerHTML = '<strong>✅ ممتاز!</strong> Shared Data تمنع التكرار وتجعل البيانات متوفرة في كل الصفحات.';
+    } else {
+        feedback.className = 'explain-box bg-blue-50 border border-blue-200 text-blue-700';
+        feedback.innerHTML = '<strong>💡 تلميح:</strong> Shared Data = اكتب مرة واحدة، استخدم في كل الصفحات.';
+    }
+}
+function checkPractical() {
+    const answer = document.getElementById('practicalAnswer').value.trim();
+    const feedback = document.getElementById('practicalFeedback');
+    feedback.style.display = 'block';
+    const hasRender = answer.includes('Inertia::render');
+    const hasDashboard = answer.includes('Dashboard');
+    const hasStats = answer.includes('stats');
+    const hasRecent = answer.includes('recentProjects');
+    if (hasRender && hasDashboard && hasStats && hasRecent) {
+        feedback.className = 'explain-box bg-green-50 border border-green-200 text-green-700';
+        feedback.innerHTML = '✅ صحيح! مثال: <code>return Inertia::render(\'Dashboard\', [\'stats\' => $stats, \'recentProjects\' => $recentProjects]);</code>';
+    } else {
+        let hints = [];
+        if (!hasRender) hints.push('استخدم <code>Inertia::render()</code>');
+        if (!hasDashboard) hints.push('المعامل الأول: <code>\'Dashboard\'</code>');
+        if (!hasStats) hints.push('أضف <code>\'stats\'</code>');
+        if (!hasRecent) hints.push('أضف <code>\'recentProjects\'</code>');
+        feedback.className = 'explain-box bg-amber-50 border border-amber-200 text-amber-700';
+        feedback.innerHTML = '<strong>💡 نقص:</strong> ' + hints.join('، ');
+    }
+}
+function resetQuiz() {
+    document.querySelectorAll('.quiz-card').forEach(card => {
+        card.querySelectorAll('.quiz-option').forEach(opt => {
+            opt.classList.remove('correct', 'wrong');
+            opt.style.pointerEvents = 'auto';
+            opt.style.opacity = '1';
+            opt.querySelector('input').checked = false;
+        });
+        card.querySelectorAll('.explain-box').forEach(box => box.style.display = 'none');
+    });
+    document.getElementById('theoryAnswer').value = '';
+    document.getElementById('practicalAnswer').value = '';
+    document.getElementById('theoryFeedback').style.display = 'none';
+    document.getElementById('practicalFeedback').style.display = 'none';
+}
+</script>
+<footer class="mt-12 border-t bg-white py-8 text-center text-slate-400 text-sm font-medium">© 2026 FlowPilot Academy. اختبر معلوماتك باستمرار.</footer>
+</body>
+</html>

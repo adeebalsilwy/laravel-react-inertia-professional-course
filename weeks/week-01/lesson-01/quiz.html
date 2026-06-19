@@ -3,12 +3,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>كويز الدرس 1: تهيئة البيئة</title>
+    <title>كويز الدرس 1: تهيئة بيئة العمل</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; }
+        code { direction: ltr; display: inline-block; }
+        .correct { background: #ecfdf5 !important; border-color: #10b981 !important; color: #065f46 !important; }
+        .wrong { background: #fef2f2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
@@ -23,106 +29,134 @@
     
     <div class="space-y-12">
         <div class="text-center space-y-4">
-            <h1 class="text-3xl font-black">اختبر فهمك للبيئة والأدوات</h1>
-            <p class="text-slate-600">هذا الكويز يقيس مدى استيعابك للمفاهيم الأساسية قبل الانتقال للكود.</p>
+            <h1 class="text-3xl font-black">اختبر فهمك: بيئة العمل والأدوات</h1>
+            <p class="text-slate-600">أجب عن الأسئلة التالية. بعد الانتهاء، اضغط "تصحيح الإجابات" لترى نتائجك.</p>
         </div>
 
         <div id="quiz-container" class="space-y-8">
-            <!-- Questions 1-5 MCQs -->
+            <!-- MCQ 1 -->
             <div class="card p-8 space-y-6 shadow-sm" data-question="1" data-answer="b">
-                <p class="font-black text-xl leading-relaxed">1. ما الدور الأساسي لـ Composer في مشروع FlowPilot؟</p>
+                <p class="font-black text-xl leading-relaxed">1. ما هي الوظيفة الأساسية لبرنامج Composer في مشروع FlowPilot؟</p>
                 <div class="space-y-3">
                     <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
                         <input type="radio" name="q1" value="a" class="hidden">
-                        <span>أ) تصميم واجهات المستخدم بالـ CSS</span>
+                        <span>أ) تصميم واجهات المستخدم وجعلها جميلة</span>
                     </label>
                     <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
                         <input type="radio" name="q1" value="b" class="hidden">
-                        <span>ب) جلب وإدارة مكتبات لغة PHP التي يحتاجها Laravel</span>
+                        <span>ب) إدارة مكتبات PHP وجلبها للمشروع (مثل تثبيت Laravel نفسه)</span>
                     </label>
                     <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
                         <input type="radio" name="q1" value="c" class="hidden">
-                        <span>ج) تشغيل قاعدة البيانات بشكل مباشر</span>
+                        <span>ج) تشغيل قاعدة بيانات MySQL مباشرة</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="d" class="hidden">
+                        <span>د) حفظ تاريخ التغييرات في الكود</span>
                     </label>
                 </div>
-                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: Composer هو مدير حزم PHP، وظيفته جلب الأدوات الجاهزة لـ Laravel.</p>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: Composer هو مدير حزم PHP. وظيفته الأساسية هي تحميل وتحديث وإدارة المكتبات الجاهزة التي يحتاجها مشروع Laravel. مثلاً، هو من قام بتحميل Laravel نفسه عندما كتبنا أمر create-project.</p>
             </div>
 
-            <div class="card p-8 space-y-6 shadow-sm" data-question="2" data-answer="a">
-                <p class="font-black text-xl leading-relaxed">2. لماذا نحتاج لتثبيت Node.js رغم أننا نبرمج بـ Laravel؟</p>
+            <!-- MCQ 2 -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="2" data-answer="c">
+                <p class="font-black text-xl leading-relaxed">2. لماذا نحتاج إلى Node.js في مشروع Laravel؟</p>
                 <div class="space-y-3">
                     <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
                         <input type="radio" name="q2" value="a" class="hidden">
-                        <span>أ) لبناء ومعالجة ملفات React و Tailwind</span>
+                        <span>أ) Laravel نفسه مكتوب بلغة JavaScript ويحتاج Node.js</span>
                     </label>
                     <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
                         <input type="radio" name="q2" value="b" class="hidden">
-                        <span>ب) لأن Laravel لا يعمل بدون Node.js نهائياً</span>
+                        <span>ب) Node.js هو نظام قاعدة بيانات خاص بـ Laravel</span>
                     </label>
                     <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
                         <input type="radio" name="q2" value="c" class="hidden">
-                        <span>ج) لتخزين بيانات المستخدمين</span>
+                        <span>ج) لتشغيل أدوات بناء الواجهة مثل React و Tailwind CSS ومعالجتها</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="d" class="hidden">
+                        <span>د) Node.js مسؤول عن ترجمة PHP إلى كود مفهوم للمتصفح</span>
                     </label>
                 </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: PHP و Laravel يعملان على الخادم لتجهيز البيانات. أما الواجهة التي يراها المستفظ فهي React (JavaScript). Node.js هو المحرك الذي يسمح لنا بمعالجة كود React و Tailwind CSS وتحويلهما إلى شيء يعمل في المتصفح.</p>
             </div>
 
-            <div class="card p-8 space-y-6 shadow-sm" data-question="3" data-answer="c">
-                <p class="font-black text-xl leading-relaxed">3. ما وظيفة نظام Git في دورتنا؟</p>
+            <!-- MCQ 3 -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="3" data-answer="b">
+                <p class="font-black text-xl leading-relaxed">3. أي من الإصدارات التالية يعمل مع Laravel 12؟</p>
                 <div class="space-y-3">
                     <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
                         <input type="radio" name="q3" value="a" class="hidden">
-                        <span>أ) تسريع سرعة الإنترنت</span>
+                        <span>أ) PHP 5.6</span>
                     </label>
                     <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
                         <input type="radio" name="q3" value="b" class="hidden">
-                        <span>ب) تشغيل السيرفر المحلي</span>
+                        <span>ب) PHP 8.2</span>
                     </label>
                     <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
                         <input type="radio" name="q3" value="c" class="hidden">
-                        <span>ج) تتبع التغييرات في الكود وحفظ نسخ منه</span>
+                        <span>ج) PHP 7.4</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="d" class="hidden">
+                        <span>د) PHP 8.1</span>
                     </label>
                 </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: Laravel 12 يتطلب PHP 8.2 أو أحدث. الإصدارات الأقدم لا تدعم الميزات الحديثة التي يحتاجها Laravel، وقد تسبب أخطاء غير متوقعة.</p>
             </div>
 
-            <div class="card p-8 space-y-6 shadow-sm" data-question="4" data-answer="b">
-                <p class="font-black text-xl leading-relaxed">4. أي نسخة PHP مطلوبة على الأقل لتشغيل Laravel 12؟</p>
+            <!-- MCQ 4 -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="4" data-answer="c">
+                <p class="font-black text-xl leading-relaxed">4. ما وظيفة Git في تطوير البرمجيات؟</p>
                 <div class="space-y-3">
                     <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
                         <input type="radio" name="q4" value="a" class="hidden">
-                        <span>أ) 7.4</span>
+                        <span>أ) تسريع اتصال الإنترنت أثناء التطوير</span>
                     </label>
                     <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
                         <input type="radio" name="q4" value="b" class="hidden">
-                        <span>ب) 8.2</span>
+                        <span>ب) تجميل شكل الكود وجعله مقروءاً أكثر</span>
                     </label>
                     <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
                         <input type="radio" name="q4" value="c" class="hidden">
-                        <span>ج) 5.6</span>
+                        <span>ج) تتبع التغييرات في الكود مع إمكانية العودة لأي نسخة سابقة</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="d" class="hidden">
+                        <span>د) تشغيل الخادم المحلي لاختبار التطبيق</span>
                     </label>
                 </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: Git هو نظام التحكم في الإصدارات. يسجل كل تغيير تجريه على الكود ويمكنك من العودة لأي نقطة سابقة. مثلاً، إذا أضفت ميزة جديدة وكسرت شيئاً قديماً، يمكنك العودة فوراً للحظة قبل إضافة الميزة.</p>
             </div>
 
+            <!-- MCQ 5 -->
             <div class="card p-8 space-y-6 shadow-sm" data-question="5" data-answer="a">
-                <p class="font-black text-xl leading-relaxed">5. ما المقصود بـ "تهيئة البيئة"؟</p>
+                <p class="font-black text-xl leading-relaxed">5. ماذا يعني المصطلح "تهيئة بيئة العمل" (Environment Setup)؟</p>
                 <div class="space-y-3">
                     <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
                         <input type="radio" name="q5" value="a" class="hidden">
-                        <span>أ) تجهيز الكمبيوتر بالأدوات واللغات اللازمة للبرمجة</span>
+                        <span>أ) تجهيز جهاز الكمبيوتر بجميع الأدوات (PHP، Composer، Node، Git) اللازمة لبدء البرمجة</span>
                     </label>
                     <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
                         <input type="radio" name="q5" value="b" class="hidden">
-                        <span>ب) تنظيف القرص الصلب من الملفات الزائدة</span>
+                        <span>ب) تنظيف سطح المكتب من الأيقونات غير المرتبة</span>
                     </label>
                     <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
                         <input type="radio" name="q5" value="c" class="hidden">
-                        <span>ج) شراء جهاز كمبيوتر جديد</span>
+                        <span>ج) إنشاء مجلد جديد لحفظ المشاريع</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="d" class="hidden">
+                        <span>د) كتابة أول سطر كود في المشروع</span>
                     </label>
                 </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: تهيئة البيئة تعني تثبيت وتجهيز جميع الأدوات (PHP، Composer، Node، Git، VS Code) التي سنستخدمها لاحقاً لتطوير تطبيق FlowPilot. إنها تشبه تجهيز أدوات النجارة قبل البدء في صنع الطاولة.</p>
             </div>
 
-            <!-- Questions 6-7 T/F -->
+            <!-- T/F 6 -->
             <div class="card p-8 space-y-6 shadow-sm" data-question="6" data-answer="true">
-                <p class="font-black text-xl leading-relaxed">6. صح أو خطأ: بدون Composer لا يمكننا تثبيت Laravel بسهولة.</p>
+                <p class="font-black text-xl leading-relaxed">6. صح أم خطأ: يمكننا استخدام Composer لإدارة مكتبات JavaScript؟</p>
                 <div class="flex gap-4">
                     <label class="flex-1 text-center p-4 rounded-xl border-2 border-slate-100 hover:border-emerald-300 cursor-pointer transition-all font-bold">
                         <input type="radio" name="q6" value="true" class="hidden"> صح
@@ -131,10 +165,12 @@
                         <input type="radio" name="q6" value="false" class="hidden"> خطأ
                     </label>
                 </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: الإجابة هي "خطأ". Composer مخصص لحزم PHP فقط. بينما NPM هو المسؤول عن إدارة حزم JavaScript. كل أداة تخدم لغتها الخاصة.</p>
             </div>
 
+            <!-- T/F 7 -->
             <div class="card p-8 space-y-6 shadow-sm" data-question="7" data-answer="false">
-                <p class="font-black text-xl leading-relaxed">7. صح أو خطأ: يجب أن نكون خبراء في Git قبل البدء في الكورس.</p>
+                <p class="font-black text-xl leading-relaxed">7. صح أم خطأ: Git هو نفسه GitHub، وكلاهما يعملان بنفس الطريقة.</p>
                 <div class="flex gap-4">
                     <label class="flex-1 text-center p-4 rounded-xl border-2 border-slate-100 hover:border-emerald-300 cursor-pointer transition-all font-bold">
                         <input type="radio" name="q7" value="true" class="hidden"> صح
@@ -143,23 +179,25 @@
                         <input type="radio" name="q7" value="false" class="hidden"> خطأ
                     </label>
                 </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: الإجابة "خطأ". Git هو برنامج مثبت على جهازك لإدارة الإصدارات محلياً. GitHub هو موقع ويب يستضيف مشاريع Git على الإنترنت لتسهيل التعاون والمشاركة. الفرق مثل: حاسوبك الشخصي (Git) مقابل Dropbox (GitHub).</p>
             </div>
 
-            <!-- Question 8 Theory -->
+            <!-- Theory 8 -->
             <div class="card p-8 space-y-6 shadow-sm">
-                <p class="font-black text-xl leading-relaxed">8. سؤال فهم نظري: لماذا نشبه البيئة بالمطبخ الاحترافي؟</p>
-                <textarea class="w-full p-4 rounded-xl border-2 border-slate-100 outline-none focus:border-indigo-300 text-sm" rows="3" placeholder="اكتب إجابتك هنا..."></textarea>
-                <p class="explain hidden text-sm text-indigo-600 font-bold">لأن المطبخ يحتاج أدوات (فرن، طباخ، مساعدين) قبل البدء في الطبخ، والبرمجة تحتاج (PHP، Composer، Node) قبل كتابة الكود.</p>
+                <p class="font-black text-xl leading-relaxed">8. سؤال نظري: لماذا نشبه PHP بالطباخ و Composer بالمساعد في تشبيه المطبخ؟</p>
+                <textarea class="w-full p-4 rounded-xl border-2 border-slate-100 outline-none focus:border-indigo-300 text-sm" rows="4" placeholder="اكتب إجابتك هنا مستخدماً أسلوبك الخاص..."></textarea>
+                <p class="explain hidden text-sm text-indigo-600 font-bold">مثال للإجابة الصحيحة: PHP هو الطباخ لأنه ينفذ الأوامر ويجهز البيانات (مثل الطباخ الذي يطبخ الطعام). Composer هو المساعد الذي يذهب للسوق لشراء المكونات الجاهزة (المكتبات) التي يحتاجها الطباخ. الطباخ لا يستطيع العمل بدون المكونات، و Composer لا يستطيع الطهي بنفسه - كل مكمل للآخر.</p>
             </div>
 
-            <!-- Question 9 Practical -->
+            <!-- Practical 9 -->
             <div class="card p-8 space-y-6 shadow-sm">
-                <p class="font-black text-xl leading-relaxed">9. سؤال تطبيقي: ما الأمر الذي تكتبه للتأكد من وجود PHP؟</p>
-                <input type="text" class="w-full p-4 rounded-xl border-2 border-slate-100 outline-none focus:border-indigo-300 font-mono text-sm" placeholder="اكتب الأمر هنا...">
-                <p class="explain hidden text-sm text-indigo-600 font-bold">الإجابة الصحيحة: php -v</p>
+                <p class="font-black text-xl leading-relaxed">9. سؤال تطبيقي: اكتب الأمر الصحيح (مع الشرح) الذي تستخدمه في Terminal للتأكد من إصدار PHP المثبت على جهازك.</p>
+                <input type="text" class="w-full p-4 rounded-xl border-2 border-slate-100 outline-none focus:border-indigo-300 font-mono text-sm" placeholder="اكتب الأمر هنا..." dir="ltr">
+                <textarea class="w-full p-4 rounded-xl border-2 border-slate-100 outline-none focus:border-indigo-300 text-sm" rows="2" placeholder="اشرح باختصار ما معنى هذا الأمر..."></textarea>
+                <p class="explain hidden text-sm text-indigo-600 font-bold">الإجابة الصحيحة: الأمر هو "php -v". php = اسم البرنامج، -v = اختصار لـ version (يطلب من PHP عرض إصدارها). أو يمكن أيضاً استخدام "php --version" بنفس المعنى. عند تنفيذه، سيظهر إصدار PHP المثبت (يجب أن يكون 8.2+).</p>
             </div>
 
-            <!-- Final Result -->
+            <!-- Result -->
             <div class="card p-10 text-center space-y-6 bg-slate-900 text-white">
                 <p class="font-black text-2xl">النتيجة النهائية</p>
                 <div id="quizResult" class="text-5xl font-black text-indigo-400">-- / 7</div>
@@ -170,7 +208,6 @@
     </div>
 </main>
 
-<script src="../../../assets/js/app.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const labels = document.querySelectorAll('label');
@@ -187,7 +224,63 @@
                 radio.checked = true;
             });
         });
+
+        document.querySelector('[data-grade-quiz]').addEventListener('click', () => {
+            let score = 0;
+            let total = 7;
+            const questions = document.querySelectorAll('[data-question]');
+            
+            questions.forEach(question => {
+                const correct = question.dataset.answer;
+                const selected = question.querySelector('input[type="radio"]:checked');
+                const labels = question.querySelectorAll('label');
+                
+                // Reset styles
+                labels.forEach(l => {
+                    l.classList.remove('correct', 'wrong', 'border-slate-100', 'bg-indigo-50', 'border-indigo-500');
+                });
+
+                if (selected) {
+                    if (selected.value === correct) {
+                        score++;
+                        labels.forEach(l => {
+                            if (l.contains(selected)) {
+                                l.classList.add('correct');
+                            }
+                        });
+                    } else {
+                        labels.forEach(l => {
+                            if (l.contains(selected)) {
+                                l.classList.add('wrong');
+                            }
+                            const radio = l.querySelector('input[type="radio"]');
+                            if (radio && radio.value === correct) {
+                                l.classList.add('correct');
+                            }
+                        });
+                    }
+                }
+
+                // Show explanation
+                const explain = question.querySelector('.explain');
+                if (explain) explain.classList.remove('hidden');
+            });
+
+            document.getElementById('quizResult').innerText = score + ' / ' + total;
+            
+            let feedback = document.getElementById('feedback');
+            if (score === total) {
+                feedback.innerText = '🎉 ممتاز! أنت فهمت كل شيء عن بيئة العمل. أنت جاهز للدرس القادم!';
+            } else if (score >= 5) {
+                feedback.innerText = '👏 جيد جداً! راجع إجاباتك الخاطئة وفهم لماذا أخطأت.';
+            } else if (score >= 3) {
+                feedback.innerText = '📚 محاولة جيدة. أنصحك بقراءة الدرس مرة أخرى والتركيز على شرح الأدوات.';
+            } else {
+                feedback.innerText = '💪 لا تستسلم! أعد قراءة الدرس من البداية، خاصة قسمي "الشرح النظري" و "الأخطاء الشائعة".';
+            }
+        });
     });
 </script>
+
 </body>
 </html>

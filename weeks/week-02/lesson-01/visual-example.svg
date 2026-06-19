@@ -1,31 +1,92 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
-  <rect width="800" height="300" fill="#f0f9ff" rx="20"/>
-  
-  <!-- Mall Analogy -->
-  <g transform="translate(50, 80)">
-    <rect width="200" height="140" rx="10" fill="white" stroke="#0ea5e9" stroke-width="2"/>
-    <text x="100" y="40" text-anchor="middle" font-weight="bold">اللوحات الإرشادية</text>
-    <text x="100" y="70" text-anchor="middle" font-size="12" fill="#0369a1">الـ Route</text>
-  </g>
-  
-  <g transform="translate(300, 80)">
-    <rect width="200" height="140" rx="10" fill="white" stroke="#0ea5e9" stroke-width="2"/>
-    <text x="100" y="40" text-anchor="middle" font-weight="bold">موظف الاستقبال</text>
-    <text x="100" y="70" text-anchor="middle" font-size="12" fill="#0369a1">الـ Controller</text>
-  </g>
-  
-  <g transform="translate(550, 80)">
-    <rect width="200" height="140" rx="10" fill="white" stroke="#0ea5e9" stroke-width="2"/>
-    <text x="100" y="40" text-anchor="middle" font-weight="bold">الأقسام والسلع</text>
-    <text x="100" y="70" text-anchor="middle" font-size="12" fill="#0369a1">البيانات (Data)</text>
-  </g>
-  
-  <path d="M 250 150 L 290 150" stroke="#0ea5e9" stroke-width="2" marker-end="url(#arr2)"/>
-  <path d="M 500 150 L 540 150" stroke="#0ea5e9" stroke-width="2" marker-end="url(#arr2)"/>
-  
   <defs>
-    <marker id="arr2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0ea5e9" /></marker>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0f9ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ecfdf5;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow2" x="-5%" y="-5%" width="115%" height="120%">
+      <feDropShadow dx="2" dy="3" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.06"/>
+    </filter>
   </defs>
-  
-  <text x="400" y="40" text-anchor="middle" font-weight="bold" font-size="22" fill="#0c4a6e">تشبيه "المجمع التجاري" للمسارات</text>
+
+  <!-- Background -->
+  <rect width="800" height="300" fill="url(#bgGrad2)" rx="20"/>
+
+  <!-- Title -->
+  <text x="400" y="40" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="900" font-size="20" fill="#0f172a">🍽️ تشبيه "المطعم الذكي" للمسارات (Routing)</text>
+  <text x="400" y="60" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="12" fill="#64748b">كل عنصر في المطعم يناظر عنصراً في تطبيق FlowPilot</text>
+
+  <!-- Restaurant Building -->
+  <g filter="url(#shadow2)">
+    <rect x="30" y="80" width="170" height="180" rx="18" fill="#ffffff" stroke="#f59e0b" stroke-width="2"/>
+    <!-- Roof -->
+    <polygon points="30,80 115,50 200,80" fill="#f59e0b"/>
+    <text x="115" y="120" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="900" font-size="14" fill="#92400e">🏪 المطعم</text>
+    <text x="115" y="145" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="11" fill="#d97706">(تطبيق FlowPilot)</text>
+    <!-- Door -->
+    <rect x="80" y="195" width="70" height="65" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+    <circle cx="138" cy="228" r="4" fill="#f59e0b"/>
+    <text x="115" y="242" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="9" fill="#92400e">🚪 الباب</text>
+    <text x="115" y="255" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="8" fill="#92400e">(رابط URL)</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M205 170 L240 170" stroke="#64748b" stroke-width="3" marker-end="url(#arrow3)"/>
+  <defs>
+    <marker id="arrow3" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <!-- Waiter / Route -->
+  <g filter="url(#shadow2)">
+    <rect x="245" y="80" width="160" height="180" rx="18" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+    <circle cx="325" cy="115" r="22" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+    <text x="325" y="120" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="16">🧑‍🍳</text>
+    <text x="325" y="160" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="900" font-size="14" fill="#991b1b">النادل</text>
+    <text x="325" y="180" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="11" fill="#dc2626">(الـ Route)</text>
+    <text x="325" y="205" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#991b1b">يسأل: "ماذا تطلب؟"</text>
+    <text x="325" y="225" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#991b1b">ويوجهك للقسم المناسب</text>
+    <text x="325" y="248" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="9" fill="#b91c1c">Route::get('/projects')</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M410 170 L445 170" stroke="#64748b" stroke-width="3" marker-end="url(#arrow3)"/>
+
+  <!-- Chef / Controller -->
+  <g filter="url(#shadow2)">
+    <rect x="450" y="80" width="160" height="180" rx="18" fill="#fffbeb" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="530" cy="115" r="22" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+    <text x="530" y="120" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="16">👨‍🍳</text>
+    <text x="530" y="160" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="900" font-size="14" fill="#92400e">الطاهي (Chef)</text>
+    <text x="530" y="180" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="11" fill="#d97706">(الـ Controller)</text>
+    <text x="530" y="205" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#92400e">يحضر الطبق</text>
+    <text x="530" y="225" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#92400e">(يجمع البيانات)</text>
+    <text x="530" y="248" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="9" fill="#b45309">ProjectController</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M615 170 L650 170" stroke="#64748b" stroke-width="3" marker-end="url(#arrow3)"/>
+
+  <!-- Plate / Inertia + React -->
+  <g filter="url(#shadow2)">
+    <rect x="655" y="80" width="130" height="180" rx="18" fill="#f0fdf4" stroke="#10b981" stroke-width="2"/>
+    <ellipse cx="720" cy="130" rx="35" ry="15" fill="#d1fae5" stroke="#10b981" stroke-width="1.5"/>
+    <text x="720" y="135" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="14">🍽️</text>
+    <text x="720" y="170" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="900" font-size="14" fill="#065f46">الطبق</text>
+    <text x="720" y="190" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="11" fill="#059669">(صفحة React)</text>
+    <text x="720" y="215" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#065f46">يُقدّم بشكل جميل</text>
+    <text x="720" y="235" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#065f46">(مع البيانات)</text>
+    <text x="720" y="252" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="9" fill="#047857">Inertia::render()</text>
+  </g>
+
+  <!-- Bottom legend -->
+  <g transform="translate(180, 275)">
+    <rect x="0" y="0" width="12" height="12" rx="3" fill="#ef4444"/>
+    <text x="16" y="10" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#64748b">النادل = Route (يوجه الطلب)</text>
+    <rect x="180" y="0" width="12" height="12" rx="3" fill="#f59e0b"/>
+    <text x="196" y="10" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#64748b">الطاهي = Controller (يجمع البيانات)</text>
+    <rect x="380" y="0" width="12" height="12" rx="3" fill="#10b981"/>
+    <text x="396" y="10" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#64748b">الطبق = صفحة React (العرض النهائي)</text>
+  </g>
 </svg>

@@ -1,27 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
-  <rect width="800" height="300" fill="#f1f5f9" rx="20"/>
-  
-  <!-- Kanban flow -->
-  <g transform="translate(50, 80)">
-    <rect width="200" height="180" rx="10" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
-    <rect x="10" y="5" width="180" height="30" rx="5" fill="#f1f5f9"/>
-    <text x="100" y="25" text-anchor="middle" font-weight="bold" font-size="12">To Do (للقيام)</text>
-    <rect x="20" y="50" width="160" height="40" rx="5" fill="#e2e8f0"/>
-  </g>
-  
-  <g transform="translate(300, 80)">
-    <rect width="200" height="180" rx="10" fill="#fff" stroke="#3b82f6" stroke-width="2"/>
-    <rect x="10" y="5" width="180" height="30" rx="5" fill="#dbeafe"/>
-    <text x="100" y="25" text-anchor="middle" font-weight="bold" font-size="12" fill="#1e40af">Doing (قيد التنفيذ)</text>
-    <rect x="20" y="50" width="160" height="40" rx="5" fill="#bfdbfe"/>
-  </g>
-  
-  <g transform="translate(550, 80)">
-    <rect width="200" height="180" rx="10" fill="#fff" stroke="#10b981" stroke-width="2"/>
-    <rect x="10" y="5" width="180" height="30" rx="5" fill="#d1fae5"/>
-    <text x="100" y="25" text-anchor="middle" font-weight="bold" font-size="12" fill="#065f46">Done (منجز)</text>
-    <rect x="20" y="50" width="160" height="40" rx="5" fill="#a7f3d0"/>
-  </g>
-  
-  <text x="400" y="40" text-anchor="middle" font-weight="bold" font-size="22" fill="#1e293b">هيكل لوحة الكانبان (Kanban Board)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <rect width="800" height="400" fill="#f8fafc" rx="20"/>
+  <text x="400" y="40" text-anchor="middle" font-family="Tajawal, Arial" font-weight="800" font-size="22" fill="#0f172a">لوحة مهام Kanban - ثلاث أعمدة</text>
+  <text x="400" y="65" text-anchor="middle" font-family="Tajawal, Arial" font-size="13" fill="#64748b">تنظيم المهام حسب حالتها: معلقة، قيد التنفيذ، مكتملة</text>
+
+  <!-- Column 1: Pending -->
+  <rect x="20" y="90" width="240" height="290" rx="16" fill="#fff7ed" stroke="#f97316" stroke-width="2"/>
+  <rect x="20" y="90" width="240" height="50" rx="16" fill="#f97316"/>
+  <text x="140" y="120" text-anchor="middle" fill="white" font-family="Tajawal, Arial" font-weight="700" font-size="16">🔴 معلقة (Pending)</text>
+  <text x="230" y="120" text-anchor="end" fill="white" font-family="Tajawal, Arial" font-size="12" font-weight="700">3</text>
+
+  <rect x="35" y="155" width="210" height="50" rx="10" fill="white" stroke="#fed7aa"/>
+  <text x="45" y="178" font-family="Tajawal, Arial" font-weight="700" font-size="13" fill="#1e293b">تصميم الصفحة الرئيسية</text>
+  <text x="45" y="195" font-family="Tajawal, Arial" font-size="11" fill="#94a3b8">#P1 · مهمة عاجلة</text>
+
+  <rect x="35" y="215" width="210" height="50" rx="10" fill="white" stroke="#fed7aa"/>
+  <text x="45" y="238" font-family="Tajawal, Arial" font-weight="700" font-size="13" fill="#1e293b">كتابة تقرير الأداء</text>
+  <text x="45" y="255" font-family="Tajawal, Arial" font-size="11" fill="#94a3b8">#P2 · مهمة عادية</text>
+
+  <rect x="35" y="275" width="210" height="50" rx="10" fill="white" stroke="#fed7aa"/>
+  <text x="45" y="298" font-family="Tajawal, Arial" font-weight="700" font-size="13" fill="#1e293b">مراجعة الكود</text>
+  <text x="45" y="315" font-family="Tajawal, Arial" font-size="11" fill="#94a3b8">#P3 · مهمة عادية</text>
+
+  <!-- Column 2: In Progress -->
+  <rect x="280" y="90" width="240" height="290" rx="16" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <rect x="280" y="90" width="240" height="50" rx="16" fill="#3b82f6"/>
+  <text x="400" y="120" text-anchor="middle" fill="white" font-family="Tajawal, Arial" font-weight="700" font-size="16">🟡 قيد التنفيذ (In Progress)</text>
+  <text x="510" y="120" text-anchor="end" fill="white" font-family="Tajawal, Arial" font-size="12" font-weight="700">2</text>
+
+  <rect x="295" y="155" width="210" height="50" rx="10" fill="white" stroke="#bfdbfe"/>
+  <text x="305" y="178" font-family="Tajawal, Arial" font-weight="700" font-size="13" fill="#1e293b">بناء API للمستخدمين</text>
+  <text x="305" y="195" font-family="Tajawal, Arial" font-size="11" fill="#94a3b8">تبقى 30%</text>
+
+  <rect x="295" y="215" width="210" height="50" rx="10" fill="white" stroke="#bfdbfe"/>
+  <text x="305" y="238" font-family="Tajawal, Arial" font-weight="700" font-size="13" fill="#1e293b">اختبار التكامل</text>
+  <text x="305" y="255" font-family="Tajawal, Arial" font-size="11" fill="#94a3b8">تبقى 60%</text>
+
+  <!-- Column 3: Completed -->
+  <rect x="540" y="90" width="240" height="290" rx="16" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+  <rect x="540" y="90" width="240" height="50" rx="16" fill="#22c55e"/>
+  <text x="660" y="120" text-anchor="middle" fill="white" font-family="Tajawal, Arial" font-weight="700" font-size="16">🟢 مكتملة (Completed)</text>
+  <text x="770" y="120" text-anchor="end" fill="white" font-family="Tajawal, Arial" font-size="12" font-weight="700">2</text>
+
+  <rect x="555" y="155" width="210" height="50" rx="10" fill="white" stroke="#bbf7d0"/>
+  <text x="565" y="178" font-family="Tajawal, Arial" font-weight="700" font-size="13" fill="#1e293b" text-decoration="line-through">إعداد قاعدة البيانات</text>
+  <text x="565" y="195" font-family="Tajawal, Arial" font-size="11" fill="#94a3b8">✓ تم بتاريخ 15/6</text>
+
+  <rect x="555" y="215" width="210" height="50" rx="10" fill="white" stroke="#bbf7d0"/>
+  <text x="565" y="238" font-family="Tajawal, Arial" font-weight="700" font-size="13" fill="#1e293b" text-decoration="line-through">تثبيت الأدوات</text>
+  <text x="565" y="255" font-family="Tajawal, Arial" font-size="11" fill="#94a3b8">✓ تم بتاريخ 14/6</text>
+
+  <!-- Arrow between columns -->
+  <path d="M260 220 L280 220" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrGray)"/>
+  <path d="M520 220 L540 220" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrGray)"/>
+
+  <defs>
+    <marker id="arrGray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L0,8 L8,4 z" fill="#94a3b8"/></marker>
+  </defs>
 </svg>

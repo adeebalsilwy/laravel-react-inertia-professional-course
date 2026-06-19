@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 9: تصميم قاعدة بيانات FlowPilot</title>
+    <title>الدرس 9: تصميم قاعدة بيانات FlowPilot قبل كتابة الجداول | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +13,12 @@
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
         .step-card { border-right: 4px solid #0ea5e9; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .code-line { display: block; padding: 2px 0; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.8; }
+        .code-comment { color: #6b7280; }
+        .code-keyword { color: #7c3aed; font-weight: bold; }
+        .code-string { color: #059669; }
+        .error-box { border-right: 4px solid #ef4444; background: #fef2f2; padding: 1rem; border-radius: 12px; margin-bottom: 1rem; }
+        .highlight-box { border-right: 4px solid #0ea5e9; background: #f0f9ff; padding: 1rem; border-radius: 12px; margin-bottom: 1rem; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -20,124 +26,694 @@
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../index.html">الرئيسية</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/curriculum.html">الفهرس</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/lessons.html">الدروس</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/beginner-guide.html">دليل الطالب</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/project.html">المشروع</a>
+        </nav>
     </div>
 </header>
 
 <main class="mx-auto max-w-7xl px-4 py-8">
     <div class="grid lg:grid-cols-4 gap-8">
+        <!-- Sidebar -->
         <aside class="hidden lg:block">
             <div class="sidebar-sticky space-y-4">
                 <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الثالث</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-sky-50 text-sky-700" href="#intro">مفهوم قاعدة البيانات</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">الجداول والعلاقات</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال الأرشيف</a>
+                    <a class="block p-3 rounded-xl bg-sky-50 text-sky-700" href="#intro">مقدمة: ما هي قاعدة البيانات؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">الجداول والأعمدة والسجلات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#keys">المفاتيح الأساسية والأجنبية</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#relationships">العلاقات بين الجداول</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال واقعي: خزانة الأرشيف</a>
                     <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">هيكل FlowPilot</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#pivot">جدول Pivot (project_user)</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#erd">مخطط ERD</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#steps">خطوات التصميم العملية</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#datatypes">أنواع البيانات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">الأخطاء الشائعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#summary">ملخص الدرس</a>
                 </div>
             </div>
         </aside>
 
+        <!-- Main Content -->
         <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
+
+            <!-- Title Section -->
             <section class="border-b pb-8 mb-12">
                 <span class="badge bg-sky-50 text-sky-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 3 · الدرس 1</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">تصميم "ذاكرة" التطبيق: فهم هيكل قاعدة البيانات</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"البيانات هي أغلى ما يملك التطبيق. لنتعلم كيف نحفظها بنظام وذكاء لضمان استمرارية العمل."</p>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">تصميم قاعدة بيانات FlowPilot قبل كتابة الجداول</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"قاعدة البيانات هي ذاكرة التطبيق. قبل أن نكتب سطراً واحداً من الكود، يجب أن نخطط لهذه الذاكرة بعناية فائقة."</p>
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-bold">مدة القراءة: 45 دقيقة</span>
+                    <span class="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-bold">مستوى: مبتدئ</span>
+                    <span class="px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-xs font-bold">مفاهيم أساسية: قاعدة بيانات، جداول، علاقات</span>
+                </div>
             </section>
 
-            <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">لماذا نحتاج لقاعدة بيانات؟</h2>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    عندما يغلق المستخدم المتصفح، تختفي كل المعلومات المؤقتة الموجودة في React. لكي "يتذكر" التطبيق أسماء المشاريع والمهام والمستخدمين حتى بعد إغلاق الجهاز، نحتاج لمكان دائم وآمن لحفظها. هذا المكان هو <strong>قاعدة البيانات (Database)</strong>.
-                </p>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    بدون قاعدة بيانات، سيبدأ تطبيق <strong>FlowPilot</strong> من الصفر في كل مرة يفتحه فيها المستخدم، وهذا يجعل التطبيق عديم الفائدة. في هذا الدرس، سنتعلم كيف نخطط لهذا "المخزن" قبل أن نبدأ بكتابة الكود.
-                </p>
-            </section>
-
-            <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">المفاهيم الأساسية: جداول وسجلات</h2>
-                <div class="space-y-4 text-slate-600">
-                    <p>قاعدة البيانات ليست مجرد ملف واحد، بل هي نظام منظم يتكون من:</p>
-                    <ul class="list-disc pr-6 space-y-4">
-                        <li><strong>Table (الجدول):</strong> يمثل فئة معينة من البيانات (مثل جدول "المشاريع").</li>
-                        <li><strong>Column (العمود):</strong> يمثل صفة معينة للبيانات (مثل "اسم المشروع" أو "تاريخ البدء").</li>
-                        <li><strong>Row (السجل):</strong> يمثل بياناً واحداً مكتملاً (مثل مشروع "تطوير الموقع" الذي بدأ في "1 يناير").</li>
-                        <li><strong>Primary Key (المفتاح الأساسي):</strong> رقم فريد يميز كل سجل عن غيره (مثل رقم الهوية).</li>
+            <!-- Section 1: Introduction -->
+            <section id="intro" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">مقدمة: ما هي قاعدة البيانات ولماذا نحتاجها؟</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed text-lg">
+                    <p>تخيل معي أنك تبني تطبيق <strong>FlowPilot</strong> لإدارة المشاريع. المستخدم يدخل اسم مشروعه، يضيف مهاماً، يعيّن فريق عمل. ثم فجأة يغلق المتصفح أو ينقطع التيار الكهربائي. السؤال الأهم: <strong>أين تذهب كل هذه المعلومات؟</strong></p>
+                    <p>الجواب البسيط: بدون قاعدة بيانات، تختفي المعلومات كلها! React تعيش فقط في المتصفح، وعندما يغلق المتصفح تموت كل المتغيرات التي كنت تستخدمها. هنا يأتي دور <strong>قاعدة البيانات (Database)</strong>.</p>
+                    <p>قاعدة البيانات هي <strong>برنامج متخصص</strong> يعمل على الخادم (Server) ويحفظ المعلومات بشكل دائم ومنظم. Laravel يتصل بقاعدة البيانات، ويخزن فيها كل شيء: أسماء المستخدمين، المشاريع، المهام، التواريخ. حتى لو أغلقت الجهاز وأعدت تشغيله، تبقى البيانات في مكانها.</p>
+                    <p>في هذا الكورس نستخدم <strong>MySQL</strong> أو <strong>MariaDB</strong> كقاعدة بيانات. هذه أنظمة معروفة بقوتها وسرعتها ومجانيّتها. Laravel يزوّدنا بأدوات سهلة للتعامل معها، كما سنرى في الدروس القادمة.</p>
+                </div>
+                <div class="highlight-box">
+                    <p class="font-bold text-sky-800">مصطلحات مهمة للمبتدئ:</p>
+                    <ul class="list-disc pr-6 mt-2 space-y-1 text-sky-700">
+                        <li><strong>Database (قاعدة بيانات):</strong> المكان الذي يُخزّن فيه التطبيق معلوماته بشكل دائم ومنظّم.</li>
+                        <li><strong>DBMS (نظام إدارة قواعد البيانات):</strong> البرنامج الذي يدير قاعدة البيانات، مثل MySQL أو MariaDB.</li>
+                        <li><strong>Server (خادم):</strong> جهاز كمبيوتر قوي يعمل 24 ساعة طوال الأسبوع ويستضيف تطبيقك وبياناته.</li>
+                        <li><strong>Table (جدول):</strong> مجموعة منظمة من البيانات المتشابهة داخل قاعدة البيانات.</li>
                     </ul>
                 </div>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-sky-600 text-white shadow-xl shadow-sky-100">
-                <h2 class="text-2xl font-black mb-4">مثال من حياتنا (أرشيف الشركة)</h2>
-                <p class="text-sky-50 leading-relaxed text-lg">
-                    تخيل قاعدة البيانات كـ "خزانة أرشيف" ضخمة في شركة. 
-                    <br><br>
-                    - كل <strong>درج</strong> في الخزانة هو <strong>جدول</strong>؛ هناك درج لملفات الموظفين، ودرج لملفات المشاريع.
-                    <br>
-                    - كل <strong>ملف</strong> ورقي داخل الدرج هو <strong>سجل (Row)</strong> يمثل موظفاً واحداً.
-                    <br>
-                    - <strong>رقم الملف</strong> المكتوب على الغلاف هو <strong>المفتاح الأساسي</strong> الذي لا يتكرر أبداً.
-                </p>
+            <!-- Section 2: Theory - Tables, Columns, Rows -->
+            <section id="theory" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">المفاهيم الأساسية: الجداول، الأعمدة، والسجلات</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed text-lg">
+                    <p>لنفهم قاعدة البيانات، سنستخدم تشبيهاً بسيطاً: <strong>برنامج Excel أو Google Sheets</strong>. لو فتحت ملف Excel، سترى:</p>
+                    <p>الملف نفسه هو <strong>قاعدة البيانات</strong>. الأوراق (Sheets) داخله هي <strong>الجداول (Tables)</strong>. داخل كل ورقة، لديك أعمدة (Columns) تمثل أنواع المعلومات، وصفوف (Rows) تمثل كل سجل على حدة.</p>
+                </div>
+
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    <h3 class="font-bold text-lg mb-3">مثال: جدول "المشاريع" في FlowPilot</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-right border-collapse">
+                            <thead>
+                                <tr class="bg-slate-200">
+                                    <th class="p-2 border border-slate-300 font-bold">id (المعرّف)</th>
+                                    <th class="p-2 border border-slate-300 font-bold">name (الاسم)</th>
+                                    <th class="p-2 border border-slate-300 font-bold">status (الحالة)</th>
+                                    <th class="p-2 border border-slate-300 font-bold">created_at (تاريخ الإنشاء)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="p-2 border border-slate-300">1</td>
+                                    <td class="p-2 border border-slate-300">تطبيق FlowPilot</td>
+                                    <td class="p-2 border border-slate-300">active</td>
+                                    <td class="p-2 border border-slate-300">2025-06-01</td>
+                                </tr>
+                                <tr class="bg-slate-50">
+                                    <td class="p-2 border border-slate-300">2</td>
+                                    <td class="p-2 border border-slate-300">موقع الشركة</td>
+                                    <td class="p-2 border border-slate-300">completed</td>
+                                    <td class="p-2 border border-slate-300">2025-05-15</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="p-2 border border-slate-300">3</td>
+                                    <td class="p-2 border border-slate-300">تطبيق المتجر</td>
+                                    <td class="p-2 border border-slate-300">pending</td>
+                                    <td class="p-2 border border-slate-300">2025-06-10</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2">↑ هذا الجدول يمثل 3 مشاريع. كل صف = مشروع واحد. كل عمود = معلومة محددة عن المشروع.</p>
+                </div>
+
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <h3 class="text-xl font-bold text-slate-900">شرح الأجزاء الرئيسية:</h3>
+                    <ul class="list-disc pr-6 space-y-3">
+                        <li><strong>Table (الجدول):</strong> هو هيكل ينظم بيانات متشابهة. مثلاً، كل المشاريع في جدول واحد، وكل المستخدمين في جدول آخر. لا يمكن خلط المشاريع مع المستخدمين في نفس الجدول.</li>
+                        <li><strong>Column (العمود):</strong> هو نوع واحد من المعلومات. على سبيل المثال، عمود <code>name</code> يخزن أسماء المشاريع. كل عمود له نوع بيانات محدد (نص، رقم، تاريخ).</li>
+                        <li><strong>Row (السجل أو الصف):</strong> هو مجموعة كاملة من المعلومات لعنصر واحد. مثلاً، الصف الخاص بمشروع "تطبيق FlowPilot" يحتوي على اسمه، حالته، وتاريخ إنشائه.</li>
+                        <li><strong>Field (حقل):</strong> هو تقاطع عمود مع صف. مثلاً، القيمة "active" في عمود <code>status</code> للصف رقم 1 هي حقل.</li>
+                    </ul>
+                </div>
             </section>
 
-            <section id="flowpilot" class="mt-16">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">هيكل بيانات FlowPilot</h2>
-                <p class="mt-6 text-slate-600">لكي يعمل تطبيقنا، سنحتاج في البداية لثلاثة جداول رئيسية:</p>
-                <div class="grid md:grid-cols-3 gap-6 mt-8">
-                    <div class="p-6 rounded-2xl border-2 border-dashed border-slate-200">
-                        <h4 class="font-black text-indigo-600 mb-2">Users</h4>
-                        <p class="text-xs text-slate-500">يحفظ بيانات دخول أعضاء الفريق.</p>
+            <!-- Section 3: Primary and Foreign Keys -->
+            <section id="keys" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">المفاتيح: Primary Key و Foreign Key</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed text-lg">
+                    <p>عندما يكون لدينا عدة جداول، نحتاج طريقة لربطها ببعضها. هنا يأتي دور المفاتيح.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-6 rounded-2xl border-2 border-indigo-200 bg-indigo-50">
+                        <h3 class="font-black text-indigo-700 mb-3 text-lg">🔑 Primary Key (المفتاح الأساسي)</h3>
+                        <p class="text-indigo-900 leading-relaxed">هو عمود خاص في كل جدول يعرّف كل سجل بشكل <strong>فريد</strong>. لا يمكن أن يتكرر في سجلين. تخيله مثل <strong>رقم الهوية الوطنية</strong> - كل شخص له رقم واحد لا يشاركه فيه أحد.</p>
+                        <ul class="list-disc pr-4 mt-3 text-indigo-800 text-sm space-y-1">
+                            <li>عادةً يكون اسمه <code>id</code></li>
+                            <li>قيمته تزداد تلقائياً (1, 2, 3, ...)</li>
+                            <li>لا يمكن أن يكون <code>NULL</code> (فارغاً)</li>
+                            <li>كل جدول لديه <strong>مفتاح أساسي واحد فقط</strong></li>
+                        </ul>
                     </div>
-                    <div class="p-6 rounded-2xl border-2 border-dashed border-slate-200">
-                        <h4 class="font-black text-indigo-600 mb-2">Projects</h4>
-                        <p class="text-xs text-slate-500">يحفظ تفاصيل كل مشروع ومواعيد تسليمه.</p>
+                    <div class="p-6 rounded-2xl border-2 border-amber-200 bg-amber-50">
+                        <h3 class="font-black text-amber-700 mb-3 text-lg">🔗 Foreign Key (المفتاح الأجنبي)</h3>
+                        <p class="text-amber-900 leading-relaxed">هو عمود في جدول يشير إلى المفتاح الأساسي لجدول آخر. بهذه الطريقة نربط الجداول. تخيله مثل "رقم الموظف" المكتوب في ملف المشروع ليعرف من المسؤول عنه.</p>
+                        <ul class="list-disc pr-4 mt-3 text-amber-800 text-sm space-y-1">
+                            <li>مثلاً: <code>user_id</code> في جدول المشاريع</li>
+                            <li>يشير إلى <code>id</code> في جدول المستخدمين</li>
+                            <li>يمكن أن يتكرر (عدة مشاريع لنفس المستخدم)</li>
+                            <li>يمكن أن يكون <code>NULL</code> (إذا لم يكن هناك مستخدم)</li>
+                        </ul>
                     </div>
-                    <div class="p-6 rounded-2xl border-2 border-dashed border-slate-200">
-                        <h4 class="font-black text-indigo-600 mb-2">Tasks</h4>
-                        <p class="text-xs text-slate-500">يحفظ المهام التفصيلية وحالتها (قيد التنفيذ، مكتمل).</p>
+                </div>
+
+                <div class="highlight-box mt-4">
+                    <p class="font-bold text-sky-800">قاعدة ذهبية:</p>
+                    <p class="text-sky-700">المفتاح الأساسي يُعرِّف السجل بنفسه. المفتاح الأجنبي يربط هذا السجل بسجل في جدول آخر.</p>
+                    <p class="text-sky-600 text-sm mt-2">مثال: في جدول <code>projects</code>، العمود <code>user_id</code> هو مفتاح أجنبي يشير إلى <code>id</code> في جدول <code>users</code>. هذا يعني "هذا المشروع مملوك للمستخدم رقم 5".</p>
+                </div>
+            </section>
+
+            <!-- Section 4: Relationships -->
+            <section id="relationships" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">العلاقات بين الجداول: One-to-Many و Many-to-Many</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed text-lg">
+                    <p>الجداول في قاعدة البيانات ليست جزراً منعزلة. إنها متصلة ببعضها عن طريق العلاقات (Relationships). هناك 3 أنواع رئيسية من العلاقات. سنركز على النوعين الأكثر شيوعاً في FlowPilot.</p>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="p-6 rounded-2xl border-2 border-emerald-200">
+                        <h3 class="font-bold text-emerald-800 text-xl mb-3">1. One-to-Many (واحد إلى متعدد) ← الأكثر استخداماً</h3>
+                        <p class="text-slate-700 leading-relaxed">تعني أن سجلاً واحداً في الجدول الأول يرتبط مع عدة سجلات في الجدول الثاني.</p>
+                        <div class="mt-4 bg-white p-4 rounded-xl border">
+                            <p class="font-bold text-emerald-700">مثال في FlowPilot: User → Projects</p>
+                            <ul class="list-disc pr-4 mt-2 space-y-1 text-sm">
+                                <li>مستخدم واحد (مثلاً "أحمد") يمكنه أن يملك <strong>عدة مشاريع</strong></li>
+                                <li>مشروع واحد يملكه <strong>مستخدم واحد فقط</strong> (صاحب المشروع)</li>
+                                <li>العلاقة تتجه من اليسار إلى اليمين: User "يملك" Projects</li>
+                                <li>نحققها بإضافة <code>user_id</code> في جدول <code>projects</code></li>
+                            </ul>
+                        </div>
+                        <div class="mt-4 bg-white p-4 rounded-xl border">
+                            <p class="font-bold text-emerald-700">مثال آخر: Project → Tasks</p>
+                            <ul class="list-disc pr-4 mt-2 space-y-1 text-sm">
+                                <li>مشروع واحد (مثلاً "تطبيق FlowPilot") يحتوي على <strong>مهام متعددة</strong></li>
+                                <li>مهمة واحدة تنتمي إلى <strong>مشروع واحد فقط</strong></li>
+                                <li>نحققها بإضافة <code>project_id</code> في جدول <code>tasks</code></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="p-6 rounded-2xl border-2 border-purple-200">
+                        <h3 class="font-bold text-purple-800 text-xl mb-3">2. Many-to-Many (متعدد إلى متعدد)</h3>
+                        <p class="text-slate-700 leading-relaxed">تعني أن سجلاً في الجدول الأول يمكنه الارتباط مع عدة سجلات في الجدول الثاني، والعكس صحيح.</p>
+                        <div class="mt-4 bg-white p-4 rounded-xl border">
+                            <p class="font-bold text-purple-700">مثال في FlowPilot: Projects ↔ Teams (Users)</p>
+                            <ul class="list-disc pr-4 mt-2 space-y-1 text-sm">
+                                <li>مشروع واحد يمكن أن يضم <strong>عدة أعضاء</strong></li>
+                                <li>عضو واحد (User) يمكن أن يعمل في <strong>عدة مشاريع</strong></li>
+                                <li>هذه علاقة <strong>متعددة-إلى-متعددة</strong></li>
+                                <li>لا يمكننا حلها بمفتاح أجنبي واحد فقط. نحتاج <strong>جدول وسيط (Pivot Table)</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="p-6 rounded-2xl border-2 border-sky-200">
+                        <h3 class="font-bold text-sky-800 text-xl mb-3">3. One-to-One (واحد إلى واحد) ← نادر في FlowPilot</h3>
+                        <p class="text-slate-700 leading-relaxed">سجل واحد في الجدول الأول يرتبط بسجل واحد فقط في الجدول الثاني. مثل: كل مستخدم لديه ملف شخصي واحد (Profile). نحتاجها لو أردنا توسيع بيانات المستخدم دون زيادة تعقيد جدول users.</p>
                     </div>
                 </div>
             </section>
 
-            <section id="visuals" class="mt-16">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">مخططات توضيحية</h2>
-                <div class="grid md:grid-cols-2 gap-8 mt-8">
-                    <div class="card p-4 text-center space-y-4">
-                        <img src="diagram.svg" alt="Technical Diagram" class="w-full rounded-xl border">
-                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط قاعدة البيانات</p>
+            <!-- Section 5: Real-life Example -->
+            <section id="example" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">مثال واقعي: خزانة الأرشيف في الشركة</h2>
+                <div class="p-8 rounded-3xl bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-xl">
+                    <p class="text-amber-50 leading-relaxed text-lg mb-6">
+                        تخيل أنك تعمل في شركة كبيرة. هناك غرفة كاملة مليئة <strong>بخزائن الأرشيف</strong>. هذه الخزائن تمثل قاعدة البيانات.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-5">
+                            <h4 class="font-black text-lg mb-2">📁 الخزانة ← قاعدة البيانات</h4>
+                            <p class="text-sm text-amber-50">الخزانة الضخمة هي قاعدة البيانات. فيها كل معلومات الشركة.</p>
+                        </div>
+                        <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-5">
+                            <h4 class="font-black text-lg mb-2">📂 الدرج ← الجدول (Table)</h4>
+                            <p class="text-sm text-amber-50">كل درج مخصص لنوع معين: درج للموظفين، درج للمشاريع، درج للفواتير.</p>
+                        </div>
+                        <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-5">
+                            <h4 class="font-black text-lg mb-2">📄 الملف الواحد ← السجل (Row)</h4>
+                            <p class="text-sm text-amber-50">كل ملف يمثل موظفاً واحداً أو مشروعاً واحداً. له رقم تعريف خاص.</p>
+                        </div>
+                        <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-5">
+                            <h4 class="font-black text-lg mb-2">🏷️ رقم الملف ← Primary Key</h4>
+                            <p class="text-sm text-amber-50">رقم فريد لا يتكرر أبداً على كل ملف، نستخدمه لتمييزه عن غيره.</p>
+                        </div>
                     </div>
-                    <div class="card p-4 text-center space-y-4">
-                        <img src="visual-example.svg" alt="Teaching Diagram" class="w-full rounded-xl border">
-                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">التشبيه البصري (الأرشيف)</p>
+                    <div class="mt-6 bg-white/20 backdrop-blur-sm rounded-2xl p-5">
+                        <h4 class="font-black text-lg mb-2">🔗 الإشارات المرجعية ← Foreign Keys</h4>
+                        <p class="text-sm text-amber-50">في ملف المشروع، نكتب "المسؤول: رقم الموظف 7". هذا الرقم يشير إلى ملف الموظف في الدرج الآخر. هذه هي الـ Foreign Key بالضبط! نحن نربط المشروع بالموظف عن طريق رقم الموظف.</p>
                     </div>
                 </div>
             </section>
 
-            <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">كيف نصمم الجدول؟ (نظري قبل التطبيق)</h2>
+            <!-- Section 6: FlowPilot Schema Design -->
+            <section id="flowpilot" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">تصميم هيكل قاعدة بيانات FlowPilot</h2>
+                <p class="text-lg text-slate-600 leading-relaxed">الآن سنطبق كل ما تعلمناه على تطبيق FlowPilot. سنحتاج إلى الجداول التالية:</p>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+                    <div class="p-5 rounded-2xl bg-indigo-50 border-2 border-indigo-200">
+                        <h4 class="font-black text-indigo-700">users</h4>
+                        <p class="text-xs text-indigo-600 mt-1">جدول المستخدمين</p>
+                        <ul class="text-xs mt-2 text-indigo-800 space-y-1">
+                            <li>id (PK)</li>
+                            <li>name</li>
+                            <li>email</li>
+                            <li>password</li>
+                            <li>timestamps</li>
+                        </ul>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-200">
+                        <h4 class="font-black text-emerald-700">projects</h4>
+                        <p class="text-xs text-emerald-600 mt-1">جدول المشاريع</p>
+                        <ul class="text-xs mt-2 text-emerald-800 space-y-1">
+                            <li>id (PK)</li>
+                            <li>user_id (FK → users)</li>
+                            <li>name</li>
+                            <li>description</li>
+                            <li>status</li>
+                            <li>deadline</li>
+                            <li>timestamps</li>
+                        </ul>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-amber-50 border-2 border-amber-200">
+                        <h4 class="font-black text-amber-700">tasks</h4>
+                        <p class="text-xs text-amber-600 mt-1">جدول المهام</p>
+                        <ul class="text-xs mt-2 text-amber-800 space-y-1">
+                            <li>id (PK)</li>
+                            <li>project_id (FK → projects)</li>
+                            <li>assigned_to (FK → users)</li>
+                            <li>title</li>
+                            <li>description</li>
+                            <li>status</li>
+                            <li>priority</li>
+                            <li>due_date</li>
+                            <li>timestamps</li>
+                        </ul>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-purple-50 border-2 border-purple-200">
+                        <h4 class="font-black text-purple-700">teams</h4>
+                        <p class="text-xs text-purple-600 mt-1">جدول الفرق</p>
+                        <ul class="text-xs mt-2 text-purple-800 space-y-1">
+                            <li>id (PK)</li>
+                            <li>owner_id (FK → users)</li>
+                            <li>name</li>
+                            <li>description</li>
+                            <li>timestamps</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Pivot Table -->
+            <section id="pivot" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">جدول Pivot: project_user (الربط بين المشاريع والأعضاء)</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <p>كما تعلمنا، العلاقة بين المشاريع والمستخدمين (كأعضاء) هي <strong>Many-to-Many</strong>. مشروع واحد يضم عدة أعضاء، وعضو واحد يعمل في عدة مشاريع. لحل هذه العلاقة، نحتاج <strong>جدولاً وسيطاً (Pivot Table)</strong>.</p>
+                    <p>هذا الجدول لا يمثل "شيئاً" حقيقياً في التطبيق، بل هو مجرد أداة ربط. اسمه يجمع بين اسمي الجدولين المرتبطين: <code>project_user</code> (لاحظ الترتيب الأبجدي: project قبل user).</p>
+                </div>
+
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    <h3 class="font-bold text-lg mb-3">محتوى جدول project_user:</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-right border-collapse">
+                            <thead>
+                                <tr class="bg-slate-200">
+                                    <th class="p-2 border border-slate-300 font-bold">id</th>
+                                    <th class="p-2 border border-slate-300 font-bold">project_id (FK)</th>
+                                    <th class="p-2 border border-slate-300 font-bold">user_id (FK)</th>
+                                    <th class="p-2 border border-slate-300 font-bold">role</th>
+                                    <th class="p-2 border border-slate-300 font-bold">created_at</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="p-2 border border-slate-300">1</td>
+                                    <td class="p-2 border border-slate-300">1</td>
+                                    <td class="p-2 border border-slate-300">2</td>
+                                    <td class="p-2 border border-slate-300">developer</td>
+                                    <td class="p-2 border border-slate-300">2025-06-01</td>
+                                </tr>
+                                <tr class="bg-slate-50">
+                                    <td class="p-2 border border-slate-300">2</td>
+                                    <td class="p-2 border border-slate-300">1</td>
+                                    <td class="p-2 border border-slate-300">3</td>
+                                    <td class="p-2 border border-slate-300">designer</td>
+                                    <td class="p-2 border border-slate-300">2025-06-01</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="p-2 border border-slate-300">3</td>
+                                    <td class="p-2 border border-slate-300">2</td>
+                                    <td class="p-2 border border-slate-300">2</td>
+                                    <td class="p-2 border border-slate-300">developer</td>
+                                    <td class="p-2 border border-slate-300">2025-06-05</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2">↑ هذا الجدول يقول: المشروع رقم 1 يضم المستخدمين 2 و 3. والمستخدم رقم 2 يعمل في المشروعين 1 و 2.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <p class="font-bold text-sky-800">لماذا نحتاج جدول Pivot؟</p>
+                    <p class="text-sky-700">لأن المفتاح الأجنبي الواحد لا يكفي لعلاقة متعددة-إلى-متعددة. لو وضعنا <code>project_id</code> واحداً في جدول <code>users</code>، فهذا يعني أن كل مستخدم يمكنه الانتماء لمشروع واحد فقط! والواقع أن عضو الفريق يعمل في مشاريع متعددة. لذلك نحتاج جدولاً وسيطاً يحوي زوجاً من المفاتيح الأجنبية.</p>
+                </div>
+            </section>
+
+            <!-- Section 8: ERD Diagram Explanation -->
+            <section id="erd" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">مخطط ERD (Entity-Relationship Diagram)</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <p><strong>ERD</strong> هو رسم بياني يوضح الجداول (الكيانات) والعلاقات بينها. هو مثل <strong>الخريطة المعمارية</strong> للمبنى قبل بنائه. المعماري لا يبدأ بصب الخرسانة قبل أن يرسم المخطط. كذلك المبرمج لا يبدأ بكتابة الكود قبل أن يرسم ERD.</p>
+                    <p>انظر إلى المخطط أدناه. ترى المستطيلات تمثل الجداول، والخطوط تمثل العلاقات. الخطوط المتصلة تعني "يملك" أو "يحتوي". المفتاح FK بجانب اسم العمود يعني أنه مفتاح أجنبي.</p>
+                </div>
+                <div class="card p-4 text-center space-y-4">
+                    <img src="diagram.svg" alt="مخطط ERD لقاعدة بيانات FlowPilot" class="w-full rounded-xl border">
+                    <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط ERD: يوضح الجداول الأربعة الرئيسية وعلاقاتها</p>
+                </div>
+                <div class="highlight-box">
+                    <p class="font-bold text-sky-800">قراءة المخطط:</p>
+                    <ul class="list-disc pr-6 mt-2 text-sky-700 space-y-1">
+                        <li>Users ←→ Projects: User واحد يملك Projects متعددة (One-to-Many). المفتاح <code>user_id</code> في Projects.</li>
+                        <li>Projects ←→ Tasks: Project واحد يحتوي Tasks متعددة (One-to-Many). المفتاح <code>project_id</code> في Tasks.</li>
+                        <li>Projects ↔ Users (members): Many-to-Many عبر جدول <code>project_user</code>.</li>
+                        <li>Teams ←→ Users: فريق واحد يملكه User واحد (One-to-Many). المفتاح <code>owner_id</code> في Teams.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 9: Practical Steps -->
+            <section id="steps" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">خطوات تصميم قاعدة البيانات (قبل كتابة الكود)</h2>
+                <p class="text-lg text-slate-600">هذه الخطوات الخمس تمثل المنهجية التي يتبعها مطور محترف قبل كتابة أي سطر برمجي:</p>
+
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: تحديد الحقول</h3>
-                    <p class="text-slate-600">لجدول المشاريع <code>Projects</code> سنحتاج لـ:</p>
-                    <ul class="text-sm text-slate-500 pr-6 mt-2 space-y-1">
-                        <li>1. <strong>id:</strong> رقم تسلسلي فريد.</li>
-                        <li>2. <strong>name:</strong> نص (String) لاسم المشروع.</li>
-                        <li>3. <strong>description:</strong> نص طويل (Text) لشرح المشروع.</li>
-                        <li>4. <strong>status:</strong> نص (String) يحدد الحالة.</li>
-                        <li>5. <strong>created_at:</strong> تاريخ إنشاء السجل.</li>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: تحديد الكيانات (Entities)</h3>
+                    <p class="text-slate-600 leading-relaxed">اجلس مع نفسك وفكر: ما هي "الأشياء" التي سيتعامل معها تطبيقي؟ في FlowPilot، هذه الأشياء هي: <strong>المستخدم (User)، المشروع (Project)، المهمة (Task)، الفريق (Team)</strong>. كل كيان سيصبح جدولاً في قاعدة البيانات.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl mt-3">
+                        <p class="text-sm font-bold text-slate-700">✏️ تمرين سريع: اكتب على ورقة 4 كيانات لتطبيق لإدارة المكتبة (كتب، أعضاء، إعارات، تصنيفات).</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تحديد الأعمدة (Columns) لكل كيان</h3>
+                    <p class="text-slate-600 leading-relaxed">لكل كيان، اسأل: "أي معلومات أحتاج أن أخزّنها عنه؟". مثلاً، المشروع يحتاج: اسم، وصف، حالة، تاريخ إنشاء، تاريخ تسليم. كل معلومة تصبح عموداً في الجدول.</p>
+                    <div class="bg-indigo-50 p-4 rounded-xl mt-3">
+                        <p class="text-sm font-bold text-indigo-700">💡 نصيحة: لا تضع أعمدة كثيرة في البداية. يمكنك إضافة أعمدة لاحقاً. ابدأ بالأساسيات: name, description, status, timestamps.</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: تحديد أنواع البيانات (Data Types)</h3>
+                    <p class="text-slate-600 leading-relaxed">كل عمود يحتاج نوعاً محدداً من البيانات. النصوص توضع في <code>string</code> أو <code>text</code>. الأرقام توضع في <code>integer</code> أو <code>decimal</code>. التواريخ في <code>date</code> أو <code>datetime</code>. المفاتيح الأساسية في <code>bigIncrements</code>.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: تحديد العلاقات (Relationships)</h3>
+                    <p class="text-slate-600 leading-relaxed">اربط بين الكيانات. هل المستخدم "يملك" مشاريع؟ إذاً User → Projects هي One-to-Many. هل المشروع "يحتوي" مهاماً؟ Project → Tasks هي One-to-Many. هل المشروع "يضم" أعضاء من المستخدمين؟ Projects ↔ Users هي Many-to-Many، ونحتاج جدول Pivot.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: رسم ERD والتحقق من الصحة</h3>
+                    <p class="text-slate-600 leading-relaxed">ارسم المخطط (حتى على ورقة بيضاء). تأكد أن كل اتصال منطقي. اعرض المخطط على زميل أو مدرب واسأله: "هل هذه العلاقات منطقية؟ هل نسيت أي جدول؟". التخطيط الجيد يوفر عليك ساعات من إعادة العمل لاحقاً.</p>
+                    <div class="bg-amber-50 p-4 rounded-xl mt-3">
+                        <p class="text-sm font-bold text-amber-700">⚠️ مهم: الخطأ في التصميم في البداية يعني أنك ستعيد كتابة الكثير من الكود لاحقاً. خذ وقتك في هذه الخطوة.</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 6: إضافة الحقول المساعدة (Timestamps, Soft Deletes)</h3>
+                    <p class="text-slate-600 leading-relaxed">معظم الجداول تحتاج لتسجيل وقت إنشاء وتحديث كل سجل. Laravel يضيف <code>created_at</code> و <code>updated_at</code> تلقائياً. قد نحتاج أيضاً <code>deleted_at</code> لحذف ناعم (Soft Delete) بدلاً من حذف السجل للأبد.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 7: كتابة التوثيق الأولي</h3>
+                    <p class="text-slate-600 leading-relaxed">اكتب ملفاً بسيطاً (حتى في Notepad) يشرح الجداول والأعمدة والعلاقات. هذا سيساعدك بعد شهر عندما تنسى التفاصيل. المطور المحترف يكتب توثيقاً لنفسه في المستقبل.</p>
+                </div>
+            </section>
+
+            <!-- Section 10: Data Types Explained -->
+            <section id="datatypes" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">أنواع البيانات في MySQL (Data Types)</h2>
+                <p class="text-lg text-slate-600">كل عمود في قاعدة البيانات يجب أن يأخذ نوعاً محدداً من البيانات. اختيار النوع الصحيح مهم جداً للأداء واستهلاك المساحة. إليك أهم الأنواع التي سنستخدمها في FlowPilot:</p>
+
+                <div class="overflow-x-auto mt-6">
+                    <table class="w-full text-right border-collapse">
+                        <thead>
+                            <tr class="bg-slate-800 text-white">
+                                <th class="p-3 border border-slate-700">النوع</th>
+                                <th class="p-3 border border-slate-700">الوصف</th>
+                                <th class="p-3 border border-slate-700">مثال في FlowPilot</th>
+                                <th class="p-3 border border-slate-700">دالة Laravel</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white">
+                                <td class="p-3 border border-slate-300 font-bold">bigIncrements</td>
+                                <td class="p-3 border border-slate-300">رقم كبير يزداد تلقائياً (المفتاح الأساسي)</td>
+                                <td class="p-3 border border-slate-300">id في أي جدول</td>
+                                <td class="p-3 border border-slate-300"><code>$table->id()</code></td>
+                            </tr>
+                            <tr class="bg-slate-50">
+                                <td class="p-3 border border-slate-300 font-bold">string</td>
+                                <td class="p-3 border border-slate-300">نص قصير (حتى 255 حرفاً)</td>
+                                <td class="p-3 border border-slate-300">name, email, title</td>
+                                <td class="p-3 border border-slate-300"><code>$table->string('name')</code></td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="p-3 border border-slate-300 font-bold">text</td>
+                                <td class="p-3 border border-slate-300">نص طويل (أكثر من 255 حرفاً)</td>
+                                <td class="p-3 border border-slate-300">description</td>
+                                <td class="p-3 border border-slate-300"><code>$table->text('description')</code></td>
+                            </tr>
+                            <tr class="bg-slate-50">
+                                <td class="p-3 border border-slate-300 font-bold">foreignId</td>
+                                <td class="p-3 border border-slate-300">مفتاح أجنبي (مرتبط بـ id في جدول آخر)</td>
+                                <td class="p-3 border border-slate-300">user_id, project_id</td>
+                                <td class="p-3 border border-slate-300"><code>$table->foreignId('user_id')->constrained()</code></td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="p-3 border border-slate-300 font-bold">boolean</td>
+                                <td class="p-3 border border-slate-300">قيمة منطقية: true أو false (1 أو 0)</td>
+                                <td class="p-3 border border-slate-300">is_completed, is_active</td>
+                                <td class="p-3 border border-slate-300"><code>$table->boolean('is_completed')->default(false)</code></td>
+                            </tr>
+                            <tr class="bg-slate-50">
+                                <td class="p-3 border border-slate-300 font-bold">dateTime</td>
+                                <td class="p-3 border border-slate-300">تاريخ ووقت كامل</td>
+                                <td class="p-3 border border-slate-300">deadline, due_date</td>
+                                <td class="p-3 border border-slate-300"><code>$table->dateTime('deadline')->nullable()</code></td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="p-3 border border-slate-300 font-bold">enum</td>
+                                <td class="p-3 border border-slate-300">قيمة من قائمة محددة مسبقاً</td>
+                                <td class="p-3 border border-slate-300">status (pending, active, completed)</td>
+                                <td class="p-3 border border-slate-300"><code>$table->enum('status', ['pending', 'active', 'completed'])</code></td>
+                            </tr>
+                            <tr class="bg-slate-50">
+                                <td class="p-3 border border-slate-300 font-bold">timestamps</td>
+                                <td class="p-3 border border-slate-300">يضيف created_at و updated_at تلقائياً</td>
+                                <td class="p-3 border border-slate-300">أوقات إنشاء وتحديث السجل</td>
+                                <td class="p-3 border border-slate-300"><code>$table->timestamps()</code></td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="p-3 border border-slate-300 font-bold">softDeletes</td>
+                                <td class="p-3 border border-slate-300">يضيف deleted_at للحذف الناعم</td>
+                                <td class="p-3 border border-slate-300">حذف المشروع دون فقدانه للأبد</td>
+                                <td class="p-3 border border-slate-300"><code>$table->softDeletes()</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section 11: Code Explanation -->
+            <section id="code" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">شرح الكود: مثال لمخطط الجدول (قبل كتابة الـ Migration)</h2>
+                <p class="text-lg text-slate-600">في الدرس القادم سنكتب Migrations فعلية. لكن الآن، سنرى <strong>شبه كود (Pseudo-code)</strong> يوضح شكل جدول Projects الذي سننشئه:</p>
+
+                <div class="bg-slate-900 text-white p-6 rounded-2xl overflow-x-auto mt-6">
+                    <p class="text-emerald-400 text-sm mb-3">// هذا ليس كود Laravel حقيقي، إنما تمثيل بصري للجدول الذي سننشئه في الدرس القادم</p>
+                    <code class="block text-sm leading-relaxed">
+                        <span class="code-line"><span class="code-comment">// ==========================================</span></span>
+                        <span class="code-line"><span class="code-comment">// جدول: projects</span></span>
+                        <span class="code-line"><span class="code-comment">// ==========================================</span></span>
+                        <span class="code-line"></span>
+                        <span class="code-line"><span class="code-keyword">CREATE TABLE</span> projects (</span>
+                        <span class="code-line">  <span class="code-keyword">id</span>             <span class="code-string">BIGINT UNSIGNED AUTO_INCREMENT</span>,  <span class="code-comment">// ← المفتاح الأساسي، يزداد تلقائياً</span></span>
+                        <span class="code-line">  <span class="code-keyword">user_id</span>        <span class="code-string">BIGINT UNSIGNED NOT NULL</span>,          <span class="code-comment">// ← المفتاح الأجنبي للمستخدم (صاحب المشروع)</span></span>
+                        <span class="code-line">  <span class="code-keyword">name</span>           <span class="code-string">VARCHAR(255) NOT NULL</span>,             <span class="code-comment">// ← اسم المشروع (نص، مطلوب)</span></span>
+                        <span class="code-line">  <span class="code-keyword">description</span>    <span class="code-string">TEXT NULL</span>,                         <span class="code-comment">// ← وصف المشروع (نص طويل، اختياري)</span></span>
+                        <span class="code-line">  <span class="code-keyword">status</span>         <span class="code-string">ENUM('pending','active','completed')</span>, <span class="code-comment">// ← الحالة (قائمة محددة)</span></span>
+                        <span class="code-line">  <span class="code-keyword">deadline</span>       <span class="code-string">DATE NULL</span>,                         <span class="code-comment">// ← تاريخ التسليم النهائي (اختياري)</span></span>
+                        <span class="code-line">  <span class="code-keyword">created_at</span>     <span class="code-string">TIMESTAMP NULL</span>,                    <span class="code-comment">// ← وقت إنشاء السجل (تلقائي)</span></span>
+                        <span class="code-line">  <span class="code-keyword">updated_at</span>     <span class="code-string">TIMESTAMP NULL</span>,                    <span class="code-comment">// ← وقت آخر تعديل (تلقائي)</span></span>
+                        <span class="code-line">  <span class="code-keyword">deleted_at</span>     <span class="code-string">TIMESTAMP NULL</span>,                    <span class="code-comment">// ← للحذف الناعم (اختياري)</span></span>
+                        <span class="code-line"></span>
+                        <span class="code-line">  <span class="code-keyword">PRIMARY KEY</span> (id),                     <span class="code-comment">// ← نحدد id كمفتاح أساسي</span></span>
+                        <span class="code-line">  <span class="code-keyword">FOREIGN KEY</span> (user_id) <span class="code-keyword">REFERENCES</span> users(id)  <span class="code-comment">// ← نربط user_id بجدول users</span></span>
+                        <span class="code-line">);</span>
+                    </code>
+                </div>
+
+                <div class="space-y-4 mt-6 text-slate-600">
+                    <h3 class="text-xl font-bold text-slate-900">شرح السطر بسطر:</h3>
+                    <ul class="space-y-3 list-disc pr-6">
+                        <li><strong>BIGINT UNSIGNED AUTO_INCREMENT:</strong> نوع خاص للأرقام الكبيرة جداً. <code>UNSIGNED</code> يعني فقط أرقام موجبة. <code>AUTO_INCREMENT</code> يعني الرقم يزيد تلقائياً (1, 2, 3...).</li>
+                        <li><strong>NOT NULL:</strong> هذا الحقل إلزامي، لا يمكن أن يترك فارغاً. كل مشروع يجب أن يكون له اسم.</li>
+                        <li><strong>NULL:</strong> هذا الحقل اختياري. يمكن أن يكون بلا قيمة.</li>
+                        <li><strong>VARCHAR(255):</strong> نص قصير، الحد الأقصى 255 حرفاً. مناسب للأسماء والعناوين.</li>
+                        <li><strong>TEXT:</strong> نص طويل غير محدود الطول. مناسب للوصف الطويل.</li>
+                        <li><strong>ENUM(...):</strong> عمود يأخذ قيمة واحدة من قائمة محددة. مثلاً، الحالة إما pending أو active أو completed فقط.</li>
+                        <li><strong>PRIMARY KEY (id):</strong> نخبر قاعدة البيانات أن عمود id هو المفتاح الأساسي. هذا يضمن السرعة في البحث والتفرد.</li>
+                        <li><strong>FOREIGN KEY (user_id) REFERENCES users(id):</strong> نخبر قاعدة البيانات أن user_id يشير إلى id في جدول users. هذا يضمن <strong>سلامة البيانات</strong> - لا يمكن إضافة مشروع بمستخدم غير موجود.</li>
                     </ul>
                 </div>
             </section>
 
+            <!-- Section 12: Expected Result -->
+            <section id="expected" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">النتيجة المتوقعة بعد الفهم الجيد لهذا الدرس</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-6 rounded-2xl border-2 border-emerald-200 bg-emerald-50">
+                        <h4 class="font-bold text-emerald-800 mb-3">✅ ستصبح قادراً على:</h4>
+                        <ul class="space-y-2 text-sm text-emerald-700">
+                            <li>✓ شرح الفرق بين الجدول والصف والعمود بأمثلة من واقع الحياة</li>
+                            <li>✓ تحديد الكيانات (Entities) لأي تطبيق تريده</li>
+                            <li>✓ رسم علاقات One-to-Many و Many-to-Many</li>
+                            <li>✓ تصميم هيكل FlowPilot على الورق</li>
+                            <li>✓ فهم متى تحتاج جدول Pivot</li>
+                            <li>✓ اختيار نوع البيانات المناسب لكل حقل</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 rounded-2xl border-2 border-amber-200 bg-amber-50">
+                        <h4 class="font-bold text-amber-800 mb-3">📂 الملفات والمفاهيم المرتبطة:</h4>
+                        <ul class="space-y-2 text-sm text-amber-700">
+                            <li>ملف ERD: <code>diagram.svg</code> في مجلد الدرس</li>
+                            <li>التشبيه البصري: <code>visual-example.svg</code></li>
+                            <li>الدرس القادم: Migrations (التنفيذ الفعلي)</li>
+                            <li>هذه هي مرحلة "التخطيط" - لا يوجد كود بعد</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 13: Common Errors -->
+            <section id="errors" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">الأخطاء الشائعة للمبتدئين في تصميم قواعد البيانات</h2>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 1: تجاهل المفاتيح الأساسية (Primary Keys)</h4>
+                    <p class="text-rose-600 text-sm">بعض المبتدئين لا يضيفون مفتاحاً أساسياً للجدول. هذا خطأ فادح! كل جدول يجب أن يكون له <code>id</code> فريد. بدونه، لا يمكننا التمييز بين سجلين متشابهين ولا يمكننا ربط الجداول.</p>
+                    <p class="text-rose-500 text-xs mt-2">الحل: أضف <code>$table->id()</code> في كل Migration. هذا يضيف مفتاحاً أساسياً تلقائياً.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 2: تجاهل العلاقات ووضع كل شيء في جدول واحد</h4>
+                    <p class="text-rose-600 text-sm">قد يفكر المبتدئ: "لماذا أعمل عدة جداول؟ سأضع كل شيء في جدول واحد!" النتيجة: تكرار البيانات، فوضى، استعلامات بطيئة. مثلاً، وضع أسماء المستخدمين مع كل مهمة يؤدي لتكرار الاسم مئات المرات.</p>
+                    <p class="text-rose-500 text-xs mt-2">الحل: كل كيان له جدوله الخاص. استخدم المفاتيح الأجنبية للربط.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 3: نسيان جدول Pivot في علاقات Many-to-Many</h4>
+                    <p class="text-rose-600 text-sm">عندما يحاول المبتدئ ربط المشاريع بالأعضاء، قد يضع <code>team_member_ids</code> في جدول projects كنص طويل. هذه كارثة! لا يمكن البحث أو الربط بشكل صحيح.</p>
+                    <p class="text-rose-500 text-xs mt-2">الحل: أنشئ جدولاً وسيطاً (مثل <code>project_user</code>) لكل علاقة Many-to-Many.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 4: اختيار نوع بيانات خاطئ</h4>
+                    <p class="text-rose-600 text-sm">مثلاً، استخدام <code>string</code> لتخزين تاريخ بدلاً من <code>date</code>. هذا يمنعك من إجراء عمليات المقارنة والتنسيق على التاريخ. أو استخدام <code>integer</code> للنصوص الطويلة.</p>
+                    <p class="text-rose-500 text-xs mt-2">الحل: تعلم أنواع البيانات الأساسية: string للنص القصير، text للنص الطويل، date/time للتواريخ، boolean للصح/الخطأ.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4 class="font-bold text-rose-700 mb-2">❌ الخطأ 5: التصميم المباشر في الكود بدون تخطيط</h4>
+                    <p class="text-rose-600 text-sm">أسوأ ما يمكن فعله هو فتح المحرر والبدء بكتابة Migrations مباشرة دون رسم ERD أو تخطيط. هذا يؤدي إلى تصميم غير متسق ويجعلك تعيد كتابة الكود مراراً.</p>
+                    <p class="text-rose-500 text-xs mt-2">الحل: ارسم أولاً على ورقة. ناقش التصميم مع زميل. ثم اكتب الكود.</p>
+                </div>
+            </section>
+
+            <!-- Section 14: Visual Examples -->
+            <section id="visuals" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">المخططات التوضيحية</h2>
+                <div class="grid md:grid-cols-2 gap-8 mt-6">
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="diagram.svg" alt="مخطط ERD لقاعدة البيانات" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط ERD: علاقات الجداول في FlowPilot</p>
+                    </div>
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="visual-example.svg" alt="التشبيه البصري بخزانة الأرشيف" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">تشبيه خزانة الأرشيف: فهم قاعدة البيانات بصرياً</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 15: Summary -->
+            <section id="summary" class="space-y-6 mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">📝 ملخص الدرس: المفاهيم الرئيسية</h2>
+                <div class="bg-gradient-to-r from-indigo-50 to-sky-50 p-6 rounded-2xl border border-indigo-100">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">1</span>
+                            <div>
+                                <span class="font-bold text-slate-900">قاعدة البيانات</span>
+                                <span class="text-slate-600"> هي الذاكرة الدائمة للتطبيق. بدونها، يموت التطبيق مع كل إغلاق متصفح.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">2</span>
+                            <div>
+                                <span class="font-bold text-slate-900">الجدول (Table)</span>
+                                <span class="text-slate-600"> يمثل فئة من البيانات. الأعمدة (Columns) تمثل الصفات. السجلات (Rows) تمثل العناصر الفردية.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">3</span>
+                            <div>
+                                <span class="font-bold text-slate-900">Primary Key</span>
+                                <span class="text-slate-600"> يعرّف كل سجل بشكل فريد. Foreign Key يربط السجلات عبر الجداول.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">4</span>
+                            <div>
+                                <span class="font-bold text-slate-900">One-to-Many</span>
+                                <span class="text-slate-600"> (مستخدم ← مشاريع). Many-to-Many (مشاريع ← أعضاء) تحتاج جدول Pivot.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">5</span>
+                            <div>
+                                <span class="font-bold text-slate-900">ERD</span>
+                                <span class="text-slate-600"> هو المخطط المعماري لقاعدة البيانات. ارسمه دائماً قبل كتابة الكود.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-indigo-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">6</span>
+                            <div>
+                                <span class="font-bold text-slate-900">هيكل FlowPilot</span>
+                                <span class="text-slate-600">: users ← projects ← tasks، والعلاقة Many-to-Many بين projects و users عبر <code>project_user</code>.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Navigation -->
             <div class="mt-12 flex justify-between gap-4">
                 <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-02/lesson-04/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-sky-600 px-8 py-4 text-white font-black hover:bg-sky-700 transition-all shadow-xl shadow-sky-100" href="../../week-03/lesson-02/index.html">الدرس التالي: Migrations ←</a>
+                <a class="rounded-2xl bg-sky-600 px-8 py-4 text-white font-black hover:bg-sky-700 transition-all shadow-xl shadow-sky-100" href="../../week-03/lesson-02/index.html">الدرس التالي: Migrations و Seeders ←</a>
             </div>
         </article>
     </div>
 </main>
 
 <footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
-    © 2025 FlowPilot Academy. التخطيط الجيد هو نصف العمل.
+    © 2025 FlowPilot Academy. التخطيط الجيد قبل كتابة الكود يوفر 50% من وقت التطوير.
 </footer>
 
 <script src="../../../assets/js/app.js"></script>

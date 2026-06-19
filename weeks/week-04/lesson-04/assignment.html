@@ -3,27 +3,163 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 16: تحديث البيانات</title>
+    <title>واجب الدرس 16: بناء صفحة الملف الشخصي | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .step-box { border-right: 4px solid #f472b6; background: #f8fafc; padding: 1.5rem; border-radius: 1rem; margin-bottom: 1.5rem; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
-<main class="mx-auto max-w-3xl px-4 py-12">
-    <div class="card p-12 space-y-8">
-        <h1 class="text-3xl font-black text-center text-indigo-600">واجب التحكم الكامل</h1>
-        <div class="space-y-6 text-right">
-            <h3 class="font-black text-xl">المطلوب منك:</h3>
-            <ol class="list-decimal pr-6 space-y-4 font-bold text-slate-700">
-                <li>افتح صفحة الملف الشخصي في مشروعك.</li>
-                <li>قم بتغيير اسمك وتحديث البيانات.</li>
-                <li>تأكد من أن التغيير انعكس في قاعدة البيانات وفي واجهة التطبيق.</li>
-                <li><strong>تحدي:</strong> ابحث كيف يمكنك إضافة حقل "رقم الهاتف" لصفحة البروفايل.</li>
-            </ol>
-        </div>
+<body class="bg-slate-50 text-slate-900">
+
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
+</header>
+
+<main class="mx-auto max-w-4xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة لشرح الدرس</a>
+    
+    <section class="space-y-8">
+        <div class="card p-8 bg-gradient-to-br from-pink-600 to-rose-800 text-white shadow-xl shadow-pink-100 rounded-3xl">
+            <h1 class="text-3xl font-black">واجب الدرس 16: بناء صفحة إعدادات FlowPilot</h1>
+            <p class="mt-4 text-pink-100 leading-relaxed italic text-lg">
+                "المستخدم يحتاج للسيطرة على بياناته. اليوم نبني صفحة إعدادات متكاملة وآمنة."
+            </p>
+        </div>
+
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3">
+                <span class="w-10 h-10 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center text-sm font-black">01</span>
+                الهدف من الواجب
+            </h2>
+            <p class="text-slate-600 leading-relaxed">
+                تخصيص صفحة الملف الشخصي التي يوفرها Laravel Breeze لتتناسب مع FlowPilot. ستتعلم كيفية تعديل النماذج، إضافة التحقق (Validation)، وعرض رسائل النجاح.
+            </p>
+        </section>
+
+        <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-pink-600">
+                <span class="w-10 h-10 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center text-sm font-black">02</span>
+                خطوات التنفيذ بالتفصيل
+            </h2>
+            
+            <div class="step-box">
+                <h4 class="font-black text-lg text-pink-700">1. استعراض بنية ملفات البروفايل</h4>
+                <p class="text-sm text-slate-600 mt-2">اذهب إلى <code>resources/js/Pages/Profile/</code>. لاحظ الملفات التالية:</p>
+                <ul class="text-xs text-slate-500 pr-6 list-disc space-y-1 mt-1">
+                    <li><code>Edit.jsx</code> - الصفحة الرئيسية لعرض وتعديل الملف الشخصي.</li>
+                    <li><code>Partials/UpdateProfileInformationForm.jsx</code> - نموذج تعديل الاسم والبريد.</li>
+                    <li><code>Partials/UpdatePasswordForm.jsx</code> - نموذج تغيير كلمة المرور.</li>
+                    <li><code>Partials/DeleteUserForm.jsx</code> - نموذج حذف الحساب.</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-pink-700">2. تخصيص Edit.jsx</h4>
+                <p class="text-sm text-slate-600 mt-2">افتح <code>Edit.jsx</code> وقم بالتالي:</p>
+                <ul class="text-xs text-slate-500 pr-6 list-disc space-y-1 mt-1">
+                    <li>غيّر عنوان الصفحة من "Profile" إلى "الملف الشخصي - FlowPilot".</li>
+                    <li>غيّر لون الخلفية والأزرار إلى ألوان FlowPilot (indigo, pink).</li>
+                    <li>أضف شعار "FlowPilot" أعلى الصفحة.</li>
+                    <li>أضف مكون رسالة النجاح (Flash) أعلى المحتوى.</li>
+                </ul>
+                <div class="bg-slate-900 rounded-xl p-4 font-mono text-sm text-cyan-400 mt-3 text-left">
+                    <span class="code-line"><span class="code-comment">// أضف هذا لمكون Edit.jsx:</span></span>
+                    <span class="code-line"><span class="code-keyword">const</span> { props } = <span class="code-function">usePage</span>();</span>
+                    <span class="code-line"><span class="code-keyword">const</span> flash = props.flash;</span>
+                    <span class="code-line"> </span>
+                    <span class="code-line">{flash.message &amp;&amp; (</span>
+                    <span class="code-line">    &lt;div className=<span class="code-string">"bg-green-100 text-green-700 p-4 rounded-xl mb-4"</span>&gt;</span>
+                    <span class="code-line">        {flash.message}</span>
+                    <span class="code-line">    &lt;/div&gt;</span>
+                    <span class="code-line">)}</span>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-pink-700">3. مراجعة UpdateProfileInformationForm.jsx</h4>
+                <p class="text-sm text-slate-600 mt-2">افتح الملف وتأكد من أن النموذج يستخدم <code>useForm</code> مع <code>put</code> إلى <code>/profile</code>. غيّر النصوص من الإنجليزية إلى العربية.</p>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-pink-700">4. مراجعة UpdatePasswordForm.jsx</h4>
+                <p class="text-sm text-slate-600 mt-2">تأكد من وجود ثلاثة حقول: <code>current_password</code>, <code>password</code>, <code>password_confirmation</code>. غيّر النصوص والإرشادات إلى العربية.</p>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-pink-700">5. التحقق من ProfileController في Laravel</h4>
+                <p class="text-sm text-slate-600 mt-2">افتح <code>app/Http/Controllers/ProfileController.php</code> وتأكد من وجود:</p>
+                <ul class="text-xs text-slate-500 pr-6 list-disc space-y-1 mt-1">
+                    <li>دالة <code>edit()</code> تعرض صفحة React مع بيانات المستخدم.</li>
+                    <li>دالة <code>update()</code> مع Validation للاسم والبريد.</li>
+                    <li>دالة <code>destroy()</code> لحذف الحساب (اختياري).</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-pink-700">6. اختبار التحديث</h4>
+                <p class="text-sm text-slate-600 mt-2">سجل الدخول واذهب إلى <code>/profile</code>. جرب تغيير اسمك واضغط "حفظ". يجب أن:</p>
+                <ul class="text-xs text-slate-500 pr-6 list-disc space-y-1 mt-1">
+                    <li>✅ يظهر الاسم الجديد فوراً.</li>
+                    <li>✅ تظهر رسالة "تم تحديث الملف الشخصي بنجاح".</li>
+                    <li>✅ لا يظهر أي خطأ في Console المتصفح.</li>
+                </ul>
+            </div>
+
+            <div class="step-box">
+                <h4 class="font-black text-lg text-pink-700">7. [تحدي] إضافة رفع الصورة الشخصية</h4>
+                <p class="text-sm text-slate-600 mt-2">أضف مكوناً جديداً باسم <code>ProfilePhotoForm.jsx</code> في <code>Partials/</code> يسمح برفع صورة:</p>
+                <ul class="text-xs text-slate-500 pr-6 list-disc space-y-1 mt-1">
+                    <li>أضف مسار POST في <code>ProfileController@updatePhoto</code>.</li>
+                    <li>أضف عمود <code>profile_photo_path</code> في جدول users عبر Migration.</li>
+                    <li>شغّل <code>php artisan storage:link</code> لربط مجلد التخزين.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black text-sky-600">📂 الملفات المستهدفة</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="p-4 rounded-xl bg-slate-50 border"><p class="font-bold text-slate-900">resources/js/Pages/Profile/Edit.jsx</p><p class="text-xs text-slate-500">صفحة الملف الشخصي الرئيسية</p></div>
+                <div class="p-4 rounded-xl bg-slate-50 border"><p class="font-bold text-slate-900">resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx</p><p class="text-xs text-slate-500">نموذج تعديل الاسم والبريد</p></div>
+                <div class="p-4 rounded-xl bg-slate-50 border"><p class="font-bold text-slate-900">resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx</p><p class="text-xs text-slate-500">نموذج تغيير كلمة المرور</p></div>
+                <div class="p-4 rounded-xl bg-slate-50 border"><p class="font-bold text-slate-900">app/Http/Controllers/ProfileController.php</p><p class="text-xs text-slate-500">Controller مع دوال update, destroy</p></div>
+            </div>
+        </section>
+
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black text-emerald-600">📋 معايير التقييم</h2>
+            <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                <li>✅ صفحة الملف الشخصي تعرض بيانات المستخدم بشكل صحيح.</li>
+                <li>✅ تحديث الاسم والبريد يعمل بدون أخطاء.</li>
+                <li>✅ تغيير كلمة المرور يتطلب إدخال القديمة أولاً.</li>
+                <li>✅ ظهور رسالة نجاح بعد كل عملية تحديث.</li>
+                <li>✅ ظهور أخطاء Validation عند إدخال بيانات غير صالحة.</li>
+                <li>✅ [تحدي] رفع وعرض الصورة الشخصية.</li>
+            </ul>
+        </section>
+
+        <div class="p-8 rounded-[2rem] bg-gradient-to-br from-slate-900 to-pink-900 text-white space-y-4">
+            <h3 class="text-xl font-black">🚀 تحدي إضافي: حذف الحساب مع تأكيد</h3>
+            <p class="text-slate-300 text-sm">في FlowPilot، أضف زر "حذف الحساب" في أسفل صفحة الإعدادات. يجب أن:<br>
+            1. يطلب من المستخدم إدخال كلمة المرور للتأكيد.<br>
+            2. يظهر مربع حوار تأكيد (Modal) قبل الحذف.<br>
+            3. بعد الحذف، يسجل خروج المستخدم ويعيده للصفحة الرئيسية.</p>
+            <p class="text-pink-300 text-xs mt-2">💡 تلميح: استخدم <code>DeleteUserForm</code> الموجود مسبقاً في Breeze كمرجع.</p>
+        </div>
+    </section>
 </main>
+
+<footer class="mt-24 border-t bg-white py-12 text-center text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. المستخدم أولاً، تجربته هي كل شيء.
+</footer>
+
+<script src="../../../assets/js/app.js"></script>
 </body>
 </html>

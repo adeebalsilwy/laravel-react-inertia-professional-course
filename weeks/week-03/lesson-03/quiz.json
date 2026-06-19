@@ -1,14 +1,63 @@
 {
-  "lesson": 11,
-  "title": "فهم Eloquent Models والعلاقات بين البيانات",
-  "questions": [
-    {
-      "q": "ما أهم هدف من الدرس؟",
-      "answer": "فهم المفهوم وتطبيقه داخل FlowPilot"
-    },
-    {
-      "q": "لماذا نكتب خطوات عملية مفصلة؟",
-      "answer": "حتى يفهم الطالب الهدف والمكان والكود والنتيجة"
-    }
-  ]
+    "lesson": 11,
+    "week": 3,
+    "title": "فهم Eloquent Models والعلاقات بين البيانات",
+    "questions": [
+        {
+            "q": "اشرح الفرق بين belongsTo و hasMany مع مثال من FlowPilot.",
+            "answer": "belongsTo تستخدم عندما يكون عندك المفتاح الأجنبي (مثال: Task belongsTo Project لأن task جدولها يحوي project_id). hasMany تستخدم عندما يكون المفتاح الأجنبي في الجدول الآخر (مثال: Project hasMany Tasks لأن FK في جدول tasks)."
+        },
+        {
+            "q": "ما هي مشكلة N+1 وكيف تحلها؟",
+            "answer": "مشكلة N+1 تحدث عند جلب سجلات ثم جلب علاقة كل سجل في حلقة foreach، مما يسبب استعلام إضافي لكل سجل. الحل هو استخدام Eager Loading مع ::with('relation') الذي يجلب العلاقات في استعلام واحد."
+        },
+        {
+            "q": "لماذا نحتاج $fillable في Models؟ ماذا يحدث إذا لم نضفه؟",
+            "answer": "$fillable يحمي من هجمات Mass Assignment. يحدد الحقول المسموح ملؤها عبر create()/update(). إذا لم نضفه، سيظهر خطأ MassAssignmentException. هذا يمنع المهاجم من تغيير حقول حساسة مثل is_admin."
+        }
+    ],
+    "mcq": [
+        {
+            "q": "أي علاقة Eloquent نستخدمها لربط Task بـ Project؟",
+            "options": ["Project hasMany Task", "Task belongsTo Project", "Task hasMany Project", "Project belongsTo Task"],
+            "correct": 1,
+            "explanation": "Task يحتوي على project_id (FK). من يملك FK يستخدم belongsTo. لذا Task → belongsTo → Project."
+        },
+        {
+            "q": "ما الـ Eloquent method الذي يحل مشكلة N+1؟",
+            "options": ["::all()", "::where()", "::with()", "::find()"],
+            "correct": 2,
+            "explanation": "::with('relation') يقوم بـ Eager Loading، حيث يجلب العلاقات في استعلام واحد (JOIN) بدلاً من استعلام لكل سجل."
+        },
+        {
+            "q": "أي دالة تنشئ Accessor لعمود name؟",
+            "options": ["getNameAttribute()", "get_name_attribute()", "nameAccessor()", "modifyName()"],
+            "correct": 0,
+            "explanation": "الصيغة: get + PascalCase لاسم العمود + Attribute. مثال: getNameAttribute(), getStatusAttribute()."
+        },
+        {
+            "q": "ماذا يعيد $user->ownedProjects إذا كانت العلاقة hasMany؟",
+            "options": ["كائن User واحد", "مجموعة (Collection) من Projects", "رقم", "قيمة منطقية"],
+            "correct": 1,
+            "explanation": "hasMany تعيد Collection من الكائنات المرتبطة. $user->ownedProjects يعيد جميع مشاريع المستخدم."
+        },
+        {
+            "q": "ما اسم الجدول الذي تفترضه belongsToMany بين Project و User؟",
+            "options": ["project_user", "projects_users", "project_user_relation", "users_projects"],
+            "correct": 0,
+            "explanation": "Laravel يفترض اسم الجدول بدمج اسمي الجدولين بالترتيب الأبجدي و underscore: project_user."
+        }
+    ],
+    "tf": [
+        {
+            "q": "الـ $fillable يسمح بملء جميع الحقول في قاعدة البيانات",
+            "answer": false,
+            "explanation": "خطأ. $fillable يحدد الحقول المسموح ملؤها فقط. الحقول غير المذكورة لا يمكن ملؤها عبر create()/update(). هذا للحماية."
+        },
+        {
+            "q": "يمكن استخدام معامل ثانٍ في belongsTo() لتحديد اسم المفتاح الأجنبي إذا كان مختلفاً",
+            "answer": true,
+            "explanation": "نعم. مثال: $this->belongsTo(User::class, 'assigned_to') حيث اسم العمود هو 'assigned_to' وليس 'user_id'."
+        }
+    ]
 }

@@ -1,28 +1,81 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
-  <rect width="800" height="300" fill="#f0fdf4" rx="20"/>
-  
-  <!-- Server Side -->
-  <rect x="50" y="100" width="200" height="120" rx="15" fill="#ffffff" stroke="#10b981" stroke-width="3"/>
-  <text x="150" y="145" text-anchor="middle" font-family="Arial" font-weight="bold" fill="#065f46">Laravel</text>
-  <text x="150" y="175" text-anchor="middle" font-size="14" fill="#34d399">المنطق والبيانات</text>
-  
-  <!-- The Bridge -->
-  <rect x="300" y="120" width="200" height="80" rx="40" fill="#6366f1" />
-  <text x="400" y="165" text-anchor="middle" font-family="Arial" font-weight="bold" fill="white">Inertia.js</text>
-  <text x="400" y="185" text-anchor="middle" font-size="10" fill="#e0e7ff">جسر التواصل</text>
-  
-  <!-- Client Side -->
-  <rect x="550" y="100" width="200" height="120" rx="15" fill="#ffffff" stroke="#0ea5e9" stroke-width="3"/>
-  <text x="650" y="145" text-anchor="middle" font-family="Arial" font-weight="bold" fill="#0369a1">React</text>
-  <text x="650" y="175" text-anchor="middle" font-size="14" fill="#38bdf8">الواجهة والتفاعل</text>
-  
-  <path d="M 250 160 L 290 160" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow-green)"/>
-  <path d="M 510 160 L 540 160" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow-blue)"/>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
   <defs>
-    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#10b981" /></marker>
-    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#0ea5e9" /></marker>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0fdf4"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="4" stdDeviation="6" flood-opacity="0.15"/>
+    </filter>
+    <marker id="arrow-purple" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <path d="M0,0 L0,8 L12,4 z" fill="#6366f1"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <path d="M0,0 L0,8 L12,4 z" fill="#10b981"/>
+    </marker>
   </defs>
-  
-  <text x="400" y="50" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="24" fill="#065f46">كيف تترابط التقنيات في FlowPilot؟</text>
+
+  <rect width="800" height="400" fill="url(#bg-grad)" rx="24"/>
+
+  <text x="400" y="45" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="22" fill="#0f172a">كيف تترابط التقنيات الثلاث في FlowPilot؟</text>
+  <text x="400" y="68" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="12" fill="#64748b">طلب المستخدم ← Laravel يجهز البيانات ← Inertia يمررها ← React يعرضها</text>
+
+  <!-- User -->
+  <g transform="translate(320, 80)">
+    <circle cx="80" cy="40" r="35" fill="#eef2ff" stroke="#6366f1" stroke-width="3" filter="url(#shadow)"/>
+    <text x="80" y="30" text-anchor="middle" font-size="28">👤</text>
+    <text x="80" y="95" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="13" fill="#4338ca">المستخدم</text>
+    <text x="80" y="112" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#6366f1">يفتح المتصفح</text>
+  </g>
+
+  <!-- Arrow down -->
+  <path d="M 400 130 L 400 160" stroke="#6366f1" stroke-width="3" marker-end="url(#arrow-purple)" fill="none"/>
+
+  <!-- Laravel -->
+  <g transform="translate(50, 170)">
+    <rect width="180" height="110" rx="16" fill="white" stroke="#10b981" stroke-width="3" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="180" height="30" rx="16" fill="#10b981"/>
+    <text x="90" y="20" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="13" fill="white">Laravel (الخلفية)</text>
+    <text x="90" y="55" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#065f46">يستقبل الطلب</text>
+    <text x="90" y="73" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#065f46">يجهز البيانات</text>
+    <text x="90" y="91" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#065f46">يستدعي Inertia</text>
+  </g>
+
+  <!-- Arrow Laravel → Inertia -->
+  <path d="M 230 225 L 285 225" stroke="#6366f1" stroke-width="3" marker-end="url(#arrow-purple)" fill="none"/>
+
+  <!-- Inertia -->
+  <g transform="translate(300, 170)">
+    <rect width="200" height="110" rx="55" fill="white" stroke="#6366f1" stroke-width="3" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="200" height="30" rx="55" fill="#6366f1"/>
+    <text x="100" y="20" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="13" fill="white">Inertia.js (الجسر)</text>
+    <text x="100" y="55" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#4338ca">يستلم البيانات</text>
+    <text x="100" y="73" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#4338ca">يمررها لـ React</text>
+    <text x="100" y="91" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#4338ca">بدون APIs معقدة</text>
+  </g>
+
+  <!-- Arrow Inertia → React -->
+  <path d="M 500 225 L 555 225" stroke="#6366f1" stroke-width="3" marker-end="url(#arrow-purple)" fill="none"/>
+
+  <!-- React -->
+  <g transform="translate(570, 170)">
+    <rect width="180" height="110" rx="16" fill="white" stroke="#0ea5e9" stroke-width="3" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="180" height="30" rx="16" fill="#0ea5e9"/>
+    <text x="90" y="20" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="13" fill="white">React (الواجهة)</text>
+    <text x="90" y="55" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#0369a1">يعرض الصفحة</text>
+    <text x="90" y="73" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#0369a1">يتفاعل مع المستخدم</text>
+    <text x="90" y="91" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#0369a1">Slama وسريع</text>
+  </g>
+
+  <!-- FlowPilot Logo at bottom -->
+  <g transform="translate(300, 320)">
+    <rect width="200" height="50" rx="25" fill="#1e293b" filter="url(#shadow)"/>
+    <text x="100" y="30" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="16" fill="#6366f1">FlowPilot</text>
+    <text x="100" y="45" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="8" fill="#94a3b8">التطبيق المتكامل</text>
+  </g>
+
+  <!-- Dashed line: All lead to FlowPilot -->
+  <path d="M 140 280 L 140 340 L 300 340" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 4" fill="none"/>
+  <path d="M 400 280 L 400 340" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 4" fill="none"/>
+  <path d="M 660 280 L 660 340 L 500 340" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 4" fill="none"/>
 </svg>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 17: إنشاء المشاريع وإدارتها CRUD</title>
+    <title>الدرس 17: إنشاء المشاريع وإدارتها CRUD | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +13,13 @@
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
         .step-card { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .code-line { display: block; padding: 2px 0; }
+        .code-comment { color: #6b7280; }
+        .code-keyword { color: #818cf8; }
+        .code-string { color: #34d399; }
+        .code-function { color: #f472b6; }
+        .error-box { background: #fef2f2; border-right: 4px solid #ef4444; padding: 1.5rem; border-radius: 1rem; margin-bottom: 1.5rem; }
+        .success-box { background: #f0fdf4; border-right: 4px solid #22c55e; padding: 1.5rem; border-radius: 1rem; margin-bottom: 1.5rem; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -30,9 +37,15 @@
                 <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الخامس</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
                     <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم الـ CRUD</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">العمليات الأربعة</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال السجل المدني</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#letters">الحروف الأربعة بالتفصيل</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">التحقق من البيانات (Validation)</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#analogy">مثال: السجل المدني</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">الربط مع FlowPilot</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#steps">6 خطوات عملية</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#code">شرح الكود سطراً سطراً</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#result">النتيجة المتوقعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">الأخطاء الشائعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#summary">ملخص الدرس</a>
                 </div>
             </div>
         </aside>
@@ -44,84 +57,436 @@
                 <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"تطبيق الويب الحقيقي هو الذي يسمح للمستخدم بإنشاء وقراءة وتحديث وحذف بياناته."</p>
             </section>
 
+            <!-- المقدمة: مفهوم CRUD -->
             <section id="intro" class="space-y-4">
                 <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هو الـ CRUD؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    الـ <strong>CRUD</strong> هو اختصار لأربع عمليات أساسية يقوم بها أي نظام في العالم:
-                    <br>
-                    1. <strong>C</strong>reate: إنشاء مشروع جديد.
-                    <br>
-                    2. <strong>R</strong>ead: عرض قائمة المشاريع.
-                    <br>
-                    3. <strong>U</strong>pdate: تعديل بيانات مشروع موجود.
-                    <br>
-                    4. <strong>D</strong>elete: حذف مشروع لم نعد نحتاجه.
+                    <strong>CRUD</strong> هو اختصار لأربع كلمات إنجليزية تصف العمليات الأربعة الأساسية التي تقوم بها أي تطبيق يدير بيانات:
                 </p>
+                <ul class="space-y-3 pr-8 text-slate-700 text-lg">
+                    <li><strong class="text-emerald-600">C</strong> → <strong>Create</strong> (إنشاء): إضافة سجل جديد إلى قاعدة البيانات.</li>
+                    <li><strong class="text-blue-600">R</strong> → <strong>Read</strong> (قراءة): عرض البيانات الموجودة.</li>
+                    <li><strong class="text-amber-600">U</strong> → <strong>Update</strong> (تحديث): تعديل بيانات سجل موجود.</li>
+                    <li><strong class="text-red-600">D</strong> → <strong>Delete</strong> (حذف): إزالة سجل نهائياً.</li>
+                </ul>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    في هذا الدرس، سنبني هذه الدورة الكاملة لجدول المشاريع في FlowPilot، ليمتلك المستخدم القدرة على إدارة مشاريعه بنفسه.
+                    كل عملية من هذه العمليات لها <strong>طريقة HTTP مخصصة</strong> (مثل GET للقراءة، POST للإنشاء، PUT للتحديث، DELETE للحذف). هذه الطرق هي لغة التواصل بين المتصفح والخادم.
                 </p>
             </section>
 
+            <!-- الحروف الأربعة بالتفصيل -->
+            <section id="letters" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">الحروف الأربعة: تفصيل كامل لكل عملية</h2>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-6 rounded-2xl bg-emerald-50 border border-emerald-200">
+                        <h3 class="font-black text-emerald-700 text-xl mb-2">Create (إنشاء)</h3>
+                        <p class="text-sm text-slate-600">طريقة HTTP: <code class="bg-slate-200 px-2 rounded">POST</code></p>
+                        <p class="text-sm text-slate-600">المسار: <code class="bg-slate-200 px-2 rounded">/projects</code></p>
+                        <p class="text-sm text-slate-600 mt-2">يضيف صفاً جديداً في جدول <code>projects</code>. يحتاج إلى بيانات من النموذج (form) يرسلها المستخدم.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-blue-50 border border-blue-200">
+                        <h3 class="font-black text-blue-700 text-xl mb-2">Read (قراءة)</h3>
+                        <p class="text-sm text-slate-600">طريقة HTTP: <code class="bg-slate-200 px-2 rounded">GET</code></p>
+                        <p class="text-sm text-slate-600">المسار: <code class="bg-slate-200 px-2 rounded">/projects</code> أو <code class="bg-slate-200 px-2 rounded">/projects/{id}</code></p>
+                        <p class="text-sm text-slate-600 mt-2">يستعرض البيانات. إما كل المشاريع (index) أو مشروع واحد (show). لا يغير شيئاً في قاعدة البيانات.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-amber-50 border border-amber-200">
+                        <h3 class="font-black text-amber-700 text-xl mb-2">Update (تحديث)</h3>
+                        <p class="text-sm text-slate-600">طريقة HTTP: <code class="bg-slate-200 px-2 rounded">PUT</code> أو <code class="bg-slate-200 px-2 rounded">PATCH</code></p>
+                        <p class="text-sm text-slate-600">المسار: <code class="bg-slate-200 px-2 rounded">/projects/{id}</code></p>
+                        <p class="text-sm text-slate-600 mt-2">يعدل صفاً موجوداً. يرسل المستخدم البيانات الجديدة عبر نموذج تعديل. الفرق بين PUT و PATCH: PUT يعدل كل الحقول، PATCH يعدل بعضها فقط.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-red-50 border border-red-200">
+                        <h3 class="font-black text-red-700 text-xl mb-2">Delete (حذف)</h3>
+                        <p class="text-sm text-slate-600">طريقة HTTP: <code class="bg-slate-200 px-2 rounded">DELETE</code></p>
+                        <p class="text-sm text-slate-600">المسار: <code class="bg-slate-200 px-2 rounded">/projects/{id}</code></p>
+                        <p class="text-sm text-slate-600 mt-2">يزيل سجلاً من قاعدة البيانات إلى الأبد. يجب تأكيد العملية قبل التنفيذ (عادةً عبر مربع تأكيد JavaScript).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- التحقق من البيانات -->
             <section id="theory" class="mt-16 space-y-6">
                 <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التحقق من البيانات (Validation)</h2>
-                <p class="text-slate-600 leading-relaxed">
-                    أثناء عملية الـ <strong>Create</strong>، لا نسمح للمستخدم بإرسال بيانات خاطئة. مثلاً، لا يمكن إنشاء مشروع بدون "اسم". نستخدم في Laravel قواعد تحقق مثل <code>'name' => 'required|min:3'</code> لضمان جودة البيانات.
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    <strong>لماذا نحتاج التحقق؟</strong> تخيل أن مستخدماً أرسل نموذجاً وفيه اسم المشروع فارغ! أو أدخل 2000 حرف في حقل الاسم! بدون التحقق، ستتلف قاعدة البيانات أو تظهر أخطاء غريبة.
                 </p>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    في Laravel، نستخدم دالة <code class="bg-slate-200 px-2 rounded text-pink-600">validate()</code> داخل الـ Controller أو ننشئ <strong>Form Request</strong> مخصص. مثال:
+                </p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left">
+                    <p><span class="text-slate-500">// داخل دالة store في ProjectController</span></p>
+                    <p>$validated = $request->validate([</p>
+                    <p>&nbsp;&nbsp;<span class="text-orange-300">'name'</span> => <span class="text-green-300">'required|min:3|max:255'</span>,</p>
+                    <p>&nbsp;&nbsp;<span class="text-orange-300">'description'</span> => <span class="text-green-300">'nullable|max:1000'</span>,</p>
+                    <p>]);</p>
+                    <p><span class="text-slate-500">// إذا فشل التحقق، Laravel يعيد المستخدم تلقائياً مع رسائل الخطأ</span></p>
+                </div>
+                <p class="text-slate-600 leading-relaxed">قاعدة <code>required</code> تعني أن الحقل إجباري. <code>min:3</code> يعني أقل عدد أحرف هو 3. <code>max:255</code> يعني أقصى حد 255 حرفاً. <code>nullable</code> يعني أن الحقل اختياري.</p>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
-                <h2 class="text-2xl font-black mb-4">مثال من حياتنا (السجل المدني)</h2>
-                <p class="text-indigo-50 leading-relaxed text-lg">
-                    - <strong>Create:</strong> تسجيل مولود جديد.
-                    <br>
-                    - <strong>Read:</strong> استخراج شهادة ميلاد لرؤية البيانات.
-                    <br>
-                    - <strong>Update:</strong> تغيير محل الإقامة في البطاقة.
-                    <br>
-                    - <strong>Delete:</strong> إلغاء قيد شخص في حالة الوفاة أو الخطأ.
+            <!-- مثال تشبيهي -->
+            <section id="analogy" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">🌍 مثال من حياتنا اليومية: السجل المدني</h2>
+                <p class="text-indigo-50 leading-relaxed text-lg mb-4">
+                    تخيل أنك تعمل في مكتب السجل المدني. كل شخص له ملف وبيانات. إليك كيف تشبه عمليات CRUD ما يحدث في الواقع:
                 </p>
+                <div class="grid md:grid-cols-2 gap-4 text-right">
+                    <div class="bg-indigo-500 rounded-2xl p-4">
+                        <p class="font-black text-white">👶 <strong>Create</strong> = تسجيل مولود جديد</p>
+                        <p class="text-indigo-200 text-sm">تدخل اسمه، تاريخ ميلاده، وعنوانه في السجل. هذا يشبه إضافة مشروع جديد في FlowPilot.</p>
+                    </div>
+                    <div class="bg-indigo-500 rounded-2xl p-4">
+                        <p class="font-black text-white">📋 <strong>Read</strong> = استخراج شهادة ميلاد</p>
+                        <p class="text-indigo-200 text-sm">تطلب رقم الملف وتقرأ البيانات. هذا يشبه فتح صفحة المشروع لمشاهدته.</p>
+                    </div>
+                    <div class="bg-indigo-500 rounded-2xl p-4">
+                        <p class="font-black text-white">✏️ <strong>Update</strong> = تغيير العنوان</p>
+                        <p class="text-indigo-200 text-sm">جاء شخص وطلب تغيير محل الإقامة. تعدّل البيانات في الملف. هذا يشبه تعديل وصف المشروع.</p>
+                    </div>
+                    <div class="bg-indigo-500 rounded-2xl p-4">
+                        <p class="font-black text-white">🗑️ <strong>Delete</strong> = إلغاء قيد</p>
+                        <p class="text-indigo-200 text-sm">في حال وجود خطأ في التسجيل، تحذف الملف بالكامل. هذا يشبه حذف مشروع لم نعد نحتاجه.</p>
+                    </div>
+                </div>
+                <p class="mt-4 text-indigo-200 text-sm">إذن، CRUD ليس مجرد أكواد برمجية - إنه <strong>منطق إداري</strong> نستخدمه في حياتنا اليومية. التطبيق البرمجي يسهّل هذه العمليات ويجعلها أسرع.</p>
             </section>
 
+            <!-- الربط مع FlowPilot -->
+            <section id="flowpilot" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">الربط مع FlowPilot: المشاريع</h2>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    في مشروع FlowPilot، <strong>المشروع (Project)</strong> هو الوحدة الأساسية. كل مستخدم يمكنه إنشاء عدة مشاريع، وكل مشروع يحتوي على عدة مهام (Tasks).
+                </p>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    ستنشئ الآن جدول <code>projects</code> في قاعدة البيانات، وتكتب كل دوال التحكم (Controller) التي تسمح للمستخدم بالتحكم الكامل في مشاريعه.
+                </p>
+                <div class="bg-indigo-50 rounded-2xl p-6 border border-indigo-200">
+                    <p class="font-black text-indigo-700 mb-2">ما سنبنيه في FlowPilot:</p>
+                    <ul class="space-y-2 text-slate-700 pr-4">
+                        <li>✅ صفحة <code>/projects</code> تعرض كل المشاريع (Read - Index).</li>
+                        <li>✅ زر "إضافة مشروع" يفتح نموذجاً (Create).</li>
+                        <li>✅ نموذج يتحقق من صحة البيانات (Validation).</li>
+                        <li>✅ زر تعديل بجانب كل مشروع (Update).</li>
+                        <li>✅ زر حذف مع تأكيد (Delete).</li>
+                        <li>✅ رسالة نجاح بعد كل عملية (Flash Message).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 6 خطوات عملية -->
+            <section id="steps" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">6 خطوات عملية لبناء CRUD كامل</h2>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء Model + Migration</h3>
+                    <p class="mb-4 text-slate-600">ننشئ نموذج Project مع ملف الهجرة (migration) الذي ينشئ جدول المشاريع في قاعدة البيانات.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-purple-400 overflow-x-auto text-left">
+                        <p><span class="text-slate-500"># الأمر في terminal</span></p>
+                        <p>php artisan make:model Project -m</p>
+                        <p class="mt-2"><span class="text-slate-500"># الـ -m تنشئ ملف migration أيضاً</span></p>
+                        <p><span class="text-slate-500"># النتيجة: ملفين</span></p>
+                        <p>app/Models/Project.php</p>
+                        <p>database/migrations/xxxx_create_projects_table.php</p>
+                    </div>
+                    <p class="mt-3 text-slate-600">في ملف migration، نضيف الأعمدة: <code>name</code> (نص)، <code>description</code> (نص طويل، اختياري)، <code>user_id</code> (رقم المستخدم).</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: إضافة fillable في Model</h3>
+                    <p class="mb-4 text-slate-600">في ملف <code>app/Models/Project.php</code>، نضيف الخاصية <code>$fillable</code> لتحديد الحقول المسموح بتعبئتها مرة واحدة (Mass Assignment).</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto text-left">
+                        <p><span class="text-slate-500">// app/Models/Project.php</span></p>
+                        <p><span class="text-keyword">protected</span> <span class="text-function">$fillable</span> = [<span class="text-string">'name'</span>, <span class="text-string">'description'</span>, <span class="text-string">'user_id'</span>];</p>
+                        <p class="mt-2"><span class="text-slate-500">// أو نستخدم $guarded = [] للسماح بكل الحقول (غير آمن)</span></p>
+                    </div>
+                    <p class="mt-3 text-slate-600">سطر واحد فقط! لكنه مهم جداً. بدون <code>$fillable</code>، سترى خطأ <code>MassAssignmentException</code> عند محاولة الحفظ.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: إنشاء ProjectController بـ 7 دوال</h3>
+                    <p class="mb-4 text-slate-600">ننشئ Controller يحتوي على 7 دوال: index, create, store, show, edit, update, destroy.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left">
+                        <p>php artisan make:controller ProjectController --resource</p>
+                        <p class="mt-2"><span class="text-slate-500"># --resource تنشئ الـ 7 دوال تلقائياً</span></p>
+                    </div>
+                    <p class="mt-3 text-slate-600">الـ flag <code>--resource</code> يكتب هيكل الـ 7 دوال نيابة عنك. لا تحتاج لكتابتها يدوياً!</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: تسجيل Route::resource</h3>
+                    <p class="mb-4 text-slate-600">في ملف <code>routes/web.php</code>، نضيف سطراً واحداً يسجل كل الـ 7 مسارات دفعة واحدة.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-yellow-400 overflow-x-auto text-left">
+                        <p><span class="text-slate-500">// routes/web.php</span></p>
+                        <p><span class="text-keyword">use</span> App\Http\Controllers\ProjectController;</p>
+                        <p class="mt-2">Route::<span class="text-function">resource</span>(<span class="text-string">'projects'</span>, ProjectController::class);</p>
+                        <p class="mt-2"><span class="text-slate-500">// هذا السطر الواحد يسجل 7 مسارات!</span></p>
+                    </div>
+                    <p class="mt-3 text-slate-600">لتتأكد، شغّل <code>php artisan route:list</code> في terminal وسترى 7 مسارات تبدأ بـ <code>projects</code>.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: كتابة دالة index() - جلب وعرض المشاريع</h3>
+                    <p class="mb-4 text-slate-600">في <code>ProjectController</code>، نكتب دالة <code>index()</code> التي تجلب كل المشاريع من قاعدة البيانات وترسلها إلى React عبر Inertia.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto text-left">
+                        <p><span class="text-keyword">public function</span> <span class="text-function">index</span>()</p>
+                        <p>{</p>
+                        <p>&nbsp;&nbsp;<span class="text-slate-500">// 1. نجلب كل المشاريع من قاعدة البيانات</span></p>
+                        <p>&nbsp;&nbsp;$projects = Project::<span class="text-function">all</span>();</p>
+                        <p>&nbsp;&nbsp;</p>
+                        <p>&nbsp;&nbsp;<span class="text-slate-500">// 2. نرسلها إلى صفحة React عبر Inertia</span></p>
+                        <p>&nbsp;&nbsp;<span class="text-keyword">return</span> Inertia::<span class="text-function">render</span>(<span class="text-string">'Projects/Index'</span>, [</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-string">'projects'</span> => $projects,</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-string">'success'</span> => session(<span class="text-string">'success'</span>), <span class="text-slate-500">// رسالة النجاح</span></p>
+                        <p>&nbsp;&nbsp;]);</p>
+                        <p>}</p>
+                    </div>
+                    <p class="mt-3 text-slate-600"><code>Project::all()</code> ترجع كل الصفوف من جدول <code>projects</code> كمصفوفة من الكائنات. Inertia تحوّل هذه البيانات إلى Props في مكون React.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 6: store() و update() و destroy()</h3>
+                    <p class="mb-4 text-slate-600">الدوال الثلاث الباقية: store (حفظ جديد)، update (تعديل)، destroy (حذف). كلها ترجع رسالة نجاح.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left">
+                        <p><span class="text-slate-500">// إنشاء مشروع جديد</span></p>
+                        <p><span class="text-keyword">public function</span> <span class="text-function">store</span>(Request $request)</p>
+                        <p>{</p>
+                        <p>&nbsp;&nbsp;$validated = $request-><span class="text-function">validate</span>([</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-string">'name'</span> => <span class="text-string">'required|min:3|max:255'</span>,</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-string">'description'</span> => <span class="text-string">'nullable|max:1000'</span>,</p>
+                        <p>&nbsp;&nbsp;]);</p>
+                        <p>&nbsp;&nbsp;$validated[<span class="text-string">'user_id'</span>] = auth()-><span class="text-function">id</span>();</p>
+                        <p>&nbsp;&nbsp;$project = Project::<span class="text-function">create</span>($validated);</p>
+                        <p>&nbsp;&nbsp;</p>
+                        <p>&nbsp;&nbsp;<span class="text-keyword">return</span> <span class="text-function">redirect</span>()-><span class="text-function">route</span>(<span class="text-string">'projects.index'</span>)</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;-><span class="text-function">with</span>(<span class="text-string">'success'</span>, <span class="text-string">'تم إنشاء المشروع "' . $project->name . '" بنجاح'</span>);</p>
+                        <p>}</p>
+                    </div>
+                    <p class="mt-3 text-slate-600"><code>auth()->id()</code> تجلب رقم المستخدم الذي سجل الدخول حالياً. هذا يربط المشروع بالمستخدم الصحيح.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-yellow-400 overflow-x-auto text-left mt-4">
+                        <p><span class="text-slate-500">// تعديل مشروع</span></p>
+                        <p><span class="text-keyword">public function</span> <span class="text-function">update</span>(Request $request, Project $project)</p>
+                        <p>{</p>
+                        <p>&nbsp;&nbsp;$validated = $request-><span class="text-function">validate</span>([<span class="text-string">'name'</span> => <span class="text-string">'required|min:3'</span>]);</p>
+                        <p>&nbsp;&nbsp;$project-><span class="text-function">update</span>($validated);</p>
+                        <p>&nbsp;&nbsp;<span class="text-keyword">return</span> <span class="text-function">redirect</span>()-><span class="text-function">route</span>(<span class="text-string">'projects.index'</span>)</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;-><span class="text-function">with</span>(<span class="text-string">'success'</span>, <span class="text-string">'تم تحديث المشروع'</span>);</p>
+                        <p>}</p>
+                    </div>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-red-400 overflow-x-auto text-left mt-4">
+                        <p><span class="text-slate-500">// حذف مشروع</span></p>
+                        <p><span class="text-keyword">public function</span> <span class="text-function">destroy</span>(Project $project)</p>
+                        <p>{</p>
+                        <p>&nbsp;&nbsp;$project-><span class="text-function">delete</span>();</p>
+                        <p>&nbsp;&nbsp;<span class="text-keyword">return</span> <span class="text-function">redirect</span>()-><span class="text-function">route</span>(<span class="text-string">'projects.index'</span>)</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;-><span class="text-function">with</span>(<span class="text-string">'success'</span>, <span class="text-string">'تم حذف المشروع'</span>);</p>
+                        <p>}</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- شرح الكود سطراً سطراً -->
+            <section id="code" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">شرح الكود سطراً سطراً: Controller كامل</h2>
+                <p class="text-slate-600">هذا هو الـ Controller الكامل. اقرأ كل سطر مع الشرح بجانبه:</p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-blue-300 overflow-x-auto text-left">
+                    <p><span class="text-slate-500"><?php</span></p>
+                    <p><span class="text-slate-500">// السطر 1: نستخدم namespace الخاص بالـ Controllers</span></p>
+                    <p><span class="text-keyword">namespace</span> App\Http\Controllers;</p>
+                    <p>&nbsp;</p>
+                    <p><span class="text-slate-500">// السطر 2: نستورد الكلاسات التي سنستخدمها</span></p>
+                    <p><span class="text-keyword">use</span> App\Models\Project;</p>
+                    <p><span class="text-keyword">use</span> Illuminate\Http\Request;</p>
+                    <p><span class="text-keyword">use</span> Inertia\Inertia;</p>
+                    <p>&nbsp;</p>
+                    <p><span class="text-slate-500">// السطر 3: تعريف الكلاس</span></p>
+                    <p><span class="text-keyword">class</span> ProjectController <span class="text-keyword">extends</span> Controller</p>
+                    <p>{</p>
+                    <p>&nbsp;&nbsp;<span class="text-slate-500">// عرض كل المشاريع</span></p>
+                    <p>&nbsp;&nbsp;<span class="text-keyword">public function</span> <span class="text-function">index</span>() {</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">// ::all() ترجع كل الصفوف كـ Collection</span></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;$projects = Project::<span class="text-function">all</span>();</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">// نمرر المشاريع ورسالة النجاح إلى Inertia</span></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-keyword">return</span> Inertia::<span class="text-function">render</span>(<span class="text-string">'Projects/Index'</span>, [</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-string">'projects'</span> => $projects,</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-string">'success'</span> => session(<span class="text-string">'success'</span>),</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;]);</p>
+                    <p>&nbsp;&nbsp;}</p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;&nbsp;<span class="text-slate-500">// عرض صفحة إنشاء مشروع جديد</span></p>
+                    <p>&nbsp;&nbsp;<span class="text-keyword">public function</span> <span class="text-function">create</span>() {</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-keyword">return</span> Inertia::<span class="text-function">render</span>(<span class="text-string">'Projects/Create'</span>);</p>
+                    <p>&nbsp;&nbsp;}</p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;&nbsp;<span class="text-slate-500">// حفظ مشروع جديد</span></p>
+                    <p>&nbsp;&nbsp;<span class="text-keyword">public function</span> <span class="text-function">store</span>(Request $request) {</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">// التحقق: الاسم مطلوب، 3-255 حرف</span></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;$validated = $request-><span class="text-function">validate</span>([</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-string">'name'</span> => <span class="text-string">'required|string|min:3|max:255'</span>,</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-string">'description'</span> => <span class="text-string">'nullable|string|max:1000'</span>,</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;]);</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">// إضافة user_id تلقائياً</span></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;$validated[<span class="text-string">'user_id'</span>] = auth()-><span class="text-function">id</span>();</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">// create تنشئ السجل وتعيد الكائن</span></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;$project = Project::<span class="text-function">create</span>($validated);</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">// إعادة توجيه مع رسالة نجاح</span></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-keyword">return</span> <span class="text-function">redirect</span>()-><span class="text-function">route</span>(<span class="text-string">'projects.index'</span>)</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-><span class="text-function">with</span>(<span class="text-string">'success'</span>, <span class="text-string">"تم إنشاء المشروع '$project->name'"</span>);</p>
+                    <p>&nbsp;&nbsp;}</p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;&nbsp;<span class="text-slate-500">// عرض مشروع واحد (للتفاصيل)</span></p>
+                    <p>&nbsp;&nbsp;<span class="text-keyword">public function</span> <span class="text-function">show</span>(Project $project) {</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-keyword">return</span> Inertia::<span class="text-function">render</span>(<span class="text-string">'Projects/Show'</span>, [<span class="text-string">'project'</span> => $project]);</p>
+                    <p>&nbsp;&nbsp;}</p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;&nbsp;<span class="text-slate-500">// عرض صفحة تعديل مشروع</span></p>
+                    <p>&nbsp;&nbsp;<span class="text-keyword">public function</span> <span class="text-function">edit</span>(Project $project) {</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-keyword">return</span> Inertia::<span class="text-function">render</span>(<span class="text-string">'Projects/Edit'</span>, [<span class="text-string">'project'</span> => $project]);</p>
+                    <p>&nbsp;&nbsp;}</p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;&nbsp;<span class="text-slate-500">// تحديث مشروع موجود</span></p>
+                    <p>&nbsp;&nbsp;<span class="text-keyword">public function</span> <span class="text-function">update</span>(Request $request, Project $project) {</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;$validated = $request-><span class="text-function">validate</span>([</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-string">'name'</span> => <span class="text-string">'required|string|min:3|max:255'</span>,</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-string">'description'</span> => <span class="text-string">'nullable|string|max:1000'</span>,</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;]);</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">// update تعدل السجل في قاعدة البيانات</span></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;$project-><span class="text-function">update</span>($validated);</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-keyword">return</span> <span class="text-function">redirect</span>()-><span class="text-function">route</span>(<span class="text-string">'projects.index'</span>)</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-><span class="text-function">with</span>(<span class="text-string">'success'</span>, <span class="text-string">'تم تحديث المشروع'</span>);</p>
+                    <p>&nbsp;&nbsp;}</p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;&nbsp;<span class="text-slate-500">// حذف مشروع</span></p>
+                    <p>&nbsp;&nbsp;<span class="text-keyword">public function</span> <span class="text-function">destroy</span>(Project $project) {</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">// delete يزيل السجل من قاعدة البيانات</span></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;$project-><span class="text-function">delete</span>();</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-keyword">return</span> <span class="text-function">redirect</span>()-><span class="text-function">route</span>(<span class="text-string">'projects.index'</span>)</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;-><span class="text-function">with</span>(<span class="text-string">'success'</span>, <span class="text-string">'تم حذف المشروع'</span>);</p>
+                    <p>&nbsp;&nbsp;}</p>
+                    <p>}</p>
+                </div>
+                <p class="text-slate-600 text-sm mt-4"><strong>ملاحظة:</strong> الدوال <code>create()</code> و <code>edit()</code> تعرض فقط صفحة النموذج. الدوال <code>store()</code> و <code>update()</code> و <code>destroy()</code> هي التي تنفذ العمليات الفعلية على قاعدة البيانات.</p>
+            </section>
+
+            <!-- النتيجة المتوقعة -->
+            <section id="result" class="mt-16 p-8 rounded-3xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200">
+                <h2 class="text-2xl font-black text-emerald-800 mb-4">النتيجة المتوقعة بعد تنفيذ الخطوات</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-2xl p-5 shadow-sm">
+                        <p class="font-black text-emerald-700 mb-2">📋 صفحة index.html (قائمة المشاريع)</p>
+                        <ul class="text-sm text-slate-600 space-y-1">
+                            <li>✅ تظهر كل المشاريع في قائمة مرتبة.</li>
+                            <li>✅ بجانب كل مشروع: زر تعديل وزر حذف.</li>
+                            <li>✅ في أعلى الصفحة: زر "مشروع جديد".</li>
+                            <li>✅ إذا وُجدت رسالة نجاح، تظهر في شريط ملون.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm">
+                        <p class="font-black text-emerald-700 mb-2">📝 صفحة Create (نموذج الإنشاء)</p>
+                        <ul class="text-sm text-slate-600 space-y-1">
+                            <li>✅ حقل إدخال اسم المشروع.</li>
+                            <li>✅ حقل إدخال الوصف (اختياري).</li>
+                            <li>✅ زر "حفظ".</li>
+                            <li>✅ إذا ترك الاسم فارغاً، يظهر خطأ أحمر.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm">
+                        <p class="font-black text-emerald-700 mb-2">✏️ صفحة Edit (نموذج التعديل)</p>
+                        <ul class="text-sm text-slate-600 space-y-1">
+                            <li>✅ الحقول ممتلئة مسبقاً بالبيانات الحالية.</li>
+                            <li>✅ بعد الحفظ، يرجع المستخدم إلى القائمة.</li>
+                            <li>✅ رسالة "تم تحديث المشروع" تظهر.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm">
+                        <p class="font-black text-emerald-700 mb-2">🗑️ عملية الحذف</p>
+                        <ul class="text-sm text-slate-600 space-y-1">
+                            <li>✅ بعد الضغط على "حذف"، يظهر تأكيد.</li>
+                            <li>✅ بعد التأكيد، يختفي المشروع من القائمة.</li>
+                            <li>✅ رسالة "تم حذف المشروع" تظهر.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- الأخطاء الشائعة -->
+            <section id="errors" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">❌ الأخطاء الشائعة (مع الحل)</h2>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">🚫 الخطأ 1: صفحة 404 عند زيارة /projects</p>
+                    <p class="text-sm text-slate-700"><strong>السبب:</strong> نسيت كتابة <code>Route::resource('projects', ProjectController::class)</code> في <code>web.php</code>.</p>
+                    <p class="text-sm text-slate-700"><strong>الحل:</strong> افتح <code>routes/web.php</code> وأضف السطر.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">🚫 الخطأ 2: MassAssignmentException عند الحفظ</p>
+                    <p class="text-sm text-slate-700"><strong>السبب:</strong> لم تضف <code>$fillable</code> في Model. Laravel يمنع تعبئة الحقول تلقائياً لأسباب أمنية.</p>
+                    <p class="text-sm text-slate-700"><strong>الحل:</strong> أضف <code>protected $fillable = ['name', 'description', 'user_id'];</code> في <code>Project.php</code>.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">🚫 الخطأ 3: Class "Project" not found</p>
+                    <p class="text-sm text-slate-700"><strong>السبب:</strong> نسيت إضافة <code>use App\Models\Project;</code> في أعلى <code>ProjectController.php</code>.</p>
+                    <p class="text-sm text-slate-700"><strong>الحل:</strong> أضف السطر <code>use App\Models\Project;</code> بعد <code>namespace</code> مباشرة.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">🚫 الخطأ 4: خطأ 419 Page Expired عند إرسال النموذج</p>
+                    <p class="text-sm text-slate-700"><strong>السبب:</strong> لا يوجد CSRF token في طلب POST. Laravel يطلب رمز CSRF لكل طلب POST أو PUT أو DELETE.</p>
+                    <p class="text-sm text-slate-700"><strong>الحل:</strong> في Inertia، استخدم <code>useForm</code> الذي يضيف CSRF token تلقائياً. أو تأكد من أن النموذج يستخدم Inertia's <code>post()</code> method.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">🚫 الخطأ 5: البيانات لا تظهر في صفحة React</p>
+                    <p class="text-sm text-slate-700"><strong>السبب:</strong> الصفحة React لا تستقبل props بشكل صحيح. ربما نسيت تمرير البيانات في <code>Inertia::render()</code>.</p>
+                    <p class="text-sm text-slate-700"><strong>الحل:</strong> تأكد من أن <code>Inertia::render('Projects/Index', ['projects' => $projects])</code> يحتوي على المفتاح <code>projects</code> وأن الصفحة تقرأه من <code>usePage().props</code>.</p>
+                </div>
+            </section>
+
+            <!-- المخططات -->
             <section id="visuals" class="mt-16">
                 <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">مخططات توضيحية</h2>
                 <div class="grid md:grid-cols-2 gap-8 mt-8">
                     <div class="card p-4 text-center space-y-4">
                         <img src="diagram.svg" alt="Technical Diagram" class="w-full rounded-xl border">
-                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط CRUD</p>
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط CRUD: دورة حياة البيانات</p>
+                    </div>
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="visual-example.svg" alt="Visual Example" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">تدفق الطلب من المستخدم إلى قاعدة البيانات</p>
                     </div>
                 </div>
             </section>
 
-            <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي</h2>
-
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء دالة العرض (Index)</h3>
-                    <p class="mb-4">في <code>ProjectController</code>، جلب المشاريع من قاعدة البيانات وإرسالها لـ React.</p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto text-left">
-                        <p>public function index() {</p>
-                        <p>&nbsp;&nbsp;return Inertia::render('Projects/Index', [</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;'projects' => Project::all()</p>
-                        <p>&nbsp;&nbsp;]);</p>
-                        <p>}</p>
+            <!-- الملخص -->
+            <section id="summary" class="mt-16 p-8 rounded-3xl bg-slate-900 text-white">
+                <h2 class="text-2xl font-black mb-4">📌 ملخص الدرس</h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <p class="font-black text-indigo-400">المفاهيم الرئيسية:</p>
+                        <ul class="text-sm text-slate-300 space-y-1 mt-2">
+                            <li>✅ CRUD = Create, Read, Update, Delete.</li>
+                            <li>✅ Route::resource يسجل 7 مسارات بسطر واحد.</li>
+                            <li>✅ التحقق (validation) يمنع البيانات الخاطئة.</li>
+                            <li>✅ fillable يسمح بالتعبئة الجماعية الآمنة.</li>
+                        </ul>
                     </div>
-                </div>
-
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: إنشاء دالة الحفظ (Store)</h3>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left">
-                        <p>public function store(Request $request) {</p>
-                        <p>&nbsp;&nbsp;$attr = $request->validate(['name' => 'required']);</p>
-                        <p>&nbsp;&nbsp;Project::create($attr);</p>
-                        <p>&nbsp;&nbsp;return redirect()->route('projects.index');</p>
-                        <p>}</p>
+                    <div>
+                        <p class="font-black text-indigo-400">الخطوات القادمة:</p>
+                        <ul class="text-sm text-slate-300 space-y-1 mt-2">
+                            <li>📌 الدرس القادم: بناء لوحة Kanban للمهام.</li>
+                            <li>📌 بعدها: Inertia Forms للتحكم في النماذج.</li>
+                            <li>📌 ثم: رفع الملفات والمرفقات.</li>
+                        </ul>
                     </div>
                 </div>
             </section>
 
             <div class="mt-12 flex justify-between gap-4">
                 <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-04/lesson-04/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../../week-05/lesson-02/index.html">الدرس التالي: Kanban Board ←</a>
+                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../../week-05/lesson-02/index.html">الدرس التالي: لوحة Kanban ←</a>
             </div>
         </article>
     </div>

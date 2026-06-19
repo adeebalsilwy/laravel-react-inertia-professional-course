@@ -1,14 +1,76 @@
 {
   "lesson": 16,
   "title": "صفحة الملف الشخصي وإعدادات الحساب",
+  "description": "يقيس هذا الكويز فهمك لبناء وتخصيص صفحة الملف الشخصي وإدارة بيانات المستخدم",
+  "totalQuestions": 9,
+  "objectiveQuestions": 7,
+  "passingScore": 5,
   "questions": [
     {
-      "q": "ما أهم هدف من الدرس؟",
-      "answer": "فهم المفهوم وتطبيقه داخل FlowPilot"
+      "id": 1,
+      "type": "mcq",
+      "question": "أي Hook من Inertia يستخدم لإدارة نموذج (Form) في React؟",
+      "options": ["useState", "useForm", "usePage", "useEffect"],
+      "correctAnswer": 1,
+      "explanation": "useForm هو Hook خاص بـ Inertia لإدارة النماذج مع دوال مثل put, post, errors, processing."
     },
     {
-      "q": "لماذا نكتب خطوات عملية مفصلة؟",
-      "answer": "حتى يفهم الطالب الهدف والمكان والكود والنتيجة"
+      "id": 2,
+      "type": "mcq",
+      "question": "أي طلب HTTP يستخدم لتحديث بيانات المستخدم في ProfileController؟",
+      "options": ["GET", "POST", "PUT", "DELETE"],
+      "correctAnswer": 2,
+      "explanation": "طلب PUT يستخدم لتحديث (Update) الموارد."
+    },
+    {
+      "id": 3,
+      "type": "mcq",
+      "question": "ما قاعدة التحقق التي تتأكد من أن البريد غير مكرر في قاعدة البيانات؟",
+      "options": ["Rule::unique(User::class)", "required", "email", "confirmed"],
+      "correctAnswer": 0,
+      "explanation": "Rule::unique(User::class) يتأكد من أن القيمة غير موجودة في جدول users."
+    },
+    {
+      "id": 4,
+      "type": "mcq",
+      "question": "كيف نصل إلى بيانات المستخدم المسجل في صفحة React للبروفايل؟",
+      "options": ["window.user", "usePage().props.auth.user", "useContext(UserContext)", "axios.get('/api/user')"],
+      "correctAnswer": 1,
+      "explanation": "Inertia يشارك بيانات المستخدم عبر HandleInertiaRequests ويمكن الوصول إليها عبر usePage().props.auth.user."
+    },
+    {
+      "id": 5,
+      "type": "mcq",
+      "question": "ماذا يفعل e.preventDefault() في دالة submit للنموذج؟",
+      "options": ["يمنع الضغط على الزر", "يرسل الطلب", "يمنع إعادة تحميل الصفحة", "يمسح البيانات"],
+      "correctAnswer": 2,
+      "explanation": "يمنع إعادة تحميل الصفحة (السلوك الافتراضي للنموذج) ويتيح لـ Inertia التعامل مع الطلب."
+    },
+    {
+      "id": 6,
+      "type": "tf",
+      "question": "لتغيير كلمة المرور، يجب على المستخدم إدخال كلمة المرور الحالية أولاً.",
+      "correctAnswer": true,
+      "explanation": "قاعدة current_password تتحقق من أن القيمة تطابق كلمة المرور الحالية. هذا إجراء أمني."
+    },
+    {
+      "id": 7,
+      "type": "tf",
+      "question": "رسائل Flash Messages تبقى ظاهرة لعدة زيارات للصفحة حتى يغلقها المستخدم.",
+      "correctAnswer": false,
+      "explanation": "Flash Messages تظهر مرة واحدة فقط. بعد تحديث الصفحة تختفي تلقائياً."
+    },
+    {
+      "id": 8,
+      "type": "theory",
+      "question": "لماذا نستخدم Rule::unique(User::class)->ignore($user->id) عند التحقق من البريد؟",
+      "modelAnswer": "قاعدة unique تمنع تكرار البريد. لكن عند التحديث، المستخدم قد لا يغير بريده، مما يسبب خطأ لأن بريده موجود. ignore($id) يقول: تجاهل سجل هذا المستخدم - اسمح بنفس بريده."
+    },
+    {
+      "id": 9,
+      "type": "practical",
+      "question": "أكتب كود React (useForm) لنموذج يرسل PUT إلى /profile لتحديث الاسم مع عرض أخطاء.",
+      "modelAnswer": "import { useForm } from '@inertiajs/react';\n\nexport default function UpdateName() {\n    const { data, setData, put, errors, processing } = useForm({ name: '' });\n\n    function submit(e) {\n        e.preventDefault();\n        put('/profile');\n    }\n\n    return (\n        <form onSubmit={submit}>\n            <input value={data.name} onChange={e => setData('name', e.target.value)} />\n            {errors.name && <p>{errors.name}</p>}\n            <button disabled={processing}>حفظ</button>\n        </form>\n    );\n}"
     }
   ]
 }

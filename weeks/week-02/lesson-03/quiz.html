@@ -1,1 +1,206 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>كويز - فهم مكونات React وتقسيم الواجهة إلى أجزاء - FlowPilot Academy</title><link rel="stylesheet" href="../../../assets/css/style.css"></head><body><nav class="nav"><div class="container inner"><a class="brand" href="../../../index.html"><span class="logo">F</span><span>FlowPilot Academy</span></a><div class="links"><a href="../../../index.html">الرئيسية</a><a href="../../../pages/curriculum.html">الفهرس</a><a href="../../../pages/lessons.html">الدروس</a><a href="../../../pages/beginner-guide.html">دليل الطالب</a><a href="../../../pages/project.html">المشروع</a><a href="../../../pages/plan.html">خطة التطوير</a><a href="../../../pages/references.html">المراجع</a></div></div></nav><main class="container section"><a class="btn" href="index.html">← العودة إلى الدرس</a><section class="card"><span class="badge">كويز الأسبوع 2 · الدرس 3</span><h1 class="title">كويز: فهم مكونات React وتقسيم الواجهة إلى أجزاء</h1><p class="lead">الكويز يقيس الفهم الحقيقي: لماذا نستخدم المفهوم، وكيف يظهر داخل FlowPilot، وما العلاقة بين النظرية والتطبيق.</p></section><section class="grid" style="margin-top:20px"><div class="card" data-answer="b"><h3>السؤال 1: ما الهدف الأساسي من هذا الدرس؟</h3><label class="quiz-option"><input type="radio" name="q1" value="a"> حفظ أسماء الملفات فقط</label><label class="quiz-option"><input type="radio" name="q1" value="b"> فهم مفهوم عملي وربطه بمشروع FlowPilot</label><label class="quiz-option"><input type="radio" name="q1" value="c"> تغيير ألوان الصفحة فقط</label><label class="quiz-option"><input type="radio" name="q1" value="d"> تجاهل التطبيق العملي</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> الهدف هو الفهم والتطبيق، وليس الحفظ أو التزيين فقط.</p></div><div class="card" data-answer="c"><h3>السؤال 2: ما العلاقة الصحيحة بين Laravel وReact وInertia؟</h3><label class="quiz-option"><input type="radio" name="q2" value="a"> Laravel يعرض الواجهة فقط</label><label class="quiz-option"><input type="radio" name="q2" value="b"> React يدير قاعدة البيانات</label><label class="quiz-option"><input type="radio" name="q2" value="c"> Inertia يربط Laravel بصفحات React</label><label class="quiz-option"><input type="radio" name="q2" value="d"> Tailwind يحفظ البيانات</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> Inertia يعمل كجسر بين Laravel وReact.</p></div><div class="card" data-answer="b"><h3>السؤال 3: لماذا نشرح السبب قبل الكود؟</h3><label class="quiz-option"><input type="radio" name="q3" value="a"> حتى ينسخ الطالب بسرعة</label><label class="quiz-option"><input type="radio" name="q3" value="b"> حتى يفهم الطالب وظيفة الخطوة ويكررها لاحقاً</label><label class="quiz-option"><input type="radio" name="q3" value="c"> حتى نقلل الشرح</label><label class="quiz-option"><input type="radio" name="q3" value="d"> لأن الكود غير مهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> فهم السبب يجعل الطالب قادراً على حل الأخطاء وتطبيق الفكرة في مكان آخر.</p></div><div class="card" data-answer="b"><h3>السؤال 4: ما أفضل طريقة للتعامل مع خطأ يظهر أثناء التطبيق؟</h3><label class="quiz-option"><input type="radio" name="q4" value="a"> حذف الملفات</label><label class="quiz-option"><input type="radio" name="q4" value="b"> قراءة رسالة الخطأ ومراجعة المسار والاسم</label><label class="quiz-option"><input type="radio" name="q4" value="c"> تجاهل الخطأ</label><label class="quiz-option"><input type="radio" name="q4" value="d"> إغلاق المشروع</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> رسالة الخطأ غالباً توضح مكان المشكلة أو سببها.</p></div><div class="card" data-answer="b"><h3>السؤال 5: ماذا يعني نجاح الدرس داخل FlowPilot؟</h3><label class="quiz-option"><input type="radio" name="q5" value="a"> وجود عنوان فقط</label><label class="quiz-option"><input type="radio" name="q5" value="b"> ظهور نتيجة عملية مفهومة يمكن البناء عليها</label><label class="quiz-option"><input type="radio" name="q5" value="c"> عدم تشغيل المشروع</label><label class="quiz-option"><input type="radio" name="q5" value="d"> نسخ الكود دون فهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> كل درس يجب أن يضيف نتيجة تعليمية وعملية واضحة.</p></div></section><section class="card"><button class="btn" data-grade-quiz>تصحيح الكويز</button><p id="quizResult" class="result"></p></section></main><footer class="footer"><div class="container">© FlowPilot Academy - دورة Laravel 12 + React + Inertia.js + Tailwind CSS</div></footer><script src="../../../assets/js/app.js"></script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>كويز الدرس 7: مكونات React | FlowPilot Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .quiz-option { display: block; width: 100%; text-align: right; padding: 1rem; border: 2px solid #e2e8f0; border-radius: 1rem; cursor: pointer; transition: all 0.2s; font-weight: 500; }
+        .quiz-option:hover { border-color: #818cf8; background: #eef2ff; }
+        .quiz-option input { margin-left: 0.75rem; }
+        .correct { border-color: #10b981 !important; background: #ecfdf5 !important; }
+        .wrong { border-color: #ef4444 !important; background: #fef2f2 !important; }
+        .explain-box { display: none; padding: 1rem; border-radius: 1rem; margin-top: 0.75rem; font-size: 0.9rem; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+    </div>
+</header>
+<main class="mx-auto max-w-3xl px-4 py-12">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8 text-sm" href="index.html">← العودة لشرح الدرس</a>
+    <div class="card p-8 md:p-12 space-y-8 bg-white shadow-sm rounded-3xl">
+        <div class="text-center">
+            <span class="px-3 py-1 rounded-lg bg-amber-50 text-amber-700 font-bold text-xs uppercase tracking-widest">كويز الأسبوع 2 · الدرس 3</span>
+            <h1 class="mt-4 text-3xl font-black text-slate-900">🧪 كويز: فهم مكونات React</h1>
+            <p class="mt-2 text-slate-500">اختبر فهمك للمكونات Props والعرض الشرطي.</p>
+        </div>
+
+        <!-- MCQ 1 -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100" data-answer="b">
+            <p class="font-bold text-lg mb-4">1. ما هو المكون (Component) في React؟</p>
+            <label class="quiz-option"><input type="radio" name="q1" value="a"> ملف CSS يحتوي على تنسيقات</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="b"> دالة JavaScript تعيد JSX (قطعة واجهة)</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="c"> قاعدة بيانات</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="d"> صورة في المجلد</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700"><strong>✅ صحيح! </strong>المكون هو دالة تعيد JSX، ويمثل قطعة مستقلة من واجهة المستخدم.</div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700"><strong>❌ خطأ. </strong>الإجابة الصحيحة: دالة JavaScript تعيد JSX.</div>
+        </div>
+
+        <!-- MCQ 2 -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="c">
+            <p class="font-bold text-lg mb-4">2. ما هي Props في React؟</p>
+            <label class="quiz-option"><input type="radio" name="q2" value="a"> أداة لتنسيق النصوص</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="b"> مكتبة خارجية</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="c"> بيانات تُمرر من المكون الأب إلى المكون الابن</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="d"> دالة لإنشاء المكونات</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700"><strong>✅ صحيح! </strong>Props هي اختصار لـ Properties - بيانات تتدفق من الأب إلى الابن.</div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700"><strong>❌ خطأ. </strong>الإجابة الصحيحة: بيانات تُمرر من المكون الأب إلى المكون الابن.</div>
+        </div>
+
+        <!-- MCQ 3 -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="a">
+            <p class="font-bold text-lg mb-4">3. لماذا نستخدم <code>key</code> عند استخدام <code>map()</code>؟</p>
+            <label class="quiz-option"><input type="radio" name="q3" value="a"> لمساعدة React في تحديد العناصر التي تغيرت بكفاءة</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="b"> لتزيين الكود</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="c"> لإبطاء التطبيق</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="d"> ليس ضرورياً - يمكن حذفه</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700"><strong>✅ صحيح! </strong>key يساعد React في تحديث القائمة بكفاءة بدلاً من إعادة رسمها كلها.</div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700"><strong>❌ خطأ. </strong>الإجابة الصحيحة: لمساعدة React في تحديد العناصر التي تغيرت.</div>
+        </div>
+
+        <!-- MCQ 4 -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="d">
+            <p class="font-bold text-lg mb-4">4. أي من التالي هو الصحيح لعرض "مرحباً" فقط إذا كان <code>isLoggedIn = true</code>؟</p>
+            <label class="quiz-option"><input type="radio" name="q4" value="a"> {if (isLoggedIn) { "مرحباً" }}</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="b"> {isLoggedIn ?: "مرحباً"}</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="c"> show "مرحباً" when isLoggedIn</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="d"> {isLoggedIn && "مرحباً"}</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700"><strong>✅ صحيح! </strong>&& تعني: إذا isLoggedIn صحيح، اعرض "مرحباً".</div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700"><strong>❌ خطأ. </strong>الإجابة الصحيحة: <code>{isLoggedIn && "مرحباً"}</code>.</div>
+        </div>
+
+        <!-- MCQ 5 -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="b">
+            <p class="font-bold text-lg mb-4">5. لماذا يجب أن يبدأ اسم المكون بحرف كبير (مثل <code>ProjectCard</code>)؟</p>
+            <label class="quiz-option"><input type="radio" name="q5" value="a"> لأنه اختياري - لا فرق</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="b"> لتمييزه عن عناصر HTML العادية (div, span, p)</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="c"> لأن اللغة تفرض ذلك</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="d"> لجعل الكود أطول</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700"><strong>✅ صحيح! </strong>React تميز بين المكونات (حرف كبير) وعناصر HTML (حرف صغير).</div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700"><strong>❌ خطأ. </strong>الإجابة الصحيحة: لتمييزه عن عناصر HTML العادية.</div>
+        </div>
+
+        <!-- T/F 6 -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="false">
+            <p class="font-bold text-lg mb-4">6. (صح أم خطأ) يمكن تغيير قيمة Props داخل المكون الابن.</p>
+            <label class="quiz-option"><input type="radio" name="q6" value="true"> ✅ صح</label>
+            <label class="quiz-option"><input type="radio" name="q6" value="false"> ❌ خطأ</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700"><strong>✅ صحيح! </strong>الجواب <strong>خطأ</strong>. Props هي "قراءة فقط" - لا يمكن تغييرها داخل المكون الابن.</div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700"><strong>❌ خطأ. </strong>الإجابة الصحيحة: <strong>خطأ</strong>. Props لا تتغير من الداخل.</div>
+        </div>
+
+        <!-- T/F 7 -->
+        <div class="quiz-card p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6" data-answer="true">
+            <p class="font-bold text-lg mb-4">7. (صح أم خطأ) يمكن استخدام <code>map()</code> لتكرار مكون React وعرض قائمة.</p>
+            <label class="quiz-option"><input type="radio" name="q7" value="true"> ✅ صح</label>
+            <label class="quiz-option"><input type="radio" name="q7" value="false"> ❌ خطأ</label>
+            <div class="explain-box bg-green-50 border border-green-200 text-green-700"><strong>✅ صحيح! </strong>الجواب <strong>صح</strong>. map() هي الطريقة المثلى لتكرار المكونات.</div>
+            <div class="explain-box bg-red-50 border border-red-200 text-red-700"><strong>❌ خطأ. </strong>الإجابة الصحيحة: <strong>صح</strong>.</div>
+        </div>
+
+        <!-- Theory 8 -->
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6">
+            <p class="font-bold text-lg mb-4">8. (سؤال نظري) لماذا نقسّم واجهة التطبيق إلى مكونات صغيرة بدلاً من كتابة كل شيء في صفحة واحدة؟</p>
+            <textarea id="theoryAnswer" rows="4" class="w-full p-4 border border-slate-200 rounded-xl text-right text-sm" placeholder="اكتب إجابتك هنا..."></textarea>
+            <button onclick="checkTheory()" class="mt-3 px-6 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700">تحقق</button>
+            <div id="theoryFeedback" class="explain-box mt-4 border" style="display:none;"></div>
+        </div>
+
+        <!-- Practical 9 -->
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 mt-6">
+            <p class="font-bold text-lg mb-4">9. (سؤال تطبيقي) اكتب مكوناً باسم <code>UserCard</code> يستقبل Props: <code>name</code> و <code>email</code> ويعرضهما.</p>
+            <textarea id="practicalAnswer" rows="5" class="w-full p-4 border border-slate-200 rounded-xl text-left text-sm font-mono" placeholder="اكتب الكود هنا..." dir="ltr"></textarea>
+            <button onclick="checkPractical()" class="mt-3 px-6 py-2 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700">تحقق</button>
+            <div id="practicalFeedback" class="explain-box mt-4 border" style="display:none;"></div>
+        </div>
+
+        <div class="text-center pt-6 border-t">
+            <button onclick="resetQuiz()" class="px-8 py-3 bg-slate-200 text-slate-700 rounded-xl font-bold hover:bg-slate-300">🔄 إعادة تعيين</button>
+        </div>
+    </div>
+</main>
+<script>
+document.querySelectorAll('.quiz-card').forEach(card => {
+    card.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.addEventListener('click', function() {
+            const card = this.closest('.quiz-card');
+            const correctAnswer = card.dataset.answer;
+            const selectedValue = this.querySelector('input').value;
+            card.querySelectorAll('.quiz-option').forEach(o => { o.style.pointerEvents = 'none'; o.style.opacity = '0.7'; });
+            if (selectedValue === correctAnswer) {
+                this.classList.add('correct');
+                card.querySelectorAll('.explain-box')[0].style.display = 'block';
+            } else {
+                this.classList.add('wrong');
+                card.querySelectorAll('.explain-box')[1].style.display = 'block';
+                card.querySelectorAll('.quiz-option').forEach(o => {
+                    if (o.querySelector('input').value === correctAnswer) o.classList.add('correct');
+                });
+            }
+        });
+    });
+});
+function checkTheory() {
+    const answer = document.getElementById('theoryAnswer').value.trim();
+    const feedback = document.getElementById('theoryFeedback');
+    feedback.style.display = 'block';
+    if (answer.length < 20) {
+        feedback.className = 'explain-box bg-red-50 border border-red-200 text-red-700';
+        feedback.innerHTML = '<strong>الإجابة قصيرة.</strong> مثال: "نقسم الواجهة لمكونات لتسهيل إعادة الاستخدام والصيانة، وتنظيم الكود."';
+    } else if (answer.includes('إعادة') || answer.includes('استخدام') || answer.includes('صيان') || answer.includes('تقسيم')) {
+        feedback.className = 'explain-box bg-green-50 border border-green-200 text-green-700';
+        feedback.innerHTML = '<strong>✅ ممتاز!</strong> المكونات تسهّل إعادة الاستخدام، الصيانة، وتنظيم الكود.';
+    } else {
+        feedback.className = 'explain-box bg-blue-50 border border-blue-200 text-blue-700';
+        feedback.innerHTML = '<strong>💡 تلميح:</strong> فكر في: إعادة الاستخدام، سهولة الصيانة، تقسيم المسؤوليات.';
+    }
+}
+function checkPractical() {
+    const answer = document.getElementById('practicalAnswer').value.trim();
+    const feedback = document.getElementById('practicalFeedback');
+    feedback.style.display = 'block';
+    const hasExport = answer.includes('export default');
+    const hasFunction = answer.includes('function UserCard');
+    const hasProps = answer.includes('name') && answer.includes('email');
+    const hasReturn = answer.includes('return');
+    if (hasExport && hasFunction && hasProps && hasReturn) {
+        feedback.className = 'explain-box bg-green-50 border border-green-200 text-green-700';
+        feedback.innerHTML = '✅ صحيح! مثال: <code>export default function UserCard({ name, email }) { return &lt;div&gt;{name} - {email}&lt;/div&gt;; }</code>';
+    } else {
+        let hints = [];
+        if (!hasExport) hints.push('أضف <code>export default</code>');
+        if (!hasFunction) hints.push('استخدم <code>function UserCard</code>');
+        if (!hasProps) hints.push('استقبل <code>{ name, email }</code> كـ Props');
+        if (!hasReturn) hints.push('أضف <code>return</code>');
+        feedback.className = 'explain-box bg-amber-50 border border-amber-200 text-amber-700';
+        feedback.innerHTML = '<strong>💡 نقص:</strong> ' + hints.join('، ');
+    }
+}
+function resetQuiz() {
+    document.querySelectorAll('.quiz-card').forEach(card => {
+        card.querySelectorAll('.quiz-option').forEach(opt => {
+            opt.classList.remove('correct', 'wrong');
+            opt.style.pointerEvents = 'auto';
+            opt.style.opacity = '1';
+            opt.querySelector('input').checked = false;
+        });
+        card.querySelectorAll('.explain-box').forEach(box => box.style.display = 'none');
+    });
+    document.getElementById('theoryAnswer').value = '';
+    document.getElementById('practicalAnswer').value = '';
+    document.getElementById('theoryFeedback').style.display = 'none';
+    document.getElementById('practicalFeedback').style.display = 'none';
+}
+</script>
+<footer class="mt-12 border-t bg-white py-8 text-center text-slate-400 text-sm font-medium">© 2026 FlowPilot Academy.</footer>
+</body>
+</html>

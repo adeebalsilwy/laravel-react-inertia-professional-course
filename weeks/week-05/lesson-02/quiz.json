@@ -3,12 +3,40 @@
   "title": "بناء لوحة مهام Kanban",
   "questions": [
     {
-      "q": "ما أهم هدف من الدرس؟",
-      "answer": "فهم المفهوم وتطبيقه داخل FlowPilot"
+      "q": "من أين نشأ مفهوم Kanban في الأصل؟",
+      "answer": "من شركة Toyota (نظام الإنتاج)"
     },
     {
-      "q": "لماذا نكتب خطوات عملية مفصلة؟",
-      "answer": "حتى يفهم الطالب الهدف والمكان والكود والنتيجة"
+      "q": "كم عدد الأعمدة الأساسية في لوحة Kanban في هذا الدرس؟",
+      "answer": "3 أعمدة: pending, in_progress, completed"
+    },
+    {
+      "q": "ما اسم دالة Laravel التي نستخدمها للتحقق من أن status الجديد ضمن القيم المسموح بها؟",
+      "answer": "in (قاعدة validate): 'required|in:pending,in_progress,completed'"
+    },
+    {
+      "q": "ما طريقة HTTP الصحيحة لتحديث حالة مهمة؟",
+      "answer": "PATCH (أو PUT)"
+    },
+    {
+      "q": "أيهما أفضل للمبتدئين: drag & drop أم أزرار النقل؟",
+      "answer": "أزرار النقل أسهل وأقل تعقيداً"
+    },
+    {
+      "q": "هل يمكن أن تحتوي المهمة الواحدة على أكثر من حالة في نفس الوقت؟",
+      "answer": "لا، كل مهمة لها حالة واحدة فقط في كل لحظة"
+    },
+    {
+      "q": "هل يجب أن يكون لكل مشروع لوحة Kanban خاصة به؟",
+      "answer": "نعم، كل مشروع له مهامه الخاصة ولوحته المستقلة"
+    },
+    {
+      "q": "اشرح باختصار كيف ينتقل طلب تغيير حالة المهمة من الواجهة إلى قاعدة البيانات",
+      "answer": "المستخدم يضغط زر → React (useForm أو axios) يرسل PATCH إلى /tasks/{id}/status مع البيانات → TaskController.updateStatus() يستقبل → يتحقق من الصحة → يحدث status في قاعدة البيانات → يعيد التوجيه مع رسالة نجاح → Inertia يعيد تحميل الصفحة."
+    },
+    {
+      "q": "اكتب كود دالة updateStatus() في TaskController مع التحقق من صحة الحالة",
+      "answer": "public function updateStatus(Request $request, Task $task) { $validated = $request->validate(['status' => 'required|in:pending,in_progress,completed']); $task->update($validated); return redirect()->back()->with('success', 'تم تحديث حالة المهمة'); }"
     }
   ]
 }

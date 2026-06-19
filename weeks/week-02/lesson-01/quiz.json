@@ -3,12 +3,78 @@
   "title": "فهم المسارات في Laravel وربطها بصفحات React",
   "questions": [
     {
-      "q": "ما أهم هدف من الدرس؟",
-      "answer": "فهم المفهوم وتطبيقه داخل FlowPilot"
+      "type": "mcq",
+      "question": "أين يتم تعريف مسارات الويب في Laravel؟",
+      "options": ["routes/web.php", "app/Http/Controllers/web.php", "resources/js/Pages/routes.php", "config/routes.php"],
+      "correctIndex": 0,
+      "explanation": "ملف routes/web.php هو المكان الرسمي لتعريف مسارات الويب في Laravel."
     },
     {
-      "q": "لماذا نكتب خطوات عملية مفصلة؟",
-      "answer": "حتى يفهم الطالب الهدف والمكان والكود والنتيجة"
+      "type": "mcq",
+      "question": "ما وظيفة Inertia::render()؟",
+      "options": [
+        "تعرض ملف Blade عادي",
+        "ترسل البيانات إلى صفحة React وتعرضها",
+        "تتصل بقاعدة البيانات",
+        "تنشئ جدولاً في قاعدة البيانات"
+      ],
+      "correctIndex": 1,
+      "explanation": "Inertia::render() هو الجسر بين Laravel و React - يرسل البيانات ويعرض الصفحة."
+    },
+    {
+      "type": "mcq",
+      "question": "لماذا نستخدم Named Routes (المسارات المسماة)؟",
+      "options": [
+        "لتزيين الكود فقط",
+        "لجعل المسار أسرع",
+        "لتسهيل استخدام المسار في الروابط وتجنب تكرار الرابط النصي",
+        "لا فائدة حقيقية منها"
+      ],
+      "correctIndex": 2,
+      "explanation": "Named Routes تسهّل صيانة الكود وتجنب تكرار الروابط النصية."
+    },
+    {
+      "type": "mcq",
+      "question": "أي أمر ينشئ Controller جديد في Laravel؟",
+      "options": ["php laravel make:controller", "npm run controller", "composer create controller", "php artisan make:controller"],
+      "correctIndex": 3,
+      "explanation": "php artisan make:controller هو الأمر الصحيح لإنشاء Controller."
+    },
+    {
+      "type": "mcq",
+      "question": "كيف ترسل بيانات من Controller إلى صفحة React عبر Inertia؟",
+      "options": [
+        "return Inertia::render('Page', ['key' => $value])",
+        "return view('Page')->with(['key' => $value])",
+        "return Redirect::to('Page', ['key' => $value])",
+        "return Response::json(['key' => $value])"
+      ],
+      "correctIndex": 0,
+      "explanation": "Inertia::render تأخذ مسار صفحة React ومصفوفة البيانات."
+    },
+    {
+      "type": "truefalse",
+      "question": "يمكن استخدام Route::post() لعرض صفحة عادية في المتصفح.",
+      "correctAnswer": false,
+      "explanation": "Route::post() مخصص لاستقبال البيانات من النماذج. لعرض الصفحات نستخدم Route::get()."
+    },
+    {
+      "type": "truefalse",
+      "question": "Named Route تسمح باستخدام route('name') في React بدلاً من كتابة الرابط مباشرة.",
+      "correctAnswer": true,
+      "explanation": "هذه هي الفائدة الأساسية لـ Named Routes."
+    },
+    {
+      "type": "theory",
+      "question": "اشرح بجملتك الخاصة الفرق بين Route و Controller في Laravel.",
+      "keywords": ["Route", "Controller"],
+      "minLength": 30,
+      "sampleAnswer": "الـ Route هو المسار الذي يحدد الرابط ويوجه الطلب، بينما الـ Controller هو الملف الذي يحتوي على الكود الفعلي لمعالجة الطلب."
+    },
+    {
+      "type": "practical",
+      "question": "اكتب كود Route لرابط /tasks يستخدم TaskController والدالة index، وسمِّ المسار tasks.index.",
+      "expectedCode": "Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');"
     }
   ]
 }

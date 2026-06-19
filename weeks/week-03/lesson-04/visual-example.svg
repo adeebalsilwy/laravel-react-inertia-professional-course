@@ -1,1 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360"><rect width="900" height="360" rx="30" fill="#f8fafc"/><circle cx="150" cy="120" r="54" fill="#dbeafe"/><text x="150" y="128" text-anchor="middle" font-family="Tahoma" font-size="18" font-weight="700">طالب</text><rect x="280" y="70" width="180" height="100" rx="22" fill="#eef2ff" stroke="#6366f1"/><text x="370" y="112" text-anchor="middle" font-family="Tahoma" font-size="18" font-weight="700">يفهم الفكرة</text><text x="370" y="142" text-anchor="middle" font-family="Tahoma" font-size="13" fill="#64748b">شرح نظري واضح</text><rect x="520" y="70" width="180" height="100" rx="22" fill="#ecfeff" stroke="#06b6d4"/><text x="610" y="112" text-anchor="middle" font-family="Tahoma" font-size="18" font-weight="700">يطبق عملياً</text><text x="610" y="142" text-anchor="middle" font-family="Tahoma" font-size="13" fill="#64748b">خطوات وكود</text><rect x="360" y="220" width="220" height="88" rx="22" fill="#f0fdf4" stroke="#22c55e"/><text x="470" y="258" text-anchor="middle" font-family="Tahoma" font-size="18" font-weight="700">نتيجة داخل FlowPilot</text><text x="470" y="287" text-anchor="middle" font-family="Tahoma" font-size="13" fill="#64748b">صفحة أو ميزة قابلة للمشاهدة</text><path d="M205 120 H280" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M460 120 H520" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M610 170 C610 205 555 220 510 235" stroke="#0f172a" stroke-width="3" fill="none" marker-end="url(#a)"/><defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#0f172a"/></marker></defs><text x="450" y="35" text-anchor="middle" font-family="Tahoma" font-size="22" font-weight="700" fill="#111827">قراءة البيانات بكفاءة وتحسين الاستعلامات</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
+  <rect width="800" height="300" fill="#faf5ff" rx="20"/>
+  <text x="400" y="30" text-anchor="middle" font-family="Tajawal, sans-serif" font-weight="900" font-size="20" fill="#4c1d95">تشبيه "تسوق البقالة" لتحسين الاستعلامات</text>
+
+  <!-- Before: Without list -->
+  <rect x="20" y="55" width="240" height="225" rx="12" fill="#fff" stroke="#ef4444" stroke-width="2"/>
+  <rect x="20" y="55" width="240" height="35" rx="12" fill="#ef4444"/>
+  <rect x="20" y="78" width="240" height="12" fill="#ef4444"/>
+  <text x="140" y="78" text-anchor="middle" font-family="Tajawal, sans-serif" font-weight="900" fill="#fff" font-size="14">🐌 بدون Eager Loading</text>
+
+  <text x="140" y="110" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#991b1b" font-size="12">تذهب للمتجر كل مرة</text>
+  <text x="140" y="128" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#991b1b" font-size="12">تحتاج عنصراً واحداً</text>
+  <line x1="35" y1="140" x2="245" y2="140" stroke="#fecaca"/>
+  <text x="140" y="160" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#334155" font-size="11">الذهاب للمتجر (استعلام)</text>
+  <text x="140" y="178" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#334155" font-size="11">شراء عنصر واحد (سجل)</text>
+  <text x="140" y="196" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#334155" font-size="11">العودة للمنزل</text>
+  <text x="140" y="214" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#334155" font-size="11">كرر 100 مرة...</text>
+  <text x="140" y="240" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#ef4444" font-weight="bold" font-size="13">⏱ 100 رحلة = بطيء جداً</text>
+
+  <!-- Arrow -->
+  <path d="M 265 165 L 295 165" stroke="#64748b" stroke-width="2.5" marker-end="url(#c)" fill="none"/>
+  <defs><marker id="c" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker></defs>
+
+  <!-- After: With shopping list -->
+  <rect x="305" y="55" width="240" height="225" rx="12" fill="#fff" stroke="#10b981" stroke-width="2"/>
+  <rect x="305" y="55" width="240" height="35" rx="12" fill="#10b981"/>
+  <rect x="305" y="78" width="240" height="12" fill="#10b981"/>
+  <text x="425" y="78" text-anchor="middle" font-family="Tajawal, sans-serif" font-weight="900" fill="#fff" font-size="14">⚡ مع Eager Loading</text>
+
+  <text x="425" y="110" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#065f46" font-size="12">تكتب قائمة تسوق (with)</text>
+  <text x="425" y="128" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#065f46" font-size="12">تذهب للمتجر مرة واحدة</text>
+  <line x1="320" y1="140" x2="530" y2="140" stroke="#a7f3d0"/>
+  <text x="425" y="160" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#334155" font-size="11">تكتب: أحتاج خبز، حليب، بيض</text>
+  <text x="425" y="178" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#334155" font-size="11">(= with(['user', 'tasks', 'members']))</text>
+  <text x="425" y="196" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#334155" font-size="11">رحلة واحدة للمتجر</text>
+  <text x="425" y="214" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#334155" font-size="11">تشتري كل شيء دفعة واحدة</text>
+  <text x="425" y="240" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#10b981" font-weight="bold" font-size="13">✅ رحلة واحدة = سريع جداً</text>
+
+  <!-- Cache analogy -->
+  <rect x="565" y="55" width="220" height="225" rx="12" fill="#fff" stroke="#f59e0b" stroke-width="2"/>
+  <rect x="565" y="55" width="220" height="35" rx="12" fill="#f59e0b"/>
+  <rect x="565" y="78" width="220" height="12" fill="#f59e0b"/>
+  <text x="675" y="78" text-anchor="middle" font-family="Tajawal, sans-serif" font-weight="900" fill="#fff" font-size="14">🗄️ مع Caching</text>
+
+  <text x="675" y="110" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#92400e" font-size="12">تشتري كمية كبيرة</text>
+  <text x="675" y="128" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#92400e" font-size="12">تخزنها في الثلاجة</text>
+  <line x1="580" y1="140" x2="770" y2="140" stroke="#fde68a"/>
+  <text x="675" y="160" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#334155" font-size="11">الثلاجة = Cache</text>
+  <text x="675" y="178" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#334155" font-size="11">كلما احتجت، تفتح الثلاجة</text>
+  <text x="675" y="196" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#334155" font-size="11">(بدون الذهاب للمتجر)</text>
+  <text x="675" y="214" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#92400e" font-size="11">Cache::remember = اشتري وخزّن</text>
+  <text x="675" y="240" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#f59e0b" font-weight="bold" font-size="13">❄️ جاهز في الثانية!</text>
+
+  <!-- Bottom line -->
+  <rect x="20" y="280" width="760" height="15" rx="5" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="400" y="291" text-anchor="middle" font-family="Tajawal, sans-serif" fill="#64748b" font-size="9">
+    بدون تخطيط → 100 رحلة للمتجر (N+1) | بقائمة تسوق → رحلة واحدة (Eager Loading) | بثلاجة → بدون رحلات (Cache)
+  </text>
+</svg>

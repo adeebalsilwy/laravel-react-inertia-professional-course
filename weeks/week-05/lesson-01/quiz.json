@@ -3,12 +3,40 @@
   "title": "إنشاء المشاريع وإدارتها CRUD",
   "questions": [
     {
-      "q": "ما أهم هدف من الدرس؟",
-      "answer": "فهم المفهوم وتطبيقه داخل FlowPilot"
+      "q": "ماذا تعني أحرف CRUD؟",
+      "answer": "Create, Read, Update, Delete"
     },
     {
-      "q": "لماذا نكتب خطوات عملية مفصلة؟",
-      "answer": "حتى يفهم الطالب الهدف والمكان والكود والنتيجة"
+      "q": "كم عدد الدوال التي ينشئها Route::resource؟",
+      "answer": "7 دوال: index, create, store, show, edit, update, destroy"
+    },
+    {
+      "q": "ما اسم الكلاس الذي نستخدمه للتحقق المتقدم من البيانات قبل store؟",
+      "answer": "Form Request (مثل StoreProjectRequest)"
+    },
+    {
+      "q": "ما الدالة التي نستخدمها لإرجاع النجاح بعد عملية الحذف؟",
+      "answer": "redirect()->route('projects.index')->with('success', 'تم الحذف')"
+    },
+    {
+      "q": "أين نكتب قاعدة التحقق required؟",
+      "answer": "في Form Request (مثلاً rules()) أو في validate() داخل الـ Controller"
+    },
+    {
+      "q": "هل يجب كتابة كل مسار CRUD يدوياً في web.php؟",
+      "answer": "لا، يكفي سطر واحد: Route::resource('projects', ProjectController::class)"
+    },
+    {
+      "q": "هل عملية Read تحتاج إلى إذن خاص من المستخدم؟",
+      "answer": "نعم، في تطبيق حقيقي نستخدم Middleware أو Policies"
+    },
+    {
+      "q": "اشرح بجملتين كيف يتعامل Laravel مع طلب الحذف عبر Inertia",
+      "answer": "يرسل Inertia طلب DELETE مع _method: 'delete' و CSRF token. يستقبله Controller في دالة destroy() وينفذ الحذف، ثم يعيد التوجيه مع رسالة نجاح."
+    },
+    {
+      "q": "قم بإنشاء كود store() مع التحقق بأن الاسم مطلوب وأكبر من 3 أحرف",
+      "answer": "public function store(Request $request) { $validated = $request->validate(['name' => 'required|min:3']); Project::create($validated); return redirect()->route('projects.index')->with('success', 'تم الإنشاء'); }"
     }
   ]
 }

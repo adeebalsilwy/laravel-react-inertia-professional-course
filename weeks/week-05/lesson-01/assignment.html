@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 17: دورة البيانات الكاملة</title>
+    <title>واجب الدرس 17: دورة البيانات الكاملة CRUD | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,11 +11,12 @@
     <link rel="stylesheet" href="../../../assets/css/style.css">
     <style>
         :root { font-family: 'Tajawal', sans-serif; }
+        .step-card { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
-<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
@@ -23,32 +24,247 @@
 
 <main class="mx-auto max-w-4xl px-4 py-12 text-right">
     <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة لشرح الدرس</a>
-    
+
     <section class="space-y-8">
         <div class="card p-8 bg-indigo-600 text-white shadow-xl shadow-indigo-100 rounded-3xl">
-            <h1 class="text-3xl font-black">واجب الدرس 17: إنشاء المشاريع (CRUD)</h1>
-            <p class="mt-4 text-indigo-100 leading-relaxed italic">
-                "سنبني اليوم أول واجهة تسمح للمستخدم بحفظ بيانات حقيقية في قاعدة البيانات."
+            <h1 class="text-3xl font-black">واجب الدرس 17: إنشاء المشاريع وإدارتها CRUD</h1>
+            <p class="mt-4 text-indigo-100 leading-relaxed italic text-lg">
+                "سنبني اليوم أول واجهة تسمح للمستخدم بحفظ بيانات حقيقية في قاعدة البيانات والعودة لرؤيتها وتعديلها وحذفها."
             </p>
         </div>
 
-        <div class="space-y-8">
-            <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
-                <h2 class="text-2xl font-black text-indigo-600">خطوات الواجب:</h2>
-                <div class="space-y-6">
-                    <div class="border-r-4 border-indigo-500 pr-6 font-bold">
-                        1. إنشاء Controller للمشاريع باستخدام Artisan.
-                    </div>
-                    <div class="border-r-4 border-indigo-500 pr-6 font-bold">
-                        2. إضافة دالة index لعرض كافة المشاريع.
-                    </div>
-                    <div class="border-r-4 border-indigo-500 pr-6 font-bold">
-                        3. إضافة دالة store لحفظ مشروع جديد مع التحقق من البيانات.
-                    </div>
+        <!-- الهدف -->
+        <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black text-indigo-600">الهدف من الواجب</h2>
+            <p class="text-slate-600 leading-relaxed">
+                بناء <strong>ProjectController</strong> متكامل بـ 7 دوال (index, create, store, show, edit, update, destroy) مع التحقق من البيانات ورسائل النجاح. ربط كل ذلك مع واجهة React عبر Inertia.js. بعد هذا الواجب، سيكون لديك نظام إدارة مشاريع كامل يعمل في FlowPilot.
+            </p>
+        </section>
+
+        <!-- خطوات الواجب التفصيلية -->
+        <section class="card p-8 md:p-10 space-y-8 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black text-indigo-600">خطوات الواجب (10 خطوات)</h2>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 1: إنشاء Model مع Migration</h3>
+                <p class="text-sm text-slate-500 mt-1">في terminal، شغّل الأمر التالي:</p>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-purple-400 overflow-x-auto text-left mt-2">
+                    php artisan make:model Project -m
                 </div>
-            </section>
-        </div>
+                <p class="text-sm text-slate-600 mt-2">تأكد من ظهور ملفين: <code>app/Models/Project.php</code> وملف migration في <code>database/migrations/</code>.</p>
+            </div>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 2: تعديل ملف Migration</h3>
+                <p class="text-sm text-slate-500 mt-1">افتح ملف migration وأضف الأعمدة داخل دالة <code>up()</code>:</p>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-emerald-400 overflow-x-auto text-left mt-2">
+                    Schema::create('projects', function (Blueprint $table) {<br>
+                    &nbsp;&nbsp;$table->id();<br>
+                    &nbsp;&nbsp;$table->string('name', 255);<br>
+                    &nbsp;&nbsp;$table->text('description')->nullable();<br>
+                    &nbsp;&nbsp;$table->foreignId('user_id')->constrained()->cascadeOnDelete();<br>
+                    &nbsp;&nbsp;$table->timestamps();<br>
+                    });
+                </div>
+                <p class="text-sm text-slate-600 mt-2">ثم شغّل <code>php artisan migrate</code> لإنشاء الجدول.</p>
+            </div>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 3: إضافة $fillable في Project Model</h3>
+                <p class="text-sm text-slate-500 mt-1">في <code>app/Models/Project.php</code>، أضف الخاصية:</p>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-indigo-400 overflow-x-auto text-left mt-2">
+                    protected $fillable = ['name', 'description', 'user_id'];
+                </div>
+                <p class="text-sm text-slate-600 mt-2">بدون هذا السطر، ستحصل على خطأ <code>MassAssignmentException</code> عند الحفظ.</p>
+            </div>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 4: إنشاء ProjectController</h3>
+                <p class="text-sm text-slate-500 mt-1">شغّل الأمر (الـ --resource تنشئ 7 دوال تلقائياً):</p>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-purple-400 overflow-x-auto text-left mt-2">
+                    php artisan make:controller ProjectController --resource
+                </div>
+                <p class="text-sm text-slate-600 mt-2">تأكد من ظهور الملف في <code>app/Http/Controllers/ProjectController.php</code>.</p>
+            </div>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 5: كتابة دالة index()</h3>
+                <p class="text-sm text-slate-500 mt-1">عدّل دالة <code>index()</code> في Controller:</p>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-indigo-400 overflow-x-auto text-left mt-2">
+                    public function index()<br>
+                    {<br>
+                    &nbsp;&nbsp;$projects = Project::all();<br>
+                    &nbsp;&nbsp;return Inertia::render('Projects/Index', [<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;'projects' => $projects,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;'success' => session('success'),<br>
+                    &nbsp;&nbsp;]);<br>
+                    }
+                </div>
+                <p class="text-sm text-slate-600 mt-2">تأكد من إضافة <code>use App\Models\Project;</code> و <code>use Inertia\Inertia;</code> أعلى الملف.</p>
+            </div>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 6: كتابة store() مع Validation</h3>
+                <p class="text-sm text-slate-500 mt-1">أضف التحقق من البيانات في دالة <code>store()</code>:</p>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-emerald-400 overflow-x-auto text-left mt-2">
+                    public function store(Request $request)<br>
+                    {<br>
+                    &nbsp;&nbsp;$validated = $request->validate([<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;'name' => 'required|string|min:3|max:255',<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;'description' => 'nullable|string|max:1000',<br>
+                    &nbsp;&nbsp;]);<br>
+                    &nbsp;&nbsp;$validated['user_id'] = auth()->id();<br>
+                    &nbsp;&nbsp;Project::create($validated);<br>
+                    &nbsp;&nbsp;return redirect()->route('projects.index')->with('success', 'تم إنشاء المشروع');<br>
+                    }
+                </div>
+                <p class="text-sm text-slate-600 mt-2">جرب إرسال نموذج باسم فارغ وسترى رسالة الخطأ تعود تلقائياً.</p>
+            </div>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 7: كتابة update() و destroy()</h3>
+                <p class="text-sm text-slate-500 mt-1">دوال التعديل والحذف:</p>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-yellow-400 overflow-x-auto text-left mt-2">
+                    public function update(Request $request, Project $project)<br>
+                    {<br>
+                    &nbsp;&nbsp;$validated = $request->validate(['name' => 'required|min:3']);<br>
+                    &nbsp;&nbsp;$project->update($validated);<br>
+                    &nbsp;&nbsp;return redirect()->route('projects.index')->with('success', 'تم التعديل');<br>
+                    }<br><br>
+                    public function destroy(Project $project)<br>
+                    {<br>
+                    &nbsp;&nbsp;$project->delete();<br>
+                    &nbsp;&nbsp;return redirect()->route('projects.index')->with('success', 'تم الحذف');<br>
+                    }
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 8: تسجيل المسارات (Routes)</h3>
+                <p class="text-sm text-slate-500 mt-1">في <code>routes/web.php</code>، أضف:</p>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-yellow-400 overflow-x-auto text-left mt-2">
+                    use App\Http\Controllers\ProjectController;<br><br>
+                    Route::middleware(['auth'])->group(function () {<br>
+                    &nbsp;&nbsp;Route::resource('projects', ProjectController::class);<br>
+                    });
+                </div>
+                <p class="text-sm text-slate-600 mt-2">وضعنا المسارات داخل <code>auth</code> middleware لضمان أن المستخدم مسجل الدخول أولاً. شغّل <code>php artisan route:list</code> لتأكيد الـ 7 مسارات.</p>
+            </div>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 9: إنشاء صفحات React</h3>
+                <p class="text-sm text-slate-500 mt-1">أنشئ 3 مكونات React في <code>resources/js/Pages/Projects/</code>:</p>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-pink-400 overflow-x-auto text-left mt-2">
+                    resources/js/Pages/Projects/Index.jsx  ← عرض القائمة<br>
+                    resources/js/Pages/Projects/Create.jsx ← نموذج الإنشاء<br>
+                    resources/js/Pages/Projects/Edit.jsx  ← نموذج التعديل
+                </div>
+                <p class="text-sm text-slate-600 mt-2">في كل ملف، استخدم <code>usePage().props</code> لاستقبال البيانات من Laravel. استخدم <code>useForm</code> من <code>@inertiajs/react</code> للنماذج.</p>
+            </div>
+
+            <div class="step-card">
+                <h3 class="text-xl font-black text-slate-900">الخطوة 10: الاختبار النهائي</h3>
+                <p class="text-sm text-slate-500 mt-1">شغّل الخادم واختبر كل عملية:</p>
+                <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-purple-400 overflow-x-auto text-left mt-2">
+                    php artisan serve
+                </div>
+                <ul class="text-sm text-slate-600 mt-3 space-y-1">
+                    <li>✅ زر "إضافة مشروع" → يفتح النموذج → يحفظ → يرجع للقائمة.</li>
+                    <li>✅ القائمة تظهر كل المشاريع المسجلة.</li>
+                    <li>✅ زر تعديل → يغير البيانات → يرجع برسالة نجاح.</li>
+                    <li>✅ زر حذف → تأكيد → يحذف → يرجع برسالة نجاح.</li>
+                    <li>✅ إذا تركت الاسم فارغاً → يظهر خطأ أحمر.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- المخرجات المتوقعة -->
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white border border-emerald-200">
+            <h2 class="text-2xl font-black text-emerald-700">المخرجات المتوقعة</h2>
+            <ul class="space-y-2 text-slate-700">
+                <li>📁 <code>app/Models/Project.php</code> → نموذج مع <code>$fillable</code>.</li>
+                <li>📁 <code>app/Http/Controllers/ProjectController.php</code> → 7 دوال كاملة.</li>
+                <li>📁 <code>database/migrations/xxxx_create_projects_table.php</code> → جدول projects.</li>
+                <li>📁 <code>routes/web.php</code> → <code>Route::resource('projects', ...)</code>.</li>
+                <li>📁 <code>resources/js/Pages/Projects/Index.jsx</code> → يعرض القائمة مع أزرار.</li>
+                <li>📁 <code>resources/js/Pages/Projects/Create.jsx</code> → نموذج إنشاء.</li>
+                <li>📁 <code>resources/js/Pages/Projects/Edit.jsx</code> → نموذج تعديل.</li>
+            </ul>
+        </section>
+
+        <!-- معايير التقييم -->
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white border border-amber-200">
+            <h2 class="text-2xl font-black text-amber-700">معايير التقييم (10 درجات)</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="font-black text-amber-600 text-xl">1</span>
+                    <p class="text-sm text-slate-700">Model مع <code>$fillable</code> يعمل (1 درجة)</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="font-black text-amber-600 text-xl">1</span>
+                    <p class="text-sm text-slate-700">الـ 7 دوال موجودة في Controller (1 درجة)</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="font-black text-amber-600 text-xl">2</span>
+                    <p class="text-sm text-slate-700">التحقق من البيانات (validation) (2 درجة)</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="font-black text-amber-600 text-xl">2</span>
+                    <p class="text-sm text-slate-700">رسائل النجاح تظهر بعد كل عملية (2 درجة)</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="font-black text-amber-600 text-xl">2</span>
+                    <p class="text-sm text-slate-700">واجهات React تعرض البيانات وأزرار التحكم (2 درجة)</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="font-black text-amber-600 text-xl">2</span>
+                    <p class="text-sm text-slate-700">الاختبار النهائي: كل العمليات تعمل (2 درجة)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- التحدي الإضافي -->
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white border border-purple-200">
+            <h2 class="text-2xl font-black text-purple-700">تحدي إضافي (للنجوم ⭐)</h2>
+            <p class="text-slate-600">أضف ميزة <strong>"نسخ المشروع" (Duplicate)</strong>:</p>
+            <ul class="text-sm text-slate-700 space-y-2 pr-4">
+                <li>1. أضف زر "نسخ" بجانب كل مشروع في القائمة.</li>
+                <li>2. أنشئ مسار جديد: <code>Route::post('projects/{project}/duplicate', [ProjectController::class, 'duplicate'])</code>.</li>
+                <li>3. في دالة <code>duplicate()</code>، استخدم <code>replicate()</code> في Eloquent لنسخ المشروع:</li>
+            </ul>
+            <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-emerald-400 overflow-x-auto text-left mt-2">
+                public function duplicate(Project $project)<br>
+                {<br>
+                &nbsp;&nbsp;$newProject = $project->replicate();<br>
+                &nbsp;&nbsp;$newProject->name = $project->name . ' (نسخة)';<br>
+                &nbsp;&nbsp;$newProject->save();<br>
+                &nbsp;&nbsp;return redirect()->route('projects.index')->with('success', 'تم نسخ المشروع');<br>
+                }
+            </div>
+        </section>
+
+        <!-- طريقة التسليم -->
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white border border-indigo-200">
+            <h2 class="text-2xl font-black text-indigo-700">طريقة التسليم</h2>
+            <ol class="space-y-3 pr-4 text-slate-700">
+                <li>1. تأكد من أن كل الخطوات تعمل بشكل صحيح.</li>
+                <li>2. صوّر فيديو قصير (أقل من دقيقتين) تشرح فيه الكود وتعرض كل عملية CRUD.</li>
+                <li>3. تأكد من ظهور رسائل النجاح والأخطاء في الفيديو.</li>
+                <li>4. ارفع الرابط في منصة الدورة في قسم "واجب الدرس 17".</li>
+                <li>5. إذا أضفت التحدي الإضافي، اذكر ذلك في وصف التسليم.</li>
+            </ol>
+        </section>
     </section>
+
+    <div class="mt-12 flex justify-between">
+        <a class="font-black text-indigo-700 hover:underline inline-block" href="quiz.html">→ انتقل إلى الكويز</a>
+    </div>
 </main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. أنت الآن تبني ميزات حقيقية للمستخدمين.
+</footer>
+
+<script src="../../../assets/js/app.js"></script>
 </body>
 </html>

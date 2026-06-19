@@ -24,7 +24,7 @@
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../index.html">الرئيسية</a>
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="curriculum.html">الفهرس</a>
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="lessons.html">الدروس</a>
-            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="beginner-guide.html">دليل المبتدئ</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="beginner-guide.html">دليل الطالب</a>
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="project.html">المشروع العملي</a>
         </nav>
         <button onclick="toggleMenu()" class="md:hidden rounded-xl border border-slate-200 bg-white px-3 py-2 hover:bg-slate-50 transition-all">☰</button>
@@ -33,7 +33,7 @@
         <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="../index.html">الرئيسية</a>
         <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="curriculum.html">الفهرس</a>
         <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="lessons.html">الدروس</a>
-        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="beginner-guide.html">دليل المبتدئ</a>
+        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="beginner-guide.html">دليل الطالب</a>
         <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="project.html">المشروع العملي</a>
     </div>
 </header>
@@ -41,137 +41,316 @@
 <main class="mx-auto max-w-7xl px-4 py-12 text-right">
     <section class="mb-16">
         <h1 class="text-4xl font-black text-slate-900">خريطة طريقك للاحتراف</h1>
-        <p class="mt-4 text-slate-600 max-w-3xl leading-relaxed">
-            لقد قمنا بتقسيم المنهج إلى 8 أسابيع تدريبية. كل أسبوع يركز على هدف محدد ويقربك أكثر من إتمام مشروع <strong>FlowPilot</strong>. ابدأ من الأسبوع الأول وسر بالترتيب لضمان أفضل استيعاب.
+        <p class="mt-4 text-slate-600 max-w-3xl leading-relaxed text-lg">
+            هذا المنهج مقسم إلى <strong>8 أسابيع</strong> تدريبية. كل أسبوع يركز على هدف محدد ويقربك خطوة من إتمام مشروع <strong>FlowPilot</strong>. ادرس بالترتيب من الأسبوع الأول إلى الثامن لضمان أفضل استيعاب. كل درس يحتوي على شرح نظري، تطبيق عملي، واجب، وكويز.
         </p>
     </section>
 
-    <div class="space-y-12">
+    <div class="space-y-12" id="weeks-container">
+
         <!-- Week 1 -->
-        <section class="card p-8 border-r-8 border-r-indigo-600 shadow-sm">
+        <section id="week-1" class="card p-8 border-r-8 border-r-indigo-600 shadow-sm">
             <div class="flex flex-col md:flex-row justify-between items-start gap-4">
                 <div>
-                    <span class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 font-black text-xs">الأسبوع الأول</span>
-                    <h2 class="mt-2 text-2xl font-black">تأسيس البيئة وفهم Stack الحديث</h2>
-                    <p class="mt-2 text-slate-600">الهدف: تجهيز جهازك بالأدوات اللازمة وبناء أول صفحة حقيقية تربط Laravel بـ React.</p>
+                    <span class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 font-black text-xs">الأسبوع الأول · 4 دروس</span>
+                    <h2 class="mt-2 text-2xl font-black">التأسيس وفهم Stack الحديث</h2>
+                    <p class="mt-2 text-slate-600">الهدف: تجهيز جهازك بالأدوات اللازمة (PHP, Composer, Node, Git) وبناء أول صفحة تربط Laravel بـ React عبر Inertia.</p>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <span class="px-2 py-1 rounded bg-indigo-100 text-indigo-700 text-xs font-bold">بيئة العمل</span>
+                        <span class="px-2 py-1 rounded bg-indigo-100 text-indigo-700 text-xs font-bold">Laravel</span>
+                        <span class="px-2 py-1 rounded bg-indigo-100 text-indigo-700 text-xs font-bold">React</span>
+                        <span class="px-2 py-1 rounded bg-indigo-100 text-indigo-700 text-xs font-bold">Tailwind</span>
+                        <span class="px-2 py-1 rounded bg-indigo-100 text-indigo-700 text-xs font-bold">Git</span>
+                    </div>
                 </div>
-                <a href="../weeks/week-01/index.html" class="rounded-xl bg-slate-900 text-white px-6 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">تصفح الأسبوع</a>
+                <a href="../weeks/week-01/index.html" class="rounded-xl bg-slate-900 text-white px-6 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">تصفح الأسبوع ←</a>
             </div>
-            <div class="mt-8 grid md:grid-cols-2 gap-4">
+            <div class="mt-6 text-xs text-slate-500 font-medium leading-relaxed">ما سنبنيه في FlowPilot هذا الأسبوع: تهيئة بيئة العمل، تثبيت أول مشروع Laravel، ظهور أول صفحة React، حفظ المشروع في Git.</div>
+            <div class="mt-6 grid md:grid-cols-2 gap-3">
                 <a href="../weeks/week-01/lesson-01/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-indigo-50 transition-all">
-                    <div class="flex-none w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">1</div>
-                    <span class="font-bold">تهيئة بيئة العمل وفهم خريطة المشروع</span>
+                    <div class="flex-none w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black text-sm">1</div>
+                    <div><span class="font-bold">تهيئة بيئة العمل وفهم خريطة المشروع</span><br><span class="text-xs text-slate-500">PHP, Composer, Node, Git - من الصفر</span></div>
                 </a>
                 <a href="../weeks/week-01/lesson-02/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-indigo-50 transition-all">
-                    <div class="flex-none w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">2</div>
-                    <span class="font-bold">تثبيت Laravel 12 وربطه بـ React وInertia</span>
+                    <div class="flex-none w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black text-sm">2</div>
+                    <div><span class="font-bold">تثبيت Laravel 12 وربطه بـ React و Inertia</span><br><span class="text-xs text-slate-500">أمر create-project و Breeze</span></div>
                 </a>
                 <a href="../weeks/week-01/lesson-03/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-indigo-50 transition-all">
-                    <div class="flex-none w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">3</div>
-                    <span class="font-bold">تصميم الواجهة الأولى باستخدام Tailwind CSS</span>
+                    <div class="flex-none w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black text-sm">3</div>
+                    <div><span class="font-bold">تصميم الواجهة الأولى باستخدام Tailwind CSS</span><br><span class="text-xs text-slate-500">أساسيات Tailwind والتصميم المتجاوب</span></div>
                 </a>
                 <a href="../weeks/week-01/lesson-04/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-indigo-50 transition-all">
-                    <div class="flex-none w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">4</div>
-                    <span class="font-bold">Git وتنظيم المستودع وطريقة حفظ التقدم</span>
+                    <div class="flex-none w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black text-sm">4</div>
+                    <div><span class="font-bold">Git وتنظيم المستودع وطريقة حفظ التقدم</span><br><span class="text-xs text-slate-500">git init, commit, branch</span></div>
                 </a>
             </div>
         </section>
 
         <!-- Week 2 -->
-        <section class="card p-8 border-r-8 border-r-emerald-600 shadow-sm">
+        <section id="week-2" class="card p-8 border-r-8 border-r-emerald-600 shadow-sm">
             <div class="flex flex-col md:flex-row justify-between items-start gap-4">
                 <div>
-                    <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 font-black text-xs">الأسبوع الثاني</span>
+                    <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 font-black text-xs">الأسبوع الثاني · 4 دروس</span>
                     <h2 class="mt-2 text-2xl font-black">Routing و Inertia Layouts وبناء الهيكل</h2>
-                    <p class="mt-2 text-slate-600">الهدف: فهم كيفية توجيه المستخدم بين الصفحات وبناء هيكل التطبيق الثابت.</p>
+                    <p class="mt-2 text-slate-600">الهدف: فهم كيف يستقبل Laravel طلبات المستخدم ويرسل صفحات React، وبناء هيكل التطبيق الثابت.</p>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <span class="px-2 py-1 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">Routing</span>
+                        <span class="px-2 py-1 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">Controllers</span>
+                        <span class="px-2 py-1 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">Layouts</span>
+                        <span class="px-2 py-1 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">Components</span>
+                    </div>
                 </div>
-                <a href="../weeks/week-02/index.html" class="rounded-xl bg-slate-900 text-white px-6 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">تصفح الأسبوع</a>
+                <a href="../weeks/week-02/index.html" class="rounded-xl bg-slate-900 text-white px-6 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">تصفح الأسبوع ←</a>
             </div>
-            <div class="mt-8 grid md:grid-cols-2 gap-4">
+            <div class="mt-6 text-xs text-slate-500 font-medium leading-relaxed">ما سنبنيه في FlowPilot هذا الأسبوع: ربط المسارات بصفحات React، بناء شريط تنقل ثابت، تقسيم الواجهة إلى Components، أول Dashboard.</div>
+            <div class="mt-6 grid md:grid-cols-2 gap-3">
                 <a href="../weeks/week-02/lesson-01/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-emerald-50 transition-all">
-                    <div class="flex-none w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black">5</div>
-                    <span class="font-bold">فهم المسارات في Laravel وربطها بصفحات React</span>
+                    <div class="flex-none w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black text-sm">5</div>
+                    <div><span class="font-bold">فهم المسارات في Laravel وربطها بصفحات React</span><br><span class="text-xs text-slate-500">Route::get و Inertia::render</span></div>
                 </a>
                 <a href="../weeks/week-02/lesson-02/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-emerald-50 transition-all">
-                    <div class="flex-none w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black">6</div>
-                    <span class="font-bold">بناء Layout رئيسي وشريط تنقل ثابت لكل الصفحات</span>
+                    <div class="flex-none w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black text-sm">6</div>
+                    <div><span class="font-bold">بناء Layout رئيسي وشريط تنقل ثابت</span><br><span class="text-xs text-slate-500">Navbar, Sidebar, Footer</span></div>
                 </a>
                 <a href="../weeks/week-02/lesson-03/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-emerald-50 transition-all">
-                    <div class="flex-none w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black">7</div>
-                    <span class="font-bold">فهم مكونات React وتقسيم الواجهة إلى أجزاء</span>
+                    <div class="flex-none w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black text-sm">7</div>
+                    <div><span class="font-bold">فهم مكونات React وتقسيم الواجهة إلى أجزاء</span><br><span class="text-xs text-slate-500">Props, Children, Composition</span></div>
                 </a>
                 <a href="../weeks/week-02/lesson-04/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-emerald-50 transition-all">
-                    <div class="flex-none w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black">8</div>
-                    <span class="font-bold">إنشاء Dashboard أولية لمؤشرات FlowPilot</span>
+                    <div class="flex-none w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black text-sm">8</div>
+                    <div><span class="font-bold">إنشاء Dashboard أولية لمؤشرات FlowPilot</span><br><span class="text-xs text-slate-500">إحصائيات وبطاقات عرض</span></div>
                 </a>
             </div>
         </section>
 
         <!-- Week 3 -->
-        <section class="card p-8 border-r-8 border-r-sky-600 shadow-sm">
+        <section id="week-3" class="card p-8 border-r-8 border-r-sky-600 shadow-sm">
             <div class="flex flex-col md:flex-row justify-between items-start gap-4">
                 <div>
-                    <span class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 font-black text-xs">الأسبوع الثالث</span>
+                    <span class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 font-black text-xs">الأسبوع الثالث · 4 دروس</span>
                     <h2 class="mt-2 text-2xl font-black">قاعدة البيانات والنماذج والعلاقات</h2>
-                    <p class="mt-2 text-slate-600">الهدف: تعلم كيفية حفظ البيانات وربط المشاريع والمهام ببعضها بذكاء.</p>
+                    <p class="mt-2 text-slate-600">الهدف: تعلم كيفية تصميم قاعدة البيانات، إنشاء الجداول، وربط المشاريع بالمهام والمستخدمين.</p>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <span class="px-2 py-1 rounded bg-sky-100 text-sky-700 text-xs font-bold">ERD</span>
+                        <span class="px-2 py-1 rounded bg-sky-100 text-sky-700 text-xs font-bold">Migrations</span>
+                        <span class="px-2 py-1 rounded bg-sky-100 text-sky-700 text-xs font-bold">Eloquent</span>
+                        <span class="px-2 py-1 rounded bg-sky-100 text-sky-700 text-xs font-bold">Relations</span>
+                    </div>
                 </div>
-                <a href="../weeks/week-03/index.html" class="rounded-xl bg-slate-900 text-white px-6 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">تصفح الأسبوع</a>
+                <a href="../weeks/week-03/index.html" class="rounded-xl bg-slate-900 text-white px-6 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">تصفح الأسبوع ←</a>
             </div>
-            <div class="mt-8 grid md:grid-cols-2 gap-4">
+            <div class="mt-6 text-xs text-slate-500 font-medium leading-relaxed">ما سنبنيه في FlowPilot هذا الأسبوع: تصميم جداول المشاريع والمهام والمستخدمين والفرق، إنشاء Migrations و Seeders، ربط البيانات بـ Eloquent.</div>
+            <div class="mt-6 grid md:grid-cols-2 gap-3">
                 <a href="../weeks/week-03/lesson-01/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-sky-50 transition-all">
-                    <div class="flex-none w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-black">9</div>
-                    <span class="font-bold">تصميم قاعدة بيانات FlowPilot قبل كتابة الجداول</span>
+                    <div class="flex-none w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-black text-sm">9</div>
+                    <div><span class="font-bold">تصميم قاعدة بيانات FlowPilot قبل كتابة الجداول</span><br><span class="text-xs text-slate-500">ERD والكيانات والعلاقات</span></div>
                 </a>
                 <a href="../weeks/week-03/lesson-02/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-sky-50 transition-all">
-                    <div class="flex-none w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-black">10</div>
-                    <span class="font-bold">Migrations و Seeders و Factories للمبتدئين</span>
+                    <div class="flex-none w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-black text-sm">10</div>
+                    <div><span class="font-bold">Migrations و Seeders و Factories للمبتدئين</span><br><span class="text-xs text-slate-500">إنشاء الجداول وبيانات تجريبية</span></div>
                 </a>
                 <a href="../weeks/week-03/lesson-03/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-sky-50 transition-all">
-                    <div class="flex-none w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-black">11</div>
-                    <span class="font-bold">فهم Eloquent Models والعلاقات بين البيانات</span>
+                    <div class="flex-none w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-black text-sm">11</div>
+                    <div><span class="font-bold">فهم Eloquent Models والعلاقات بين البيانات</span><br><span class="text-xs text-slate-500">belongsTo, hasMany, belongsToMany</span></div>
                 </a>
                 <a href="../weeks/week-03/lesson-04/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-sky-50 transition-all">
-                    <div class="flex-none w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-black">12</div>
-                    <span class="font-bold">قراءة البيانات بكفاءة وتحسين الاستعلامات</span>
+                    <div class="flex-none w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-black text-sm">12</div>
+                    <div><span class="font-bold">قراءة البيانات بكفاءة وتحسين الاستعلامات</span><br><span class="text-xs text-slate-500">Eager Loading, Query Scopes</span></div>
                 </a>
             </div>
         </section>
 
         <!-- Week 4 -->
-        <section class="card p-8 border-r-8 border-r-amber-600 shadow-sm">
+        <section id="week-4" class="card p-8 border-r-8 border-r-amber-600 shadow-sm">
             <div class="flex flex-col md:flex-row justify-between items-start gap-4">
                 <div>
-                    <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-700 font-black text-xs">الأسبوع الرابع</span>
+                    <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-700 font-black text-xs">الأسبوع الرابع · 4 دروس</span>
                     <h2 class="mt-2 text-2xl font-black">المصادقة والصلاحيات وتجربة المستخدم</h2>
-                    <p class="mt-2 text-slate-600">الهدف: بناء نظام تسجيل دخول وحماية بيانات كل مستخدم من المتطفلين.</p>
+                    <p class="mt-2 text-slate-600">الهدف: بناء نظام تسجيل دخول آمن، حماية بيانات كل مستخدم، وإعدادات الحساب الشخصي.</p>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <span class="px-2 py-1 rounded bg-amber-100 text-amber-700 text-xs font-bold">Auth</span>
+                        <span class="px-2 py-1 rounded bg-amber-100 text-amber-700 text-xs font-bold">Policies</span>
+                        <span class="px-2 py-1 rounded bg-amber-100 text-amber-700 text-xs font-bold">Middleware</span>
+                        <span class="px-2 py-1 rounded bg-amber-100 text-amber-700 text-xs font-bold">Profile</span>
+                    </div>
                 </div>
-                <a href="../weeks/week-04/index.html" class="rounded-xl bg-slate-900 text-white px-6 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">تصفح الأسبوع</a>
+                <a href="../weeks/week-04/index.html" class="rounded-xl bg-slate-900 text-white px-6 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">تصفح الأسبوع ←</a>
             </div>
-            <div class="mt-8 grid md:grid-cols-2 gap-4">
+            <div class="mt-6 text-xs text-slate-500 font-medium leading-relaxed">ما سنبنيه في FlowPilot هذا الأسبوع: تسجيل الدخول والتسجيل، حماية المشاريع بصلاحيات Policies، استخدام Middleware للصفحات الخاصة، صفحة الملف الشخصي.</div>
+            <div class="mt-6 grid md:grid-cols-2 gap-3">
                 <a href="../weeks/week-04/lesson-01/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-amber-50 transition-all">
-                    <div class="flex-none w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-black">13</div>
-                    <span class="font-bold">تسجيل الدخول وإنشاء حسابات المستخدمين</span>
+                    <div class="flex-none w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-black text-sm">13</div>
+                    <div><span class="font-bold">تسجيل الدخول وإنشاء حسابات المستخدمين</span><br><span class="text-xs text-slate-500">Breeze, Login, Register</span></div>
                 </a>
                 <a href="../weeks/week-04/lesson-02/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-amber-50 transition-all">
-                    <div class="flex-none w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-black">14</div>
-                    <span class="font-bold">الصلاحيات Policies وحماية المشاريع الخاصة</span>
+                    <div class="flex-none w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-black text-sm">14</div>
+                    <div><span class="font-bold">الصلاحيات Policies وحماية المشاريع الخاصة</span><br><span class="text-xs text-slate-500">Policy, Gate, Authorize</span></div>
                 </a>
                 <a href="../weeks/week-04/lesson-03/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-amber-50 transition-all">
-                    <div class="flex-none w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-black">15</div>
-                    <span class="font-bold">Middleware وحماية الصفحات التي تحتاج لدخول</span>
+                    <div class="flex-none w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-black text-sm">15</div>
+                    <div><span class="font-bold">Middleware وحماية الصفحات الخاصة</span><br><span class="text-xs text-slate-500">auth, guest, Custom Middleware</span></div>
                 </a>
                 <a href="../weeks/week-04/lesson-04/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-amber-50 transition-all">
-                    <div class="flex-none w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-black">16</div>
-                    <span class="font-bold">صفحة الملف الشخصي وإعدادات الحساب</span>
+                    <div class="flex-none w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-black text-sm">16</div>
+                    <div><span class="font-bold">صفحة الملف الشخصي وإعدادات الحساب</span><br><span class="text-xs text-slate-500">تعديل الملف، تغيير كلمة المرور</span></div>
                 </a>
             </div>
         </section>
 
-        <!-- Note about remaining weeks -->
-        <div class="p-12 text-center bg-slate-100 rounded-[2.5rem] border-2 border-dashed border-slate-200">
-             <p class="text-slate-600 font-bold">يمكنك استكشاف الأسابيع من 5 إلى 8 من خلال صفحة "كل الدروس" أو عبر الانتقال لروابطها مباشرة.</p>
-             <p class="mt-2 text-sm text-slate-500 italic">يتم العمل حالياً على تحسين عرض كافة الأسابيع لتكون بنفس هذا المستوى الاحترافي.</p>
-        </div>
+        <!-- Week 5 -->
+        <section id="week-5" class="card p-8 border-r-8 border-r-rose-600 shadow-sm">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-4">
+                <div>
+                    <span class="px-3 py-1 rounded-full bg-rose-50 text-rose-700 font-black text-xs">الأسبوع الخامس · 4 دروس</span>
+                    <h2 class="mt-2 text-2xl font-black">CRUD احترافي وتجربة Inertia Forms</h2>
+                    <p class="mt-2 text-slate-600">الهدف: بناء دورة إنشاء وقراءة وتعديل وحذف المشاريع والمهام مع نماذج Inertia.</p>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <span class="px-2 py-1 rounded bg-rose-100 text-rose-700 text-xs font-bold">CRUD</span>
+                        <span class="px-2 py-1 rounded bg-rose-100 text-rose-700 text-xs font-bold">Validation</span>
+                        <span class="px-2 py-1 rounded bg-rose-100 text-rose-700 text-xs font-bold">Kanban</span>
+                        <span class="px-2 py-1 rounded bg-rose-100 text-rose-700 text-xs font-bold">File Upload</span>
+                    </div>
+                </div>
+                <a href="../weeks/week-05/index.html" class="rounded-xl bg-slate-900 text-white px-6 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">تصفح الأسبوع ←</a>
+            </div>
+            <div class="mt-6 text-xs text-slate-500 font-medium leading-relaxed">ما سنبنيه في FlowPilot هذا الأسبوع: CRUD كامل للمشاريع، لوحة مهام Kanban، نماذج React مع Validation، رفع المرفقات.</div>
+            <div class="mt-6 grid md:grid-cols-2 gap-3">
+                <a href="../weeks/week-05/lesson-01/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-rose-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center font-black text-sm">17</div>
+                    <div><span class="font-bold">إنشاء المشاريع وإدارتها CRUD</span><br><span class="text-xs text-slate-500">Controller, Validation, Resource</span></div>
+                </a>
+                <a href="../weeks/week-05/lesson-02/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-rose-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center font-black text-sm">18</div>
+                    <div><span class="font-bold">بناء لوحة مهام Kanban</span><br><span class="text-xs text-slate-500">Drag & Drop, Status Management</span></div>
+                </a>
+                <a href="../weeks/week-05/lesson-03/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-rose-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center font-black text-sm">19</div>
+                    <div><span class="font-bold">استخدام Inertia Forms ومعالجة الأخطاء</span><br><span class="text-xs text-slate-500">useForm, Errors, Validation</span></div>
+                </a>
+                <a href="../weeks/week-05/lesson-04/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-rose-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center font-black text-sm">20</div>
+                    <div><span class="font-bold">رفع الملفات والمرفقات للمهام</span><br><span class="text-xs text-slate-500">Storage, File Upload, Attachments</span></div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Week 6 -->
+        <section id="week-6" class="card p-8 border-r-8 border-r-purple-600 shadow-sm">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-4">
+                <div>
+                    <span class="px-3 py-1 rounded-full bg-purple-50 text-purple-700 font-black text-xs">الأسبوع السادس · 4 دروس</span>
+                    <h2 class="mt-2 text-2xl font-black">APIs والتكاملات والبحث</h2>
+                    <p class="mt-2 text-slate-600">الهدف: تنظيم البيانات المخرجة، إضافة البحث والفلاتر، التنبيهات، وسجل النشاطات.</p>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <span class="px-2 py-1 rounded bg-purple-100 text-purple-700 text-xs font-bold">API Resources</span>
+                        <span class="px-2 py-1 rounded bg-purple-100 text-purple-700 text-xs font-bold">Search</span>
+                        <span class="px-2 py-1 rounded bg-purple-100 text-purple-700 text-xs font-bold">Notifications</span>
+                        <span class="px-2 py-1 rounded bg-purple-100 text-purple-700 text-xs font-bold">Activity Log</span>
+                    </div>
+                </div>
+                <a href="../weeks/week-06/index.html" class="rounded-xl bg-slate-900 text-white px-6 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">تصفح الأسبوع ←</a>
+            </div>
+            <div class="mt-6 text-xs text-slate-500 font-medium leading-relaxed">ما سنبنيه في FlowPilot هذا الأسبوع: API Resources لتنظيم البيانات، Search و Filters متقدم، إشعارات للمستخدمين، سجل نشاط لكل حدث.</div>
+            <div class="mt-6 grid md:grid-cols-2 gap-3">
+                <a href="../weeks/week-06/lesson-01/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-purple-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-black text-sm">21</div>
+                    <div><span class="font-bold">Laravel API Resources وتنظيم البيانات</span><br><span class="text-xs text-slate-500">Resource, Collection, Response</span></div>
+                </a>
+                <a href="../weeks/week-06/lesson-02/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-purple-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-black text-sm">22</div>
+                    <div><span class="font-bold">البحث والفلاتر المتقدمة</span><br><span class="text-xs text-slate-500">Search Query, Filters, Pagination</span></div>
+                </a>
+                <a href="../weeks/week-06/lesson-03/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-purple-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-black text-sm">23</div>
+                    <div><span class="font-bold">التنبيهات Notifications داخل FlowPilot</span><br><span class="text-xs text-slate-500">Database Notifications, Mark as Read</span></div>
+                </a>
+                <a href="../weeks/week-06/lesson-04/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-purple-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-black text-sm">24</div>
+                    <div><span class="font-bold">سجل النشاط Activity Log</span><br><span class="text-xs text-slate-500">Activity Model, Events, Display</span></div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Week 7 -->
+        <section id="week-7" class="card p-8 border-r-8 border-r-cyan-600 shadow-sm">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-4">
+                <div>
+                    <span class="px-3 py-1 rounded-full bg-cyan-50 text-cyan-700 font-black text-xs">الأسبوع السابع · 4 دروس</span>
+                    <h2 class="mt-2 text-2xl font-black">الجودة والاختبارات والأداء</h2>
+                    <p class="mt-2 text-slate-600">الهدف: اختبار الميزات، تحسين جودة Components، تحسين أداء الصفحات، وتقوية الأمان.</p>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <span class="px-2 py-1 rounded bg-cyan-100 text-cyan-700 text-xs font-bold">Testing</span>
+                        <span class="px-2 py-1 rounded bg-cyan-100 text-cyan-700 text-xs font-bold">Refactoring</span>
+                        <span class="px-2 py-1 rounded bg-cyan-100 text-cyan-700 text-xs font-bold">Performance</span>
+                        <span class="px-2 py-1 rounded bg-cyan-100 text-cyan-700 text-xs font-bold">Security</span>
+                    </div>
+                </div>
+                <a href="../weeks/week-07/index.html" class="rounded-xl bg-slate-900 text-white px-6 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">تصفح الأسبوع ←</a>
+            </div>
+            <div class="mt-6 text-xs text-slate-500 font-medium leading-relaxed">ما سنبنيه في FlowPilot هذا الأسبوع: Feature Tests للميزات الرئيسية، تحسين الـ React Components، Pagination و Caching، حماية ضد الهجمات الشائعة.</div>
+            <div class="mt-6 grid md:grid-cols-2 gap-3">
+                <a href="../weeks/week-07/lesson-01/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-cyan-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center font-black text-sm">25</div>
+                    <div><span class="font-bold">Testing لاختبار الميزات المهمة</span><br><span class="text-xs text-slate-500">Pest, Feature Tests, HTTP Tests</span></div>
+                </a>
+                <a href="../weeks/week-07/lesson-02/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-cyan-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center font-black text-sm">26</div>
+                    <div><span class="font-bold">تحسين جودة مكونات React</span><br><span class="text-xs text-slate-500">Custom Hooks, Reusability, PropTypes</span></div>
+                </a>
+                <a href="../weeks/week-07/lesson-03/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-cyan-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center font-black text-sm">27</div>
+                    <div><span class="font-bold">الأداء و Pagination و Caching</span><br><span class="text-xs text-slate-500">Pagination, Cache::remember, Lazy Loading</span></div>
+                </a>
+                <a href="../weeks/week-07/lesson-04/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-cyan-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center font-black text-sm">28</div>
+                    <div><span class="font-bold">تقوية الأمان Security Hardening</span><br><span class="text-xs text-slate-500">CSRF, XSS, SQL Injection, Rate Limiting</span></div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Week 8 -->
+        <section id="week-8" class="card p-8 border-r-8 border-r-orange-600 shadow-sm">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-4">
+                <div>
+                    <span class="px-3 py-1 rounded-full bg-orange-50 text-orange-700 font-black text-xs">الأسبوع الثامن · 4 دروس</span>
+                    <h2 class="mt-2 text-2xl font-black">النشر والتوثيق والمشروع النهائي</h2>
+                    <p class="mt-2 text-slate-600">الهدف: تجهيز المشروع للإنتاج، النشر على خادم حقيقي، توثيق المشروع، والتسليم النهائي.</p>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <span class="px-2 py-1 rounded bg-orange-100 text-orange-700 text-xs font-bold">Production</span>
+                        <span class="px-2 py-1 rounded bg-orange-100 text-orange-700 text-xs font-bold">Deploy</span>
+                        <span class="px-2 py-1 rounded bg-orange-100 text-orange-700 text-xs font-bold">Documentation</span>
+                        <span class="px-2 py-1 rounded bg-orange-100 text-orange-700 text-xs font-bold">Portfolio</span>
+                    </div>
+                </div>
+                <a href="../weeks/week-08/index.html" class="rounded-xl bg-slate-900 text-white px-6 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">تصفح الأسبوع ←</a>
+            </div>
+            <div class="mt-6 text-xs text-slate-500 font-medium leading-relaxed">ما سنبنيه في FlowPilot هذا الأسبوع: Build للإنتاج، نشر على خادم (VPS أو Shared)، توثيق APIs، تجهيز العرض النهائي.</div>
+            <div class="mt-6 grid md:grid-cols-2 gap-3">
+                <a href="../weeks/week-08/lesson-01/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-orange-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center font-black text-sm">29</div>
+                    <div><span class="font-bold">تجهيز Production Build وملفات البيئة</span><br><span class="text-xs text-slate-500">.env, Build, Optimization</span></div>
+                </a>
+                <a href="../weeks/week-08/lesson-02/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-orange-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center font-black text-sm">30</div>
+                    <div><span class="font-bold">خطوات النشر Deployment Workflow</span><br><span class="text-xs text-slate-500">Server Setup, Domain, SSL</span></div>
+                </a>
+                <a href="../weeks/week-08/lesson-03/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-orange-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center font-black text-sm">31</div>
+                    <div><span class="font-bold">توثيق المشروع وتجهيز العرض النهائي</span><br><span class="text-xs text-slate-500">README, API Docs, Presentation</span></div>
+                </a>
+                <a href="../weeks/week-08/lesson-04/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-orange-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center font-black text-sm">32</div>
+                    <div><span class="font-bold">تسليم FlowPilot النهائي وقائمة الفحص</span><br><span class="text-xs text-slate-500">Checklist, Portfolio, Wrap-up</span></div>
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Progress tracker hint -->
+    <div class="mt-16 p-8 bg-indigo-50 rounded-[2rem] border border-indigo-100 text-center">
+        <h3 class="text-2xl font-black text-indigo-900">32 درساً · 8 أسابيع · مشروع واحد متكامل</h3>
+        <p class="mt-2 text-indigo-700">كل درس يبني على سابقه. ابدأ من الأسبوع الأول ولا تقفز بين الدروس للحصول على أفضل نتيجة.</p>
     </div>
 </main>
 

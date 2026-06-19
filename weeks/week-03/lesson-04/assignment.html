@@ -3,27 +3,138 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 12: استعلامات احترافية</title>
+    <title>واجب الدرس 12: تحسين الاستعلامات | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>.step-box{border-right:4px solid #0ea5e9;padding:1rem 1.5rem;background:#f8fafc;border-radius:12px;margin-bottom:1.5rem}.code-block{background:#1e293b;color:#e2e8f0;padding:1rem;border-radius:12px;direction:ltr;text-align:left;font-family:'Courier New',monospace;font-size:13px}.terminal{background:#0f172a;color:#e2e8f0;padding:1rem;border-radius:12px;direction:ltr;text-align:left;font-family:'Courier New',monospace;font-size:13px}</style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
-<main class="mx-auto max-w-3xl px-4 py-12">
-    <div class="card p-12 space-y-8">
-        <h1 class="text-3xl font-black text-center text-indigo-600">واجب الأداء العالي</h1>
-        <div class="space-y-6 text-right">
-            <h3 class="font-black text-xl">تحدي المبرمج:</h3>
-            <p class="text-slate-600 leading-relaxed italic">"تطبيقك بدأ يكبر، يجب أن تحميه من البطء."</p>
-            <ol class="list-decimal pr-6 space-y-4 font-bold text-slate-700">
-                <li>اكتب استعلاماً يجلب المستخدمين الذين سجلوا في آخر 7 أيام فقط.</li>
-                <li>استخدم <code>withCount('tasks')</code> لجلب المشاريع مع عدد المهام الموجودة في كل مشروع.</li>
-                <li>اشرح لزميلك: متى نستخدم <code>get()</code> ومتى نستخدم <code>first()</code>؟</li>
+<body class="bg-slate-50 text-slate-900">
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+    </div>
+</header>
+<main class="mx-auto max-w-4xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة إلى شرح الدرس</a>
+    <section class="space-y-8">
+        <div class="card p-8 bg-gradient-to-l from-sky-600 to-indigo-600 text-white shadow-xl rounded-3xl">
+            <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold uppercase tracking-widest mb-3">الأسبوع 3 · الدرس 4 · الواجب العملي</span>
+            <h1 class="text-3xl md:text-4xl font-black">واجب: تحسين استعلامات FlowPilot</h1>
+            <p class="mt-4 text-sky-100 leading-relaxed italic text-lg">"التطبيق البطيء يخسر المستخدمين. اجعل استعلاماتك سريعة."</p>
+        </div>
+
+        <div class="card p-6 bg-white shadow-sm rounded-3xl">
+            <h2 class="text-xl font-black text-sky-600 mb-4">نظرة عامة</h2>
+            <p class="text-slate-600">في هذا الواجب، ستطبق تقنيات تحسين الاستعلامات على مشروع FlowPilot: Eager Loading، Query Scopes، ::when()، Chunking، Caching، select().</p>
+            <div class="flex flex-wrap gap-3 mt-4">
+                <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-bold">⏱ الوقت: 90-120 دقيقة</span>
+                <span class="px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-xs font-bold">💻 كود + اختبار أداء</span>
+                <span class="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-bold">⭐ 20% من تقييم الأسبوع</span>
+            </div>
+        </div>
+
+        <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl">
+            <h2 class="text-2xl font-black text-slate-900 mb-6">الخطوات</h2>
+
+            <div class="step-box">
+                <h3 class="text-lg font-bold text-sky-800 mb-2">الخطوة 1: تحسين Project Model بـ Query Scopes</h3>
+                <p class="text-slate-600 text-sm">أضف هذه الـ Scopes في Project Model:</p>
+                <div class="code-block">
+                    scopeActive($query) → where('status', 'active')<br>
+                    scopeStatus($query, $status) → where('status', $status)<br>
+                    scopeWithEssential($query) → with(['user:id,name', 'tasks'])+withCount
+                </div>
+            </div>
+
+            <div class="step-box">
+                <h3 class="text-lg font-bold text-sky-800 mb-2">الخطوة 2: إنشاء Controller محسّن</h3>
+                <div class="terminal">$ php artisan make:controller ProjectController</div>
+                <p class="text-slate-600 text-sm mt-2">اكتب دالة <code>index()</code> تستخدم ::when() للبحث والفلترة:</p>
+                <div class="code-block">
+                    $projects = Project::select('id','name','status','deadline')<br>
+                    &nbsp;&nbsp;->withEssential()<br>
+                    &nbsp;&nbsp;->when(request('status'), fn($q,$v) => $q->status($v))<br>
+                    &nbsp;&nbsp;->when(request('search'), fn($q,$v) => $q->where('name','like',"%$v%"))<br>
+                    &nbsp;&nbsp;->latest()->paginate(10);
+                </div>
+            </div>
+
+            <div class="step-box">
+                <h3 class="text-lg font-bold text-sky-800 mb-2">الخطوة 3: إضافة Caching</h3>
+                <p class="text-slate-600 text-sm">لفّ الاستعلام بـ <code>Cache::remember('projects.index', 3600, function() { ... })</code>.</p>
+            </div>
+
+            <div class="step-box">
+                <h3 class="text-lg font-bold text-sky-800 mb-2">الخطوة 4: مسح الـ Cache تلقائياً</h3>
+                <p class="text-slate-600 text-sm">في Project Model booted()، أضف:</p>
+                <div class="code-block">
+                    static::created(fn() => Cache::forget('projects.index'));<br>
+                    static::updated(fn() => Cache::forget('projects.index'));<br>
+                    static::deleted(fn() => Cache::forget('projects.index'));
+                </div>
+            </div>
+
+            <div class="step-box">
+                <h3 class="text-lg font-bold text-sky-800 mb-2">الخطوة 5: اختبار الأداء قبل وبعد</h3>
+                <p class="text-slate-600 text-sm">في Tinker، استخدم <code>DB::enableQueryLog()</code> لقياس عدد الاستعلامات:</p>
+                <div class="code-block">
+                    // قبل التحسين:<br>
+                    DB::enableQueryLog();<br>
+                    $projects = Project::all();<br>
+                    foreach($projects as $p) { echo $p->user->name; }<br>
+                    dump(DB::getQueryLog()); // 1 + عدد المشاريع استعلام!<br><br>
+                    // بعد التحسين:<br>
+                    DB::enableQueryLog();<br>
+                    $projects = Project::select('id','name')->with('user:id,name')->get();<br>
+                    foreach($projects as $p) { echo $p->user->name; }<br>
+                    dump(DB::getQueryLog()); // استعلامان فقط!
+                </div>
+            </div>
+
+            <div class="step-box">
+                <h3 class="text-lg font-bold text-sky-800 mb-2">الخطوة 6: استخدام Chunking</h3>
+                <p class="text-slate-600 text-sm">اكتب أمر Artisan <code>php artisan make:command ArchiveOldProjects</code> يستخدم <code>chunkById</code> لأرشفة المشاريع القديمة.</p>
+            </div>
+        </div>
+
+        <div class="card p-6 bg-white shadow-sm rounded-3xl">
+            <h2 class="text-xl font-black text-slate-900 mb-4">معايير التقييم (20 درجة)</h2>
+            <div class="space-y-2">
+                <div class="border-r-4 border-emerald-500 p-3 bg-emerald-50 rounded-xl flex justify-between"><div><h4 class="font-bold text-emerald-800 text-sm">Query Scopes في Project Model</h4></div><span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">4</span></div>
+                <div class="border-r-4 border-emerald-500 p-3 bg-emerald-50 rounded-xl flex justify-between"><div><h4 class="font-bold text-emerald-800 text-sm">Controller بـ ::when() و select()</h4></div><span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">4</span></div>
+                <div class="border-r-4 border-emerald-500 p-3 bg-emerald-50 rounded-xl flex justify-between"><div><h4 class="font-bold text-emerald-800 text-sm">Caching مع Cache::remember()</h4></div><span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">4</span></div>
+                <div class="border-r-4 border-emerald-500 p-3 bg-emerald-50 rounded-xl flex justify-between"><div><h4 class="font-bold text-emerald-800 text-sm">Boot events لمسح الـ Cache</h4></div><span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">3</span></div>
+                <div class="border-r-4 border-emerald-500 p-3 bg-emerald-50 rounded-xl flex justify-between"><div><h4 class="font-bold text-emerald-800 text-sm">اختبار الأداء (صور قبل/بعد)</h4></div><span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">3</span></div>
+                <div class="border-r-4 border-emerald-500 p-3 bg-emerald-50 rounded-xl flex justify-between"><div><h4 class="font-bold text-emerald-800 text-sm">Chunking Command</h4></div><span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">2</span></div>
+            </div>
+        </div>
+
+        <div class="card p-6 bg-gradient-to-l from-amber-500 to-orange-500 text-white shadow-xl rounded-3xl">
+            <h2 class="text-2xl font-black mb-4">⭐ التحدي الإضافي</h2>
+            <ol class="list-decimal pr-6 mt-4 space-y-3 text-amber-50">
+                <li>أضف Scope اسمه <code>scopeForUser($query, $userId)</code> يجلب مشاريع مستخدم معين.</li>
+                <li>استخدم <code>withExists()</code> لإضافة عمود <code>has_tasks</code> (boolean) يحدد إن كان للمشروع مهام.</li>
+                <li>أنشئ Middleware يوضح وقت تنفيذ كل استعلام في أسفل الصفحة (Debug Bar بسيط).</li>
+                <li>استخدم Lazy Collections: <code>Project::cursor()</code> بدلاً من chunk للمقارنة.</li>
             </ol>
         </div>
-    </div>
+
+        <div class="card p-6 bg-white shadow-sm rounded-3xl">
+            <h2 class="text-xl font-black text-slate-900 mb-4">📤 التسليم</h2>
+            <ol class="list-decimal pr-6 space-y-2 text-slate-600">
+                <li>كود الـ Project Model مع الـ Scopes</li>
+                <li>كود الـ Controller</li>
+                <li>Screenshots من Tinker تظهر فرق عدد الاستعلامات</li>
+                <li>ملف Artisan Command</li>
+                <li>رفع كـ ZIP</li>
+            </ol>
+        </div>
+    </section>
 </main>
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">© 2025 FlowPilot Academy.</footer>
+<script src="../../../assets/js/app.js"></script>
 </body>
 </html>

@@ -1,1 +1,315 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>كويز - إنشاء المشاريع وإدارتها CRUD - FlowPilot Academy</title><link rel="stylesheet" href="../../../assets/css/style.css"></head><body><nav class="nav"><div class="container inner"><a class="brand" href="../../../index.html"><span class="logo">F</span><span>FlowPilot Academy</span></a><div class="links"><a href="../../../index.html">الرئيسية</a><a href="../../../pages/curriculum.html">الفهرس</a><a href="../../../pages/lessons.html">الدروس</a><a href="../../../pages/beginner-guide.html">دليل الطالب</a><a href="../../../pages/project.html">المشروع</a><a href="../../../pages/plan.html">خطة التطوير</a><a href="../../../pages/references.html">المراجع</a></div></div></nav><main class="container section"><a class="btn" href="index.html">← العودة إلى الدرس</a><section class="card"><span class="badge">كويز الأسبوع 5 · الدرس 1</span><h1 class="title">كويز: إنشاء المشاريع وإدارتها CRUD</h1><p class="lead">الكويز يقيس الفهم الحقيقي: لماذا نستخدم المفهوم، وكيف يظهر داخل FlowPilot، وما العلاقة بين النظرية والتطبيق.</p></section><section class="grid" style="margin-top:20px"><div class="card" data-answer="b"><h3>السؤال 1: ما الهدف الأساسي من هذا الدرس؟</h3><label class="quiz-option"><input type="radio" name="q1" value="a"> حفظ أسماء الملفات فقط</label><label class="quiz-option"><input type="radio" name="q1" value="b"> فهم مفهوم عملي وربطه بمشروع FlowPilot</label><label class="quiz-option"><input type="radio" name="q1" value="c"> تغيير ألوان الصفحة فقط</label><label class="quiz-option"><input type="radio" name="q1" value="d"> تجاهل التطبيق العملي</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> الهدف هو الفهم والتطبيق، وليس الحفظ أو التزيين فقط.</p></div><div class="card" data-answer="c"><h3>السؤال 2: ما العلاقة الصحيحة بين Laravel وReact وInertia؟</h3><label class="quiz-option"><input type="radio" name="q2" value="a"> Laravel يعرض الواجهة فقط</label><label class="quiz-option"><input type="radio" name="q2" value="b"> React يدير قاعدة البيانات</label><label class="quiz-option"><input type="radio" name="q2" value="c"> Inertia يربط Laravel بصفحات React</label><label class="quiz-option"><input type="radio" name="q2" value="d"> Tailwind يحفظ البيانات</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> Inertia يعمل كجسر بين Laravel وReact.</p></div><div class="card" data-answer="b"><h3>السؤال 3: لماذا نشرح السبب قبل الكود؟</h3><label class="quiz-option"><input type="radio" name="q3" value="a"> حتى ينسخ الطالب بسرعة</label><label class="quiz-option"><input type="radio" name="q3" value="b"> حتى يفهم الطالب وظيفة الخطوة ويكررها لاحقاً</label><label class="quiz-option"><input type="radio" name="q3" value="c"> حتى نقلل الشرح</label><label class="quiz-option"><input type="radio" name="q3" value="d"> لأن الكود غير مهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> فهم السبب يجعل الطالب قادراً على حل الأخطاء وتطبيق الفكرة في مكان آخر.</p></div><div class="card" data-answer="b"><h3>السؤال 4: ما أفضل طريقة للتعامل مع خطأ يظهر أثناء التطبيق؟</h3><label class="quiz-option"><input type="radio" name="q4" value="a"> حذف الملفات</label><label class="quiz-option"><input type="radio" name="q4" value="b"> قراءة رسالة الخطأ ومراجعة المسار والاسم</label><label class="quiz-option"><input type="radio" name="q4" value="c"> تجاهل الخطأ</label><label class="quiz-option"><input type="radio" name="q4" value="d"> إغلاق المشروع</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> رسالة الخطأ غالباً توضح مكان المشكلة أو سببها.</p></div><div class="card" data-answer="b"><h3>السؤال 5: ماذا يعني نجاح الدرس داخل FlowPilot؟</h3><label class="quiz-option"><input type="radio" name="q5" value="a"> وجود عنوان فقط</label><label class="quiz-option"><input type="radio" name="q5" value="b"> ظهور نتيجة عملية مفهومة يمكن البناء عليها</label><label class="quiz-option"><input type="radio" name="q5" value="c"> عدم تشغيل المشروع</label><label class="quiz-option"><input type="radio" name="q5" value="d"> نسخ الكود دون فهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> كل درس يجب أن يضيف نتيجة تعليمية وعملية واضحة.</p></div></section><section class="card"><button class="btn" data-grade-quiz>تصحيح الكويز</button><p id="quizResult" class="result"></p></section></main><footer class="footer"><div class="container">© FlowPilot Academy - دورة Laravel 12 + React + Inertia.js + Tailwind CSS</div></footer><script src="../../../assets/js/app.js"></script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>كويز الدرس 17: إنشاء المشاريع وإدارتها CRUD | FlowPilot Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .quiz-question { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .correct { background: #f0fdf4 !important; border-color: #22c55e !important; }
+        .incorrect { background: #fef2f2 !important; border-color: #ef4444 !important; }
+        .explain-box { display: none; }
+        .explain-box.show { display: block; }
+        .result-box { display: none; }
+        .result-box.show { display: block; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+    </div>
+</header>
+
+<main class="mx-auto max-w-4xl px-4 py-12">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة للدرس</a>
+
+    <section class="card p-8 md:p-12 bg-white shadow-sm rounded-3xl text-right">
+        <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">كويز الأسبوع 5 · الدرس 1</span>
+        <h1 class="mt-4 text-3xl md:text-4xl font-black text-slate-900">كويز: إنشاء المشاريع وإدارتها CRUD</h1>
+        <p class="mt-2 text-slate-600">أجب عن جميع الأسئلة، ثم اضغط "تصحيح" لترى النتيجة.</p>
+    </section>
+
+    <form id="quizForm" class="space-y-6 mt-8">
+
+        <!-- السؤال 1: MCQ -->
+        <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl text-right quiz-question" data-answer="b">
+            <h3 class="text-lg font-black text-slate-900 mb-3">السؤال 1 (اختيار من متعدد): ماذا تعني أحرف CRUD؟</h3>
+            <div class="space-y-2">
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q1" value="a" class="w-5 h-5 text-indigo-600"> Create, Run, Update, Delete
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q1" value="b" class="w-5 h-5 text-indigo-600"> Create, Read, Update, Delete
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q1" value="c" class="w-5 h-5 text-indigo-600"> Copy, Read, Upload, Delete
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q1" value="d" class="w-5 h-5 text-indigo-600"> Create, Restore, Update, Delete
+                </label>
+            </div>
+            <div class="explain-box mt-3 p-3 rounded-xl bg-green-50 border border-green-200 text-sm text-green-800" data-explain="q1">
+                <strong>✅ الشرح:</strong> CRUD اختصار لـ Create (إنشاء)، Read (قراءة)، Update (تحديث)، Delete (حذف). هذه العمليات الأربع هي أساس أي تطبيق يدير بيانات.
+            </div>
+        </div>
+
+        <!-- السؤال 2: MCQ -->
+        <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl text-right quiz-question" data-answer="c">
+            <h3 class="text-lg font-black text-slate-900 mb-3">السؤال 2 (اختيار من متعدد): كم عدد المسارات التي يسجلها Route::resource؟</h3>
+            <div class="space-y-2">
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q2" value="a" class="w-5 h-5 text-indigo-600"> 4 مسارات
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q2" value="b" class="w-5 h-5 text-indigo-600"> 5 مسارات
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q2" value="c" class="w-5 h-5 text-indigo-600"> 7 مسارات
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q2" value="d" class="w-5 h-5 text-indigo-600"> 10 مسارات
+                </label>
+            </div>
+            <div class="explain-box mt-3 p-3 rounded-xl bg-green-50 border border-green-200 text-sm text-green-800" data-explain="q2">
+                <strong>✅ الشرح:</strong> Route::resource ينتج 7 مسارات: index, create, store, show, edit, update, destroy. كل مسار يقابل دالة في Controller.
+            </div>
+        </div>
+
+        <!-- السؤال 3: MCQ -->
+        <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl text-right quiz-question" data-answer="a">
+            <h3 class="text-lg font-black text-slate-900 mb-3">السؤال 3 (اختيار من متعدد): ما الـ Middleware الذي نستخدمه لحماية مسارات CRUD؟</h3>
+            <div class="space-y-2">
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q3" value="a" class="w-5 h-5 text-indigo-600"> auth
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q3" value="b" class="w-5 h-5 text-indigo-600"> guest
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q3" value="c" class="w-5 h-5 text-indigo-600"> admin
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q3" value="d" class="w-5 h-5 text-indigo-600"> verified
+                </label>
+            </div>
+            <div class="explain-box mt-3 p-3 rounded-xl bg-green-50 border border-green-200 text-sm text-green-800" data-explain="q3">
+                <strong>✅ الشرح:</strong> Middleware 'auth' يمنع المستخدمين غير المسجلين من الوصول إلى المسارات. نضيفه كالتالي: Route::middleware(['auth'])->group(function () { Route::resource('projects', ProjectController::class); });
+            </div>
+        </div>
+
+        <!-- السؤال 4: MCQ -->
+        <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl text-right quiz-question" data-answer="d">
+            <h3 class="text-lg font-black text-slate-900 mb-3">السؤال 4 (اختيار من متعدد): ما الخاصية التي نضيفها في Model لمنع خطأ MassAssignmentException؟</h3>
+            <div class="space-y-2">
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q4" value="a" class="w-5 h-5 text-indigo-600"> $attributes
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q4" value="b" class="w-5 h-5 text-indigo-600"> $columns
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q4" value="c" class="w-5 h-5 text-indigo-600"> $fields
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q4" value="d" class="w-5 h-5 text-indigo-600"> $fillable
+                </label>
+            </div>
+            <div class="explain-box mt-3 p-3 rounded-xl bg-green-50 border border-green-200 text-sm text-green-800" data-explain="q4">
+                <strong>✅ الشرح:</strong> $fillable تحدد الحقول التي يسمح بتعبئتها بشكل جماعي (Mass Assignment). مثلاً: protected $fillable = ['name', 'description', 'user_id'];
+            </div>
+        </div>
+
+        <!-- السؤال 5: MCQ -->
+        <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl text-right quiz-question" data-answer="b">
+            <h3 class="text-lg font-black text-slate-900 mb-3">السؤال 5 (اختيار من متعدد): ما الدالة التي تجلب كل السجلات من جدول معين في Eloquent؟</h3>
+            <div class="space-y-2">
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q5" value="a" class="w-5 h-5 text-indigo-600"> get()
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q5" value="b" class="w-5 h-5 text-indigo-600"> all()
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q5" value="c" class="w-5 h-5 text-indigo-600"> findAll()
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q5" value="d" class="w-5 h-5 text-indigo-600"> list()
+                </label>
+            </div>
+            <div class="explain-box mt-3 p-3 rounded-xl bg-green-50 border border-green-200 text-sm text-green-800" data-explain="q5">
+                <strong>✅ الشرح:</strong> Model::all() ترجع كل السجلات في الجدول كمصفوفة (Collection). مثال: $projects = Project::all();
+            </div>
+        </div>
+
+        <!-- السؤال 6: T/F -->
+        <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl text-right quiz-question" data-answer="true">
+            <h3 class="text-lg font-black text-slate-900 mb-3">السؤال 6 (صح/خطأ): يمكن استخدام Inertia::render() بدون تمرير بيانات (props).</h3>
+            <div class="space-y-2">
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q6" value="true" class="w-5 h-5 text-indigo-600"> صح
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q6" value="false" class="w-5 h-5 text-indigo-600"> خطأ
+                </label>
+            </div>
+            <div class="explain-box mt-3 p-3 rounded-xl bg-green-50 border border-green-200 text-sm text-green-800" data-explain="q6">
+                <strong>✅ الشرح:</strong> صح. المعامل الثاني في Inertia::render() اختياري. مثلاً: Inertia::render('Projects/Create') لا يحتاج props لأنه مجرد نموذج فارغ.
+            </div>
+        </div>
+
+        <!-- السؤال 7: T/F -->
+        <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl text-right quiz-question" data-answer="true">
+            <h3 class="text-lg font-black text-slate-900 mb-3">السؤال 7 (صح/خطأ): دالة destroy() تحتاج إلى استقبال كائن Project عبر Route Model Binding.</h3>
+            <div class="space-y-2">
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q7" value="true" class="w-5 h-5 text-indigo-600"> صح
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                    <input type="radio" name="q7" value="false" class="w-5 h-5 text-indigo-600"> خطأ
+                </label>
+            </div>
+            <div class="explain-box mt-3 p-3 rounded-xl bg-green-50 border border-green-200 text-sm text-green-800" data-explain="q7">
+                <strong>✅ الشرح:</strong> صح. Laravel يستخدم Route Model Binding لجلب كائن Project تلقائياً بناءً على id في الرابط. توقيع الدالة: public function destroy(Project $project)
+            </div>
+        </div>
+
+        <!-- السؤال 8: نظري -->
+        <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl text-right quiz-question">
+            <h3 class="text-lg font-black text-slate-900 mb-3">السؤال 8 (نظري): اشرح بجملتين أو ثلاث كيف يتعامل Laravel مع طلب POST من Inertia لإنشاء مشروع جديد.</h3>
+            <div class="space-y-2">
+                <textarea name="q8" rows="4" class="w-full p-4 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none" placeholder="اكتب إجابتك هنا..."></textarea>
+            </div>
+            <div class="explain-box mt-3 p-3 rounded-xl bg-blue-50 border border-blue-200 text-sm text-blue-800" data-explain="q8">
+                <strong>✅ الإجابة النموذجية:</strong> يرسل Inertia طلب POST إلى /projects مع بيانات النموذج و CSRF token. يستقبل ProjectController دالة store() التي تتحقق من صحة البيانات عبر validate(). إذا نجح التحقق، ينشئ Laravel سجلاً جديداً في جدول projects باستخدام Project::create(). ثم يعيد التوجيه إلى صفحة القائمة مع رسالة نجاح (flash message) عبر with().
+            </div>
+        </div>
+
+        <!-- السؤال 9: عملي -->
+        <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl text-right quiz-question">
+            <h3 class="text-lg font-black text-slate-900 mb-3">السؤال 9 (عملي): اكتب دالة store() كاملة تتضمن التحقق من أن الاسم مطلوب وأكبر من 3 أحرف، مع رسالة نجاح.</h3>
+            <div class="space-y-2">
+                <textarea name="q9" rows="6" class="w-full p-4 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none font-mono text-sm" placeholder="اكتب الكود هنا..." dir="ltr"></textarea>
+            </div>
+            <div class="explain-box mt-3 p-3 rounded-xl bg-blue-50 border border-blue-200 text-sm text-blue-800" data-explain="q9">
+                <strong>✅ الإجابة النموذجية:</strong><br>
+                public function store(Request $request)<br>
+                {<br>
+                &nbsp;&nbsp;$validated = $request->validate([<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;'name' => 'required|string|min:3|max:255',<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;'description' => 'nullable|string|max:1000',<br>
+                &nbsp;&nbsp;]);<br>
+                &nbsp;&nbsp;$validated['user_id'] = auth()->id();<br>
+                &nbsp;&nbsp;Project::create($validated);<br>
+                &nbsp;&nbsp;return redirect()->route('projects.index')->with('success', 'تم إنشاء المشروع بنجاح');<br>
+                }
+            </div>
+        </div>
+
+        <!-- زر التصحيح -->
+        <div class="flex justify-center mt-8">
+            <button type="button" id="gradeBtn" class="bg-indigo-600 text-white font-black px-12 py-4 rounded-2xl hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 text-lg">
+                🔍 تصحيح الإجابات
+            </button>
+        </div>
+    </form>
+
+    <!-- صندوق النتيجة -->
+    <div id="resultBox" class="result-box mt-8 p-8 rounded-3xl text-center">
+        <h2 class="text-3xl font-black" id="resultTitle"></h2>
+        <p class="mt-2 text-lg" id="resultScore"></p>
+        <p class="mt-2" id="resultDetails"></p>
+        <button onclick="resetQuiz()" class="mt-6 bg-slate-200 px-8 py-3 rounded-2xl font-black hover:bg-slate-300 transition-all">
+            إعادة المحاولة
+        </button>
+    </div>
+
+</main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. التعلم بالممارسة هو الأفضل.
+</footer>
+
+<script src="../../../assets/js/app.js"></script>
+<script>
+    const answers = {
+        q1: 'b', q2: 'c', q3: 'a', q4: 'd', q5: 'b',
+        q6: 'true', q7: 'true'
+    };
+
+    document.getElementById('gradeBtn').addEventListener('click', function() {
+        let correct = 0;
+        let total = 7;
+        let allAnswered = true;
+
+        // Check MCQ and T/F
+        for (let i = 1; i <= 7; i++) {
+            const q = document.querySelector(`[name="q${i}"]:checked`);
+            const qDiv = document.querySelector(`[data-answer]`);
+            const allQs = document.querySelectorAll('.quiz-question');
+            const currentQ = allQs[i-1];
+            const explain = currentQ.querySelector('.explain-box');
+
+            if (!q) {
+                allAnswered = false;
+                continue;
+            }
+
+            if (q.value === answers[`q${i}`]) {
+                correct++;
+                currentQ.classList.add('correct');
+                currentQ.classList.remove('incorrect');
+            } else {
+                currentQ.classList.add('incorrect');
+                currentQ.classList.remove('correct');
+            }
+            explain.classList.add('show');
+        }
+
+        if (!allAnswered && correct === 0) {
+            alert('يرجى الإجابة على جميع الأسئلة أولاً.');
+            return;
+        }
+
+        // Include theory and practical (manual grading suggestion)
+        const resultBox = document.getElementById('resultBox');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultScore = document.getElementById('resultScore');
+        const resultDetails = document.getElementById('resultDetails');
+
+        resultBox.classList.add('show');
+
+        if (correct === total) {
+            resultTitle.textContent = '🎉 ممتاز! إجاباتك كلها صحيحة!';
+            resultBox.className = 'result-box show mt-8 p-8 rounded-3xl text-center bg-green-50 border border-green-300';
+        } else if (correct >= 5) {
+            resultTitle.textContent = '👍 جيد جداً! أحسنت';
+            resultBox.className = 'result-box show mt-8 p-8 rounded-3xl text-center bg-blue-50 border border-blue-300';
+        } else {
+            resultTitle.textContent = '📚 تحتاج إلى مراجعة';
+            resultBox.className = 'result-box show mt-8 p-8 rounded-3xl text-center bg-amber-50 border border-amber-300';
+        }
+
+        resultScore.textContent = `النتيجة: ${correct} من ${total} في الأسئلة الموضوعية`;
+        resultDetails.innerHTML = 'السؤالين 8 و 9 (النظري والعملي) يحتاجان إلى مراجعة المدرب. اجتهد في كتابتهما!';
+    });
+
+    function resetQuiz() {
+        document.querySelectorAll('input[type="radio"]').forEach(el => el.checked = false);
+        document.querySelectorAll('textarea').forEach(el => el.value = '');
+        document.querySelectorAll('.quiz-question').forEach(el => {
+            el.classList.remove('correct', 'incorrect');
+        });
+        document.querySelectorAll('.explain-box').forEach(el => el.classList.remove('show'));
+        document.getElementById('resultBox').classList.remove('show');
+    }
+</script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 25: Testing لاختبار الميزات المهمة</title>
+    <title>الدرس 25: Testing لاختبار الميزات المهمة | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +13,9 @@
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
         .step-card { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .error-card { border-right: 4px solid #ef4444; padding-right: 1.5rem; margin-bottom: 1rem; background: #fef2f2; border-radius: 1rem; padding: 1rem 1.5rem; }
+        .code-block { direction: ltr; text-align: left; }
+        .explain-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-left: 6px; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
@@ -28,75 +31,297 @@
         <aside class="hidden lg:block">
             <div class="sidebar-sticky space-y-4">
                 <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع السابع</a>
-                <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
+                <div class="card p-4 space-y-2 text-sm font-bold text-slate-600 bg-white rounded-2xl shadow-sm">
                     <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم الاختبارات</a>
                     <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">لماذا نكتب Tests؟</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال فحص السيارة</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#analogy">تشبيه واقعي</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">الربط مع FlowPilot</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#steps">الخطوات العملية</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">الأخطاء الشائعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#summary">الملخص</a>
                 </div>
             </div>
         </aside>
 
-        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm">
+        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm rounded-3xl">
+            <!-- Header Section -->
             <section class="border-b pb-8 mb-12">
                 <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 7 · الدرس 1</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">الاختبارات الآلية (Testing): كيف نضمن أن كودنا يعمل للأبد؟</h1>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">🧪 الاختبارات الآلية (Testing): كيف نضمن أن كودنا يعمل للأبد؟</h1>
                 <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"المبرمج المحترف لا يختبر الكود يدوياً في كل مرة؛ بل يكتب كوداً يختبر كوده!"</p>
             </section>
 
-            <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هي الاختبارات (Tests)؟</h2>
+            <!-- Intro Section -->
+            <section id="intro" class="space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">🔍 ما هي الاختبارات (Tests)؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    هي عبارة عن ملفات برمجية نكتبها لتقوم بفتح صفحات الموقع، تعبئة النماذج، والتأكد من أن النتيجة صحيحة بشكل آلي سريع جداً.
+                    <strong>الاختبارات</strong> هي عبارة عن ملفات برمجية نكتبها بلغة PHP (في حالة Laravel) تقوم بمحاكاة سلوك المستخدم الحقيقي. تفتح صفحات، تضغط على أزرار، ترسل بيانات، وتتأكد أن النتيجة صحيحة. كل هذا يحدث بشكل <strong>آلي</strong> خلال ثوانٍ.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    تخيل أنك قمت بتعديل نظام تسجيل الدخول في FlowPilot. هل ستجرب كل الاحتمالات يدوياً؟ بوجود الـ <strong>Tests</strong>، يمكنك تشغيل أمر واحد ليقوم بفحص مئات الحالات في ثوانٍ.
+                    تخيل أنك مطور في فريق FlowPilot. طلب منك مديرك إضافة ميزة "تصفية المشاريع حسب التاريخ". بعد كتابة الكود، كيف تتأكد أن الميزة الجديدة لم تفسد شيئاً قديماً؟ الإجابة: <strong>تشغل الاختبارات</strong>.
                 </p>
-            </section>
-
-            <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">لماذا نتعب في كتابتها؟</h2>
-                <div class="space-y-4 text-slate-600 leading-relaxed">
-                    <ul class="list-disc pr-6 space-y-2">
-                        <li><strong>منع التراجع (Regression):</strong> تضمن أن تعديل اليوم لن يفسد ميزة برمجتها قبل شهر.</li>
-                        <li><strong>الثقة:</strong> تسمح لك برفع الكود للسيرفر وأنت مطمئن تماماً.</li>
-                        <li><strong>التوثيق:</strong> ملفات الاختبار توضح لأي مبرمج جديد كيف يجب أن يعمل التطبيق.</li>
-                    </ul>
+                <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
+                    <p class="font-bold text-indigo-800">⚡ مصطلح مهم: Test Suite</p>
+                    <p class="text-indigo-700">هو مجموعة كل ملفات الاختبار في مشروعك. كلما زادت، زادت ثقتك بجودة الكود.</p>
                 </div>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
-                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (فحص السيارة)</h2>
-                <p class="text-indigo-50 leading-relaxed text-lg">
-                    تخيل أنك تملك مصنع سيارات. 
-                    <br><br>
-                    - <strong>الاختبار اليدوي:</strong> هو أن يركب الموظف كل سيارة ويجربها بنفسه. (بطيء وممل).
-                    <br>
-                    - <strong>الاختبار الآلي:</strong> هو وجود روبوت يضغط على الفرامل، يشغل المصابيح، ويفحص المحرك في ثوانٍ ويعطي إشارة خضراء. (سريع ودقيق).
-                </p>
+            <!-- Theory Section -->
+            <section id="theory" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">📚 لماذا نكتب الاختبارات؟ (القيمة الحقيقية)</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <div class="flex gap-4 items-start bg-slate-50 p-5 rounded-2xl">
+                        <span class="text-3xl">🛡️</span>
+                        <div>
+                            <h3 class="font-black text-slate-900">1. منع التراجع (Regression Protection)</h3>
+                            <p>تضمن أن أي تعديل جديد لا يكسر شيئاً كان يعمل سابقاً. مثلاً: إضافة حقل "تاريخ الاستحقاق" للمهام لا يجب أن يعطل عرض قائمة المهام.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start bg-slate-50 p-5 rounded-2xl">
+                        <span class="text-3xl">✅</span>
+                        <div>
+                            <h3 class="font-black text-slate-900">2. الثقة عند النشر (Deployment Confidence)</h3>
+                            <p>قبل رفع الكود إلى سيرفر الإنتاج (Production Server)، تشغل الاختبارات. إذا كانت كلها <span class="text-green-600 font-bold">خضراء ✅</span>، يمكنك النوم مرتاحاً.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start bg-slate-50 p-5 rounded-2xl">
+                        <span class="text-3xl">📖</span>
+                        <div>
+                            <h3 class="font-black text-slate-900">3. توثيق حي (Living Documentation)</h3>
+                            <p>ملف الاختبار يشرح بالضبط كيف يفترض أن تعمل كل ميزة. أي مبرمج جديد يقرأ الاختبارات سيفهم النظام بسرعة.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start bg-slate-50 p-5 rounded-2xl">
+                        <span class="text-3xl">⏱️</span>
+                        <div>
+                            <h3 class="font-black text-slate-900">4. توفير الوقت على المدى البعيد</h3>
+                            <p>كتابة اختبار تأخذ 10 دقائق الآن، لكنها قد توفر لك ساعات من التصحيح اليدوي بعد شهر.</p>
+                        </div>
+                    </div>
+                </div>
             </section>
 
-            <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي</h2>
+            <!-- Analogy Section -->
+            <section id="analogy" class="mt-16 p-8 rounded-3xl bg-gradient-to-l from-indigo-600 to-indigo-700 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">🚗 تشبيه واقعي: فحص السيارة في المصنع</h2>
+                <p class="text-indigo-50 leading-relaxed text-lg">
+                    تخيل أنك تملك مصنع سيارات. كل يوم تنتج 100 سيارة.
+                </p>
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                    <div class="bg-white/10 p-5 rounded-2xl">
+                        <p class="font-black text-lg">👨‍🔧 الطريقة اليدوية</p>
+                        <p class="text-indigo-200">موظف يركب كل سيارة، يدور بالمفتاح، يضغط الفرامل، يتأكد من الأنوار. لكل سيارة 20 دقيقة. هذا <strong>بطيء وممل وعرضة للخطأ</strong>.</p>
+                    </div>
+                    <div class="bg-white/10 p-5 rounded-2xl">
+                        <p class="font-black text-lg">🤖 الطريقة الآلية (Testing)</p>
+                        <p class="text-indigo-200">روبوت مبرمج يختبر 100 سيارة في 5 دقائق. يفحص المحرك، الفرامل، الأنوار، المكيف. يعطي تقريراً: <span class="text-green-300">100 سيارة سليمة ✅</span> أو <span class="text-red-300">السيارة رقم 7 فيها عطل ❌</span>.</p>
+                    </div>
+                </div>
+                <p class="mt-6 text-indigo-100 font-bold">الخلاصة: Testing هو "الروبوت" الذي يفحص تطبيقك نيابة عنك.</p>
+            </section>
 
+            <!-- FlowPilot Link Section -->
+            <section id="flowpilot" class="mt-16 p-8 rounded-3xl bg-teal-50 border border-teal-200">
+                <h2 class="text-2xl font-black text-teal-900 border-r-4 border-teal-500 pr-4">🔗 كيف نستخدم Testing في FlowPilot؟</h2>
+                <p class="mt-4 text-teal-800 leading-relaxed">
+                    في مشروع FlowPilot، سنكتب اختبارات تغطي السيناريوهات التالية:
+                </p>
+                <ul class="mt-4 space-y-3 text-teal-800 font-medium">
+                    <li class="flex items-center gap-2"><span class="explain-dot bg-teal-500"></span> <strong>زيارة صفحة المشاريع:</strong> نتأكد أن المستخدم المسجل يستطيع رؤية قائمة مشاريعه.</li>
+                    <li class="flex items-center gap-2"><span class="explain-dot bg-teal-500"></span> <strong>إنشاء مشروع جديد:</strong> نتأكد أن إرسال النموذج ينشئ مشروعاً في قاعدة البيانات.</li>
+                    <li class="flex items-center gap-2"><span class="explain-dot bg-teal-500"></span> <strong>التحكم بالصلاحيات (Policy):</strong> نتأكد أن المستخدم "أ" لا يستطيع تعديل مشروع المستخدم "ب".</li>
+                    <li class="flex items-center gap-2"><span class="explain-dot bg-teal-500"></span> <strong>تسجيل الخروج:</strong> نتأكد أن زر تسجيل الخروج يعيد التوجيه إلى صفحة تسجيل الدخول.</li>
+                </ul>
+            </section>
+
+            <!-- Practical Steps Section -->
+            <section id="steps" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">🛠️ التطبيق العملي خطوة بخطوة</h2>
+
+                <!-- Step 1 -->
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء اختبار لصفحة المشاريع</h3>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء ملف الاختبار</h3>
+                    <p class="text-slate-500 mb-3">نستخدم أمر Artisan لإنشاء ملف اختبار Feature مخصص للمشاريع:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 code-block">
                         <p>php artisan make:test ProjectTest</p>
                     </div>
+                    <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200">
+                        <p class="text-amber-800"><strong>💡 شرح:</strong> هذا الأمر يُنشئ ملفاً جديداً في المسار <code>tests/Feature/ProjectTest.php</code>. اسم الملف يتبع <strong>PascalCase</strong> (كل كلمة تبدأ بحرف كبير).</p>
+                    </div>
                 </div>
 
+                <!-- Step 2 -->
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: كتابة أول حالة فحص</h3>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
-                        <p>public function test_projects_page_is_accessible() {</p>
-                        <p>&nbsp;&nbsp;$response = $this->get('/projects');</p>
-                        <p>&nbsp;&nbsp;$response->assertStatus(200);</p>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: كتابة اختبار فتح صفحة المشاريع</h3>
+                    <p class="text-slate-500 mb-3">نفتح الملف الذي تم إنشاؤه ونكتب أول دالة اختبار:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 code-block">
+                        <p>public function test_projects_page_is_accessible(): void</p>
+                        <p>{</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$response = $this->get('/projects');</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$response->assertStatus(200);</p>
                         <p>}</p>
                     </div>
+                    <div class="space-y-2 text-slate-600">
+                        <p><strong>🔍 شرح الكود سطراً سطراً:</strong></p>
+                        <p><code>public function test_projects_page_is_accessible(): void</code> — تعريف دالة عامة. كل دالة تبدأ بكلمة <code>test_</code> يعتبرها Laravel اختباراً.</p>
+                        <p><code>$response = $this->get('/projects');</code> — نستخدم <code>$this->get()</code> لإرسال طلب HTTP من نوع GET إلى الرابط <code>/projects</code>. النتيجة تحفظ في <code>$response</code>.</p>
+                        <p><code>$response->assertStatus(200);</code> — نتأكد أن الاستجابة تحمل رمز الحالة 200، أي أن الصفحة فتحت بنجاح.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: اختبار إنشاء مشروع (مع مصادقة)</h3>
+                    <p class="text-slate-500 mb-3">لنكتب اختباراً يتأكد من أن المستخدم المسجل يمكنه إنشاء مشروع:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 code-block">
+                        <p>public function test_authenticated_user_can_create_project(): void</p>
+                        <p>{</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$user = User::factory()->create();</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$this->actingAs($user);</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$response = $this->post('/projects', [</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name' => 'مشروع تجريبي',</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'description' => 'وصف المشروع',</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;]);</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$response->assertStatus(302);</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$this->assertDatabaseHas('projects', [</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name' => 'مشروع تجريبي',</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;]);</p>
+                        <p>}</p>
+                    </div>
+                    <div class="space-y-2 text-slate-600 mt-3">
+                        <p><strong>🔍 التحليل:</strong></p>
+                        <p><code>User::factory()->create()</code> — ينشئ مستخدم وهمي باستخدام <strong>Factory</strong> (مصنع بيانات).</p>
+                        <p><code>$this->actingAs($user)</code> — يسجل دخول المستخدم الوهمي للنظام.</p>
+                        <p><code>$this->post('/projects', [...])</code> — يرسل طلب POST (مثل إرسال نموذج).</p>
+                        <p><code>assertStatus(302)</code> — نتأكد من التوجيه (Redirect) بعد الإنشاء الناجح.</p>
+                        <p><code>assertDatabaseHas('projects', [...])</code> — نتأكد أن البيانات حُفظت فعلاً في قاعدة البيانات.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: اختبار صلاحيات الوصول (Policy)</h3>
+                    <p class="text-slate-500 mb-3">نتأكد أن المستخدم لا يستطيع تعديل مشروع ليس ملكه:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 code-block">
+                        <p>public function test_user_cannot_update_others_project(): void</p>
+                        <p>{</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$owner = User::factory()->create();</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$otherUser = User::factory()->create();</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$project = Project::factory()->create([</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'user_id' => $owner->id</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;]);</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$this->actingAs($otherUser);</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$response = $this->put("/projects/{$project->id}", [</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name' => 'اسم معدل'</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;]);</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$response->assertStatus(403);</p>
+                        <p>}</p>
+                    </div>
+                    <div class="space-y-2 text-slate-600 mt-3">
+                        <p><strong>🔍 التحليل:</strong></p>
+                        <p><code>assertStatus(403)</code> — 403 يعني "ممنوع" (Forbidden). نتأكد أن النظام منع المستخدم.</p>
+                        <p>لاحظ: هذا الاختبار يعتمد على وجود <strong>Policy</strong> في Laravel تتحكم بصلاحيات التعديل.</p>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: تشغيل جميع الاختبارات</h3>
+                    <p class="text-slate-500 mb-3">نشغل الأمر التالي في التيرمنال:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-yellow-400 overflow-x-auto mb-4 code-block">
+                        <p>php artisan test</p>
+                    </div>
+                    <p class="text-slate-600">ستظهر شاشة ملونة. إذا كانت كل الاختبارات <span class="text-green-600 font-bold">خضراء ✅</span>، فتهانينا! كودك آمن.</p>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 6: تشغيل اختبار واحد فقط</h3>
+                    <p class="text-slate-500 mb-3">لتوفير الوقت، يمكنك تشغيل اختبار معين باسم الملف:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-yellow-400 overflow-x-auto mb-4 code-block">
+                        <p>php artisan test --filter ProjectTest</p>
+                    </div>
+                    <p class="text-slate-600">الـ <code>--filter</code> يسمح بتصفية الاختبارات التي تحتوي على الكلمة المحددة.</p>
                 </div>
             </section>
 
+            <!-- Expected Result Section -->
+            <section id="expected" class="mt-16 p-8 rounded-3xl bg-green-50 border border-green-200">
+                <h2 class="text-2xl font-black text-green-900 border-r-4 border-green-500 pr-4">🎯 النتيجة المتوقعة</h2>
+                <p class="mt-4 text-green-800 leading-relaxed">
+                    بعد تنفيذ الخطوات السابقة، عند تشغيل <code>php artisan test</code> يجب أن ترى:
+                </p>
+                <div class="bg-green-900 rounded-2xl p-6 font-mono text-sm text-green-300 mt-4 code-block">
+                    <p>PASS  Tests\Feature\ProjectTest</p>
+                    <p>✓ projects page is accessible</p>
+                    <p>✓ authenticated user can create project</p>
+                    <p>✓ user cannot update others project</p>
+                    <p>Tests:    3 passed</p>
+                </div>
+                <p class="mt-4 text-green-800 font-bold">كل كلمة "PASS" أو "✓" تعني أن الاختبار نجح. إذا ظهر "FAIL" أو "✗" فهناك خطأ في الكود.</p>
+            </section>
+
+            <!-- Common Errors Section -->
+            <section id="errors" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-red-500 pr-4">⚠️ الأخطاء الشائعة التي قد تواجهك</h2>
+
+                <div class="error-card">
+                    <h3 class="font-black text-red-700">🚫 الخطأ 1: لا يوجد جدول في قاعدة البيانات</h3>
+                    <p class="text-red-600">إذا ظهر خطأ <code>Base table or view not found</code>، فهذا يعني أن جدول <code>projects</code> غير موجود.</p>
+                    <p class="text-red-700 mt-2"><strong>الحل:</strong> شغل <code>php artisan migrate</code> أولاً لإنشاء الجداول.</p>
+                </div>
+
+                <div class="error-card">
+                    <h3 class="font-black text-red-700">🚫 الخطأ 2: مصادقة مطلوبة (Unauthenticated)</h3>
+                    <p class="text-red-600">إذا ظهر خطأ <code>Expected response status code 200 but received 302</code>، يعني أن الصفحة تعيد التوجيه إلى تسجيل الدخول.</p>
+                    <p class="text-red-700 mt-2"><strong>الحل:</strong> استخدم <code>$this->actingAs($user)</code> قبل محاولة زيارة الصفحة المحمية.</p>
+                </div>
+
+                <div class="error-card">
+                    <h3 class="font-black text-red-700">🚫 الخطأ 3: إملاء خاطئ لأسماء الحقول</h3>
+                    <p class="text-red-600">إذا ظهر <code>SQLSTATE[HY000]: General error</code>، قد يكون اسم حقل في قاعدة البيانات خطأ.</p>
+                    <p class="text-red-700 mt-2"><strong>الحل:</strong> تأكد أن أسماء الحقول تطابق تماماً ما في ملف <code>migration</code>.</p>
+                </div>
+
+                <div class="error-card">
+                    <h3 class="font-black text-red-700">🚫 الخطأ 4: اختبار وحيد يتسبب بفشل باقي الاختبارات</h3>
+                    <p class="text-red-600">أحياناً اختبار يعدل قاعدة البيانات ويؤثر على الاختبار التالي.</p>
+                    <p class="text-red-700 mt-2"><strong>الحل:</strong> استخدم <code>use RefreshDatabase;</code> في بداية كلاس الاختبار لإعادة تعيين قاعدة البيانات بعد كل اختبار.</p>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section id="summary" class="mt-16 p-8 rounded-3xl bg-gradient-to-l from-slate-800 to-slate-900 text-white">
+                <h2 class="text-2xl font-black mb-4">📋 الملخص النهائي</h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white/10 p-4 rounded-2xl">
+                        <p class="font-black">📌 ما تعلمناه:</p>
+                        <ul class="list-disc pr-5 mt-2 space-y-1 text-slate-300">
+                            <li>Testing = كود يختبر كود آخر آلياً</li>
+                            <li>نوعان: Feature tests (للميزات) و Unit tests (للأجزاء الصغيرة)</li>
+                            <li>أداة Pest هي الافتراضية في Laravel 12</li>
+                            <li>الأمر <code>php artisan make:test</code> ينشئ ملف اختبار</li>
+                            <li>الدوال تبدأ بـ <code>test_</code> ليتعرف عليها Laravel</li>
+                            <li><code>assertStatus()</code> و <code>assertDatabaseHas()</code> دوال تحقق</li>
+                            <li>الـ Policy تتحكم بالصلاحيات ونختبرها بسيناريوهات</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white/10 p-4 rounded-2xl">
+                        <p class="font-black">💡 تذكر دائماً:</p>
+                        <ul class="list-disc pr-5 mt-2 space-y-1 text-slate-300">
+                            <li>الاختبارات توفر الوقت على المدى البعيد</li>
+                            <li>الاختبارات توثق الكود لمن يأتي بعدك</li>
+                            <li>الاختبارات تمنحك الثقة للنشر في الإنتاج</li>
+                            <li>ابدأ باختبارات بسيطة ثم زد التعقيد</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-6 p-4 bg-indigo-600/30 rounded-2xl text-center">
+                    <p class="text-xl font-black">"الكود بدون اختبارات هو كود ميت لم يولد بعد."</p>
+                </div>
+            </section>
+
+            <!-- Navigation -->
             <div class="mt-12 flex justify-between gap-4">
                 <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-06/lesson-04/index.html">← الدرس السابق</a>
                 <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../../week-07/lesson-02/index.html">الدرس التالي: جودة المكونات ←</a>

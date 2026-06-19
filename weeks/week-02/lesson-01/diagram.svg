@@ -1,27 +1,108 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
-  <rect width="800" height="300" fill="#f8fafc" rx="20"/>
-  
-  <!-- Browser -->
-  <rect x="40" y="100" width="180" height="120" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="2"/>
-  <text x="130" y="150" text-anchor="middle" font-weight="bold">المتصفح</text>
-  <text x="130" y="175" text-anchor="middle" font-size="12">طلب /dashboard</text>
-  
-  <!-- Laravel Route -->
-  <rect x="310" y="100" width="180" height="120" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
-  <text x="400" y="150" text-anchor="middle" font-weight="bold" fill="#991b1b">Laravel Route</text>
-  <text x="400" y="175" text-anchor="middle" font-size="12" fill="#b91c1c">توجيه الطلب</text>
-  
-  <!-- React Page -->
-  <rect x="580" y="100" width="180" height="120" rx="10" fill="#e0f2fe" stroke="#0ea5e9" stroke-width="2"/>
-  <text x="670" y="150" text-anchor="middle" font-weight="bold" fill="#075985">React Page</text>
-  <text x="670" y="175" text-anchor="middle" font-size="12" fill="#0369a1">عرض الواجهة</text>
-  
-  <path d="M 220 160 L 300 160" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr)"/>
-  <path d="M 490 160 L 570 160" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr)"/>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
   <defs>
-    <marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#94a3b8" /></marker>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#64748b"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#10b981"/>
+    </marker>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#eef2ff;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="120%">
+      <feDropShadow dx="2" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
   </defs>
-  
-  <text x="400" y="50" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="24" fill="#0f172a">دورة حياة طلب المسار (Routing)</text>
+
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#bgGrad)" rx="24"/>
+
+  <!-- Title -->
+  <text x="400" y="45" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="900" font-size="22" fill="#0f172a">دورة حياة طلب المسار (Route Lifecycle)</text>
+  <text x="400" y="70" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="13" fill="#64748b">رحلة المستخدم من المتصفح إلى صفحة React والعودة</text>
+
+  <!-- Step 1: Browser -->
+  <g filter="url(#shadow)">
+    <rect x="40" y="100" width="160" height="110" rx="16" fill="#ffffff" stroke="#6366f1" stroke-width="2.5"/>
+    <rect x="40" y="100" width="160" height="35" rx="16" fill="#6366f1"/>
+    <rect x="40" y="120" width="160" height="15" fill="#6366f1"/>
+    <circle cx="60" cy="117" r="6" fill="#ffffff" opacity="0.8"/>
+    <circle cx="78" cy="117" r="6" fill="#ffffff" opacity="0.5"/>
+    <circle cx="96" cy="117" r="6" fill="#ffffff" opacity="0.3"/>
+    <text x="120" y="165" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="900" font-size="14" fill="#0f172a">🌐 المتصفح</text>
+    <text x="120" y="190" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="11" fill="#6366f1">flowpilot.com/projects</text>
+  </g>
+
+  <!-- Arrow 1: Browser to Route -->
+  <path d="M205 155 L255 155" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="230" y="145" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#64748b">طلب HTTP</text>
+
+  <!-- Step 2: Route -->
+  <g filter="url(#shadow)">
+    <rect x="260" y="95" width="160" height="120" rx="16" fill="#fef2f2" stroke="#ef4444" stroke-width="2.5"/>
+    <rect x="260" y="95" width="160" height="35" rx="16" fill="#ef4444"/>
+    <rect x="260" y="115" width="160" height="15" fill="#ef4444"/>
+    <text x="340" y="155" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="900" font-size="14" fill="#991b1b">📍 Route</text>
+    <text x="340" y="178" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="11" fill="#dc2626">Route::get('/projects')</text>
+    <text x="340" y="198" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#991b1b">يحدد المسار المناسب</text>
+  </g>
+
+  <!-- Arrow 2: Route to Controller -->
+  <path d="M425 155 L475 155" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="450" y="145" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#64748b">توجيه</text>
+
+  <!-- Step 3: Controller -->
+  <g filter="url(#shadow)">
+    <rect x="480" y="95" width="160" height="120" rx="16" fill="#fffbeb" stroke="#f59e0b" stroke-width="2.5"/>
+    <rect x="480" y="95" width="160" height="35" rx="16" fill="#f59e0b"/>
+    <rect x="480" y="115" width="160" height="15" fill="#f59e0b"/>
+    <text x="560" y="155" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="900" font-size="14" fill="#92400e">⚙️ Controller</text>
+    <text x="560" y="178" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="11" fill="#d97706">ProjectController</text>
+    <text x="560" y="198" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#92400e">يجمع البيانات</text>
+  </g>
+
+  <!-- Arrow 3: Controller to Inertia -->
+  <path d="M645 155 L690 155" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="667" y="145" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#64748b">استدعاء</text>
+
+  <!-- Step 4: Inertia -->
+  <g filter="url(#shadow)">
+    <rect x="695" y="95" width="80" height="120" rx="16" fill="#e0f2fe" stroke="#0ea5e9" stroke-width="2.5"/>
+    <rect x="695" y="95" width="80" height="35" rx="16" fill="#0ea5e9"/>
+    <rect x="695" y="115" width="80" height="15" fill="#0ea5e9"/>
+    <text x="735" y="140" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="900" font-size="11" fill="#075985">Inertia</text>
+    <text x="735" y="165" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#0369a1">توصيل</text>
+    <text x="735" y="185" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#0369a1">البيانات</text>
+  </g>
+
+  <!-- Bottom flow: Inertia to React Page -->
+  <path d="M735 220 L735 260" stroke="#10b981" stroke-width="3" marker-end="url(#arrow-green)"/>
+  <text x="755" y="248" text-anchor="start" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#10b981">يرسل البيانات</text>
+
+  <!-- Step 5: React Page -->
+  <g filter="url(#shadow)">
+    <rect x="600" y="265" width="200" height="110" rx="16" fill="#f0fdf4" stroke="#10b981" stroke-width="2.5"/>
+    <rect x="600" y="265" width="200" height="35" rx="16" fill="#10b981"/>
+    <rect x="600" y="285" width="200" height="15" fill="#10b981"/>
+    <text x="700" y="325" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="900" font-size="14" fill="#065f46">⚛️ صفحة React</text>
+    <text x="700" y="350" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="11" fill="#059669">Projects/Index.jsx</text>
+    <text x="700" y="368" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#065f46">تعرض الواجهة للمستخدم</text>
+  </g>
+
+  <!-- Server label -->
+  <rect x="40" y="280" width="200" height="95" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="140" y="310" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-weight="700" font-size="13" fill="#64748b">🧑‍💻 جانب الخادم (Server)</text>
+  <text x="140" y="335" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="11" fill="#94a3b8">Laravel يعالج الطلب</text>
+  <text x="140" y="355" text-anchor="middle" font-family="Tajawal, Tahoma, sans-serif" font-size="11" fill="#94a3b8">ويجهز البيانات</text>
+
+  <!-- Legend -->
+  <rect x="40" y="255" width="12" height="12" rx="3" fill="#ef4444"/>
+  <text x="56" y="266" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#64748b">توجيه</text>
+  <rect x="110" y="255" width="12" height="12" rx="3" fill="#f59e0b"/>
+  <text x="126" y="266" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#64748b">معالجة</text>
+  <rect x="185" y="255" width="12" height="12" rx="3" fill="#0ea5e9"/>
+  <text x="201" y="266" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#64748b">ربط</text>
+  <rect x="245" y="255" width="12" height="12" rx="3" fill="#10b981"/>
+  <text x="261" y="266" font-family="Tajawal, Tahoma, sans-serif" font-size="10" fill="#64748b">عرض</text>
 </svg>

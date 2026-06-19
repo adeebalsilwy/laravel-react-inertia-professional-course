@@ -12,6 +12,7 @@
         :root { font-family: 'Tajawal', sans-serif; }
         .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
         .card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; transition: all 0.3s ease; }
+        .card:hover { border-color: #6366f1; transform: translateY(-4px); }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -23,7 +24,7 @@
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../index.html">الرئيسية</a>
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="curriculum.html">الفهرس</a>
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="lessons.html">الدروس</a>
-            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="beginner-guide.html">دليل المبتدئ</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="beginner-guide.html">دليل الطالب</a>
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="project.html">المشروع العملي</a>
         </nav>
         <button onclick="toggleMenu()" class="md:hidden rounded-xl border border-slate-200 bg-white px-3 py-2 hover:bg-slate-50 transition-all">☰</button>
@@ -32,125 +33,234 @@
         <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="../index.html">الرئيسية</a>
         <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="curriculum.html">الفهرس</a>
         <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="lessons.html">الدروس</a>
-        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="beginner-guide.html">دليل المبتدئ</a>
+        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="beginner-guide.html">دليل الطالب</a>
         <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="project.html">المشروع العملي</a>
     </div>
 </header>
 
 <main class="mx-auto max-w-7xl px-4 py-12 text-right">
-    <section class="page-hero space-y-6 py-12">
-        <span class="badge bg-indigo-50 text-indigo-700 font-bold px-4 py-2 rounded-full">المشروع التطبيقي المتكامل</span>
-        <h1 class="text-4xl md:text-6xl font-black text-slate-900 leading-tight">FlowPilot: منصة إدارة <br><span class="text-indigo-600">المشاريع والفرق</span></h1>
+    <section class="space-y-6 py-12">
+        <span class="px-4 py-2 rounded-full bg-indigo-50 text-indigo-700 font-bold text-sm">المشروع التطبيقي المتكامل للدورة</span>
+        <h1 class="text-4xl md:text-6xl font-black text-slate-900 leading-tight">FlowPilot: منصة إدارة <span class="text-indigo-600">المشاريع والفرق والمهام</span></h1>
         <p class="text-lg md:text-xl text-slate-600 max-w-3xl leading-relaxed">
-            تعلم البرمجة لا يحدث من خلال قراءة الكتب فقط، بل من خلال بناء مشاريع حقيقية. <strong>FlowPilot</strong> هو مشروعنا العملي الذي سنقوم ببنائه سوياً طوال الـ 8 أسابيع القادمة.
+            <strong>FlowPilot</strong> هو مشروع عملي سنبنيه معاً خطوة بخطوة طوال 8 أسابيع. هو ليس مجرد أمثلة منفصلة - إنه نظام متكامل ستتعلم من خلاله كل مفاهيم Laravel 12 و React و Inertia.js و Tailwind CSS في سياق تطبيق حقيقي.
         </p>
     </section>
 
-    <div class="grid lg:grid-cols-3 gap-8 mt-16">
+    <div class="grid lg:grid-cols-3 gap-8 mt-8">
         <div class="lg:col-span-2 space-y-12">
-            <!-- Project Concept -->
+
+            <!-- What is FlowPilot -->
             <section class="card p-8 md:p-10 space-y-6 shadow-sm">
-                <h2 class="text-3xl font-black flex items-center gap-3">
-                    <span class="text-indigo-600">01.</span> ما هي فكرة المشروع؟
-                </h2>
+                <h2 class="text-3xl font-black">ما هي فكرة FlowPilot؟</h2>
                 <div class="text-slate-600 leading-relaxed space-y-4">
-                    <p>
-                        <strong>FlowPilot</strong> هي منصة سحابية تساعد الفرق على تنظيم عملها. يمكن للمستخدم إنشاء مشاريع، إضافة مهام، تعيين أعضاء لكل مهمة، ومتابعة تقدم العمل في لوحة تحكم ذكية.
-                    </p>
-                    <p>
-                        المشروع ليس مجرد تطبيق بسيط، بل هو نظام متكامل يتعامل مع قواعد البيانات، الصلاحيات، رفع الملفات، والتنبيهات، مما يجعله نموذجاً مثالياً للتطبيقات التي تُطلب في سوق العمل.
-                    </p>
+                    <p>FlowPilot هي منصة سحابية (تعمل عبر المتصفح) تساعد الفرق على تنظيم مشاريعها ومهامها. الفكرة بسيطة: كل مشروع يحتوي على مهام، كل مهمة لها حالة (جديد، قيد التنفيذ، منجز)، وكل فريق يمكنه إدارة مشاريعه الخاصة.</p>
+                    <p>ما يميز FlowPilot عن التطبيقات التعليمية البسيطة أنه يتعامل مع مفاهيم حقيقية موجودة في أي تطبيق ويب احترافي مثل: تسجيل الدخول، الصلاحيات، قواعد البيانات، العلاقات، رفع الملفات، البحث، التنبيهات، وسجل النشاط.</p>
                 </div>
             </section>
 
-            <!-- Tech Stack -->
+            <!-- The Problem -->
             <section class="card p-8 md:p-10 space-y-6 shadow-sm">
-                <h2 class="text-3xl font-black flex items-center gap-3 text-slate-900">
-                    <span class="text-indigo-600">02.</span> كيف سنستخدم التقنيات؟
-                </h2>
+                <h2 class="text-3xl font-black">ما المشكلة التي يحلها FlowPilot؟</h2>
+                <div class="text-slate-600 leading-relaxed space-y-4">
+                    <p>تخيل أن فريقاً صغيراً يعمل على مشروع برمجي. كيف يتتبعون المهام؟ كيف يعرف كل عضو ما المطلوب منه؟ كيف يعرف مدير الفريق حالة كل مهمة؟</p>
+                    <p>بدون نظام إدارة مشاريع، يضيع الوقت في المراسلة والمتابعة اليدوية. FlowPilot يحل هذه المشكلة بتوفير منصة مركزية يستطيع الفريق من خلالها:</p>
+                    <ul class="space-y-2 pr-6 list-disc">
+                        <li>إنشاء مشاريع متعددة وتنظيمها.</li>
+                        <li>إضافة مهام وتعيينها لأعضاء الفريق.</li>
+                        <li>متابعة حالة المهام في لوحة Kanhan بصرية.</li>
+                        <li>إرفاق ملفات بالمهام للتوثيق.</li>
+                        <li>تسجيل كل حدث في سجل نشاط واضح.</li>
+                        <li>استلام تنبيهات عند تغيير المهام.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Tech Stack Deep -->
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm">
+                <h2 class="text-3xl font-black">كيف سنستخدم Laravel و React و Inertia و Tailwind؟</h2>
                 <div class="grid md:grid-cols-2 gap-6">
-                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-                        <h4 class="font-black text-slate-900">Laravel 12</h4>
-                        <p class="text-sm text-slate-600 mt-1">سيكون هو "عقل" التطبيق. سيتعامل مع قاعدة البيانات، يتحقق من هوية المستخدمين، ويدير المنطق الخاص بالمهام والمشاريع.</p>
+                    <div class="p-6 rounded-2xl bg-indigo-50 border border-indigo-100">
+                        <h4 class="font-black text-indigo-900">🔧 Laravel 12 (الخلفية)</h4>
+                        <p class="text-sm text-indigo-800 mt-2">Laravel هو المسؤول عن الجزء الخلفي من التطبيق (Backend). هو الذي يستقبل طلبات المستخدم من المتصفح، يتصل بقاعدة البيانات، يتحقق من صلاحيات المستخدم، ويعيد النتيجة المناسبة.</p>
+                        <p class="text-sm text-indigo-700 mt-2 font-bold">في FlowPilot، Laravel يدير: المسارات، Controllers، Models، التحقق من صحة البيانات، الاستعلامات، Policies، Middleware، Notifications، و Jobs.</p>
                     </div>
-                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-                        <h4 class="font-black text-slate-900">React</h4>
-                        <p class="text-sm text-slate-600 mt-1">سيكون هو "وجه" التطبيق. سنستخدمه لبناء واجهات جميلة وتفاعلية تجعل تجربة المستخدم سلسة وسريعة.</p>
+                    <div class="p-6 rounded-2xl bg-sky-50 border border-sky-100">
+                        <h4 class="font-black text-sky-900">⚛️ React (الواجهة)</h4>
+                        <p class="text-sm text-sky-800 mt-2">React هو المسؤول عن واجهة المستخدم (Frontend). هو الذي يبني الصفحات التي يراها المستخدم ويتفاعل معها. كل صفحة في FlowPilot هي Component React.</p>
+                        <p class="text-sm text-sky-700 mt-2 font-bold">في FlowPilot، React تبني: الصفحات (Pages)، الـ Layouts، الـ Components المتكررة (بطاقات المشاريع، جداول المهام، نماذج الإدخال)، ولوحة Kanban.</p>
                     </div>
-                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-                        <h4 class="font-black text-slate-900">Inertia.js</h4>
-                        <p class="text-sm text-slate-600 mt-1">هو "الجسر" الذي يربط Laravel بـ React، مما يسمح لنا ببناء تطبيق الصفحة الواحدة (SPA) بسهولة تامة.</p>
+                    <div class="p-6 rounded-2xl bg-emerald-50 border border-emerald-100">
+                        <h4 class="font-black text-emerald-900">🔗 Inertia.js (الجسر)</h4>
+                        <p class="text-sm text-emerald-800 mt-2">Inertia هو الطبقة التي تربط Laravel بـ React. بدلاً من بناء API منفصل (REST API) والتعامل مع JSON، Inertia يسمح لـ Laravel بإرسال البيانات مباشرة إلى Components React.</p>
+                        <p class="text-sm text-emerald-700 mt-2 font-bold">في FlowPilot، Inertia يسمح لنا بكتابة التطبيق كتطبيق صفحة واحدة (SPA) دون تعقيد API منفصل.</p>
                     </div>
-                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-                        <h4 class="font-black text-slate-900">Tailwind CSS</h4>
-                        <p class="text-sm text-slate-600 mt-1">هو "الرسام" الذي سيجعل تطبيقنا يبدو احترافياً وعصرياً بأقل مجهود وبأفضل أداء.</p>
+                    <div class="p-6 rounded-2xl bg-amber-50 border border-amber-100">
+                        <h4 class="font-black text-amber-900">🎨 Tailwind CSS (التصميم)</h4>
+                        <p class="text-sm text-amber-800 mt-2">Tailwind هو إطار عمل CSS يساعدنا في تصميم الواجهات بسرعة. بدلاً من كتابة CSS مخصص لكل عنصر، نستخدم classes جاهزة مثل p-4 و text-xl و bg-indigo-600.</p>
+                        <p class="text-sm text-amber-700 mt-2 font-bold">في FlowPilot، Tailwind يجعل كل صفحة ذات مظهر احترافي ومتجاوب مع جميع أحجام الشاشات.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Roadmap -->
+            <!-- Key Features -->
             <section class="card p-8 md:p-10 space-y-6 shadow-sm">
-                <h2 class="text-3xl font-black">رحلة تطوير المشروع</h2>
-                <div class="space-y-6">
-                    <div class="flex gap-4">
-                        <div class="flex-none w-12 h-12 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">1</div>
+                <h2 class="text-3xl font-black">ما المميزات التي سنبنيها؟</h2>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div class="p-4 rounded-2xl bg-slate-50 border">
+                        <h4 class="font-black text-indigo-700">👥 إدارة المستخدمين</h4>
+                        <p>تسجيل، دخول، تعديل ملف شخصي، تغيير كلمة مرور.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-50 border">
+                        <h4 class="font-black text-emerald-700">📁 إدارة المشاريع</h4>
+                        <p>إنشاء، عرض، تعديل، حذف المشاريع مع وصف وتاريخ.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-50 border">
+                        <h4 class="font-black text-sky-700">📋 إدارة المهام</h4>
+                        <p>مهام داخل المشاريع مع حالة وتحديد مسؤول وأولوية.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-50 border">
+                        <h4 class="font-black text-amber-700">📊 لوحة Kanban</h4>
+                        <p>عرض المهام حسب الحالة مع سحب وإفلات.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-50 border">
+                        <h4 class="font-black text-rose-700">🔒 صلاحيات</h4>
+                        <p>كل مشروع محمي بصلاحية، فقط المالك والفريق يرون المهام.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-50 border">
+                        <h4 class="font-black text-purple-700">📎 مرفقات</h4>
+                        <p>رفع ملفات وصور للمهام مع تخزين آمن.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-50 border">
+                        <h4 class="font-black text-cyan-700">🔍 بحث وفلاتر</h4>
+                        <p>بحث عن مشاريع ومهام مع فلاتر حسب الحالة والتاريخ.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-50 border">
+                        <h4 class="font-black text-orange-700">🔔 تنبيهات</h4>
+                        <p>إشعارات عند إسناد مهمة أو تغيير حالتها.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-50 border">
+                        <h4 class="font-black text-indigo-700">📝 سجل نشاط</h4>
+                        <p>تاريخ كل حدث في المشروع مع اسم المستخدم والتوقيت.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-50 border">
+                        <h4 class="font-black text-emerald-700">📈 Dashboard</h4>
+                        <p>لوحة تحكم بمؤشرات وإحصائيات لكل مستخدم.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Weekly Evolution -->
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm">
+                <h2 class="text-3xl font-black">كيف سيتطور المشروع أسبوعاً بعد أسبوع؟</h2>
+                <div class="space-y-4">
+                    <div class="flex gap-4 p-4 rounded-2xl bg-indigo-50">
+                        <span class="flex-none w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-black">1</span>
                         <div>
-                            <h4 class="font-black">الأسبوع 1-2: التأسيس والواجهات</h4>
-                            <p class="text-sm text-slate-500">نبدأ بتنصيب الأدوات وبناء أولى صفحات التطبيق وشريط التنقل.</p>
+                            <h4 class="font-black">الأسبوع 1: أدواتك جاهزة وأول مشروع Laravel</h4>
+                            <p class="text-sm text-slate-600">ننصب PHP و Composer و Node.js و Git. ننشئ أول مشروع Laravel مع React و Inertia. نرى أول صفحة في المتصفح. نحفظ المشروع في Git.</p>
                         </div>
                     </div>
-                    <div class="flex gap-4">
-                        <div class="flex-none w-12 h-12 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">2</div>
+                    <div class="flex gap-4 p-4 rounded-2xl bg-emerald-50">
+                        <span class="flex-none w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-black">2</span>
                         <div>
-                            <h4 class="font-black">الأسبوع 3-4: قواعد البيانات والخصوصية</h4>
-                            <p class="text-sm text-slate-500">نصمم الجداول ونبني نظام تسجيل دخول آمن لكل مستخدم.</p>
+                            <h4 class="font-black">الأسبوع 2: المسارات والهيكل الثابت</h4>
+                            <p class="text-sm text-slate-600">نفهم كيف تعمل Routes و Controllers في Laravel. نبني Layout رئيسي مع Navbar و Sidebar. نضيف أول Dashboard.</p>
                         </div>
                     </div>
-                    <div class="flex gap-4">
-                        <div class="flex-none w-12 h-12 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">3</div>
+                    <div class="flex gap-4 p-4 rounded-2xl bg-sky-50">
+                        <span class="flex-none w-10 h-10 rounded-full bg-sky-600 text-white flex items-center justify-center font-black">3</span>
                         <div>
-                            <h4 class="font-black">الأسبوع 5-6: منطق العمل والبحث</h4>
-                            <p class="text-sm text-slate-500">نضيف ميزات إنشاء المهام، تعديلها، البحث فيها، وإرسال التنبيهات.</p>
+                            <h4 class="font-black">الأسبوع 3: قاعدة البيانات والعلاقات</h4>
+                            <p class="text-sm text-slate-600">نصمم قاعدة بيانات FlowPilot (المشاريع، المهام، المستخدمين). ننشئ Migrations و Models. نربط البيانات بعلاقات Eloquent.</p>
                         </div>
                     </div>
-                    <div class="flex gap-4">
-                        <div class="flex-none w-12 h-12 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">4</div>
+                    <div class="flex gap-4 p-4 rounded-2xl bg-amber-50">
+                        <span class="flex-none w-10 h-10 rounded-full bg-amber-600 text-white flex items-center justify-center font-black">4</span>
                         <div>
-                            <h4 class="font-black">الأسبوع 7-8: التحسين والإطلاق</h4>
-                            <p class="text-sm text-slate-500">نتأكد من خلو المشروع من الأخطاء ونقوم بنشره ليراه الجميع.</p>
+                            <h4 class="font-black">الأسبوع 4: المصادقة والصلاحيات</h4>
+                            <p class="text-sm text-slate-600">نبني نظام تسجيل الدخول. نضيف Policies لحماية المشاريع. نستخدم Middleware للصفحات الخاصة. نبني صفحة الملف الشخصي.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 p-4 rounded-2xl bg-rose-50">
+                        <span class="flex-none w-10 h-10 rounded-full bg-rose-600 text-white flex items-center justify-center font-black">5</span>
+                        <div>
+                            <h4 class="font-black">الأسبوع 5: CRUD ونماذج Inertia</h4>
+                            <p class="text-sm text-slate-600">نبني دورة كاملة لإنشاء وعرض وتعديل وحذف المشاريع والمهام. نضيف لوحة Kanban ورفع المرفقات. نتعامل مع Validation وأخطاء النماذج.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 p-4 rounded-2xl bg-purple-50">
+                        <span class="flex-none w-10 h-10 rounded-full bg-purple-600 text-white flex items-center justify-center font-black">6</span>
+                        <div>
+                            <h4 class="font-black">الأسبوع 6: البحث والتنبيهات</h4>
+                            <p class="text-sm text-slate-600">ننظم البيانات المخرجة باستخدام API Resources. نضيف بحثاً متقدماً وفلاتر. نبني نظام تنبيهات للمستخدمين. نضيف سجل نشاط لكل حدث.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 p-4 rounded-2xl bg-cyan-50">
+                        <span class="flex-none w-10 h-10 rounded-full bg-cyan-600 text-white flex items-center justify-center font-black">7</span>
+                        <div>
+                            <h4 class="font-black">الأسبوع 7: اختبارات وأداء وأمان</h4>
+                            <p class="text-sm text-slate-600">نكتب اختبارات للميزات. نحسن Components في React. نضيف Pagination و Caching للسرعة. نحمي التطبيق من الهجمات الشائعة.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 p-4 rounded-2xl bg-orange-50">
+                        <span class="flex-none w-10 h-10 rounded-full bg-orange-600 text-white flex items-center justify-center font-black">8</span>
+                        <div>
+                            <h4 class="font-black">الأسبوع 8: نشر وتسليم</h4>
+                            <p class="text-sm text-slate-600">نجهز المشروع للإنتاج، ننشره على خادم حقيقي، نكتب توثيقاً للمشروع، ونجهز العرض النهائي للتسليم.</p>
                         </div>
                     </div>
                 </div>
             </section>
         </div>
 
-        <aside class="space-y-8">
+        <!-- Sidebar -->
+        <aside class="space-y-8 lg:sticky lg:top-24 lg:self-start">
             <div class="card p-8 bg-slate-900 text-white shadow-xl">
                 <h3 class="text-2xl font-black text-indigo-400">النتيجة النهائية</h3>
                 <p class="mt-4 text-slate-400 leading-relaxed text-sm">
-                    في نهاية الدورة، ستمتلك مشروعاً كاملاً يمكنك إضافته إلى ملفك الشخصي (Portfolio) والتقدم به للوظائف بثقة.
+                    في نهاية الدورة ستمتلك مشروعاً متكاملاً يمكنك إضافته إلى محفظتك (Portfolio) والتقدم به للوظائف بثقة.
                 </p>
-                <ul class="mt-8 space-y-4 text-sm font-bold">
-                    <li class="flex items-center gap-2 text-emerald-400">✓ كود نظيف واحترافي</li>
-                    <li class="flex items-center gap-2 text-emerald-400">✓ نظام إدارة كامل</li>
-                    <li class="flex items-center gap-2 text-emerald-400">✓ واجهات تفاعلية سريعة</li>
-                    <li class="flex items-center gap-2 text-emerald-400">✓ مشروع جاهز للنشر</li>
+                <ul class="mt-8 space-y-3 text-sm font-bold">
+                    <li class="flex items-center gap-2 text-emerald-400">✓ منصة كاملة بإدارة مشاريع</li>
+                    <li class="flex items-center gap-2 text-emerald-400">✓ كود نظيف ومنظم</li>
+                    <li class="flex items-center gap-2 text-emerald-400">✓ واجهات تفاعلية مع React</li>
+                    <li class="flex items-center gap-2 text-emerald-400">✓ نظام دخول وصلاحيات</li>
+                    <li class="flex items-center gap-2 text-emerald-400">✓ بحث وتنبيهات متقدمة</li>
+                    <li class="flex items-center gap-2 text-emerald-400">✓ جاهز للنشر على الإنترنت</li>
                 </ul>
             </div>
 
             <div class="card p-8 bg-indigo-50 border-indigo-100 space-y-4 text-center">
                 <div class="text-4xl">🚀</div>
                 <h4 class="font-black text-indigo-900 text-xl">ابدأ الآن</h4>
-                <p class="text-indigo-700 text-sm">لا تنتظر طويلاً، كل درس يقربك خطوة من إتمام هذا المشروع.</p>
+                <p class="text-indigo-700 text-sm">كل درس يقربك خطوة من إتمام هذا المشروع. ابدأ رحلتك اليوم.</p>
                 <a href="curriculum.html" class="block w-full rounded-xl bg-indigo-600 py-3 text-white font-black hover:bg-indigo-700 transition-colors">عرض الدروس</a>
+                <a href="../weeks/week-01/lesson-01/index.html" class="block w-full rounded-xl bg-white border-2 border-indigo-200 py-3 text-indigo-800 font-black hover:bg-indigo-100 transition-colors">الدرس الأول مجاناً</a>
+            </div>
+
+            <div class="card p-8 text-center">
+                <img src="../assets/img/project-flow.svg" alt="Project Flow" class="w-full rounded-xl">
+                <p class="mt-4 text-xs font-bold text-slate-500">رحلة المشروع من البداية إلى النشر</p>
             </div>
         </aside>
     </div>
+
+    <!-- Final CTA -->
+    <section class="mt-24 text-center bg-gradient-to-br from-indigo-600 to-indigo-800 rounded-[3rem] p-16 text-white shadow-2xl">
+        <h2 class="text-3xl md:text-5xl font-black">مشروع FlowPilot ينتظرك</h2>
+        <p class="mt-4 text-lg text-indigo-200 max-w-2xl mx-auto">
+            32 درساً، 8 أسابيع، ومشروع واحد متكامل. ابدأ اليوم وستندهش مما يمكنك بناءه.
+        </p>
+        <a href="curriculum.html" class="inline-block mt-8 rounded-2xl bg-white text-indigo-700 px-10 py-4 font-black text-lg hover:bg-slate-100 transition-all">
+            استعرض المنهج الكامل
+        </a>
+    </section>
 </main>
 
 <footer class="mt-24 border-t bg-white">
     <div class="mx-auto max-w-7xl px-4 py-12 text-center text-slate-500 font-medium">
-        © 2025 FlowPilot Academy. المحتوى مصمم لمساعدتك على النجاح.
+        <p>© 2025 FlowPilot Academy. المحتوى مصمم لمساعدتك على النجاح في سوق العمل.</p>
     </div>
 </footer>
 

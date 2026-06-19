@@ -3,67 +3,281 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>كويز الدرس 4: احترافية Git</title>
+    <title>كويز الدرس 4: Git وتنظيم المستودع</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; }
+        code { direction: ltr; display: inline-block; }
+        .correct { background: #ecfdf5 !important; border-color: #10b981 !important; color: #065f46 !important; }
+        .wrong { background: #fef2f2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
-        <a href="../../../index.html" class="font-black text-2xl text-slate-900">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
 </header>
 
-<main class="mx-auto max-w-2xl px-4 py-12">
+<main class="mx-auto max-w-3xl px-4 py-12 text-right">
     <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة للدرس</a>
     
     <div class="space-y-12">
-        <div class="text-center">
-            <h1 class="text-3xl font-black">كويز Git & Clean Code 🚀</h1>
+        <div class="text-center space-y-4">
+            <h1 class="text-3xl font-black">اختبر فهمك: Git وحفظ التقدم</h1>
+            <p class="text-slate-600">اختبر معلوماتك عن نظام التحكم في الإصدارات.</p>
         </div>
 
-        <div class="space-y-8">
-            <div class="card p-8 space-y-6 shadow-sm">
-                <p class="font-black text-xl leading-relaxed">1. أي أمر يستخدم "لحفظ" التغييرات بشكل دائم في تاريخ المشروع؟</p>
-                <div class="grid gap-3">
-                    <button onclick="mark(this, false)" class="p-4 rounded-2xl border-2 border-slate-100 font-bold text-right">git add</button>
-                    <button onclick="mark(this, true)" class="p-4 rounded-2xl border-2 border-slate-100 font-bold text-right">git commit</button>
-                    <button onclick="mark(this, false)" class="p-4 rounded-2xl border-2 border-slate-100 font-bold text-right">git init</button>
+        <div id="quiz-container" class="space-y-8">
+            <!-- MCQ 1 -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="1" data-answer="b">
+                <p class="font-black text-xl leading-relaxed">1. ما هو الأمر الذي تستخدمه لإنشاء مستودع Git جديد في مجلد مشروعك؟</p>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="a" class="hidden">
+                        <span>أ) git start</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="b" class="hidden">
+                        <span>ب) git init</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="c" class="hidden">
+                        <span>ج) git create</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="d" class="hidden">
+                        <span>د) git new</span>
+                    </label>
                 </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: <code>git init</code> هو الأمر الذي ينشئ مجلد .git/ في المشروع، محولاً إياه إلى مستودع Git. "init" اختصار لـ Initialize (تهيئة).</p>
             </div>
 
-            <div class="card p-8 space-y-6 shadow-sm">
-                <p class="font-black text-xl leading-relaxed">2. ما فائدة كتابة الكود النظيف (Clean Code)؟</p>
-                <div class="grid gap-3">
-                    <button onclick="mark(this, false)" class="p-4 rounded-2xl border-2 border-slate-100 font-bold text-right">لزيادة عدد الأسطر في المشروع</button>
-                    <button onclick="mark(this, true)" class="p-4 rounded-2xl border-2 border-slate-100 font-bold text-right">ليسهل فهم الكود وتطويره بواسطة أي مبرمج آخر</button>
+            <!-- MCQ 2 -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="2" data-answer="c">
+                <p class="font-black text-xl leading-relaxed">2. ما هي وظيفة Staging Area في Git؟</p>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="a" class="hidden">
+                        <span>أ) مكان تخزين Commit القديمة</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="b" class="hidden">
+                        <span>ب) مجلد يحتوي على نسخ احتياطية من المشروع</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="c" class="hidden">
+                        <span>ج) منطقة وسطية تختار فيها الملفات التي تريد تضمينها في الـ Commit القادم</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="d" class="hidden">
+                        <span>د) موقع رفع الملفات إلى GitHub</span>
+                    </label>
                 </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: Staging Area تسمح لك بتحديد أي الملفات تريد حفظها في الـ Commit. يمكنك إضافة بعض الملفات <code>git add file1.js</code> وتجاهل البعض الآخر. هذا يعطيك تحكماً دقيقاً في كل Commit.</p>
             </div>
-        </div>
 
-        <div id="final-msg" class="hidden text-center p-8 rounded-3xl bg-emerald-600 text-white">
-            <h2 class="text-3xl font-black italic">أنت مطور محترف الآن!</h2>
+            <!-- MCQ 3 -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="3" data-answer="a">
+                <p class="font-black text-xl leading-relaxed">3. ماذا يفعل الأمر <code class="text-sm">git add .</code> (بنقطة)؟</p>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="a" class="hidden">
+                        <span>أ) يضيف جميع الملفات (غير المستثناة) في المجلد الحالي إلى Staging Area</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="b" class="hidden">
+                        <span>ب) يحذف جميع الملفات من المشروع</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="c" class="hidden">
+                        <span>ج) يعرض جميع الملفات في المجلد</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="d" class="hidden">
+                        <span>د) يقوم بعمل Commit مباشرة</span>
+                    </label>
+                </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: النقطة <code>.</code> في <code>git add .</code> تشير إلى "المجلد الحالي". الأمر يضيف كل الملفات في المجلد الحالي والمجلدات الفرعية (عدا المستثناة في .gitignore) إلى Staging Area.</p>
+            </div>
+
+            <!-- MCQ 4 -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="4" data-answer="d">
+                <p class="font-black text-xl leading-relaxed">4. ما هو الغرض من ملف <code class="text-sm">.gitignore</code>؟</p>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="a" class="hidden">
+                        <span>أ) إخفاء الملفات من مستخدمي GitHub الآخرين</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="b" class="hidden">
+                        <span>ب) منع الملفات من الحذف العرضي</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="c" class="hidden">
+                        <span>ج) حذف الملفات تلقائياً من المشروع</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="d" class="hidden">
+                        <span>د) إخبار Git بتجاهل ملفات ومجلدات معينة وعدم تتبعها</span>
+                    </label>
+                </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: .gitignore يحدد الملفات والمجلدات التي يجب على Git تجاهلها. في Laravel، نتجاهل <code>/vendor</code> (لأن Composer يعيد إنشائه)، <code>/node_modules</code> (لأن NPM يعيد إنشائه)، و <code>.env</code> (لأنه يحتوي كلمات سر).</p>
+            </div>
+
+            <!-- MCQ 5 -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="5" data-answer="b">
+                <p class="font-black text-xl leading-relaxed">5. أي أمر يعرض تاريخ الـ Commits في المستودع؟</p>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="a" class="hidden">
+                        <span>أ) git status</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="b" class="hidden">
+                        <span>ب) git log</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="c" class="hidden">
+                        <span>ج) git history</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="d" class="hidden">
+                        <span>د) git show</span>
+                    </label>
+                </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: <code>git log</code> يعرض سجل الـ Commits مرتباً من الأحدث للأقدم. يظهر لكل Commit: Hash، Author، Date، والرسالة. يمكنك استخدامه لرؤية تاريخ المشروع بالكامل.</p>
+            </div>
+
+            <!-- T/F 6 -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="6" data-answer="true">
+                <p class="font-black text-xl leading-relaxed">6. صح أم خطأ: بعد تنفيذ <code>git commit</code>، يمكنك العودة لحالة المشروع قبل الـ Commit إذا أخطأت.</p>
+                <div class="flex gap-4">
+                    <label class="flex-1 text-center p-4 rounded-xl border-2 border-slate-100 hover:border-emerald-300 cursor-pointer transition-all font-bold">
+                        <input type="radio" name="q6" value="true" class="hidden"> صح
+                    </label>
+                    <label class="flex-1 text-center p-4 rounded-xl border-2 border-slate-100 hover:border-rose-300 cursor-pointer transition-all font-bold">
+                        <input type="radio" name="q6" value="false" class="hidden"> خطأ
+                    </label>
+                </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: صح. هذا هو جوهر Git. كل Commit هو نقطة حفظ يمكنك العودة إليها بأمر <code>git checkout &lt;hash&gt;</code>. يمكنك أيضاً استخدام <code>git revert</code> للتراجع عن Commit معين دون فقدان التاريخ.</p>
+            </div>
+
+            <!-- T/F 7 -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="7" data-answer="false">
+                <p class="font-black text-xl leading-relaxed">7. صح أم خطأ: ملف <code>vendor/</code> يجب أن يكون ضمن Commits Git لأنه ضروري للمشروع.</p>
+                <div class="flex gap-4">
+                    <label class="flex-1 text-center p-4 rounded-xl border-2 border-slate-100 hover:border-emerald-300 cursor-pointer transition-all font-bold">
+                        <input type="radio" name="q7" value="true" class="hidden"> صح
+                    </label>
+                    <label class="flex-1 text-center p-4 rounded-xl border-2 border-slate-100 hover:border-rose-300 cursor-pointer transition-all font-bold">
+                        <input type="radio" name="q7" value="false" class="hidden"> خطأ
+                    </label>
+                </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: خطأ. مجلد vendor/ يتم إنشاؤه بواسطة Composer بأمر <code>composer install</code>. لا نحتاج لتتبعه في Git لأن أي شخص يستنسخ المشروع يمكنه تشغيل <code>composer install</code> لإنشائه. تتبعه سيجعل المستودع ضخماً جداً (آلاف الملفات).</p>
+            </div>
+
+            <!-- Theory 8 -->
+            <div class="card p-8 space-y-6 shadow-sm">
+                <p class="font-black text-xl leading-relaxed">8. سؤال نظري: اشرح بجملتين الفرق بين <code>git status</code> و <code>git log</code>.</p>
+                <textarea class="w-full p-4 rounded-xl border-2 border-slate-100 outline-none focus:border-indigo-300 text-sm" rows="3" placeholder="اكتب إجابتك هنا..."></textarea>
+                <p class="explain hidden text-sm text-indigo-600 font-bold">مثال للإجابة: <code>git status</code> يعرض الحالة الحالية للمشروع: الملفات المعدلة، الملفات الجديدة، والملفات في Staging Area. <code>git log</code> يعرض تاريخ المشروع: جميع الـ Commits السابقة مع تفاصيلها. الأول للحاضر، والثاني للماضي.</p>
+            </div>
+
+            <!-- Practical 9 -->
+            <div class="card p-8 space-y-6 shadow-sm">
+                <p class="font-black text-xl leading-relaxed">9. سؤال تطبيقي: اكتب الأوامر الثلاثة المطلوبة لعمل أول Commit لمشروعك (بفرض أن git init قد تم بالفعل).</p>
+                <input type="text" class="w-full p-4 rounded-xl border-2 border-slate-100 outline-none focus:border-indigo-300 font-mono text-sm" placeholder="الأمر 1..." dir="ltr">
+                <input type="text" class="w-full p-4 rounded-xl border-2 border-slate-100 outline-none focus:border-indigo-300 font-mono text-sm" placeholder="الأمر 2..." dir="ltr">
+                <input type="text" class="w-full p-4 rounded-xl border-2 border-slate-100 outline-none focus:border-indigo-300 font-mono text-sm" placeholder="الأمر 3 (لتأكيد النتيجة)..." dir="ltr">
+                <p class="explain hidden text-sm text-indigo-600 font-bold">الإجابة الصحيحة:<br>1. <code>git add .</code> - إضافة جميع الملفات إلى Staging<br>2. <code>git commit -m "رسالتك"</code> - حفظ الـ Commit<br>3. <code>git status</code> أو <code>git log</code> - التحقق من النتيجة</p>
+            </div>
+
+            <!-- Result -->
+            <div class="card p-10 text-center space-y-6 bg-slate-900 text-white">
+                <p class="font-black text-2xl">النتيجة النهائية</p>
+                <div id="quizResult" class="text-5xl font-black text-indigo-400">-- / 7</div>
+                <button data-grade-quiz class="px-10 py-4 bg-indigo-600 rounded-2xl font-black hover:bg-indigo-700 transition-all">تصحيح الإجابات</button>
+                <p id="feedback" class="text-slate-400 font-bold italic"></p>
+            </div>
         </div>
     </div>
 </main>
 
 <script>
-    function mark(btn, correct) {
-        if (btn.parentElement.dataset.done) return;
-        btn.parentElement.dataset.done = "true";
-        if (correct) {
-            btn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-700');
-            if (document.querySelectorAll('.bg-emerald-50').length === 2) {
-                document.getElementById('final-msg').classList.remove('hidden');
+    document.addEventListener('DOMContentLoaded', () => {
+        const labels = document.querySelectorAll('label');
+        labels.forEach(label => {
+            label.addEventListener('click', () => {
+                const radio = label.querySelector('input[type="radio"]');
+                const group = radio.name;
+                document.querySelectorAll(`input[name="${group}"]`).forEach(input => {
+                    input.parentElement.classList.remove('bg-indigo-50', 'border-indigo-500');
+                    input.parentElement.classList.add('border-slate-100');
+                });
+                label.classList.remove('border-slate-100');
+                label.classList.add('bg-indigo-50', 'border-indigo-500');
+                radio.checked = true;
+            });
+        });
+
+        document.querySelector('[data-grade-quiz]').addEventListener('click', () => {
+            let score = 0;
+            let total = 7;
+            const questions = document.querySelectorAll('[data-question]');
+            
+            questions.forEach(question => {
+                const correct = question.dataset.answer;
+                const selected = question.querySelector('input[type="radio"]:checked');
+                const labels = question.querySelectorAll('label');
+                
+                labels.forEach(l => {
+                    l.classList.remove('correct', 'wrong', 'border-slate-100', 'bg-indigo-50', 'border-indigo-500');
+                });
+
+                if (selected) {
+                    if (selected.value === correct) {
+                        score++;
+                        labels.forEach(l => {
+                            if (l.contains(selected)) {
+                                l.classList.add('correct');
+                            }
+                        });
+                    } else {
+                        labels.forEach(l => {
+                            if (l.contains(selected)) {
+                                l.classList.add('wrong');
+                            }
+                            const radio = l.querySelector('input[type="radio"]');
+                            if (radio && radio.value === correct) {
+                                l.classList.add('correct');
+                            }
+                        });
+                    }
+                }
+
+                const explain = question.querySelector('.explain');
+                if (explain) explain.classList.remove('hidden');
+            });
+
+            document.getElementById('quizResult').innerText = score + ' / ' + total;
+            
+            let feedback = document.getElementById('feedback');
+            if (score === total) {
+                feedback.innerText = '🎉 ممتاز! أنت تفهم Git بشكل رائع. أنت مطور محترف!';
+            } else if (score >= 5) {
+                feedback.innerText = '👏 جيد جداً! راجع الفرق بين add و commit ومعنى .gitignore.';
+            } else {
+                feedback.innerText = '📚 خذ وقتك وأعد قراءة الدرس. ركز على Git workflow (add → commit).';
             }
-        } else {
-            btn.classList.add('bg-rose-50', 'border-rose-500', 'text-rose-700');
-        }
-    }
+        });
+    });
 </script>
+
 </body>
 </html>

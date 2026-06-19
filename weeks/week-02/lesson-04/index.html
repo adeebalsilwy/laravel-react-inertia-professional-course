@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 8: إنشاء Dashboard أولية لمؤشرات FlowPilot</title>
+    <title>الدرس 8: إنشاء Dashboard أولية لمؤشرات FlowPilot | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,13 +13,19 @@
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
         .step-card { border-right: 4px solid #10b981; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .code-line { display: block; padding: 0.1rem 0; }
+        .error-box { background: #fef2f2; border-right: 4px solid #ef4444; padding: 1rem; border-radius: 1rem; margin-bottom: 1rem; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../index.html">الرئيسية</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/curriculum.html">الفهرس</a>
+        </nav>
     </div>
 </header>
 
@@ -27,12 +33,17 @@
     <div class="grid lg:grid-cols-4 gap-8">
         <aside class="hidden lg:block">
             <div class="sidebar-sticky space-y-4">
-                <a class="font-black text-emerald-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الثاني</a>
+                <a class="font-black text-emerald-700 hover:underline block mb-6 text-sm" href="../index.html">← العودة للأسبوع الثاني</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-emerald-50 text-emerald-700" href="#intro">مقدمة عن الـ Dashboard</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">عرض البيانات</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال عداد السيارة</a>
+                    <a class="block p-3 rounded-xl bg-emerald-50 text-emerald-700" href="#importance">لماذا هذا الدرس مهم؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">الشرح النظري</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#analogy">مثال من الحياة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">في مشروع FlowPilot</a>
                     <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#code">شرح الكود</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">الأخطاء الشائعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#visuals">المخططات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#summary">الملخص</a>
                 </div>
             </div>
         </aside>
@@ -41,71 +52,460 @@
             <section class="border-b pb-8 mb-12">
                 <span class="px-3 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-bold text-xs uppercase tracking-widest">الأسبوع 2 · الدرس 4</span>
                 <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">تصميم لوحة التحكم (Dashboard): عرض أولى مؤشرات FlowPilot</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"لوحة التحكم هي قلب التطبيق النابض، حيث يرى المستخدم ملخصاً لكل ما يحدث في مشاريعه."</p>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"لوحة التحكم هي المرآة التي يرى فيها المستخدم صحة مشاريعه في لمحة واحدة."</p>
             </section>
 
-            <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">ما هي الـ Dashboard؟</h2>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    هي الصفحة الأولى التي يراها المستخدم بعد تسجيل الدخول. بدلاً من عرض كل التفاصيل المعقدة، تعرض لوحة التحكم ملخصاً ذكياً مثل: عدد المشاريع النشطة، عدد المهام المكتملة، والتنبيهات الأخيرة.
-                </p>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    اليوم سنقوم ببناء الواجهة العربية لـ Dashboard تطبيق <strong>FlowPilot</strong> باستخدام كل ما تعلمناه في الأسبوعين الماضيين.
-                </p>
+            <section id="importance" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">🔍 لماذا هذا الدرس مهم؟</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed text-lg">
+                    <p>هذا هو الدرس الختامي للأسبوع الثاني، وفيه <strong>نجمع كل ما تعلمناه</strong> في تطبيق واحد متكامل: Routes, Controllers, Layout, Components.</p>
+                    <p>الـ <strong>Dashboard (لوحة التحكم)</strong> هي أول صفحة يراها المستخدم بعد تسجيل الدخول. هي "الواجهة الأمامية" لتطبيقك. إذا كانت جميلة ومنظمة، سيثق المستخدم بتطبيقك.</p>
+                    <p>في FlowPilot، Dashboard ستعرض ملخصاً لمشاريع المستخدم: كم مشروعاً نشطاً، كم مهمة مكتملة، أعضاء الفريق، وآخر النشاطات. كل هذا في صفحة واحدة سهلة القراءة.</p>
+                    <p>بعد هذا الدرس، سيكون لديك <strong>أول صفحة حقيقية</strong> في تطبيق FlowPilot!</p>
+                </div>
             </section>
 
-            <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">كيف نفكر في تصميمها؟</h2>
-                <div class="space-y-4 text-slate-600">
-                    <p>عند بناء Dashboard، نركز على ثلاث ركائز:</p>
-                    <ul class="list-disc pr-6 space-y-4">
-                        <li><strong>البساطة:</strong> لا نضع بيانات كثيرة تشتت المستخدم.</li>
-                        <li><strong>الوضوح:</strong> نستخدم الألوان والأيقونات لتمييز الحالات (مثلاً الأخضر للمنجز).</li>
-                        <li><strong>التفاعل:</strong> نستخدم React لنجعل الأرقام تتحدث وتستجيب لفلترة المستخدم.</li>
+            <section id="theory" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">📚 الشرح النظري المفصل</h2>
+                <div class="space-y-6 text-slate-600 leading-relaxed text-lg">
+
+                    <div class="p-6 rounded-2xl bg-indigo-50 border border-indigo-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">ما هي الـ Dashboard؟</h3>
+                        <p>هي صفحة تجمع <strong>مؤشرات الأداء الرئيسية (KPIs)</strong> في مكان واحد. بدلاً من أن يتنقل المستخدم بين 5 صفحات ليعرف وضع مشاريعه، يرى كل شيء في نظرة سريعة.</p>
+                        <p class="mt-2">مكونات Dashboard النموذجية:</p>
+                        <ul class="list-disc pr-6 space-y-2 mt-2">
+                            <li><strong>بطاقات الإحصائيات (Stat Cards)</strong>: أرقام سريعة (عدد المشاريع، المهام، إلخ).</li>
+                            <li><strong>قائمة سريعة (Recent Items)</strong>: آخر المشاريع أو المهام.</li>
+                            <li><strong>ترحيب شخصي</strong>: "أهلاً بك يا [اسم المستخدم]" يضيف لمسة شخصية.</li>
+                            <li><strong>إشعارات أو تنبيهات</strong>: إذا كان هناك شيء يحتاج انتباه المستخدم.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-blue-50 border border-blue-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">جلب البيانات من Controller إلى Dashboard</h3>
+                        <p>في Controller، نجمع البيانات التي نحتاجها لعرضها في Dashboard. سنستخدم بيانات وهمية الآن، ولكن الأسبوع القادم سنستخدم قاعدة البيانات الحقيقية.</p>
+                        <div class="bg-slate-900 text-green-400 rounded-xl p-4 font-mono text-sm mt-3 text-left overflow-x-auto">
+                            <span class="code-line">class DashboardController extends Controller</span>
+                            <span class="code-line">{</span>
+                            <span class="code-line">&nbsp;&nbsp;public function index()</span>
+                            <span class="code-line">&nbsp;&nbsp;{</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;$stats = [</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'totalProjects' => 12,</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'completedTasks' => 45,</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'teamMembers' => 8,</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'pendingTasks' => 12,</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;];</span>
+<span class="code-line"> </span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;return Inertia::render('Dashboard', [</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'stats' => $stats</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;]);</span>
+<span class="code-line">&nbsp;&nbsp;}</span>
+                            <span class="code-line">}</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-purple-50 border border-purple-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">مشاركة البيانات عبر Inertia (Shared Data)</h3>
+                        <p>Inertia يتيح لنا مشاركة بيانات مع <strong>كل الصفحات</strong> دون الحاجة لتمريرها يدوياً في كل Controller. مثلاً: اسم المستخدم المسجل حالياً.</p>
+                        <p class="text-sm mt-2">نستخدم ملف <code>HandleInertiaRequests.php</code> في Laravel لمشاركة البيانات:</p>
+                        <div class="bg-slate-900 text-cyan-400 rounded-xl p-4 font-mono text-sm mt-3 text-left overflow-x-auto">
+                            <span class="code-line">// في app/Http/Middleware/HandleInertiaRequests.php</span>
+                            <span class="code-line">public function share(Request $request): array</span>
+                            <span class="code-line">{</span>
+                            <span class="code-line">&nbsp;&nbsp;return [</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;...parent::share($request),</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;'auth' => [</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'user' => $request->user() ? [</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name' => $request->user()->name,</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'email' => $request->user()->email,</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;] : null,</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;],</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;'appName' => config('app.name'),</span>
+<span class="code-line">&nbsp;&nbsp;];</span>
+                            <span class="code-line">}</span>
+                        </div>
+                        <p class="mt-2 text-sm">في React، نستخدم <code>usePage()</code> للوصول لهذه البيانات المشتركة:</p>
+                        <div class="bg-slate-900 text-cyan-400 rounded-xl p-4 font-mono text-sm mt-3 text-left overflow-x-auto">
+                            <span class="code-line">import { usePage } from '@inertiajs/react';</span>
+                            <span class="code-line">const { auth, appName } = usePage().props;</span>
+                            <span class="code-line">// auth.user.name → "أحمد"</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-amber-50 border border-amber-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">تصميم Dashboard المتجاوب (Responsive)</h3>
+                        <p>لوحة التحكم يجب أن تعمل على كل الشاشات: الموبايل، التابلت، وسطح المكتب.</p>
+                        <p>نظام Grid في Tailwind يجعل هذا سهلاً:</p>
+                        <div class="bg-slate-900 text-yellow-400 rounded-xl p-4 font-mono text-sm mt-3 text-left overflow-x-auto">
+                            <span class="code-line">// عمود واحد في الموبايل، عمودان في md، 3 أعمدة في lg</span>
+                            <span class="code-line">&lt;div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&lt;StatCard ... /&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&lt;StatCard ... /&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&lt;StatCard ... /&gt;</span>
+                            <span class="code-line">&lt;/div&gt;</span>
+                        </div>
+                        <p class="mt-2 text-sm"><code>grid-cols-1</code> = عمود واحد للموبايل. <code>md:grid-cols-2</code> = عمودان للتابلت. <code>lg:grid-cols-3</code> = 3 أعمدة لسطح المكتب.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-teal-50 border border-teal-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">إضافة لمسة شخصية: اسم المستخدم</h3>
+                        <p>استخدام اسم المستخدم في Dashboard يجعل التجربة أكثر دفئاً. في FlowPilot، سنعرض:</p>
+                        <div class="bg-slate-900 text-emerald-400 rounded-xl p-4 font-mono text-sm mt-3 text-left overflow-x-auto">
+                            <span class="code-line">// استخدام shared data من Inertia</span>
+                            <span class="code-line">import { usePage } from '@inertiajs/react';</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">export default function Dashboard({ stats }) {</span>
+                            <span class="code-line">&nbsp;&nbsp;const { auth } = usePage().props;</span>
+                            <span class="code-line">&nbsp;&nbsp;const userName = auth?.user?.name || 'مستخدم FlowPilot';</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">&nbsp;&nbsp;return (</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1 className="text-3xl font-black mb-2"&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;أهلاً بك يا {userName} 👋</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/h1&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p className="text-slate-500 mb-8"&gt;هذا ملخص نشاطك في FlowPilot.&lt;/p&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;);</span>
+                            <span class="code-line">}</span>
+                        </div>
+                        <p class="mt-2 text-sm"><code>auth?.user?.name</code> - علامة <code>?.</code> (Optional Chaining) تعني: إذا كان auth موجوداً، وإذا كان user موجوداً، أعطني name. هذا يمنع الخطأ إذا لم يكن المستخدم مسجلاً.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="analogy" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">🌍 مثال من الحياة اليومية</h2>
+                <div class="p-8 rounded-3xl bg-emerald-600 text-white shadow-xl shadow-emerald-100">
+                    <h3 class="text-2xl font-black mb-4">تشبيه "عدادات السيارة"</h3>
+                    <div class="space-y-4 text-emerald-50 leading-relaxed text-lg">
+                        <p>تخيل أنك تقود سيارة. هل تحتاج أن تفتح غطاء المحرك لتعرف سرعتك أو كمية الوقود؟ بالطبع لا!</p>
+                        <ul class="list-disc pr-6 space-y-3">
+                            <li><strong>لوحة العدادات (Dashboard)</strong> أمامك تعرض لك كل ما تحتاج: السرعة، الوقود، الحرارة، عدد اللفات.</li>
+                            <li><strong>عداد السرعة</strong> = عدد المشاريع النشطة (StatCard).</li>
+                            <li><strong>مؤشر الوقود</strong> = نسبة إنجاز المهام (ProgressBar).</li>
+                            <li><strong>لمبة التحذير</strong> = المهام المتأخرة (Alert/Notification).</li>
+                        </ul>
+                        <p class="mt-4 text-emerald-100 italic">تماماً كما لا يحتاج السائق لفحص المحرك يدوياً، لا يحتاج مدير المشروع لفتح كل صفحة ليعرف الوضع. Dashboard يلخص كل شيء.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="flowpilot" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">🚀 كيف يخدم هذا الدرس مشروع FlowPilot؟</h2>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                    <p class="text-slate-600 leading-relaxed text-lg">في هذا الدرس، نبني أول واجهة Dashboard حقيقية لـ FlowPilot:</p>
+                    <div class="mt-4 space-y-3">
+                        <div class="p-4 bg-white rounded-xl border border-slate-100 flex items-center gap-3">
+                            <span class="text-2xl">👋</span>
+                            <div><p class="font-bold text-slate-900">تحية ترحيبية</p><p class="text-sm text-slate-500">"أهلاً بك يا [اسم المستخدم]"</p></div>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl border border-slate-100 flex items-center gap-3">
+                            <span class="text-2xl">📊</span>
+                            <div><p class="font-bold text-slate-900">4 بطاقات إحصائيات</p><p class="text-sm text-slate-500">المشاريع، المهام المكتملة، أعضاء الفريق، المهام المعلقة</p></div>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl border border-slate-100 flex items-center gap-3">
+                            <span class="text-2xl">📋</span>
+                            <div><p class="font-bold text-slate-900">آخر المشاريع</p><p class="text-sm text-slate-500">قائمة بآخر 3 مشاريع</p></div>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl border border-slate-100 flex items-center gap-3">
+                            <span class="text-2xl">✅</span>
+                            <div><p class="font-bold text-slate-900">آخر المهام</p><p class="text-sm text-slate-500">قائمة بأهم المهام المعلقة</p></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="practice" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">⚡ التطبيق العملي خطوة بخطوة</h2>
+                <div class="space-y-12">
+
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء DashboardController</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> نافذة الطرفية</p>
+                        <div class="bg-slate-900 text-indigo-400 rounded-2xl p-6 font-mono text-sm text-left overflow-x-auto mb-4">
+                            <span class="code-line">php artisan make:controller DashboardController</span>
+                        </div>
+                        <p class="text-slate-500 text-sm">أنشئ Controller جديداً مخصصاً للوحة التحكم.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: كتابة دالة index في DashboardController</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> <code>app/Http/Controllers/DashboardController.php</code></p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-green-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">&lt;?php</span>
+                            <span class="code-line">namespace App\Http\Controllers;</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">use Inertia\Inertia;</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">class DashboardController extends Controller</span>
+                            <span class="code-line">{</span>
+                            <span class="code-line">&nbsp;&nbsp;public function index()</span>
+                            <span class="code-line">&nbsp;&nbsp;{</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;$stats = [</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'totalProjects' => 12,</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'completedTasks' => 45,</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'teamMembers' => 8,</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'pendingTasks' => 7,</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;];</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;$recentProjects = [</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;['id' => 1, 'title' => 'موقع الشركة', 'status' => 'نشط'],</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;['id' => 2, 'title' => 'تطبيق الجوال', 'status' => 'قيد التطوير'],</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;['id' => 3, 'title' => 'لوحة التحكم', 'status' => 'مكتمل'],</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;];</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;return Inertia::render('Dashboard', [</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'stats' => $stats,</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'recentProjects' => $recentProjects,</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;]);</span>
+                            <span class="code-line">&nbsp;&nbsp;}</span>
+                            <span class="code-line">}</span>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: تعريف مسار Dashboard</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> <code>routes/web.php</code></p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">use App\Http\Controllers\DashboardController;</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">Route::get('/dashboard', [DashboardController::class, 'index'])</span>
+                            <span class="code-line">&nbsp;&nbsp;->name('dashboard');</span>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: إنشاء صفحة Dashboard.jsx كاملة</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> <code>resources/js/Pages/Dashboard.jsx</code></p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">import AppLayout from '../Layouts/AppLayout';</span>
+                            <span class="code-line">import StatCard from '../Components/StatCard';</span>
+                            <span class="code-line">import ProjectCard from '../Components/ProjectCard';</span>
+                            <span class="code-line">import { usePage } from '@inertiajs/react';</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">export default function Dashboard({ stats, recentProjects }) {</span>
+                            <span class="code-line">&nbsp;&nbsp;const { auth } = usePage().props;</span>
+                            <span class="code-line">&nbsp;&nbsp;const userName = auth?.user?.name || 'مستخدم FlowPilot';</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">&nbsp;&nbsp;return (</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{/* تحية ترحيبية */}</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="mb-8"&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1 className="text-3xl md:text-4xl font-black text-slate-900"&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;أهلاً بك يا {userName} 👋</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/h1&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p className="text-slate-500 mt-2"&gt;هذا هو ملخص نشاطك في FlowPilot.&lt;/p&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+<span class="code-line"> </span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{/* بطاقات الإحصائيات */}</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8"&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;StatCard title="إجمالي المشاريع" value={stats.totalProjects} icon="📁" color="indigo" /&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;StatCard title="مهام مكتملة" value={stats.completedTasks} icon="✅" color="emerald" /&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;StatCard title="أعضاء الفريق" value={stats.teamMembers} icon="👥" color="amber" /&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;StatCard title="مهام معلقة" value={stats.pendingTasks} icon="⏳" color="rose" /&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+<span class="code-line"> </span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{/* آخر المشاريع */}</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2 className="text-2xl font-bold text-slate-900 mb-4"&gt;آخر المشاريع&lt;/h2&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8"&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{recentProjects.map(project =&gt; (</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ProjectCard key={project.id} project={project} /&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;))}</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+<span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;);</span>
+                            <span class="code-line">}</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">Dashboard.layout = page =&gt; &lt;AppLayout children={page} /&gt;;</span>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: إضافة البيانات المشتركة (Shared Data)</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> <code>app/Http/Middleware/HandleInertiaRequests.php</code></p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-cyan-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">public function share(Request $request): array</span>
+                            <span class="code-line">{</span>
+                            <span class="code-line">&nbsp;&nbsp;return [</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;...parent::share($request),</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;'auth' => [</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'user' => $request->user() ? [</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name' => $request->user()->name,</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'email' => $request->user()->email,</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;] : null,</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;],</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;'appName' => config('app.name'),</span>
+                            <span class="code-line">&nbsp;&nbsp;];</span>
+                            <span class="code-line">}</span>
+                        </div>
+                        <p class="text-slate-500 text-sm">هذا يجعل <code>auth.user.name</code> و <code>appName</code> متوفرة في <strong>كل</strong> صفحات React.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 6: اختبار Dashboard</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> المتصفح</p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-amber-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">php artisan serve</span>
+                        </div>
+                        <p class="text-slate-500 text-sm">اذهب إلى <code>http://localhost:8000/dashboard</code></p>
+                        <p class="text-slate-500 text-sm">يجب أن ترى: تحية ترحيبية، 4 بطاقات إحصائيات، و 3 بطاقات مشاريع.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="code" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">📝 شرح الكود سطراً سطراً</h2>
+                <div class="space-y-8">
+                    <div class="p-6 rounded-2xl bg-slate-900">
+                        <h3 class="text-white font-black mb-4">تحليل Dashboard.jsx</h3>
+                        <div class="font-mono text-sm text-left space-y-2">
+                            <div class="flex gap-4"><span class="text-gray-500 shrink-0 w-6">1</span><span class="text-code">import { usePage } from '@inertiajs/react';</span></div>
+                            <div class="flex gap-4"><span class="text-gray-500 shrink-0 w-6">5</span><span class="text-code">export default function Dashboard({ stats, recentProjects }) {</span></div>
+                            <div class="flex gap-4"><span class="text-gray-500 shrink-0 w-6">6</span><span class="text-code">&nbsp;&nbsp;const { auth } = usePage().props;</span></div>
+                            <div class="flex gap-4"><span class="text-gray-500 shrink-0 w-6">7</span><span class="text-code">&nbsp;&nbsp;const userName = auth?.user?.name || 'مستخدم FlowPilot';</span></div>
+                        </div>
+                    </div>
+                    <div class="space-y-3 pr-4">
+                        <div class="border-r-4 border-indigo-500 pr-4">
+                            <p class="font-bold text-slate-900">السطر 1: <code>import { usePage } from '@inertiajs/react'</code></p>
+                            <p class="text-slate-600 text-sm"><code>usePage()</code> هو Hook من Inertia يسمح لنا بالوصول إلى البيانات المشتركة التي أرسلناها من Laravel عبر HandleInertiaRequests.</p>
+                        </div>
+                        <div class="border-r-4 border-indigo-500 pr-4">
+                            <p class="font-bold text-slate-900">السطر 5: <code>function Dashboard({ stats, recentProjects })</code></p>
+                            <p class="text-slate-600 text-sm">هذان هما Props اللذان أرسلناهما من Controller عبر <code>Inertia::render('Dashboard', ['stats' => $stats, 'recentProjects' => $recentProjects])</code>.</p>
+                        </div>
+                        <div class="border-r-4 border-indigo-500 pr-4">
+                            <p class="font-bold text-slate-900">السطر 6: <code>const { auth } = usePage().props</code></p>
+                            <p class="text-slate-600 text-sm">نستخرج <code>auth</code> من البيانات المشتركة (وليس من Props الخاصة بهذه الصفحة). <code>auth</code> يحتوي على <code>user</code> الذي فيه <code>name</code> و <code>email</code>.</p>
+                        </div>
+                        <div class="border-r-4 border-indigo-500 pr-4">
+                            <p class="font-bold text-slate-900">السطر 7: <code>auth?.user?.name || 'مستخدم FlowPilot'</code></p>
+                            <p class="text-slate-600 text-sm"><strong>Optional Chaining</strong> (<code>?.</code>) يمنع الخطأ إذا كان <code>auth</code> أو <code>user</code> غير موجود. إذا كان أحدهما null، نستخدم النص الافتراضي 'مستخدم FlowPilot'.</p>
+                        </div>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-slate-900 mt-6">
+                        <h3 class="text-white font-black mb-4">تحليل نظام Grid المتجاوب</h3>
+                        <div class="font-mono text-sm text-left space-y-2">
+                            <div class="flex gap-4"><span class="text-gray-500 shrink-0 w-6">1</span><span class="text-code">&lt;div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"&gt;</span></div>
+                        </div>
+                    </div>
+                    <div class="pr-4">
+                        <div class="border-r-4 border-emerald-500 pr-4">
+                            <p class="font-bold text-slate-900">شرح نظام Grid</p>
+                            <p class="text-slate-600 text-sm"><code>grid-cols-1</code>: على الشاشات الصغيرة جداً (موبايل)، عمود واحد.</p>
+                            <p class="text-slate-600 text-sm"><code>sm:grid-cols-2</code>: على الشاشات الصغيرة (sm ≥ 640px)، عمودان.</p>
+                            <p class="text-slate-600 text-sm"><code>lg:grid-cols-4</code>: على الشاشات الكبيرة (lg ≥ 1024px)، 4 أعمدة.</p>
+                            <p class="text-slate-600 text-sm"><code>gap-4</code>: مسافة 16px بين البطاقات.</p>
+                            <p class="text-slate-600 text-sm mt-2">هذا يعني: في الموبايل، البطاقات تكون فوق بعض (عمود واحد). في سطح المكتب، 4 بطاقات جنباً إلى جنب.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">✅ النتيجة المتوقعة</h2>
+                <div class="p-6 rounded-2xl bg-green-50 border border-green-200">
+                    <p class="text-green-800 font-bold text-lg">بعد تنفيذ جميع الخطوات، يجب أن ترى على <code>/dashboard</code>:</p>
+                    <ul class="list-disc pr-6 mt-4 space-y-2 text-green-700">
+                        <li>عنوان ترحيبي: "أهلاً بك يا [اسم المستخدم] 👋"</li>
+                        <li>4 بطاقات إحصائيات في صف (على سطح المكتب): المشاريع (12)، المهام المكتملة (45)، أعضاء الفريق (8)، المهام المعلقة (7).</li>
+                        <li>كل بطاقة لها أيقونة ولون مختلف (indigo, emerald, amber, rose).</li>
+                        <li>قسم "آخر المشاريع" يحتوي على 3 بطاقات مشاريع.</li>
+                        <li>التصميم متجاوب: على الموبايل، البطاقات تصفف عمودياً.</li>
+                        <li>الـ Layout (Navbar + Sidebar) يظهر حول المحتوى.</li>
                     </ul>
                 </div>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-emerald-600 text-white shadow-xl shadow-indigo-100">
-                <h2 class="text-2xl font-black mb-4">مثال من حياتنا (عدادات السيارة)</h2>
-                <p class="text-emerald-50 leading-relaxed text-lg">
-                    تخيل نفسك تقود سيارة. أنت لا تنظر للمحرك من الداخل لتعرف حرارته أو كمية الوقود. أنت تنظر إلى <strong>لوحة العدادات (Dashboard)</strong> أمامك. 
-                    <br><br>
-                    هي تعطيك "مؤشرات" سريعة وواضحة (السرعة، الوقود، الحرارة) لتتخذ قراراتك بسرعة. لوحة تحكم تطبيقنا تفعل نفس الشيء لمدير المشروع!
-                </p>
-            </section>
-
-            <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">التطبيق العملي</h2>
-
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: بناء مربعات الإحصائيات (Stats Cards)</h3>
-                    <p class="text-slate-600 mb-4">سنقوم بتصميم 3 بطاقات تعرض الأرقام الأساسية في FlowPilot.</p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
-                        <p>&lt;div className="grid grid-cols-3 gap-4"&gt;</p>
-                        <p>&nbsp;&nbsp;&lt;StatCard title="المشاريع" count="12" color="blue" /&gt;</p>
-                        <p>&nbsp;&nbsp;&lt;StatCard title="المهام" count="45" color="indigo" /&gt;</p>
-                        <p>&nbsp;&nbsp;&lt;StatCard title="المنجزة" count="30" color="emerald" /&gt;</p>
-                        <p>&lt;/div&gt;</p>
+            <section id="errors" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">⚠️ الأخطاء الشائعة</h2>
+                <div class="space-y-4">
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 1: Dashboard يظهر بدون Navbar/Sidebar</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> نسيت إضافة <code>Dashboard.layout = page =&gt; &lt;AppLayout children={page} /&gt;</code>.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> أضف السطر بعد إغلاق الدالة مباشرة.</p>
+                    </div>
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 2: "Cannot read properties of undefined (reading 'totalProjects')"</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> Props لم تصل من Controller لأن اسم المفتاح في Inertia::render() مختلف عن اسمه في الدالة.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> تأكد من أن <code>'stats' => $stats</code> في Controller يطابق <code>{ stats }</code> في React.</p>
+                    </div>
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 3: اسم المستخدم يظهر "مستخدم FlowPilot" بدلاً من الاسم الحقيقي</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> Shared Data في HandleInertiaRequests.php لم تُضبط بشكل صحيح، أو المستخدم غير مسجل دخول.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> تأكد من تفعيل نظام المصادقة (Laravel Breeze/Jetstream) وأنك سجلت دخولك. تحقق من ملف HandleInertiaRequests.php.</p>
+                    </div>
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 4: بطاقات الإحصائيات تظهر فوق بعضها في جميع الشاشات</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> نسيت كلاسات Tailwind للـ Grid المتجاوب.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> استخدم <code>grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4</code> بدلاً من كلاس واحد فقط.</p>
+                    </div>
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 5: الصفحة تظهر بيضاء مع خطأ في Console: "ReferenceError: route is not defined"</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> دالة <code>route()</code> تحتاج إلى أن تكون مستوردة أو متوفرة من Inertia.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> إذا كنت تستخدم <code>route()</code> في Sidebar/Navbar، تأكد من أن تثبيت Inertia React تم بشكل صحيح.</p>
                     </div>
                 </div>
+            </section>
 
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: ربط البيانات بالواجهة</h3>
-                    <p class="text-slate-600 mb-4">في هذه المرحلة سنستخدم بيانات تجريبية (Mock Data) لنرى كيف ستبدو الصفحة النهائية.</p>
+            <section id="visuals" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">📊 مخططات توضيحية</h2>
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="diagram.svg" alt="مخطط Dashboard" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">هيكل Dashboard وتدفق البيانات</p>
+                    </div>
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="visual-example.svg" alt="تشبيه عداد السيارة" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">تشبيه عداد السيارة للـ Dashboard</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="summary" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">📋 ملخص الدرس</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-6 rounded-2xl bg-indigo-50 border border-indigo-100">
+                        <h3 class="font-black text-indigo-800 mb-3">المفاهيم الرئيسية</h3>
+                        <ul class="space-y-2 text-sm text-indigo-700">
+                            <li>🔹 <strong>Dashboard</strong>: صفحة تلخص مؤشرات الأداء في مكان واحد.</li>
+                            <li>🔹 <strong>Stat Cards</strong>: بطاقات إحصائية تعرض أرقاماً سريعة.</li>
+                            <li>🔹 <strong>Shared Data</strong>: بيانات متوفرة في كل الصفحات عبر Inertia.</li>
+                            <li>🔹 <strong>Grid متجاوب</strong>: ترتيب البطاقات يتكيف مع حجم الشاشة.</li>
+                            <li>🔹 <strong>usePage()</strong>: Hook للوصول للبيانات المشتركة.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-emerald-50 border border-emerald-100">
+                        <h3 class="font-black text-emerald-800 mb-3">ما أنجزناه في الأسبوع 2</h3>
+                        <ul class="space-y-2 text-sm text-emerald-700">
+                            <li>🔸 <strong>الدرس 1</strong>: فهم Routes وربطها بصفحات React.</li>
+                            <li>🔸 <strong>الدرس 2</strong>: بناء Layout رئيسي (Navbar + Sidebar).</li>
+                            <li>🔸 <strong>الدرس 3</strong>: إنشاء مكونات قابلة لإعادة الاستخدام.</li>
+                            <li>🔸 <strong>الدرس 4</strong>: 🏆 بناء Dashboard كاملة!</li>
+                        </ul>
+                        <p class="mt-4 text-sm text-emerald-600 font-bold">أنت الآن تمتلك هيكل تطبيق ويب كامل. الأسبوع القادم: قواعد البيانات!</p>
+                    </div>
                 </div>
             </section>
 
             <div class="mt-12 flex justify-between gap-4">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-03/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-emerald-600 px-8 py-4 text-white font-black hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-100" href="../../week-03/lesson-01/index.html">الأسبوع الثالث: قواعد البيانات ←</a>
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all text-sm" href="../../week-02/lesson-03/index.html">← الدرس السابق: مكونات React</a>
+                <a class="rounded-2xl bg-emerald-600 px-8 py-4 text-white font-black hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-100 text-sm" href="../../week-03/lesson-01/index.html">الأسبوع الثالث: قواعد البيانات ←</a>
+            </div>
+
+            <div class="mt-8 flex gap-4 justify-center">
+                <a class="rounded-xl bg-indigo-600 px-6 py-3 text-white font-bold hover:bg-indigo-700 transition-all text-sm" href="assignment.html">📄 عرض الواجب</a>
+                <a class="rounded-xl bg-amber-600 px-6 py-3 text-white font-bold hover:bg-amber-700 transition-all text-sm" href="quiz.html">📝 اختبار فهمك</a>
             </div>
         </article>
     </div>
 </main>
 
-<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
-    © 2025 FlowPilot Academy. أنت الآن تمتلك هيكل تطبيقك الأول!
+<footer class="mt-24 border-t bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-8 text-center text-slate-400 text-sm font-medium">
+        © 2026 FlowPilot Academy. تهانينا! أكملت الأسبوع الثاني بنجاح!
+    </div>
 </footer>
 
 <script src="../../../assets/js/app.js"></script>

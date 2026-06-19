@@ -3,24 +3,29 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الأسبوع 2: المسارات والهيكل | FlowPilot Academy</title>
+    <title>الأسبوع 2: Routing و Inertia Layouts | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
+        .card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; transition: all 0.3s ease; }
+        .card:hover { border-color: #10b981; transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+<body class="bg-slate-50 text-slate-900">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
         <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
-            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../index.html">الرئيسية</a>
-            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../pages/curriculum.html">الفهرس</a>
-            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../pages/lessons.html">الدروس</a>
-            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../pages/beginner-guide.html">دليل الطالب</a>
-            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../pages/project.html">المشروع</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100" href="../../index.html">الرئيسية</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100" href="../../pages/curriculum.html">الفهرس</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100" href="../../pages/lessons.html">الدروس</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100" href="../../pages/beginner-guide.html">دليل الطالب</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100" href="../../pages/project.html">المشروع العملي</a>
         </nav>
     </div>
 </header>
@@ -34,45 +39,53 @@
             <h1 class="text-4xl font-black text-slate-900">Routing و Inertia Layouts وبناء الهيكل</h1>
         </div>
         <p class="text-lg text-slate-600 max-w-3xl leading-relaxed">
-            في هذا الأسبوع، ننتقل من مرحلة التأسيس إلى مرحلة البناء المعماري. سنتعلم كيف نربط الروابط بصفحات React، وكيف نبني قالباً ثابتاً (Layout) لكل صفحات مشروع <strong>FlowPilot</strong>.
+            هذا الأسبوع هو نقطة التحول في مشروع FlowPilot. سنفهم كيف يستقبل Laravel طلبات المستخدم عبر الـ Routes، وكيف نستخدم Controllers لتنظيم الكود، وكيف نرسل صفحات React عبر Inertia. سنبني الهيكل الثابت للتطبيق والتنقل بين الصفحات، ونفهم مكونات React.
         </p>
     </section>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <a href="lesson-01/index.html" class="card p-8 hover:border-emerald-500 group bg-white rounded-3xl border border-slate-200 transition-all">
+    <div class="grid md:grid-cols-2 gap-6">
+        <a href="lesson-01/index.html" class="card p-8 hover:border-emerald-500 group">
             <span class="text-xs font-black text-emerald-500 uppercase tracking-widest">الدرس 05</span>
-            <h3 class="mt-2 text-xl font-black group-hover:text-emerald-600 transition-colors">فهم المسارات (Routing)</h3>
-            <p class="mt-4 text-sm text-slate-500 leading-relaxed">ربط الروابط بصفحات React عبر Inertia.</p>
-            <div class="mt-6 pt-6 border-t text-xs font-bold text-emerald-600">ابدأ التعلم الآن ←</div>
+            <h3 class="mt-2 text-xl font-black group-hover:text-emerald-600">فهم المسارات في Laravel وربطها بصفحات React</h3>
+            <p class="mt-3 text-sm text-slate-500">Route::get, Controllers, Inertia::render, Named Routes, تمرير البيانات من Laravel إلى React.</p>
+            <div class="mt-4 pt-4 border-t text-xs font-bold text-emerald-600 group-hover:pr-2 transition-all">ابدأ التعلم ←</div>
         </a>
-
-        <a href="lesson-02/index.html" class="card p-8 hover:border-emerald-500 group bg-white rounded-3xl border border-slate-200 transition-all">
+        <a href="lesson-02/index.html" class="card p-8 hover:border-emerald-500 group">
             <span class="text-xs font-black text-emerald-500 uppercase tracking-widest">الدرس 06</span>
-            <h3 class="mt-2 text-xl font-black group-hover:text-emerald-600 transition-colors">بناء الـ Layout الرئيسي</h3>
-            <p class="mt-4 text-sm text-slate-500 leading-relaxed">إنشاء شريط التنقل والقائمة الجانبية الثابتة.</p>
-            <div class="mt-6 pt-6 border-t text-xs font-bold text-emerald-600">ابدأ التعلم الآن ←</div>
+            <h3 class="mt-2 text-xl font-black group-hover:text-emerald-600">بناء Layout رئيسي وشريط تنقل ثابت</h3>
+            <p class="mt-3 text-sm text-slate-500">مفهوم Layout، Inertia AppLayout، Navbar, Sidebar, Footer، تصميم متجاوب، روابط نشطة.</p>
+            <div class="mt-4 pt-4 border-t text-xs font-bold text-emerald-600 group-hover:pr-2 transition-all">ابدأ التعلم ←</div>
         </a>
-
-        <a href="lesson-03/index.html" class="card p-8 hover:border-emerald-500 group bg-white rounded-3xl border border-slate-200 transition-all">
+        <a href="lesson-03/index.html" class="card p-8 hover:border-emerald-500 group">
             <span class="text-xs font-black text-emerald-500 uppercase tracking-widest">الدرس 07</span>
-            <h3 class="mt-2 text-xl font-black group-hover:text-emerald-600 transition-colors">مكونات React (Components)</h3>
-            <p class="mt-4 text-sm text-slate-500 leading-relaxed">تقسيم الواجهة لقطع صغيرة قابلة للإعادة.</p>
-            <div class="mt-6 pt-6 border-t text-xs font-bold text-emerald-600">ابدأ التعلم الآن ←</div>
+            <h3 class="mt-2 text-xl font-black group-hover:text-emerald-600">فهم مكونات React وتقسيم الواجهة</h3>
+            <p class="mt-3 text-sm text-slate-500">Components, Props, Children, Composition, map(), Conditional Rendering, إعادة الاستخدام.</p>
+            <div class="mt-4 pt-4 border-t text-xs font-bold text-emerald-600 group-hover:pr-2 transition-all">ابدأ التعلم ←</div>
         </a>
-
-        <a href="lesson-04/index.html" class="card p-8 hover:border-emerald-500 group bg-white rounded-3xl border border-slate-200 transition-all">
+        <a href="lesson-04/index.html" class="card p-8 hover:border-emerald-500 group">
             <span class="text-xs font-black text-emerald-500 uppercase tracking-widest">الدرس 08</span>
-            <h3 class="mt-2 text-xl font-black group-hover:text-emerald-600 transition-colors">تصميم الـ Dashboard</h3>
-            <p class="mt-4 text-sm text-slate-500 leading-relaxed">عرض أولى مؤشرات FlowPilot البصرية.</p>
-            <div class="mt-6 pt-6 border-t text-xs font-bold text-emerald-600">ابدأ التعلم الآن ←</div>
+            <h3 class="mt-2 text-xl font-black group-hover:text-emerald-600">إنشاء Dashboard أولية لمؤشرات FlowPilot</h3>
+            <p class="mt-3 text-sm text-slate-500">لوحة تحكم، إحصائيات، بطاقات عرض، Shared Data من Laravel، تصميم متجاوب بالـ Grid.</p>
+            <div class="mt-4 pt-4 border-t text-xs font-bold text-emerald-600 group-hover:pr-2 transition-all">ابدأ التعلم ←</div>
         </a>
     </div>
+
+    <section class="mt-16 p-8 bg-emerald-50 rounded-[2rem] border border-emerald-100">
+        <h2 class="text-2xl font-black text-emerald-900 mb-4">ماذا ستكون قادراً على فعله بعد هذا الأسبوع؟</h2>
+        <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div class="flex items-center gap-2 text-emerald-800">✓ إنشاء Routes و Controllers في Laravel</div>
+            <div class="flex items-center gap-2 text-emerald-800">✓ ربط أي رابط بصفحة React عبر Inertia</div>
+            <div class="flex items-center gap-2 text-emerald-800">✓ بناء Layout ثابت مع شريط تنقل احترافي</div>
+            <div class="flex items-center gap-2 text-emerald-800">✓ تقسيم الواجهة إلى Components قابلة لإعادة الاستخدام</div>
+            <div class="flex items-center gap-2 text-emerald-800">✓ تمرير البيانات من Laravel إلى React</div>
+            <div class="flex items-center gap-2 text-emerald-800">✓ بناء لوحة تحكم بإحصائيات حقيقية</div>
+        </div>
+    </section>
 </main>
 
 <footer class="mt-24 border-t bg-white py-12 text-center text-slate-400 text-sm font-medium">
-    © 2025 FlowPilot Academy. المحتوى مصمم لمساعدتك على الإبداع.
+    <p>© 2025 FlowPilot Academy. الهيكل القوي هو أساس أي تطبيق ناجح.</p>
 </footer>
-
 <script src="../../assets/js/app.js"></script>
 </body>
 </html>

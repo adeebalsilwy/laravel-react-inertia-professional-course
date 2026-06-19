@@ -3,23 +3,32 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 4: Git وتنظيم المستودع وطريقة حفظ التقدم</title>
+    <title>الدرس 4: Git وتنظيم المستودع وحفظ التقدم</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../assets/css/style.css">
     <style>
         :root { font-family: 'Tajawal', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
         .sidebar-sticky { position: sticky; top: 5rem; }
         .step-card { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; }
+        code { direction: ltr; display: inline-block; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../index.html">الرئيسية</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/curriculum.html">الفهرس</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/lessons.html">الدروس</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/beginner-guide.html">دليل الطالب</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/project.html">المشروع</a>
+        </nav>
     </div>
 </header>
 
@@ -29,10 +38,17 @@
             <div class="sidebar-sticky space-y-4">
                 <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الأول</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">لماذا Git؟</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">ما هو المستودع؟</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال الألعاب</a>
+                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#why">لماذا Git؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">الشرح النظري</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">تشبيه الألعاب</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">في FlowPilot</a>
                     <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#code">شرح الأوامر</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">أخطاء شائعة</a>
+                </div>
+                <div class="space-y-2">
+                    <a class="block rounded-xl bg-emerald-600 text-white p-3 font-black text-center text-sm shadow-lg shadow-emerald-100" href="assignment.html">واجب الدرس</a>
+                    <a class="block rounded-xl bg-sky-600 text-white p-3 font-black text-center text-sm shadow-lg shadow-sky-100" href="quiz.html">كويز الدرس</a>
                 </div>
             </div>
         </aside>
@@ -40,69 +56,494 @@
         <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
             <section class="border-b pb-8 mb-12">
                 <span class="px-3 py-1 rounded-lg bg-indigo-50 text-indigo-700 font-bold text-xs uppercase tracking-widest">الأسبوع 1 · الدرس 4</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">Git: آلة الزمن والتعاون البرمجي في FlowPilot</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"المبرمج المحترف لا يخاف من الخطأ، لأنه يمتلك القدرة على العودة بالزمن وإصلاحه في ثوانٍ."</p>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">Git: آلة الزمن لحفظ تقدم مشروع FlowPilot</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"المبرمج المحترف لا يخاف من التجربة، لأنه يعلم أنه يستطيع العودة بالزمن في ثوانٍ."</p>
             </section>
 
-            <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">لماذا هذا الدرس مهم؟</h2>
+            <section id="why" class="space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">لماذا هذا الدرس مهم جداً؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    هل سبق لك وأن قمت بتعديل ملف ثم ندمت وأردت العودة للشكل القديم؟ أو هل خفت من تجربة كود جديد يفسد مشروعك بالكامل؟ هنا تأتي قوة <strong>Git</strong>.
+                    هل سبق لك أن لعبت لعبة فيديو، ووصلت لنقطة صعبة، ثم خسرت واضطررت للبدء من البداية لأنك نسيت أن تحفظ اللعبة؟ هذا الشعور بالإحباط هو ما يشعر به المبرمجون الذين لا يستخدمون Git.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    في مشروع FlowPilot، سنستخدم Git لحفظ "لقطات" (Commits) من تقدمنا. هذا يضمن لنا أن تعبنا لن يضيع أبداً، ويسمح لنا بالتعاون مع مبرمجين آخرين بسهولة واحترافية.
+                    <strong>Git</strong> هو نظام "التحكم في الإصدارات" (Version Control System). هذه عبارة كبيرة، لكن معناها بسيط: Git يسجل "لقطات" (Snapshots) لمشروعك في كل مرة تطلب منه ذلك. يمكنك العودة لأي لقطة في أي وقت، ومقارنة التغييرات، وحتى تجربة أفكار جديدة دون خوف.
+                </p>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    في هذا الدرس، سنقوم بحفظ كل العمل الذي أنجزناه في الدروس الثلاثة السابقة في أول <strong>Commit</strong> رسمي لـ FlowPilot. من الآن فصاعداً، كل درس سنضيف commit جديد يوثق تقدمنا.
                 </p>
             </section>
 
             <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هو Git؟</h2>
-                <div class="space-y-4 text-slate-600">
-                    <p>Git هو نظام "تتبع الإصدارات" (Version Control System). وببساطة هو برنامج يراقب كل حرف تكتبه في مشروعك.</p>
-                    <ul class="list-disc pr-6 space-y-4">
-                        <li><strong>Repository (المستودع):</strong> هو المجلد الذي يحتوي على مشروعك وتاريخه بالكامل.</li>
-                        <li><strong>Commit (الحفظ):</strong> هي عملية أخذ "لقطة" لكودك في لحظة معينة مع رسالة تشرح ما فعلته.</li>
-                        <li><strong>Push (الرفع):</strong> هو إرسال مشروعك من جهازك إلى الإنترنت (مثل GitHub) ليكون آمناً.</li>
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هو Git؟ شرح كل مفهوم بالتفصيل</h2>
+                
+                <div class="space-y-6">
+                    <div class="p-6 rounded-2xl border border-slate-200">
+                        <h3 class="font-black text-xl text-indigo-600 mb-3">1. Repository (المستودع)</h3>
+                        <p class="text-slate-700 leading-relaxed">
+                            <strong>المستودع</strong> هو مجلد خاص (مخفي) اسمه <code>.git</code> ينشئه Git داخل مشروعك. هذا المجلد يحتوي على تاريخ المشروع بالكامل: كل commit، كل فرع، كل تغيير. المستودع هو "ذاكرة" مشروعك.
+                            <br><br>
+                            تخيل أن لديك آلة تصوير. المستودع هو بطاقة الذاكرة (Memory Card) في الكاميرا. كلما ضغطت زر التصوير (Commit)، تحفظ الصورة في البطاقة.
+                        </p>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-slate-200">
+                        <h3 class="font-black text-xl text-indigo-600 mb-3">2. Commit (الحفظ)</h3>
+                        <p class="text-slate-700 leading-relaxed">
+                            <strong>Commit</strong> هو "لقطة" (Snapshot) لمشروعك في لحظة زمنية معينة. كل commit له:
+                        </p>
+                        <ul class="list-disc pr-6 space-y-2 text-sm text-slate-600 mt-3">
+                            <li><strong>Hash</strong>: معرف فريد (مثل <code>a1b2c3d4</code>) يميز هذا commit عن غيره.</li>
+                            <li><strong>Message</strong>: رسالة تصف ما قمت به (مثل "إضافة صفحة الترحيب").</li>
+                            <li><strong>Author</strong>: اسم الشخص الذي أنشأ commit.</li>
+                            <li><strong>Timestamp</strong>: التاريخ والوقت.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-slate-200">
+                        <h3 class="font-black text-xl text-indigo-600 mb-3">3. Staging Area (منطقة الإعداد)</h3>
+                        <p class="text-slate-700 leading-relaxed">
+                            <strong>Staging Area</strong> هي منطقة وسطى بين الملفات على جهازك و الـ Commit. أنت تختار أي الملفات تريد تضمينها في الـ Commit القادم.
+                            <br><br>
+                            تخيل أنك تلتقط صوراً في حفل زفاف. بعد التصوير، تنقل الصور من الكاميرا إلى مجلد "للمراجعة" على حاسوبك (Staging). ثم تختار أجمل الصور وتنشرها على فيسبوك (Commit).
+                        </p>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-slate-200">
+                        <h3 class="font-black text-xl text-indigo-600 mb-3">4. Branch (الفرع)</h3>
+                        <p class="text-slate-700 leading-relaxed">
+                            <strong>الفرع</strong> هو نسخة موازية من مشروعك. يمكنك إنشاء فرع جديد لتجربة فكرة جديدة دون التأثير على الكود الأساسي. إذا نجحت الفكرة، تدمجها مع الفرع الرئيسي. إذا فشلت، تتجاهل الفرع.
+                            <br><br>
+                            الفرع الرئيسي اسمه <code>main</code> (أو <code>master</code> في المشاريع القديمة).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-emerald-50 border border-emerald-100">
+                    <h3 class="font-black text-emerald-700 text-lg mb-3">مصطلحات Git الأساسية</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="p-3 rounded-xl bg-white">
+                            <p class="font-bold text-slate-800">git init</p>
+                            <p class="text-xs text-slate-500">إنشاء مستودع Git جديد في المجلد الحالي</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-white">
+                            <p class="font-bold text-slate-800">git add</p>
+                            <p class="text-xs text-slate-500">إضافة ملفات إلى Staging Area</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-white">
+                            <p class="font-bold text-slate-800">git commit</p>
+                            <p class="text-xs text-slate-500">حفظ اللقطة (Snapshot) في المستودع</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-white">
+                            <p class="font-bold text-slate-800">git status</p>
+                            <p class="text-xs text-slate-500">عرض حالة الملفات (معدل، جديد، محذوف)</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-white">
+                            <p class="font-bold text-slate-800">git log</p>
+                            <p class="text-xs text-slate-500">عرض تاريخ الـ Commits</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-white">
+                            <p class="font-bold text-slate-800">git diff</p>
+                            <p class="text-xs text-slate-500">مقارنة التغييرات بين الإصدارات</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Real-life Example -->
+            <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">مثال من الواقع: "حفظ لعبة الفيديو"</h2>
+                <div class="text-indigo-50 leading-relaxed text-lg space-y-4">
+                    <p>تخيل أنك تلعب لعبة مغامرات. أنت في قلعة مظلمة، وهناك وحش رهيب في النهاية. قبل أن تواجه الوحش، ماذا تفعل؟</p>
+                    
+                    <div class="grid md:grid-cols-3 gap-4 mt-6">
+                        <div class="p-4 rounded-xl bg-indigo-500/50 text-center">
+                            <p class="text-3xl mb-2">💾</p>
+                            <p class="font-black">Save Point</p>
+                            <p class="text-sm text-indigo-200">تضغط حفظ (Commit) قبل المخاطرة</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-indigo-500/50 text-center">
+                            <p class="text-3xl mb-2">💀</p>
+                            <p class="font-black">تواجه الوحش</p>
+                            <p class="text-sm text-indigo-200">تجرب خطة جديدة... وتفشل</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-indigo-500/50 text-center">
+                            <p class="text-3xl mb-2">⏪</p>
+                            <p class="font-black">Load Game</p>
+                            <p class="text-sm text-indigo-200">تعود لآخر حفظ وتجرب مجدداً</p>
+                        </div>
+                    </div>
+
+                    <p class="mt-6 text-indigo-200 font-bold">Git هو زر "حفظ" في عالم البرمجة. كل Commit هو Save Point. إذا أفسدت الكود (وهو أمر يحدث كثيراً)، تعود لآخر Commit سليم وتجرب بطريقة أخرى.</p>
+                    
+                    <div class="mt-6 p-4 rounded-xl bg-indigo-500/30">
+                        <p class="text-sm text-indigo-100">الفرق بين Git وحفظ اللعبة العادي: في الألعاب، لديك 3-5 ملفات حفظ فقط. في Git، لديك عدد لا نهائي من نقاط الحفظ، ويمكنك العودة لأي نقطة في أي وقت!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FlowPilot Link -->
+            <section id="flowpilot" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">كيف يخدم هذا الدرس مشروع FlowPilot؟</h2>
+                <div class="mt-6 p-6 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-900 space-y-4">
+                    <p>حتى الآن، مشروع FlowPilot هو مجلد على جهازك. إذا تعطل الجهاز أو حذفت المجلد بالخطأ، سيضيع كل شيء!</p>
+                    <p>مع Git:</p>
+                    <ul class="list-disc pr-6 space-y-2 text-sm">
+                        <li>كل تقدمنا محفوظ في "لقطات" (Commits).</li>
+                        <li>يمكننا العودة لأي درس سابق (مثلاً: "أرني كيف كان المشروع بعد الدرس 2").</li>
+                        <li>يمكننا تجربة إضافة ميزة جديدة في فرع منفصل دون扰动 الكود الأساسي.</li>
+                        <li>في المستقبل، سنرفع المشروع إلى GitHub لمشاركته مع العالم وحفظه في السحابة.</li>
+                    </ul>
+                    <p class="font-bold mt-4">اليوم سنحفظ "اللقطة الأولى" - ميلاد مشروع FlowPilot!</p>
+                </div>
+            </section>
+
+            <!-- Practice -->
+            <section id="practice" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي خطوة بخطوة</h2>
+
+                <!-- Step 1 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: التحقق من تثبيت Git</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> التأكد من أن Git مثبت وجاهز للاستخدام (كما تعلمنا في الدرس 1).</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4" dir="ltr">
+                        <p>git --version</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
+                        <p class="font-bold">النتيجة المتوقعة:</p>
+                        <p class="font-mono">git version 2.40.0.windows.1</p>
+                        <p>إذا ظهر رقم الإصدار، فأنت جاهز. إذا لم يظهر، ارجع للدرس 1 وقم بتثبيت Git.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تهيئة Git (ضبط اسم المستخدم والبريد الإلكتروني)</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> تعريف هويتك لـ Git. كل Commit سيحمل اسمك وبريدك.</p>
+                    <div class="p-4 rounded-xl bg-amber-50 border border-amber-100 mb-4">
+                        <p class="text-sm font-bold text-amber-800">يجب فعل هذه الخطوة مرة واحدة فقط في حياتك (أو عند تثبيت Git على جهاز جديد).</p>
+                    </div>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4" dir="ltr">
+                        <p class="text-slate-500 mb-2 text-right font-sans"># استخدم اسمك الحقيقي (أو اسم المستخدم الذي تفضله)</p>
+                        <p>git config --global user.name "Your Name"</p>
+                        <p class="text-slate-500 mt-4 mb-2 text-right font-sans"># استخدم بريدك الإلكتروني الحقيقي</p>
+                        <p>git config --global user.email "your.email@example.com"</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-100 text-sm">
+                        <p class="font-bold text-emerald-800">شرح الأمر:</p>
+                        <p><code>git config</code>: الأمر الخاص بإعدادات Git.</p>
+                        <p><code>--global</code>: يعني أن هذه الإعدادات ستطبق على كل مشاريع Git على جهازك (وليس فقط مشروع flowpilot).</p>
+                        <p><code>user.name</code>: اسم المستخدم.</p>
+                        <p><code>user.email</code>: البريد الإلكتروني.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: إنشاء مستودع Git في مجلد FlowPilot</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> تحويل مجلد <code>flowpilot</code> إلى مستودع Git يمكنه تتبع التغييرات.</p>
+                    <div class="p-4 rounded-xl bg-amber-50 border border-amber-100 mb-4">
+                        <p class="text-sm font-bold text-amber-800">تأكد أنك داخل مجلد <code>flowpilot</code> في Terminal قبل تنفيذ الأمر!</p>
+                    </div>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4" dir="ltr">
+                        <p class="text-slate-500 mb-2 text-right font-sans"># داخل مجلد flowpilot</p>
+                        <p>git init</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
+                        <p class="font-bold">النتيجة المتوقعة:</p>
+                        <p class="font-mono">Initialized empty Git repository in F:/.../flowpilot/.git/</p>
+                        <p class="mt-3">مبروك! الآن مجلدك أصبح مستودع Git. هناك مجلد مخفي جديد اسمه <code>.git</code> (لن تراه في File Explorer إذا لم تظهر الملفات المخفية).</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: إنشاء ملف .gitignore لحماية ملفات Laravel</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> إخبار Git بتجاهل ملفات ومجلدات معينة لا نريد تتبعها.</p>
+                    <div class="p-4 rounded-xl bg-amber-50 border border-amber-100 mb-4">
+                        <p class="text-sm font-bold text-amber-800">ما هو .gitignore؟ إنه ملف خاص يخبر Git: "لا تهتم بهذه الملفات، لا تتابع تغييراتها". في Laravel، نتجاهل مجلد vendor/ (لأن Composer يعيد إنشائه)، و node_modules/ (لأن NPM يعيد إنشائه)، وملف .env (لأنه يحتوي كلمات سر).</p>
+                    </div>
+                    <p class="text-slate-600 mb-4">لحسن الحظ، Laravel يأتي مع ملف <code>.gitignore</code> جاهز. تحقق من وجوده:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4" dir="ltr">
+                        <p class="text-slate-500 mb-2 text-right font-sans"># تحقق من وجود الملف (على Linux/Mac/Git Bash)</p>
+                        <p>cat .gitignore</p>
+                        <p class="text-slate-500 mt-4 mb-2 text-right font-sans"># على Windows PowerShell</p>
+                        <p>Get-Content .gitignore</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-100 text-sm">
+                        <p class="font-bold">محتوى .gitignore النموذجي لـ Laravel:</p>
+                        <div class="bg-slate-900 text-emerald-400 rounded-xl p-4 mt-2 font-mono text-xs text-left" dir="ltr">
+                            <p>/vendor</p>
+                            <p>/node_modules</p>
+                            <p>.env</p>
+                            <p>.env.*</p>
+                            <p>*.log</p>
+                            <p>/storage/*.key</p>
+                            <p>/.vite</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: إضافة جميع الملفات إلى Staging Area</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> إخبار Git بأي الملفات نريد تضمينها في أول Commit.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-sky-400 overflow-x-auto mb-4" dir="ltr">
+                        <p class="text-slate-500 mb-2 text-right font-sans"># أضف كل الملفات (باستثناء المجلدات المستثناة في .gitignore)</p>
+                        <p>git add .</p>
+                        <p class="text-slate-500 mt-4 mb-2 text-right font-sans"># (نقطة) تعني "كل الملفات في المجلد الحالي وما تحته".</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-100 text-sm">
+                        <p class="font-bold text-emerald-800">شرح الأمر:</p>
+                        <p><code>git add .</code> يضيف كل الملفات (ما عدا المذكورة في .gitignore) إلى Staging Area. الآن Git "يعرف" هذه الملفات وينتظر الأمر بحفظها.</p>
+                        <p class="mt-2">يمكنك بدلاً من ذلك إضافة ملف واحد فقط: <code>git add index.html</code>. لكن في أول Commit، نضيف كل شيء.</p>
+                    </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 6: أول Commit في تاريخ FlowPilot</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> حفظ أول لقطة رسمية لمشروع FlowPilot.</p>
+                    <div class="p-4 rounded-xl bg-amber-50 border border-amber-100 mb-4">
+                        <p class="text-sm font-bold text-amber-800">رسالة الـ Commit يجب أن تكون واضحة ومفيدة. تخيل أنك ستعود لهذا commit بعد سنة - هل ستفهم ما قمت به؟</p>
+                    </div>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4" dir="ltr">
+                        <p class="text-slate-500 mb-2 text-right font-sans"># -m تعني "message" (الرسالة). اكتب رسالة واضحة.</p>
+                        <p>git commit -m "تأسيس مشروع FlowPilot مع Laravel 12 و React و Inertia"</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
+                        <p class="font-bold">النتيجة المتوقعة:</p>
+                        <p class="font-mono">[main (root-commit) a1b2c3d] تأسيس مشروع FlowPilot مع Laravel 12 و React و Inertia</p>
+                        <p>&nbsp;&nbsp;مئات من الملفات تغيرت</p>
+                        <p class="mt-3">إذا رأيت هذه الرسالة (بدون خطأ)، فتهانينا! 🎉 أنت قمت بأول Commit في مشروعك!</p>
+                    </div>
+                </div>
+
+                <!-- Step 7 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 7: التحقق من حالة المشروع وعرض التاريخ</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> استخدام <code>git status</code> و <code>git log</code> لرؤية حالة المشروع.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 mb-4">
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto" dir="ltr">
+                            <p class="text-slate-500 mb-2 text-right font-sans"># هل يوجد أي تغييرات غير محفوظة؟</p>
+                            <p>git status</p>
+                        </div>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto" dir="ltr">
+                            <p class="text-slate-500 mb-2 text-right font-sans"># اعرض تاريخ commits</p>
+                            <p>git log</p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
+                        <p class="font-bold">git status يجب أن يظهر:</p>
+                        <p class="font-mono">On branch main<br>nothing to commit, working tree clean</p>
+                        <p class="mt-3">هذا يعني أن جميع الملفات محفوظة ولا يوجد أي تغييرات غير مسجلة.</p>
+                        <p class="font-bold mt-4">git log يجب أن يظهر:</p>
+                        <p class="font-mono">commit a1b2c3d4e5f6... (HEAD -> main)<br>Author: Your Name &lt;your.email@example.com&gt;<br>Date:  ...<br>&nbsp;&nbsp;&nbsp;&nbsp;تأسيس مشروع FlowPilot مع Laravel 12 و React و Inertia</p>
+                    </div>
+                </div>
+
+                <!-- Step 8 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 8: مفهوم الفروع (Branches) - نظرة سريعة</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> فهم فكرة الفروع دون تطبيقها الآن (سنستخدمها في دروس متقدمة).</p>
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            الفرع (Branch) هو نسخة موازية من مشروعك. عندما تريد إضافة ميزة جديدة (مثلاً: نظام دفع)، لا تريد المخاطرة بكسر الكود الحالي. لذا تنشئ فرعاً جديداً:
+                        </p>
+                        <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm mt-3" dir="ltr">
+                            <p class="text-slate-500"># إنشاء فرع جديد (دون التبديل إليه)</p>
+                            <p>git branch feature-payment</p>
+                            <p class="text-slate-500 mt-2"># التبديل إلى الفرع الجديد</p>
+                            <p>git checkout feature-payment</p>
+                            <p class="text-slate-500 mt-2"># أو اختصاراً: إنشاء وتبديل مباشر</p>
+                            <p>git checkout -b feature-payment</p>
+                        </div>
+                        <p class="text-sm text-slate-600 mt-3">
+                            الآن لديك نسختان من المشروع: <code>main</code> (المستقر) و <code>feature-payment</code> (قيد التطوير). عندما تنتهي من الميزة، تدمجها مع main باستخدام <code>git merge</code>.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Code Explanation -->
+            <section id="code" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">شرح تفصيلي لأوامر Git</h2>
+                
+                <div class="mt-8 space-y-6">
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
+                        <h4 class="font-black text-slate-900 mb-3">الأمر: <code class="text-indigo-600" dir="ltr">git init</code></h4>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>init</strong> اختصار لـ "Initialize" (تهيئة). هذا الأمر ينشئ مجلداً مخفياً اسمه <code>.git</code> داخل مجلد مشروعك. هذا المجلد هو "المستودع" الذي سيحتوي على كل تاريخ المشروع.
+                            <br><br>
+                            فعلياً، <code>git init</code> هو أول أمر تشغله في أي مشروع جديد تريد تتبعه بـ Git. بدونه، Git لا يعرف أن هذا المجلد مشروع يريد تتبعه.
+                        </p>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
+                        <h4 class="font-black text-slate-900 mb-3">الأمر: <code class="text-indigo-600" dir="ltr">git add .</code></h4>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>add</strong> يعني "إضافة". النقطة <code>.</code> تعني "المجلد الحالي". هذا الأمر يضيف كل الملفات في المجلد الحالي (وجميع المجلدات الفرعية) إلى "Staging Area" (منطقة الإعداد).
+                            <br><br>
+                            Staging Area هي مرحلة وسطية بين تعديلاتك على جهازك وبين Commit. أنت تختار أي التعديلات تريد حفظها في الـ Commit القادم. هذا يسمح لك بحفظ تغييرات محددة فقط.
+                            <br><br>
+                            مثلاً: عدلت 3 ملفات، لكن تريد حفظ 2 منهم فقط. تكتب <code>git add file1.js file2.js</code> فقط.
+                        </p>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
+                        <h4 class="font-black text-slate-900 mb-3">الأمر: <code class="text-indigo-600" dir="ltr">git commit -m "رسالة"</code></h4>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>commit</strong> يعني "ألتزم" - أنت تلتزم بحفظ هذه اللقطة. <strong>-m</strong> اختصار لـ "message" وتتبعها الرسالة التي تصف التغييرات.
+                            <br><br>
+                            الـ Commit هو نقطة في تاريخ المشروع. يمكنك العودة إليها في أي وقت. كل Commit له:
+                        </p>
+                        <ul class="text-sm text-slate-600 space-y-1 mt-3 pr-6 list-disc">
+                            <li>معرف فريد (Hash) - مثل <code>a1b2c3d</code></li>
+                            <li>الرسالة التي كتبتها مع <code>-m</code></li>
+                            <li>اسم المؤلف والبريد الإلكتروني</li>
+                            <li>التاريخ والوقت</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
+                        <h4 class="font-black text-slate-900 mb-3">الأمر: <code class="text-indigo-600" dir="ltr">git status</code></h4>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            هذا الأمر يعرض لك حالة المشروع حالياً. يخبرك:
+                        </p>
+                        <ul class="text-sm text-slate-600 space-y-1 mt-3 pr-6 list-disc">
+                            <li>ما الفرع الذي أنت فيه (مثلاً <code>main</code>).</li>
+                            <li>هل هناك ملفات معدلة لم تضفها لـ Staging بعد؟</li>
+                            <li>هل هناك ملفات جديدة لم تتبعها Git بعد؟</li>
+                            <li>هل الـ Staging Area تحتوي على ملفات جاهزة للـ Commit؟</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Expected Result -->
+            <section class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">النتيجة المتوقعة بعد إتمام الدرس</h2>
+                <div class="mt-6 p-6 rounded-2xl border border-emerald-100 bg-emerald-50">
+                    <p class="text-emerald-900 font-bold text-lg mb-4">بعد تنفيذ جميع الخطوات:</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 p-3 rounded-xl bg-white shadow-sm">
+                            <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-black">✓</span>
+                            <span>مشروع FlowPilot أصبح مستودع Git (يحتوي على مجلد .git/ مخفي)</span>
+                        </li>
+                        <li class="flex items-center gap-3 p-3 rounded-xl bg-white shadow-sm">
+                            <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-black">✓</span>
+                            <span>ملف .gitignore موجود ويتجاهل vendor، node_modules، .env</span>
+                        </li>
+                        <li class="flex items-center gap-3 p-3 rounded-xl bg-white shadow-sm">
+                            <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-black">✓</span>
+                            <span>أول Commit باسم "تأسيس مشروع FlowPilot"</span>
+                        </li>
+                        <li class="flex items-center gap-3 p-3 rounded-xl bg-white shadow-sm">
+                            <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-black">✓</span>
+                            <span><code>git status</code> يعرض "nothing to commit, working tree clean"</span>
+                        </li>
+                        <li class="flex items-center gap-3 p-3 rounded-xl bg-white shadow-sm">
+                            <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-black">✓</span>
+                            <span><code>git log</code> يعرض Commit واحد في التاريخ</span>
+                        </li>
                     </ul>
                 </div>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
-                <h2 class="text-2xl font-black mb-4">مثال من الواقع (حفظ الألعاب)</h2>
-                <p class="text-indigo-50 leading-relaxed text-lg">
-                    تخيل أنك تلعب لعبة صعبة. قبل أن تقابل "الوحش"، ستقوم بعمل <strong>Save</strong> للعبتك. إذا خسرت، لن تبدأ اللعبة من الصفر، بل ستعود لنقطة الحفظ الأخيرة وتجرب مرة أخرى بذكاء أكبر.
-                    <br><br>
-                    <strong>Git</strong> هو تماماً مثل زر <strong>Save</strong> في الألعاب، والـ <strong>Commit</strong> هي نقطة الحفظ التي تعود إليها إذا أفسدت الكود!
-                </p>
+            <!-- Common Errors -->
+            <section id="errors" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-rose-600 pr-4">الأخطاء الشائعة في Git</h2>
+                <div class="mt-8 space-y-6">
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h4 class="font-black text-rose-700 mb-2">1. خطأ: fatal: not a git repository</h4>
+                        <p class="text-sm text-rose-900 leading-relaxed mb-4"><strong>السبب:</strong> أنت في مجلد لا يحتوي على مستودع Git. إما لم تنفذ <code>git init</code> أو أنك في المجلد الخطأ.</p>
+                        <p class="text-sm font-black text-rose-900">الحل: تأكد أنك داخل مجلد flowpilot. نفذ <code>git init</code> إذا لم تكن قد فعلت.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h4 class="font-black text-rose-700 mb-2">2. خطأ: Please tell me who you are</h4>
+                        <p class="text-sm text-rose-900 leading-relaxed mb-4"><strong>السبب:</strong> لم تقم بتعيين اسم المستخدم والبريد الإلكتروني بعد. Git يحتاج هذه المعلومات لكل Commit.</p>
+                        <p class="text-sm font-black text-rose-900">الحل: نفذ <code>git config --global user.name "اسمك"</code> و <code>git config --global user.email "بريدك"</code>.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h4 class="font-black text-rose-700 mb-2">3. خطأ: Commit يصبح كبيراً جداً (يأخذ وقتاً طويلاً)</h4>
+                        <p class="text-sm text-rose-900 leading-relaxed mb-4"><strong>السبب:</strong> ربما لم تنشئ ملف <code>.gitignore</code> وبالتالي Git يحاول تتبع مجلد <code>vendor/</code> أو <code>node_modules/</code> الذي يحتوي آلاف الملفات.</p>
+                        <p class="text-sm font-black text-rose-900">الحل: تأكد من وجود <code>.gitignore</code> في جذر المشروع. إذا أضفته بعد الـ Commit، أضف الملفات المستثناة ثم commit جديد.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h4 class="font-black text-rose-700 mb-2">4. خطأ: "nothing added to commit but untracked files present"</h4>
+                        <p class="text-sm text-rose-900 leading-relaxed mb-4"><strong>السبب:</strong> لديك ملفات جديدة لكنك لم تضفها إلى Staging Area باستخدام <code>git add</code>.</p>
+                        <p class="text-sm font-black text-rose-900">الحل: نفذ <code>git add .</code> ثم <code>git commit -m "رسالتك"</code>.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h4 class="font-black text-rose-700 mb-2">5. خطأ شائع: رسالة Commit غير واضحة</h4>
+                        <p class="text-sm text-rose-900 leading-relaxed mb-4"><strong>السبب:</strong> كتابة رسائل مثل "تعديلات" أو "fix" أو "update" - هذه الرسائل لا تفيد أحداً.</p>
+                        <p class="text-sm font-black text-rose-900">الحل: اكتب رسالة تصف بدقة ماذا فعلت. مثلاً: "إضافة صفحة تسجيل دخول مع التحقق من البريد الإلكتروني". مستقبلك سيشكرك.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h4 class="font-black text-rose-700 mb-2">6. مشكلة: استخدام Git على Windows (نهايات الأسطر)</h4>
+                        <p class="text-sm text-rose-900 leading-relaxed mb-4"><strong>السبب:</strong> Windows يستخدم <code>CRLF</code> لنهاية الأسطر، بينما Linux/Mac يستخدم <code>LF</code>. هذا يسبب اختلافات في الملفات.</p>
+                        <p class="text-sm font-black text-rose-900">الحل: نفذ <code>git config --global core.autocrlf true</code>. هذا يخبر Git بتحويل نهايات الأسطر تلقائياً.</p>
+                    </div>
+                </div>
             </section>
 
-            <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي</h2>
-
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: بدء تشغيل Git في FlowPilot</h3>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto text-left mb-4">
-                        <p>git init</p>
+            <!-- Diagrams -->
+            <section class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">مخططات توضيحية</h2>
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="diagram.svg" alt="Technical Diagram" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">سير عمل Git: من الملفات إلى الـ Commit</p>
                     </div>
-                    <p class="text-sm text-slate-500 italic">هذا الأمر ينشئ "المستودع" داخل مجلد مشروعك.</p>
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="visual-example.svg" alt="Analogy Diagram" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">تشبيه حفظ لعبة الفيديو بـ Git Commits</p>
+                    </div>
                 </div>
+            </section>
 
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: حفظ أول تقدم (Commit)</h3>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left">
-                        <p>git add .</p>
-                        <p>git commit -m "إتمام تهيئة مشروع FlowPilot وربطه بـ React"</p>
+            <!-- Summary -->
+            <section class="mt-16 p-10 rounded-[2.5rem] bg-slate-900 text-white">
+                <h2 class="text-2xl font-black mb-6">ملخص الدرس</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="space-y-3">
+                        <h4 class="text-indigo-400 font-black uppercase text-xs tracking-widest">ماذا تعلمنا؟</h4>
+                        <ul class="text-sm text-slate-400 space-y-2">
+                            <li>• Git = نظام تتبع الإصدارات (آلة الزمن)</li>
+                            <li>• git init = إنشاء مستودع جديد</li>
+                            <li>• git add = إضافة ملفات لـ Staging</li>
+                            <li>• git commit = حفظ اللقطة</li>
+                            <li>• .gitignore = تجاهل الملفات غير الضرورية</li>
+                            <li>• git status + git log = فحص الحالة</li>
+                        </ul>
                     </div>
+                    <div class="space-y-3">
+                        <h4 class="text-indigo-400 font-black uppercase text-xs tracking-widest">لماذا هو مهم؟</h4>
+                        <ul class="text-sm text-slate-400 space-y-2">
+                            <li>• يحمي مشروعك من الضياع</li>
+                            <li>• يسمح بتجربة أفكار جديدة دون خوف</li>
+                            <li>• يمكنك من التعاون مع فريق</li>
+                            <li>• يوفر تاريخ كامل للتغييرات</li>
+                        </ul>
+                    </div>
+                    <div class="space-y-3">
+                        <h4 class="text-indigo-400 font-black uppercase text-xs tracking-widest">الخطوة القادمة</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed">ننتقل للأسبوع الثاني: سنبدأ في بناء مسارات (URLs) ومتحكمات (Controllers) لـ FlowPilot!</p>
+                    </div>
+                </div>
+                <div class="mt-8 p-4 rounded-xl bg-slate-800 text-center">
+                    <p class="text-sm text-amber-400 font-bold">🔑 نصيحة الأسبوع: قبل أي تجربة جريئة في الكود، اسأل نفسك: "هل عملت Commit آخر مرة؟"</p>
                 </div>
             </section>
 
             <div class="mt-12 flex justify-between gap-4">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-03/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../../week-02/lesson-01/index.html">الأسبوع الثاني: المسارات والهيكل ←</a>
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-03/index.html">← الدرس السابق: Tailwind CSS</a>
+                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 hover:-translate-x-2 transition-all shadow-xl shadow-indigo-100" href="../../week-02/lesson-01/index.html">الأسبوع الثاني: المسارات ←</a>
             </div>
         </article>
     </div>
 </main>
 
-<script src="../../../assets/js/app.js"></script>
+<footer class="mt-24 border-t bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-8 text-center text-slate-400 text-sm font-medium">
+        © 2025 FlowPilot Academy. التزامك بالـ Commits هو التزامك بنجاح مشروعك.
+    </div>
+</footer>
+
 </body>
 </html>

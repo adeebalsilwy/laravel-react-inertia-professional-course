@@ -1,14 +1,63 @@
 {
-  "lesson": 12,
-  "title": "قراءة البيانات بكفاءة وتحسين الاستعلامات",
-  "questions": [
-    {
-      "q": "ما أهم هدف من الدرس؟",
-      "answer": "فهم المفهوم وتطبيقه داخل FlowPilot"
-    },
-    {
-      "q": "لماذا نكتب خطوات عملية مفصلة؟",
-      "answer": "حتى يفهم الطالب الهدف والمكان والكود والنتيجة"
-    }
-  ]
+    "lesson": 12,
+    "week": 3,
+    "title": "قراءة البيانات بكفاءة وتحسين الاستعلامات",
+    "questions": [
+        {
+            "q": "ما الفرق بين Lazy Loading و Eager Loading في Eloquent؟ متى تستخدم كل منهما؟",
+            "answer": "Lazy Loading يجلب العلاقة فقط عند استخدامها (افتراضي). مناسب عندما لا تعرف إذا كنت ستحتاج العلاقة. Eager Loading (مع ::with()) يجلب العلاقة مقدماً. مناسب عندما تعلم أنك ستحتاجها، خاصة في الحلقات."
+        },
+        {
+            "q": "اشرح كيفية استخدام Cache::remember() مع مثال من FlowPilot.",
+            "answer": "Cache::remember('projects.index', 3600, function() { return Project::with('user')->get(); }); المفتاح 'projects.index'، المدة 3600 ثانية = ساعة. عندما تطلب البيانات أول مرة، ينفذ الاستعلام ويخزن النتيجة. في الطلبات التالية، يعيد النتيجة من الـ Cache (بدون استعلام)."
+        },
+        {
+            "q": "لماذا نستخدم ->select() في الاستعلامات؟ وما الأخطاء التي قد تحدث إذا لم نستخدمه بشكل صحيح؟",
+            "answer": "select() يحدد الأعمدة التي نريدها فقط، مما يقلل حجم البيانات المنقولة ويسرع الاستعلام. الخطأ الشائع: نسيان تضمين id عند استخدامه مع علاقات (relations) لأن Eloquent يحتاج id لربط العلاقات."
+        }
+    ],
+    "mcq": [
+        {
+            "q": "أي من هذه الخيارات يمنع مشكلة N+1 بشكل صحيح؟",
+            "options": ["Model::all()", "Model::with('relation')->get()", "Model::find(1)", "Model::where('id', '>', 0)->get()"],
+            "correct": 1,
+            "explanation": "::with('relation') يقوم بـ Eager Loading. يجلب العلاقات في استعلام واحد (JOIN) بدلاً من استعلام لكل سجل."
+        },
+        {
+            "q": "ماذا يفعل Cache::remember('key', 3600, $callback)؟",
+            "options": ["ينفذ $callback كل 3600 ثانية", "ينفذ $callback مرة واحدة ويخزن النتيجة لمدة 3600 ثانية", "يحذف Cache بعد 3600 ثانية", "ينشئ ملف Cache جديداً"],
+            "correct": 1,
+            "explanation": "remember: إن لم يكن الـ Cache موجوداً، نفذ $callback واحفظ النتيجة لمدة 3600 ثانية. إن كان موجوداً، أعده فقط."
+        },
+        {
+            "q": "أي Scope يجلب المشاريع النشطة؟",
+            "options": ["scopeActive($query) { return $query->where('status', 'active'); }", "active($query) { return $query->where('status', 'active'); }", "scope_active($query) { ... }", "activeScope($query) { ... }"],
+            "correct": 0,
+            "explanation": "Local Scope يبدأ بـ scope ثم اسم الـ Scope بـ PascalCase: scopeActive. الاستدعاء: Model::active()->get()."
+        },
+        {
+            "q": "ما فائدة ->chunk(100, $callback) عند معالجة 10000 سجل؟",
+            "options": ["يقسم النتائج إلى 100 مجموعة كل مجموعة 100 سجل لتوفير الذاكرة", "يحذف أول 100 سجل", "يجلب أول 100 سجل فقط", "يرتب السجلات في 100 مجموعة"],
+            "correct": 0,
+            "explanation": "chunk(100, ...) يقسم 10000 سجل إلى 100 دورة، كل دورة تحمل 100 سجل. الذاكرة تبقى منخفضة لأننا نعالج 100 سجل فقط كل مرة."
+        },
+        {
+            "q": "كيف نستخدم ::when() مع فلترة البحث؟",
+            "options": ["Model::when($search, function...) { $q->where('name', 'like', \"%$search%\"); }", "Model::if($search, function...)", "Model::whereWhen($search, ...)", "Model::search($search)"],
+            "correct": 0,
+            "explanation": "::when() يضيف شرط where فقط إذا كان $search غير فارغ. مثالي للـ Search Forms."
+        }
+    ],
+    "tf": [
+        {
+            "q": "Global Scope يطبق على جميع استعلامات الـ Model دون الحاجة لاستدعائه.",
+            "answer": true,
+            "explanation": "نعم. Global Scope يُسجل في booted() ويطبق تلقائياً على كل استعلام. مثل SoftDeletes الذي يخفي السجلات المحذوفة."
+        },
+        {
+            "q": "استخدام Model::all() مع 50,000 سجل هو أفضل طريقة لجلب البيانات.",
+            "answer": false,
+            "explanation": "خطأ. ::all() تحمل كل السجلات في الذاكرة دفعة واحدة. مع 50,000 سجل، قد يتجاوز PHP حد الذاكرة. استخدم chunk() أو paginate() بدلاً من ذلك."
+        }
+    ]
 }

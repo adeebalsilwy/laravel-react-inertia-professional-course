@@ -3,26 +3,97 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 21: تنظيف البيانات</title>
+    <title>واجب الدرس 21: API Resources | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .task-box { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 1.5rem; background: #f8fafc; padding: 1.5rem; border-radius: 1rem; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+    </div>
+</header>
+
 <main class="mx-auto max-w-3xl px-4 py-12">
-    <div class="card p-12 space-y-8">
-        <h1 class="text-3xl font-black text-center text-indigo-600">واجب الـ Data Resources</h1>
-        <div class="space-y-6 text-right">
-            <h3 class="font-black text-xl">المطلوب:</h3>
-            <ol class="list-decimal pr-6 space-y-4 font-bold text-slate-700">
-                <li>أنشئ <code>TaskResource</code> لموديل المهمة.</li>
-                <li>تأكد من إرسال حقل <code>title</code> وحقل <code>status</code> فقط لـ React.</li>
-                <li>استخدم الـ Resource في الـ Controller لتغليف البيانات المبتعثة.</li>
-            </ol>
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-6" href="index.html">← العودة إلى الدرس</a>
+
+    <div class="card p-12 bg-white rounded-3xl shadow-sm space-y-8">
+        <div class="text-center">
+            <span class="bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الواجب العملي</span>
+            <h1 class="text-3xl font-black text-slate-900 mt-4">واجب: بناء TaskResource في FlowPilot</h1>
+            <p class="text-slate-500 mt-2">طبّق ما تعلمته عن API Resources لبناء طبقة تنظيم بيانات المهام.</p>
+        </div>
+
+        <div class="border-t pt-8">
+            <h2 class="text-xl font-black text-slate-900 mb-6">📋 المهام المطلوبة بالتفصيل:</h2>
+
+            <div class="task-box">
+                <h3 class="font-black text-lg text-indigo-700">المهمة 1: إنشاء الـ Resource</h3>
+                <p class="text-slate-600 mt-2">شغّل أمر Artisan لإنشاء <code>TaskResource</code>. اكتب الأمر في سطر الأوامر داخل مجلد المشروع.</p>
+                <div class="bg-slate-900 text-indigo-400 rounded-xl p-4 font-mono text-sm mt-3 text-left">php artisan make:resource TaskResource</div>
+            </div>
+
+            <div class="task-box">
+                <h3 class="font-black text-lg text-indigo-700">المهمة 2: تحديد الحقول في toArray()</h3>
+                <p class="text-slate-600 mt-2">افتح الملف <code>app/Http/Resources/TaskResource.php</code> واكتب دالة toArray() ترسل الحقول التالية:</p>
+                <ul class="list-disc pr-6 mt-2 space-y-1 text-sm text-slate-600">
+                    <li><code>id</code> - معرف المهمة</li>
+                    <li><code>title</code> - عنوان المهمة</li>
+                    <li><code>status</code> - حالة المهمة (pending / in_progress / completed)</li>
+                    <li><code>project_id</code> - معرف المشروع التابعة له</li>
+                    <li><code>assigned_user_name</code> - اسم المستخدم المسنَد إليه (من علاقة belongsTo)</li>
+                    <li><code>due_date</code> - تاريخ التسليم بتنسيق Y-m-d</li>
+                </ul>
+            </div>
+
+            <div class="task-box">
+                <h3 class="font-black text-lg text-indigo-700">المهمة 3: إضافة حقل شرطي</h3>
+                <p class="text-slate-600 mt-2">أضف حقلاً اسمه <code>priority</code> يُرسل فقط إذا كانت المهمة ذات أولوية عالية (<code>priority === 'high'</code>). استخدم <code>$this->when()</code>.</p>
+            </div>
+
+            <div class="task-box">
+                <h3 class="font-black text-lg text-indigo-700">المهمة 4: استخدام الـ Resource في الـ Controller</h3>
+                <p class="text-slate-600 mt-2">في <code>TaskController</code>، عدّل دالة <code>index()</code> لتستخدم <code>TaskResource::collection()</code> بدلاً من إرسال البيانات الخام. تأكد من استيراد (import) الـ Resource في أعلى الملف.</p>
+            </div>
+
+            <div class="task-box">
+                <h3 class="font-black text-lg text-indigo-700">المهمة 5: التحقق من النتيجة</h3>
+                <p class="text-slate-600 mt-2">افتح صفحة المهام في React وتأكد من أن البيانات تظهر بالشكل التالي في Network tab:</p>
+                <div class="bg-slate-900 text-emerald-400 rounded-xl p-4 font-mono text-sm mt-3 text-left">
+                    { "id": 1, "title": "تصميم الصفحة الرئيسية", "status": "in_progress", "project_id": 1, "assigned_user_name": "أحمد علي", "due_date": "2025-07-01" }
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t pt-8">
+            <h2 class="text-xl font-black text-slate-900 mb-4">📤 تسليم الواجب</h2>
+            <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                <li>صور (Screenshots) للـ Network tab تظهر البيانات النظيفة.</li>
+                <li>نسخة من ملف <code>TaskResource.php</code> كامل المحتوى.</li>
+                <li>نسخة من <code>TaskController.php</code> تظهر use واستخدام collection.</li>
+                <li>فقرة (3-5 جمل) تشرح بلسانك: لماذا نستخدم API Resources في FlowPilot؟</li>
+            </ul>
+        </div>
+
+        <div class="bg-amber-50 rounded-2xl p-6 border border-amber-200 mt-6">
+            <p class="font-black text-amber-800">💡 ملاحظة للمبتدئين:</p>
+            <p class="text-amber-700 text-sm mt-2">إذا واجهت خطأ "Class not found"، تأكد من إضافة <code>use App\Http\Resources\TaskResource;</code> في أعلى الـ Controller. إذا واجهت خطأ "Call to a member function on null"، استخدم <code>$this->whenLoaded('relation')</code>.</p>
         </div>
     </div>
 </main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. الممارسة هي مفتاح الإتقان.
+</footer>
+
+<script src="../../../assets/js/app.js"></script>
 </body>
 </html>

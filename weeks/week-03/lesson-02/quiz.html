@@ -1,1 +1,144 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>كويز - Migrations وSeeders وFactories للمبتدئين - FlowPilot Academy</title><link rel="stylesheet" href="../../../assets/css/style.css"></head><body><nav class="nav"><div class="container inner"><a class="brand" href="../../../index.html"><span class="logo">F</span><span>FlowPilot Academy</span></a><div class="links"><a href="../../../index.html">الرئيسية</a><a href="../../../pages/curriculum.html">الفهرس</a><a href="../../../pages/lessons.html">الدروس</a><a href="../../../pages/beginner-guide.html">دليل الطالب</a><a href="../../../pages/project.html">المشروع</a><a href="../../../pages/plan.html">خطة التطوير</a><a href="../../../pages/references.html">المراجع</a></div></div></nav><main class="container section"><a class="btn" href="index.html">← العودة إلى الدرس</a><section class="card"><span class="badge">كويز الأسبوع 3 · الدرس 2</span><h1 class="title">كويز: Migrations وSeeders وFactories للمبتدئين</h1><p class="lead">الكويز يقيس الفهم الحقيقي: لماذا نستخدم المفهوم، وكيف يظهر داخل FlowPilot، وما العلاقة بين النظرية والتطبيق.</p></section><section class="grid" style="margin-top:20px"><div class="card" data-answer="b"><h3>السؤال 1: ما الهدف الأساسي من هذا الدرس؟</h3><label class="quiz-option"><input type="radio" name="q1" value="a"> حفظ أسماء الملفات فقط</label><label class="quiz-option"><input type="radio" name="q1" value="b"> فهم مفهوم عملي وربطه بمشروع FlowPilot</label><label class="quiz-option"><input type="radio" name="q1" value="c"> تغيير ألوان الصفحة فقط</label><label class="quiz-option"><input type="radio" name="q1" value="d"> تجاهل التطبيق العملي</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> الهدف هو الفهم والتطبيق، وليس الحفظ أو التزيين فقط.</p></div><div class="card" data-answer="c"><h3>السؤال 2: ما العلاقة الصحيحة بين Laravel وReact وInertia؟</h3><label class="quiz-option"><input type="radio" name="q2" value="a"> Laravel يعرض الواجهة فقط</label><label class="quiz-option"><input type="radio" name="q2" value="b"> React يدير قاعدة البيانات</label><label class="quiz-option"><input type="radio" name="q2" value="c"> Inertia يربط Laravel بصفحات React</label><label class="quiz-option"><input type="radio" name="q2" value="d"> Tailwind يحفظ البيانات</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> Inertia يعمل كجسر بين Laravel وReact.</p></div><div class="card" data-answer="b"><h3>السؤال 3: لماذا نشرح السبب قبل الكود؟</h3><label class="quiz-option"><input type="radio" name="q3" value="a"> حتى ينسخ الطالب بسرعة</label><label class="quiz-option"><input type="radio" name="q3" value="b"> حتى يفهم الطالب وظيفة الخطوة ويكررها لاحقاً</label><label class="quiz-option"><input type="radio" name="q3" value="c"> حتى نقلل الشرح</label><label class="quiz-option"><input type="radio" name="q3" value="d"> لأن الكود غير مهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> فهم السبب يجعل الطالب قادراً على حل الأخطاء وتطبيق الفكرة في مكان آخر.</p></div><div class="card" data-answer="b"><h3>السؤال 4: ما أفضل طريقة للتعامل مع خطأ يظهر أثناء التطبيق؟</h3><label class="quiz-option"><input type="radio" name="q4" value="a"> حذف الملفات</label><label class="quiz-option"><input type="radio" name="q4" value="b"> قراءة رسالة الخطأ ومراجعة المسار والاسم</label><label class="quiz-option"><input type="radio" name="q4" value="c"> تجاهل الخطأ</label><label class="quiz-option"><input type="radio" name="q4" value="d"> إغلاق المشروع</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> رسالة الخطأ غالباً توضح مكان المشكلة أو سببها.</p></div><div class="card" data-answer="b"><h3>السؤال 5: ماذا يعني نجاح الدرس داخل FlowPilot؟</h3><label class="quiz-option"><input type="radio" name="q5" value="a"> وجود عنوان فقط</label><label class="quiz-option"><input type="radio" name="q5" value="b"> ظهور نتيجة عملية مفهومة يمكن البناء عليها</label><label class="quiz-option"><input type="radio" name="q5" value="c"> عدم تشغيل المشروع</label><label class="quiz-option"><input type="radio" name="q5" value="d"> نسخ الكود دون فهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> كل درس يجب أن يضيف نتيجة تعليمية وعملية واضحة.</p></div></section><section class="card"><button class="btn" data-grade-quiz>تصحيح الكويز</button><p id="quizResult" class="result"></p></section></main><footer class="footer"><div class="container">© FlowPilot Academy - دورة Laravel 12 + React + Inertia.js + Tailwind CSS</div></footer><script src="../../../assets/js/app.js"></script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>كويز الدرس 10: Migrations و Seeders و Factories | FlowPilot Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .quiz-option { display: block; padding: 12px 16px; border: 2px solid #e2e8f0; border-radius: 12px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; }
+        .quiz-option:hover { border-color: #93c5fd; background: #f0f9ff; }
+        .quiz-option.selected { border-color: #6366f1; background: #eef2ff; }
+        .tf-option { display: inline-block; padding: 10px 24px; border: 2px solid #e2e8f0; border-radius: 10px; cursor: pointer; margin: 4px; transition: all 0.2s; }
+        .tf-option:hover { border-color: #93c5fd; }
+        .tf-option.selected { border-color: #6366f1; background: #eef2ff; }
+        textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; font-family: 'Tajawal', sans-serif; resize: vertical; }
+        .explain { background: #f8fafc; padding: 12px; border-radius: 10px; margin-top: 8px; font-size: 13px; border-right: 3px solid #6366f1; display: none; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+    </div>
+</header>
+<main class="mx-auto max-w-3xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة إلى شرح الدرس</a>
+    <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl">
+        <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-widest mb-3">الأسبوع 3 · الدرس 2</span>
+        <h1 class="text-3xl font-black text-slate-900 mb-2">📝 كويز: Migrations و Seeders و Factories</h1>
+        <p class="text-slate-600">أجب على جميع الأسئلة. اختبر فهمك لأدوات بناء قاعدة البيانات في Laravel.</p>
+    </div>
+
+    <!-- MCQ -->
+    <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl mt-6" data-quiz-labels>
+        <h2 class="text-xl font-black text-slate-900 mb-6 border-r-4 border-sky-600 pr-4">الأسئلة الموضوعية</h2>
+
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent" data-answer="c" id="q1">
+            <h3 class="font-bold text-slate-900 mb-3">1. أي أمر Artisan يحذف جميع الجداول ويعيد إنشاءها من جديد؟</h3>
+            <label class="quiz-option"><input type="radio" name="q1" value="a"> php artisan migrate</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="b"> php artisan migrate:rollback</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="c"> php artisan migrate:fresh</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="d"> php artisan migrate:status</label>
+            <div class="explain"><strong>الشرح:</strong> migrate:fresh يحذف جميع الجداول ويعيد تشغيل جميع Migrations من البداية. مفيد في بيئة التطوير لبداية نظيفة.</div>
+        </div>
+
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent" data-answer="b" id="q2">
+            <h3 class="font-bold text-slate-900 mb-3">2. ما وظيفة ->constrained() عند تعريف Foreign Key؟</h3>
+            <label class="quiz-option"><input type="radio" name="q2" value="a"> يجعل العمود فريداً</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="b"> يحدد أن هذا FK ويشير تلقائياً للجدول المناسب</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="c"> يجعل العمود إلزامياً</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="d"> يضيف قيمة افتراضية</label>
+            <div class="explain"><strong>الشرح:</strong> constrained() يستنتج اسم الجدول من اسم العمود. user_id → users.id. project_id → projects.id. ويضيف قيد FOREIGN KEY في SQL.</div>
+        </div>
+
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent" data-answer="b" id="q3">
+            <h3 class="font-bold text-slate-900 mb-3">3. أي دالة Faker تولد جملة من 3 كلمات؟</h3>
+            <label class="quiz-option"><input type="radio" name="q3" value="a"> fake()->paragraph(3)</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="b"> fake()->sentence(3)</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="c"> fake()->word(3)</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="d"> fake()->text(3)</label>
+            <div class="explain"><strong>الشرح:</strong> sentence(3) تولد جملة من 3 كلمات. paragraph(3) تولد 3 فقرات. word(3) تولد... ليست دالة صحيحة.</div>
+        </div>
+
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent" data-answer="b" id="q4">
+            <h3 class="font-bold text-slate-900 mb-3">4. ماذا يفعل $table->timestamps() في الـ Migration؟</h3>
+            <label class="quiz-option"><input type="radio" name="q4" value="a"> ينشئ عموداً واحداً اسمه timestamp</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="b"> ينشئ عمودين: created_at و updated_at</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="c"> ينشئ 3 أعمدة للتاريخ</label>
+            <label class="quiz-option"><input type="radio" name="q4" value="d"> لا ينشئ أي عمود</label>
+            <div class="explain"><strong>الشرح:</strong> timestamps() ينشئ عمودين من نوع TIMESTAMP: created_at (وقت الإنشاء) و updated_at (وقت آخر تحديث). Laravel يملؤهما تلقائياً.</div>
+        </div>
+
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent" data-answer="c" id="q5">
+            <h3 class="font-bold text-slate-900 mb-3">5. أي أمر ينشئ 10 سجلات وهمية باستخدام Factory؟</h3>
+            <label class="quiz-option"><input type="radio" name="q5" value="a"> Project::factory(10)</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="b"> Project::factory()->count(10)->save()</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="c"> Project::factory()->count(10)->create()</label>
+            <label class="quiz-option"><input type="radio" name="q5" value="d"> Project::new()->count(10)</label>
+            <div class="explain"><strong>الشرح:</strong> count(10) يحدد عدد السجلات، create() ينشئها ويحفظها في قاعدة البيانات. factory() يصل إلى Factory الخاص بالنموذج.</div>
+        </div>
+    </div>
+
+    <!-- T/F -->
+    <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl mt-6" data-quiz-labels>
+        <h2 class="text-xl font-black text-slate-900 mb-6 border-r-4 border-amber-500 pr-4">صح أم خطأ</h2>
+
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent" data-answer="true" id="q6">
+            <h3 class="font-bold text-slate-900 mb-3">6. يمكن تشغيل php artisan migrate --seed لتنفيذ Migrations و Seeders معاً.</h3>
+            <div class="flex gap-2"><span class="tf-option" data-value="true">✅ صح</span><span class="tf-option" data-value="false">❌ خطأ</span></div>
+            <input type="radio" name="q6" value="true" class="hidden"><input type="radio" name="q6" value="false" class="hidden">
+            <div class="explain"><strong>الشرح:</strong> صح. --seed يشغل DatabaseSeeder تلقائياً بعد انتهاء الـ Migrations.</div>
+        </div>
+
+        <div class="mb-8 p-4 rounded-2xl border-2 border-transparent" data-answer="false" id="q7">
+            <h3 class="font-bold text-slate-900 mb-3">7. عمود المفتاح الأجنبي (FK) لا يمكن أن يكون NULL أبداً.</h3>
+            <div class="flex gap-2"><span class="tf-option" data-value="true">✅ صح</span><span class="tf-option" data-value="false">❌ خطأ</span></div>
+            <input type="radio" name="q7" value="true" class="hidden"><input type="radio" name="q7" value="false" class="hidden">
+            <div class="explain"><strong>الشرح:</strong> خطأ. يمكن أن يكون FK = NULL إذا أضفنا ->nullable(). مثلاً، assigned_to يمكن أن يكون NULL إذا لم تُسند المهمة.</div>
+        </div>
+    </div>
+
+    <!-- Theory -->
+    <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl mt-6">
+        <h2 class="text-xl font-black text-slate-900 mb-6 border-r-4 border-purple-500 pr-4">سؤال نظري</h2>
+        <div data-theory="q8" id="q8">
+            <h3 class="font-bold text-slate-900 mb-3">8. اشرح الفرق بين up() و down() في ملفات Migration. لماذا نحتاج كليهما؟</h3>
+            <textarea placeholder="اكتب إجابتك هنا..." class="w-full min-h-[100px]"></textarea>
+        </div>
+    </div>
+
+    <!-- Practical -->
+    <div class="card p-6 md:p-8 bg-white shadow-sm rounded-3xl mt-6">
+        <h2 class="text-xl font-black text-slate-900 mb-6 border-r-4 border-emerald-500 pr-4">سؤال عملي</h2>
+        <div data-theory="q9" id="q9">
+            <h3 class="font-bold text-slate-900 mb-3">9. اكتب أمر Artisan لإنشاء Migration لجدول "categories"، ثم اكتب كود الـ up() الذي ينشئ جدولاً يحتوي على: id, name (string), slug (string, unique), description (text, nullable), timestamps.</h3>
+            <textarea placeholder="اكتب الأمر أولاً، ثم الكود..." class="w-full min-h-[120px]"></textarea>
+        </div>
+    </div>
+
+    <div class="card p-6 bg-white shadow-sm rounded-3xl mt-6 text-center" id="quizResultCard">
+        <button class="bg-indigo-600 text-white px-10 py-4 rounded-2xl font-black text-lg hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" data-grade-quiz>تصحيح الكويز</button>
+        <p id="quizResult" class="mt-4 text-3xl font-black"></p>
+        <p id="feedback" class="mt-2 text-lg font-bold"></p>
+    </div>
+</main>
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">© 2025 FlowPilot Academy. اختبر معلوماتك.</footer>
+<script src="../../../assets/js/app.js"></script>
+<script>
+document.querySelectorAll('.tf-option').forEach(function(el) {
+    el.addEventListener('click', function() {
+        var container = this.closest('[data-answer]');
+        container.querySelectorAll('.tf-option').forEach(function(o) { o.classList.remove('selected', 'bg-indigo-50', 'border-indigo-500'); o.classList.add('border-slate-200'); });
+        this.classList.add('selected', 'bg-indigo-50', 'border-indigo-500'); this.classList.remove('border-slate-200');
+        var r = container.querySelector('input[value="' + this.dataset.value + '"]'); if (r) r.checked = true;
+    });
+});
+</script>
+</body>
+</html>

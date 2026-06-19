@@ -1,23 +1,87 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
-  <rect width="800" height="300" fill="#f5f3ff" rx="20"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f5f3ff"/>
+      <stop offset="100%" stop-color="#eef2ff"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="3" stdDeviation="5" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="380" fill="url(#bg)" rx="24"/>
   
-  <!-- Restaurant Analogy -->
-  <g transform="translate(100, 80)">
-    <rect width="180" height="140" rx="10" fill="white" stroke="#6366f1" stroke-width="2"/>
-    <text x="90" y="40" text-anchor="middle" font-weight="bold">المطبخ</text>
-    <text x="90" y="70" text-anchor="middle" font-size="12" fill="#4338ca">الخلفية (Laravel)</text>
-    <text x="90" y="100" text-anchor="middle" font-size="10" fill="#64748b">تجهيز البيانات</text>
+  <text x="400" y="40" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="22" fill="#4c1d95">تشبيه المطعم الذكي: كيف تعمل التقنيات الثلاث معاً؟</text>
+
+  <!-- Kitchen (Laravel) -->
+  <g transform="translate(50, 70)">
+    <rect width="200" height="130" rx="16" fill="white" stroke="#10b981" stroke-width="3" filter="url(#shadow)"/>
+    <text x="100" y="30" text-anchor="middle" font-size="36">👨‍🍳</text>
+    <text x="100" y="60" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="15" fill="#065f46">المطبخ (Laravel)</text>
+    <text x="100" y="82" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#10b981">يستلم الطلب</text>
+    <text x="100" y="98" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#10b981">يحضر المكونات (البيانات)</text>
+    <text x="100" y="114" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#10b981">يطهي الوجبة (المنطق)</text>
   </g>
-  
-  <g transform="translate(520, 80)">
-    <rect width="180" height="140" rx="10" fill="white" stroke="#6366f1" stroke-width="2"/>
-    <text x="90" y="40" text-anchor="middle" font-weight="bold">طاولة التقديم</text>
-    <text x="90" y="70" text-anchor="middle" font-size="12" fill="#4338ca">الواجهة (React)</text>
-    <text x="90" y="100" text-anchor="middle" font-size="10" fill="#64748b">تفاعل المستخدم</text>
+
+  <!-- Waiter (Inertia) -->
+  <g transform="translate(300, 70)">
+    <rect width="200" height="130" rx="50" fill="white" stroke="#6366f1" stroke-width="3" filter="url(#shadow)"/>
+    <text x="100" y="30" text-anchor="middle" font-size="36">🧑‍💼</text>
+    <text x="100" y="60" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="15" fill="#4338ca">النادل (Inertia)</text>
+    <text x="100" y="82" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#6366f1">يأخذ الطلب للمطبخ</text>
+    <text x="100" y="98" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#6366f1">يحمل الوجبة من المطبخ</text>
+    <text x="100" y="114" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#6366f1">يقدمها للزبون بسلاسة</text>
   </g>
-  
-  <path d="M 290 150 L 510 150" stroke="#6366f1" stroke-width="4" stroke-dasharray="10 5"/>
-  <text x="400" y="140" text-anchor="middle" font-size="14" font-weight="bold" fill="#4338ca">النادل (Inertia)</text>
-  
-  <text x="400" y="50" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="24" fill="#4c1d95">تشبيه المطعم لربط التقنيات</text>
+
+  <!-- Table (React) -->
+  <g transform="translate(550, 70)">
+    <rect width="200" height="130" rx="16" fill="white" stroke="#0ea5e9" stroke-width="3" filter="url(#shadow)"/>
+    <text x="100" y="30" text-anchor="middle" font-size="36">🍽️</text>
+    <text x="100" y="60" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="15" fill="#0369a1">طاولة الزبون (React)</text>
+    <text x="100" y="82" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#0ea5e9">يعرض الوجبة بشكل جميل</text>
+    <text x="100" y="98" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#0ea5e9">يتفاعل مع الزبون</text>
+    <text x="100" y="114" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#0ea5e9">يطلب إضافات جديدة</text>
+  </g>
+
+  <!-- Arrows between them -->
+  <path d="M 250 135 L 290 135" stroke="#6366f1" stroke-width="3" marker-end="url(#arrow-p)" fill="none"/>
+  <path d="M 500 135 L 540 135" stroke="#6366f1" stroke-width="3" marker-end="url(#arrow-p)" fill="none"/>
+
+  <defs>
+    <marker id="arrow-p" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#6366f1"/>
+    </marker>
+  </defs>
+
+  <!-- Bottom comparison table -->
+  <g transform="translate(60, 240)">
+    <rect width="680" height="110" rx="14" fill="white" filter="url(#shadow)"/>
+    
+    <!-- Header row -->
+    <rect x="0" y="0" width="226" height="30" rx="14" fill="#1e293b"/>
+    <rect x="226" y="0" width="228" height="30" fill="#1e293b"/>
+    <rect x="454" y="0" width="226" height="30" rx="14" fill="#1e293b"/>
+    
+    <text x="113" y="20" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="11" fill="white">في المطعم</text>
+    <text x="340" y="20" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="11" fill="white">في البرمجة</text>
+    <text x="567" y="20" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="11" fill="white">المسؤولية</text>
+
+    <!-- Data rows -->
+    <text x="113" y="50" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#475569">المطبخ</text>
+    <text x="340" y="50" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#475569">Laravel</text>
+    <text x="567" y="50" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#475569">تجهيز البيانات والمنطق</text>
+
+    <line x1="226" y1="45" x2="226" y2="110" stroke="#e2e8f0" stroke-width="1"/>
+    <line x1="454" y1="45" x2="454" y2="110" stroke="#e2e8f0" stroke-width="1"/>
+
+    <text x="113" y="73" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#475569">النادل</text>
+    <text x="340" y="73" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#475569">Inertia.js</text>
+    <text x="567" y="73" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#475569">نقل البيانات بينهما</text>
+
+    <text x="113" y="96" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#475569">طاولة الزبون</text>
+    <text x="340" y="96" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#475569">React</text>
+    <text x="567" y="96" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#475569">عرض واجهة المستخدم</text>
+  </g>
+
+  <text x="400" y="370" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="12" fill="#334155" font-weight="700">كل تقنية تؤدي دورها المحدد، و Inertia هو الجسر الذي يربط الجميع بسلاسة</text>
 </svg>

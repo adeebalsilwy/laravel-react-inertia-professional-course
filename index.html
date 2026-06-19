@@ -25,16 +25,16 @@
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="index.html">الرئيسية</a>
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="pages/curriculum.html">الفهرس</a>
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="pages/lessons.html">الدروس</a>
-            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="pages/beginner-guide.html">دليل المبتدئ</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="pages/beginner-guide.html">دليل الطالب</a>
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="pages/project.html">المشروع العملي</a>
         </nav>
-        <button onclick="document.getElementById('mobileMenu').classList.toggle('hidden')" class="md:hidden rounded-xl border border-slate-200 bg-white px-3 py-2 hover:bg-slate-50 transition-all">☰</button>
+        <button onclick="toggleMenu()" class="md:hidden rounded-xl border border-slate-200 bg-white px-3 py-2 hover:bg-slate-50 transition-all">☰</button>
     </div>
     <div id="mobileMenu" class="hidden md:hidden px-4 pb-4 space-y-2 font-bold bg-white border-b shadow-sm">
         <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="index.html">الرئيسية</a>
         <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="pages/curriculum.html">الفهرس</a>
         <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="pages/lessons.html">الدروس</a>
-        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="pages/beginner-guide.html">دليل المبتدئ</a>
+        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="pages/beginner-guide.html">دليل الطالب</a>
         <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="pages/project.html">المشروع العملي</a>
     </div>
 </header>
@@ -44,23 +44,23 @@
     <section class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="space-y-8">
             <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 text-indigo-700 text-sm font-bold">
-                <span>🚀 المنهج الأحدث لعام 2025</span>
+                <span>أحدث منهج لعام 2025</span>
                 <span class="w-1 h-1 rounded-full bg-indigo-300"></span>
-                <span>تحديث Laravel 12</span>
+                <span>Laravel 12 + React + Inertia</span>
             </div>
             <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-[1.1] text-slate-900">
                 ابنِ مستقبلك <br>
-                <span class="gradient-text">كمطور تطبيقات</span>
+                <span class="gradient-text">كمطور تطبيقات ويب</span>
             </h1>
             <p class="text-lg md:text-xl leading-relaxed text-slate-600 max-w-2xl">
-                أهلاً بك في <strong>FlowPilot Academy</strong>. نحن هنا لنأخذ بيدك من الصفر حتى الاحتراف في بناء تطبيقات الويب الحديثة باستخدام أقوى التقنيات: <strong>Laravel 12</strong> و <strong>React</strong> و <strong>Inertia.js</strong>.
+                أهلاً بك في <strong>FlowPilot Academy</strong>. هذه الأكاديمية تأخذ بيدك من الصفر المطلق حتى الاحتراف في بناء تطبيقات الويب الحديثة. ستتعلم <strong>Laravel 12</strong> لإدارة الخلفية، و<strong>React</strong> لبناء واجهات تفاعلية، و<strong>Inertia.js</strong> لربطهما معاً، و<strong>Tailwind CSS</strong> لتصميم واجهات احترافية.最关键 أنك ستبني مشروعاً حقيقياً خطوة بخطوة وليس مجرد أمثلة منفصلة.
             </p>
             <div class="flex flex-wrap gap-4">
                 <a href="pages/curriculum.html" class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black text-lg shadow-xl shadow-indigo-200 hover:bg-indigo-700 hover:-translate-y-1 transition-all">
-                    استعرض المنهج التدريبي
+                    ابدأ رحلتنا التعليمية
                 </a>
                 <a href="pages/project.html" class="rounded-2xl bg-white border-2 border-slate-200 px-8 py-4 font-black text-lg hover:border-indigo-300 hover:bg-indigo-50 transition-all">
-                    تعرف على المشروع العملي
+                    تعرف على مشروع FlowPilot
                 </a>
             </div>
         </div>
@@ -72,29 +72,29 @@
         </div>
     </section>
 
-    <!-- Why Us Section -->
+    <!-- What You Will Learn -->
     <section class="mt-32">
         <div class="max-w-3xl space-y-4">
-            <h2 class="text-3xl md:text-5xl font-black">لماذا FlowPilot Academy؟</h2>
+            <h2 class="text-3xl md:text-5xl font-black">ماذا ستتعلم في هذه الرحلة؟</h2>
             <p class="text-slate-600 text-lg leading-relaxed">
-                لقد صممنا هذا الكورس ليكون دليلك الشامل، حيث نركز على الفهم العميق للمفاهيم قبل كتابة الكود. ستتعلم كيف تفكر كمبرمج محترف، وليس مجرد ناسخ للأكواد.
+                الدورة مقسمة إلى 8 أسابيع مكثفة، كل أسبوع يبني جزءاً حقيقياً من مشروع FlowPilot. لن تتعلم مفاهيم نظرية فقط، بل ستطبق كل درس على مشروع عملي ينمو معك أسبوعاً بعد أسبوع.
             </p>
         </div>
         <div class="mt-16 grid md:grid-cols-3 gap-8">
             <div class="card p-8 space-y-4">
-                <div class="w-14 h-14 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-3xl">🏗️</div>
-                <h3 class="text-xl font-black">تعلم من خلال البناء</h3>
-                <p class="text-slate-600 leading-relaxed">لن تتعلم مفاهيم معزولة، بل ستبني منصة إدارة مشاريع كاملة (FlowPilot) خطوة بخطوة طوال الدورة.</p>
+                <div class="w-14 h-14 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-3xl">1</div>
+                <h3 class="text-xl font-black">أسس متينة تبدأ من الصفر</h3>
+                <p class="text-slate-600 leading-relaxed">نبدأ بتجهيز بيئة العمل وفهم كل أداة، ثم ننتقل إلى Laravel و React ونفهم كيف يعملان معاً. لا تحتاج أي خبرة سابقة.</p>
             </div>
             <div class="card p-8 space-y-4">
-                <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl">⚡</div>
-                <h3 class="text-xl font-black">أحدث التقنيات</h3>
-                <p class="text-slate-600 leading-relaxed">نستخدم Laravel 12، أحدث إصدار من إطار العمل الأشهر عالمياً، مع React لبناء واجهات تفاعلية وسريعة.</p>
+                <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl">2</div>
+                <h3 class="text-xl font-black">بناء مشروع FlowPilot الكامل</h3>
+                <p class="text-slate-600 leading-relaxed">ستبني منصة كاملة لإدارة المشاريع والمهام والفرق، مع نظام دخول، صلاحيات، رفع ملفات، بحث، تنبيهات، ولوحة تحكم احترافية.</p>
             </div>
             <div class="card p-8 space-y-4">
-                <div class="w-14 h-14 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-3xl">🎓</div>
-                <h3 class="text-xl font-black">موجه للمبتدئين</h3>
-                <p class="text-slate-600 leading-relaxed">لا نفترض وجود خبرة سابقة. نشرح كل مصطلح تقني عند ظهوره لأول مرة بأمثلة من الحياة اليومية.</p>
+                <div class="w-14 h-14 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-3xl">3</div>
+                <h3 class="text-xl font-black">جاهز لسوق العمل</h3>
+                <p class="text-slate-600 leading-relaxed">في نهاية الدورة ستمتلك مشروعاً متكاملاً في محفظتك، وتفهم كيفية بناء تطبيقات الويب من الفكرة حتى النشر على خادم حقيقي.</p>
             </div>
         </div>
     </section>
@@ -103,45 +103,91 @@
     <section class="mt-32">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
             <div>
-                <h2 class="text-3xl font-black">ماذا ستتعلم في 8 أسابيع؟</h2>
-                <p class="mt-2 text-slate-600">منهج مكثف ومنظم يأخذك من الصفر إلى إطلاق مشروعك الأول.</p>
+                <h2 class="text-3xl font-black">المنهج في 8 أسابيع</h2>
+                <p class="mt-2 text-slate-600">كل أسبوع له هدف واضح، وكل درس يبني على الذي قبله.</p>
             </div>
             <a href="pages/curriculum.html" class="font-black text-indigo-600 hover:underline">عرض الفهرس الكامل ←</a>
         </div>
-        
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="card p-6">
-                <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">الأسابيع 1-2</span>
-                <h3 class="mt-2 text-xl font-black">التأسيس والهيكل</h3>
-                <p class="mt-3 text-sm text-slate-500 leading-relaxed">تهيئة البيئة، فهم Laravel و React، وبناء هيكل التطبيق والمسارات.</p>
+            <a href="pages/curriculum.html#week-1" class="card p-6 hover:border-indigo-600">
+                <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">الأسبوع 1</span>
+                <h3 class="mt-2 text-xl font-black">التأسيس وفهم Stack الحديث</h3>
+                <p class="mt-3 text-sm text-slate-500 leading-relaxed">تهيئة البيئة، تثبيت Laravel و React، أول صفحة مع Tailwind، Git لحفظ التقدم.</p>
+            </a>
+            <a href="pages/curriculum.html#week-2" class="card p-6 hover:border-emerald-600">
+                <span class="text-xs font-black text-emerald-500 uppercase tracking-widest">الأسبوع 2</span>
+                <h3 class="mt-2 text-xl font-black">Routing وبناء الهيكل</h3>
+                <p class="mt-3 text-sm text-slate-500 leading-relaxed">المسارات، Layout الثابت، مكونات React، أول لوحة تحكم.</p>
+            </a>
+            <a href="pages/curriculum.html#week-3" class="card p-6 hover:border-sky-600">
+                <span class="text-xs font-black text-sky-500 uppercase tracking-widest">الأسبوع 3</span>
+                <h3 class="mt-2 text-xl font-black">قواعد البيانات والنماذج</h3>
+                <p class="mt-3 text-sm text-slate-500 leading-relaxed">تصميم قاعدة البيانات، Migrations، Eloquent Models، العلاقات.</p>
+            </a>
+            <a href="pages/curriculum.html#week-4" class="card p-6 hover:border-amber-600">
+                <span class="text-xs font-black text-amber-500 uppercase tracking-widest">الأسبوع 4</span>
+                <h3 class="mt-2 text-xl font-black">المصادقة والصلاحيات</h3>
+                <p class="mt-3 text-sm text-slate-500 leading-relaxed">تسجيل الدخول، Policies، Middleware، الملف الشخصي.</p>
+            </a>
+            <a href="pages/curriculum.html#week-5" class="card p-6 hover:border-rose-600">
+                <span class="text-xs font-black text-rose-500 uppercase tracking-widest">الأسبوع 5</span>
+                <h3 class="mt-2 text-xl font-black">CRUD احترافي</h3>
+                <p class="mt-3 text-sm text-slate-500 leading-relaxed">إنشاء وإدارة المشاريع، لوحة Kanban، نماذج Inertia، رفع الملفات.</p>
+            </a>
+            <a href="pages/curriculum.html#week-6" class="card p-6 hover:border-purple-600">
+                <span class="text-xs font-black text-purple-500 uppercase tracking-widest">الأسبوع 6</span>
+                <h3 class="mt-2 text-xl font-black">APIs والبحث</h3>
+                <p class="mt-3 text-sm text-slate-500 leading-relaxed">تنظيم البيانات، البحث والفلاتر، التنبيهات، سجل النشاط.</p>
+            </a>
+            <a href="pages/curriculum.html#week-7" class="card p-6 hover:border-cyan-600">
+                <span class="text-xs font-black text-cyan-500 uppercase tracking-widest">الأسبوع 7</span>
+                <h3 class="mt-2 text-xl font-black">الجودة والاختبارات</h3>
+                <p class="mt-3 text-sm text-slate-500 leading-relaxed">اختبار الميزات، تحسين الـ Components، الأداء، الأمان.</p>
+            </a>
+            <a href="pages/curriculum.html#week-8" class="card p-6 hover:border-orange-600">
+                <span class="text-xs font-black text-orange-500 uppercase tracking-widest">الأسبوع 8</span>
+                <h3 class="mt-2 text-xl font-black">النشر والتوثيق</h3>
+                <p class="mt-3 text-sm text-slate-500 leading-relaxed">تجهيز الإنتاج، النشر على السيرفر، توثيق المشروع، التسليم النهائي.</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Why Us -->
+    <section class="mt-32">
+        <div class="text-center max-w-3xl mx-auto space-y-4">
+            <h2 class="text-3xl md:text-5xl font-black">لماذا FlowPilot Academy؟</h2>
+            <p class="text-slate-600 text-lg leading-relaxed">
+                لصممنا هذه الدورة لتكون دليلك الشامل. لا نؤمن بحفظ الأكواد، بل نؤمن بفهم المنطق وبناء المشاريع الحقيقية.
+            </p>
+        </div>
+        <div class="mt-16 grid md:grid-cols-3 gap-8">
+            <div class="card p-8 space-y-4 text-center">
+                <div class="w-14 h-14 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-3xl mx-auto">🏗️</div>
+                <h3 class="text-xl font-black">تعلم بالبناء</h3>
+                <p class="text-slate-600 leading-relaxed text-sm">لست بحفظ نظريات منفصلة. كل درس يضيف قطعة حقيقية لمشروع FlowPilot. ما تتعلمه اليوم يظهر غداً في التطبيق.</p>
             </div>
-            <div class="card p-6">
-                <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">الأسابيع 3-4</span>
-                <h3 class="mt-2 text-xl font-black">البيانات والأمان</h3>
-                <p class="mt-3 text-sm text-slate-500 leading-relaxed">تصميم قواعد البيانات، العلاقات، نظام تسجيل الدخول، وحماية البيانات.</p>
+            <div class="card p-8 space-y-4 text-center">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl mx-auto">📖</div>
+                <h3 class="text-xl font-black">شرح للمبتدئين تماماً</h3>
+                <p class="text-slate-600 leading-relaxed text-sm">كل مصطلح تقني نشرحه عند أول ظهور. لا نفترض أي معرفة مسبقة. نبدأ من الصفر الحقيقي ونبني خطوة بخطوة.</p>
             </div>
-            <div class="card p-6">
-                <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">الأسابيع 5-6</span>
-                <h3 class="mt-2 text-xl font-black">الميزات المتقدمة</h3>
-                <p class="mt-3 text-sm text-slate-500 leading-relaxed">إدارة المشاريع والمهام (CRUD)، رفع الملفات، البحث، والتنبيهات.</p>
-            </div>
-            <div class="card p-6">
-                <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">الأسابيع 7-8</span>
-                <h3 class="mt-2 text-xl font-black">الجودة والنشر</h3>
-                <p class="mt-3 text-sm text-slate-500 leading-relaxed">اختبار الكود، تحسين الأداء، وتجهيز المشروع للنشر على السيرفر.</p>
+            <div class="card p-8 space-y-4 text-center">
+                <div class="w-14 h-14 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-3xl mx-auto">⚡</div>
+                <h3 class="text-xl font-black">مشروع حقيقي لسوق العمل</h3>
+                <p class="text-slate-600 leading-relaxed text-sm">FlowPilot ليس تطبيقاً بسيطاً. هو منصة متكامل بإدارة المشاريع، المهام، الصلاحيات، المرفقات، والتنبيهات.</p>
             </div>
         </div>
     </section>
 
-    <!-- Start Guide CTA -->
+    <!-- CTA -->
     <section class="mt-32 text-center bg-slate-900 rounded-[3rem] p-12 md:p-20 text-white shadow-2xl">
         <h2 class="text-3xl md:text-5xl font-black leading-tight">هل أنت مستعد لبدء رحلتك؟</h2>
-        <p class="mt-6 text-slate-400 text-lg max-w-2xl mx-auto">
-            انضم إلينا الآن وابدأ في بناء مشروع FlowPilot. لا تحتاج إلى أي خبرة سابقة، فقط شغفك بالتعلم.
+        <p class="mt-6 text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+            لا تحتاج إلى أي خبرة سابقة. فقط جهاز كمبيوتر، اتصال بالإنترنت، ورغبة في التعلم. سنأخذ بيدك خطوة بخطوة حتى تصبح مطور تطبيقات ويب محترفاً.
         </p>
         <div class="mt-10 flex flex-wrap gap-4 justify-center">
             <a href="pages/beginner-guide.html" class="rounded-2xl bg-indigo-600 text-white px-10 py-4 font-black text-lg hover:bg-indigo-700 hover:-translate-y-1 transition-all">
-                اقرأ دليل الطالب
+                اقرأ دليل الطالب أولاً
             </a>
             <a href="weeks/week-01/lesson-01/index.html" class="rounded-2xl bg-white text-slate-900 px-10 py-4 font-black text-lg hover:bg-slate-100 transition-all">
                 ابدأ الدرس الأول الآن
@@ -156,19 +202,19 @@
             <div class="col-span-2 space-y-6">
                 <a href="index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
                 <p class="text-slate-500 max-w-sm leading-relaxed">
-                    نحن نسعى لتمكين المطورين العرب من خلال محتوى تعليمي تقني عالي الجودة يجمع بين النظرية والتطبيق العملي المكثف.
+                    أكاديمية FlowPilot تهدف لتمكين المطورين العرب من خلال محتوى تعليمي تقني عالي الجودة يجمع بين النظرية والتطبيق العملي المكثف.
                 </p>
             </div>
             <div>
-                <h4 class="font-black text-slate-900 mb-6 uppercase tracking-widest text-xs">روابط سريعة</h4>
+                <h4 class="font-black text-slate-900 mb-6 uppercase tracking-widest text-xs">التصفح السريع</h4>
                 <ul class="space-y-4 text-slate-600 font-bold text-sm">
                     <li><a href="index.html" class="hover:text-indigo-600 transition-colors">الرئيسية</a></li>
                     <li><a href="pages/curriculum.html" class="hover:text-indigo-600 transition-colors">الفهرس</a></li>
-                    <li><a href="pages/lessons.html" class="hover:text-indigo-600 transition-colors">الدروس</a></li>
+                    <li><a href="pages/lessons.html" class="hover:text-indigo-600 transition-colors">جميع الدروس</a></li>
                 </ul>
             </div>
             <div>
-                <h4 class="font-black text-slate-900 mb-6 uppercase tracking-widest text-xs">مساعدة</h4>
+                <h4 class="font-black text-slate-900 mb-6 uppercase tracking-widest text-xs">الموارد</h4>
                 <ul class="space-y-4 text-slate-600 font-bold text-sm">
                     <li><a href="pages/beginner-guide.html" class="hover:text-indigo-600 transition-colors">دليل الطالب</a></li>
                     <li><a href="pages/project.html" class="hover:text-indigo-600 transition-colors">المشروع العملي</a></li>
@@ -176,7 +222,7 @@
             </div>
         </div>
         <div class="mt-16 pt-8 border-t text-center text-sm text-slate-400 font-medium">
-            <p>© 2025 FlowPilot Academy. جميع الحقوق محفوظة.</p>
+            <p>© 2025 FlowPilot Academy. جميع الحقوق محفوظة. صمم لتعليم المبتدئين العرب.</p>
         </div>
     </div>
 </footer>

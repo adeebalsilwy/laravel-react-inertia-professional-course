@@ -1,19 +1,97 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
-  <rect width="800" height="300" fill="#eff6ff" rx="20"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#faf5ff"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="400" fill="url(#bg)" rx="24"/>
   
-  <!-- Kitchen Analogy -->
-  <rect x="100" y="100" width="150" height="100" rx="10" fill="white" stroke="#3b82f6" stroke-width="2"/>
-  <text x="175" y="145" text-anchor="middle" font-family="Arial" font-weight="bold">الطباخ</text>
-  <text x="175" y="170" text-anchor="middle" font-size="12" fill="#64748b">PHP / Laravel</text>
-  
-  <rect x="325" y="100" width="150" height="100" rx="10" fill="white" stroke="#10b981" stroke-width="2"/>
-  <text x="400" y="145" text-anchor="middle" font-family="Arial" font-weight="bold">الأدوات</text>
-  <text x="400" y="170" text-anchor="middle" font-size="12" fill="#64748b">Node.js / NPM</text>
-  
-  <rect x="550" y="100" width="150" height="100" rx="10" fill="white" stroke="#f59e0b" stroke-width="2"/>
-  <text x="625" y="145" text-anchor="middle" font-family="Arial" font-weight="bold">المساعد</text>
-  <text x="625" y="170" text-anchor="middle" font-size="12" fill="#64748b">Composer</text>
-  
-  <text x="400" y="50" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="24" fill="#1e3a8a">تشبيه "المطبخ" لبيئة البرمجة</text>
-  <text x="400" y="250" text-anchor="middle" font-family="Arial" font-size="14" fill="#334155">كل أداة لها دور حيوي في "طهي" تطبيق FlowPilot بنجاح</text>
+  <text x="400" y="45" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="24" fill="#1e3a8a">تشبيه "المطبخ الاحترافي" لبيئة البرمجة</text>
+  <text x="400" y="70" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="13" fill="#64748b">كل أداة برمجية لها وظيفة محددة، مثل كل عنصر في المطبخ</text>
+
+  <!-- Kitchen Counter Background -->
+  <rect x="50" y="220" width="700" height="50" rx="8" fill="#d6d3d1" stroke="#a8a29e" stroke-width="2"/>
+  <rect x="50" y="230" width="700" height="40" rx="0" fill="#e7e5e4"/>
+
+  <!-- PHP = Chef -->
+  <g transform="translate(80, 100)">
+    <rect width="130" height="110" rx="14" fill="white" stroke="#6366f1" stroke-width="3" filter="url(#shadow)"/>
+    <circle cx="65" cy="40" r="20" fill="#eef2ff"/>
+    <text x="65" y="45" text-anchor="middle" font-size="22">👨‍🍳</text>
+    <text x="65" y="75" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="14" fill="#4338ca">PHP</text>
+    <text x="65" y="95" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#6366f1">الطباخ الرئيسي</text>
+  </g>
+
+  <!-- Arrow -->
+  <text x="230" y="160" text-anchor="middle" font-size="20" fill="#cbd5e1">←</text>
+
+  <!-- Node.js = Oven/Stove -->
+  <g transform="translate(260, 100)">
+    <rect width="130" height="110" rx="14" fill="white" stroke="#22c55e" stroke-width="3" filter="url(#shadow)"/>
+    <circle cx="65" cy="40" r="20" fill="#f0fdf4"/>
+    <text x="65" y="45" text-anchor="middle" font-size="22">🔥</text>
+    <text x="65" y="75" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="14" fill="#15803d">Node.js</text>
+    <text x="65" y="95" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#22c55e">الفرن والأجهزة</text>
+  </g>
+
+  <!-- Arrow -->
+  <text x="410" y="160" text-anchor="middle" font-size="20" fill="#cbd5e1">←</text>
+
+  <!-- Composer = Assistant -->
+  <g transform="translate(440, 100)">
+    <rect width="130" height="110" rx="14" fill="white" stroke="#14b8a6" stroke-width="3" filter="url(#shadow)"/>
+    <circle cx="65" cy="40" r="20" fill="#ecfeff"/>
+    <text x="65" y="45" text-anchor="middle" font-size="22">🛒</text>
+    <text x="65" y="75" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="14" fill="#0f766e">Composer</text>
+    <text x="65" y="95" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#14b8a6">المساعد والمشتريات</text>
+  </g>
+
+  <!-- Arrow -->
+  <text x="590" y="160" text-anchor="middle" font-size="20" fill="#cbd5e1">←</text>
+
+  <!-- Git = Camera -->
+  <g transform="translate(620, 100)">
+    <rect width="110" height="110" rx="14" fill="white" stroke="#ef4444" stroke-width="3" filter="url(#shadow)"/>
+    <circle cx="55" cy="40" r="20" fill="#fef2f2"/>
+    <text x="55" y="45" text-anchor="middle" font-size="22">📹</text>
+    <text x="55" y="75" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-weight="900" font-size="14" fill="#991b1b">Git</text>
+    <text x="55" y="95" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="10" fill="#ef4444">كاميرا المراقبة</text>
+  </g>
+
+  <!-- Bottom explanation boxes -->
+  <g transform="translate(80, 270)">
+    <text x="0" y="0" font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#475569">
+      <tspan x="0" dy="0" font-weight="900" fill="#4338ca">👨‍🍳 PHP:</tspan>
+      <tspan x="0" dy="18">ينفذ المنطق، يقرأ الطلبات،</tspan>
+      <tspan x="0" dy="16">ويجهز البيانات (يطبخ)</tspan>
+    </text>
+  </g>
+  <g transform="translate(280, 270)">
+    <text font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#475569">
+      <tspan x="0" dy="0" font-weight="900" fill="#15803d">🔥 Node.js:</tspan>
+      <tspan x="0" dy="18">يدير أدوات JavaScript،</tspan>
+      <tspan x="0" dy="16">يحمّص الكود (يسخّن الفرن)</tspan>
+    </text>
+  </g>
+  <g transform="translate(460, 270)">
+    <text font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#475569">
+      <tspan x="0" dy="0" font-weight="900" fill="#0f766e">🛒 Composer:</tspan>
+      <tspan x="0" dy="18">يجلب مكونات جاهزة من</tspan>
+      <tspan x="0" dy="16">Packagist (يشتري البقالة)</tspan>
+    </text>
+  </g>
+  <g transform="translate(630, 270)">
+    <text font-family="Tajawal, Arial, sans-serif" font-size="11" fill="#475569">
+      <tspan x="0" dy="0" font-weight="900" fill="#991b1b">📹 Git:</tspan>
+      <tspan x="0" dy="18">يسجل كل خطوة، يمكنك</tspan>
+      <tspan x="0" dy="16">العودة للخلف (كاميرا)</tspan>
+    </text>
+  </g>
+
+  <text x="400" y="360" text-anchor="middle" font-family="Tajawal, Arial, sans-serif" font-size="14" fill="#334155" font-weight="700">لكي "تطبخ" تطبيق FlowPilot بنجاح - تحتاج جميع هذه الأدوات تعمل معاً!</text>
 </svg>

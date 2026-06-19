@@ -8,14 +8,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../assets/css/style.css">
     <style>
         :root { font-family: 'Tajawal', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
         .sidebar-sticky { position: sticky; top: 5rem; }
         .step-card { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; }
+        code { direction: ltr; display: inline-block; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
@@ -36,11 +38,12 @@
             <div class="sidebar-sticky space-y-4">
                 <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الأول</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مقدمة الدرس</a>
+                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#why">لماذا هذا الدرس؟</a>
                     <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">الشرح النظري</a>
                     <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال المطعم</a>
                     <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">في FlowPilot</a>
                     <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#code">شرح الكود</a>
                     <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">أخطاء شائعة</a>
                 </div>
                 <div class="space-y-2">
@@ -54,144 +57,417 @@
             <section class="border-b pb-8 mb-12">
                 <span class="px-3 py-1 rounded-lg bg-indigo-50 text-indigo-700 font-bold text-xs uppercase tracking-widest">الأسبوع 1 · الدرس 2</span>
                 <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">تثبيت Laravel 12 وربطه بـ React عبر جسر Inertia.js</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"اليوم سنبدأ فعلياً في بناء الأساس البرمجي لـ FlowPilot. سنجمع بين قوة Laravel وجمال React."</p>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"اليوم هو اليوم الذي يولد فيه مشروع FlowPilot على جهازك. سننتقل من الصفر إلى أول صفحة تفاعلية!"</p>
             </section>
 
-            <section id="intro" class="space-y-4">
+            <section id="why" class="space-y-4">
                 <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">لماذا هذا الدرس مهم؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    في السابق، كان بناء تطبيق ويب يتطلب إنشاء مشروعيْن منفصلين؛ واحد للبيانات (Back-end) وآخر للشكل (Front-end). لكن مع تقنية <strong>Inertia.js</strong>، سنقوم بدمجهما في مشروع واحد ذكي.
+                    في الدرس السابق، جهزنا جميع الأدوات. الآن حان وقت استخدامها لبناء شيء حقيقي.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    هذا الدرس سيعلمك كيف تنشئ مجلد المشروع الحقيقي، وكيف تجعل Laravel و React يتواصلان معاً بسلاسة. بعد هذا الدرس، ستكون قادراً على رؤية أول صفحة تفاعلية لـ FlowPilot.
+                    هذا الدرس هو أهم درس في الأسبوع الأول، لأنه سينتج عنه مجلد المشروع الحقيقي الذي سنعمل عليه طوال الدورة. بعد هذا الدرس، سيكون لديك تطبيق ويب يعمل فعلاً على جهازك - وليس مجرد ملفات نظرية.
+                </p>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    سنتعلم كيف ننشئ مشروع Laravel باستخدام Composer، ثم نضيف له واجهة React عبر تقنية اسمها <strong>Inertia.js</strong>. هذه التقنية حديثة وتستخدمها شركات كبيرة لأنها تجمع بين قوة Laravel وسرعة React بطريقة ذكية.
                 </p>
             </section>
 
             <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هو الـ Stack التقني؟</h2>
-                <div class="space-y-4 text-slate-600">
-                    <p>الـ <strong>Stack</strong> هو مجموعة التقنيات التي تعمل معاً لبناء التطبيق. في FlowPilot نستخدم:</p>
-                    <ul class="list-disc pr-6 space-y-4">
-                        <li><strong>Laravel 12:</strong> مسؤول عن "العقل"؛ حفظ البيانات، الصلاحيات، والتحقق من المستخدمين.</li>
-                        <li><strong>React:</strong> مسؤول عن "الواجهة"؛ الأزرار، القوائم، والتفاعل السريع دون إعادة تحميل الصفحة.</li>
-                        <li><strong>Inertia.js:</strong> هو "الجسر"؛ ينقل البيانات من Laravel إلى React بطريقة تجعل التطبيق يبدو كتطبيقات الموبايل السريعة.</li>
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هو الـ Stack التقني؟ وماذا يعني كل مصطلح؟</h2>
+                
+                <div class="space-y-6">
+                    <div class="p-6 rounded-2xl border border-slate-200">
+                        <h3 class="font-black text-xl text-indigo-600 mb-3">ما هو Laravel 12؟</h3>
+                        <p class="text-slate-700 leading-relaxed">
+                            <strong>Laravel</strong> هو "إطار عمل" (Framework) للغة PHP. كلمة "إطار عمل" تعني مجموعة من الأدوات والقوانين الجاهزة التي تنظم طريقة كتابة الكود. بدلاً من أن تكتب كل شيء من الصفر (الاتصال بقاعدة البيانات، الحماية من الاختراق، إدارة الجلسات)، Laravel يوفر لك كل هذا جاهزاً.
+                            <br><br>
+                            تخيل أنك تريد بناء سيارة. يمكنك أن تصنع كل قطعة بنفسك (عجلات، محرك، مقاعد...). أو يمكنك شراء "هيكل جاهز" للسيارة وتعديله حسب رغبتك. Laravel هو هذا الهيكل الجاهز لتطبيقات الويب.
+                            <br><br>
+                            <strong>Laravel 12</strong> هو أحدث إصدار (في وقت كتابة هذه الدروس). كل إصدار جديد يأتي بتحسينات في الأداء والأمان.
+                        </p>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-slate-200">
+                        <h3 class="font-black text-xl text-indigo-600 mb-3">ما هو React؟</h3>
+                        <p class="text-slate-700 leading-relaxed">
+                            <strong>React</strong> هي "مكتبة" (Library) لبناء واجهات المستخدم. طورتها شركة Facebook. React تسمح لك ببناء واجهات تفاعلية سريعة، تشبه تطبيقات الموبايل في سرعتها وسلاسة استخدامها.
+                            <br><br>
+                            الفرق بين Laravel و React: Laravel يعمل في الخلفية (يتعامل مع قاعدة البيانات والمستخدمين)، بينما React يعمل في المقدمة (ما يراه المستخدم وينقر عليه).
+                        </p>
+                    </div>
+                    <div class="p-6 rounded-2xl border border-slate-200">
+                        <h3 class="font-black text-xl text-indigo-600 mb-3">ما هو Inertia.js؟</h3>
+                        <p class="text-slate-700 leading-relaxed">
+                            <strong>Inertia.js</strong> هو "جسر" (Bridge) يربط Laravel بـ React. عادةً، إذا أردت استخدام Laravel مع React، كان عليك بناء "API" (واجهة برمجية) معقدة. Inertia يلغي هذه الحاجة.
+                            <br><br>
+                            كيف يعمل؟ عندما يطلب المستخدم صفحة، Laravel يجهز البيانات، ثم يمررها إلى Inertia، الذي يرسلها إلى React لعرضها. كل هذا يحدث بسرعة ودون تعقيد.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-emerald-50 border border-emerald-100 mt-8">
+                    <p class="font-bold text-emerald-800 text-lg mb-2">مصطلحات مهمة ستراها كثيراً:</p>
+                    <ul class="space-y-3 text-emerald-700 text-sm">
+                        <li><strong>Front-end (الواجهة الأمامية):</strong> الجزء الذي يراه المستخدم ويتفاعل معه. (React + CSS)</li>
+                        <li><strong>Back-end (الخلفية):</strong> الجزء المخفي الذي يدير المنطق والبيانات. (Laravel + PHP)</li>
+                        <li><strong>Full-stack (المكدس الكامل):</strong> مطور يفهم كلاً من الواجهة والخلفية. هذا ما ستصبح عليه!</li>
+                        <li><strong>SPA (Single Page Application):</strong> تطبيق بصفحة واحدة. يعني أن المستخدم لا يحتاج لإعادة تحميل الصفحة عند التنقل - كل شيء يحدث بسلاسة.</li>
                     </ul>
                 </div>
             </section>
 
+            <!-- Real-life Example -->
             <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
-                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (المطعم الذكي)</h2>
-                <p class="text-indigo-50 leading-relaxed text-lg">
-                    تخيل <strong>Laravel</strong> هو المطبخ (حيث تُجهز الأطباق)، و <strong>React</strong> هو الصالة (حيث يجلس الزبائن).
-                    <br><br>
-                    بدون <strong>Inertia</strong>، سيكون على الزبون الذهاب للمطبخ في كل مرة يطلب فيها شيئاً جديداً. 
-                    <br><br>
-                    مع <strong>Inertia</strong>، هناك نادل فائق السرعة يأخذ الطلب من الصالة، يذهب للمطبخ، ويعود بالطبق ويضعه على الطاولة دون أن يشعر الزبون بأي تأخير أو يحتاج لتغيير طاولته!
-                </p>
-            </section>
+                <h2 class="text-2xl font-black mb-4">مثال من الواقع: "المطعم الذكي"</h2>
+                <div class="text-indigo-50 leading-relaxed text-lg space-y-4">
+                    <p>لنشرح العلاقة بين Laravel و React و Inertia بمثال بسيط:</p>
+                    
+                    <div class="grid md:grid-cols-3 gap-6 mt-6">
+                        <div class="p-4 rounded-xl bg-indigo-500/50 text-center">
+                            <p class="text-3xl mb-2">👨‍🍳</p>
+                            <p class="font-black">Laravel = المطبخ</p>
+                            <p class="text-sm text-indigo-200">يجهز الأطباق (البيانات) ويتأكد من جودتها</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-indigo-500/50 text-center">
+                            <p class="text-3xl mb-2">🧑‍💼</p>
+                            <p class="font-black">Inertia = النادل</p>
+                            <p class="text-sm text-indigo-200">يأخذ الطلب، يذهب للمطبخ، ويعود بالطبق</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-indigo-500/50 text-center">
+                            <p class="text-3xl mb-2">🍽️</p>
+                            <p class="font-black">React = طاولة الزبون</p>
+                            <p class="text-sm text-indigo-200">المكان الذي يظهر فيه الطعام بشكل جميل</p>
+                        </div>
+                    </div>
 
-            <section id="flowpilot" class="mt-16">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">في مشروع FlowPilot</h2>
-                <div class="mt-6 p-6 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-900">
-                    <p class="leading-relaxed">
-                        هذا هو اليوم الذي ننشئ فيه مجلد <code>flowpilot</code> الحقيقي على جهازك. كل الدروس القادمة ستعتمد على ما سنفعله اليوم. سننشئ "قلب" المشروع الذي سنبني عليه كل ميزات إدارة المهام والفرق لاحقاً.
+                    <p class="mt-6 text-indigo-200">
+                        في التطبيقات التقليدية (بدون Inertia)، كنت تحتاج لـ "مطعمين منفصلين": واحد للمطبخ وآخر للصالة، ويجب بناء جسر معقد بينهما. مع Inertia، كل شيء في مطعم واحد متكامل، والنادل (Inertia) يقوم بكل العمل بسلاسة!
                     </p>
                 </div>
             </section>
 
-            <section id="visuals" class="mt-16">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">مخططات توضيحية</h2>
-                <div class="grid md:grid-cols-2 gap-8 mt-8">
-                    <div class="card p-4 text-center space-y-4">
-                        <img src="diagram.svg" alt="Technical Diagram" class="w-full rounded-xl border">
-                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط الربط التقني</p>
-                    </div>
-                    <div class="card p-4 text-center space-y-4">
-                        <img src="visual-example.svg" alt="Teaching Diagram" class="w-full rounded-xl border">
-                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">التشبيه البصري (المطعم)</p>
-                    </div>
+            <!-- FlowPilot Link -->
+            <section id="flowpilot" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">كيف يخدم هذا الدرس مشروع FlowPilot؟</h2>
+                <div class="mt-6 p-6 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-900 space-y-4">
+                    <p class="leading-relaxed">
+                        هذا هو الدرس الذي سينتج عنه مجلد <code>flowpilot</code> على جهازك. هذا المجلد سيحتوي على كل ملفات المشروع: ملفات Laravel (app/, config/, routes/)، وملفات React (resources/js/Pages/).
+                    </p>
+                    <p class="leading-relaxed">
+                        من الآن فصاعداً، كل درس سيعتمد على هذا المجلد. سنضيف إليه ملفات جديدة، نعدل فيه، ونطوره حتى يصبح تطبيق FlowPilot كاملاً.
+                    </p>
+                    <p class="leading-relaxed font-bold">
+                        هذا هو "قلب" المشروع. لا تخسره، واحرص على عمل نسخة احتياطية منه بعد كل درس!
+                    </p>
                 </div>
             </section>
 
+            <!-- Practice -->
             <section id="practice" class="mt-16 space-y-12">
                 <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي خطوة بخطوة</h2>
 
                 <!-- Step 1 -->
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء مشروع Laravel</h3>
-                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> إنشاء المجلد الأساسي للمشروع وتحميل ملفات Laravel 12.</p>
-                    <p class="text-slate-600 mb-4"><strong>لماذا؟</strong> نحتاج لنسخة نظيفة من Laravel لنبدأ بناء FlowPilot عليها.</p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء مشروع Laravel جديد</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> طلب من Composer إنشاء مشروع Laravel 12 باسم flowpilot.</p>
+                    <div class="p-4 rounded-xl bg-amber-50 border border-amber-100 mb-4">
+                        <p class="text-sm font-bold text-amber-800">قبل البدء: تأكد أنك في المجلد الذي تريد إنشاء المشروع فيه. مثلاً، يمكنك إنشاء مجلد "projects" على سطح المكتب والعمل فيه.</p>
+                    </div>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4" dir="ltr">
+                        <p class="text-slate-500 mb-2 text-right font-sans"># الأمر الأول: إنشاء المشروع (قد يستغرق دقيقة أو اثنتين)</p>
                         <p>composer create-project laravel/laravel flowpilot</p>
+                        <p class="text-slate-500 mt-4 mb-2 text-right font-sans"># بعد الانتهاء، ادخل إلى مجلد المشروع</p>
                         <p>cd flowpilot</p>
                     </div>
-                    <p class="text-slate-500 text-sm italic">شرح الأمر: نطلب من Composer إنشاء مشروع جديد اسمه flowpilot ثم ندخل إلى المجلد.</p>
+                    <div class="p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
+                        <p class="font-bold mb-2">شرح الأمر الأول كلمة كلمة:</p>
+                        <ul class="space-y-1">
+                            <li><code class="font-mono">composer</code>: اسم البرنامج (مدير حزم PHP).</li>
+                            <li><code class="font-mono">create-project</code>: أمر يقول لـ Composer "أنشئ مشروعاً جديداً".</li>
+                            <li><code class="font-mono">laravel/laravel</code>: اسم الحزمة التي نريد تثبيتها. "laravel" هو اسم المشروع في Packagist، "laravel" هو اسم الحزمة.</li>
+                            <li><code class="font-mono">flowpilot</code>: اسم المجلد الذي سنضع فيه المشروع.</li>
+                        </ul>
+                        <p class="mt-4">بعد تنفيذ الأمر، سترى Composer يقوم بتحميل Laravel ومكتباته. قد تظهر أشرطة تقدم - هذا طبيعي، فقط انتظر.</p>
+                    </div>
                 </div>
 
                 <!-- Step 2 -->
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تثبيت Inertia جانب السيرفر</h3>
-                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> إضافة مكتبة Inertia داخل ملفات Laravel.</p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
-                        <p>composer require inertiajs/inertia-laravel</p>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تثبيت Breeze (قالب البداية)</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> استخدام Laravel Breeze وهو قالب جاهز يضيف Inertia و React لمشروعنا تلقائياً.</p>
+                    <div class="p-4 rounded-xl bg-amber-50 border border-amber-100 mb-4">
+                        <p class="text-sm font-bold text-amber-800">ملاحظة مهمة: Breeze هو "قالب بداية" (Starter Kit) طورته Laravel. وظيفته إعداد نظام تسجيل دخول جاهز مع Inertia و React. بدلاً من تركيب كل شيء يدوياً، Breeze يفعل كل شيء بأمر واحد!</p>
+                    </div>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4" dir="ltr">
+                        <p class="text-slate-500 mb-2 text-right font-sans"># تثبيت Breeze مع خيار React</p>
+                        <p>composer require laravel/breeze --dev</p>
+                        <p class="text-slate-500 mt-4 mb-2 text-right font-sans"># بعد التثبيت، شغّل أمر النشر</p>
+                        <p>php artisan breeze:install react</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
+                        <p class="font-bold mb-2">شرح الأوامر:</p>
+                        <ul class="space-y-1">
+                            <li><code class="font-mono">composer require laravel/breeze --dev</code>: نطلب من Composer تحميل حزمة Breeze من Packagist.</li>
+                            <li><code class="font-mono">--dev</code>: تعني أن هذه الحزمة مخصصة للتطوير فقط، ولن نستخدمها في الإنتاج (Production).</li>
+                            <li><code class="font-mono">php artisan breeze:install react</code>: <code>php artisan</code> هو واجهة أوامر Laravel. نطلب منه تشغيل أمر Breeze لتثبيت واجهة React.</li>
+                        </ul>
+                        <p class="mt-4 text-amber-700 font-bold">⚠️ هذا الأمر سيقوم تلقائياً بما يلي:</p>
+                        <ul class="space-y-1">
+                            <li>• تثبيت Inertia.js جانب السيرفر.</li>
+                            <li>• تثبيت React و Inertia جانب الواجهة عبر NPM.</li>
+                            <li>• إعداد ملفات الصفحات الأولى.</li>
+                            <li>• إعداد نظام تسجيل الدخول.</li>
+                        </ul>
                     </div>
                 </div>
 
                 <!-- Step 3 -->
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: تثبيت React و Inertia جانب الواجهة</h3>
-                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> تحميل مكتبات React لتشغيل الواجهات.</p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-sky-400 overflow-x-auto mb-4 text-left">
-                        <p>npm install @inertiajs/react react react-dom @vitejs/plugin-react</p>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: تشغيل الخادمين (Laravel و React)</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> تشغيل خادم Laravel وخادم تطوير React معاً لرؤية أول صفحة.</p>
+                    <div class="p-4 rounded-xl bg-amber-50 border border-amber-100 mb-4">
+                        <p class="text-sm font-bold text-amber-800">مهم جداً: مشروعنا يحتاج إلى "نافذتي Terminal" مفتوحتين في نفس الوقت. واحدة لتشغيل Laravel، وواحدة لتشغيل React (Vite).</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4 mb-4">
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto" dir="ltr">
+                            <p class="text-slate-500 mb-2 text-right font-sans"># النافذة الأولى: خادم Laravel</p>
+                            <p>php artisan serve</p>
+                        </div>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto" dir="ltr">
+                            <p class="text-slate-500 mb-2 text-right font-sans"># النافذة الثانية: خادم Vite (React)</p>
+                            <p>npm run dev</p>
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
+                        <p class="font-bold mb-2">شرح الأوامر:</p>
+                        <ul class="space-y-1">
+                            <li><code class="font-mono">php artisan serve</code>: يشغل Laravel على http://localhost:8000. هذا هو خادم التطوير المحلي.</li>
+                            <li><code class="font-mono">npm run dev</code>: يشغل Vite (أداة بناء JavaScript الحديثة). Vite يراقب تغييراتك في ملفات React ويحدث المتصفح تلقائياً.</li>
+                        </ul>
+                        <p class="mt-4 text-indigo-600 font-bold">💡 الآن اذهب إلى متصفحك وافتح http://localhost:8000 - يجب أن ترى صفحة Laravel الترحيبية!</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: استكشاف هيكل المشروع (المجلدات المهمة)</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> فهم المجلدات الرئيسية في مشروع Laravel حتى نعرف أين نكتب الكود في الدروس القادمة.</p>
+                    
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="p-4 rounded-xl bg-slate-100 border border-slate-200">
+                            <p class="font-black text-indigo-600 mb-1 text-center">app/</p>
+                            <p class="text-xs text-slate-600">قلب Laravel. يحتوي على منطق التطبيق: Controllers (وحدات التحكم)، Models (نماذج البيانات)، Middleware (الوسائط).</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-100 border border-slate-200">
+                            <p class="font-black text-indigo-600 mb-1 text-center">routes/</p>
+                            <p class="text-xs text-slate-600">ملفات المسارات (Routes). تحدد أي رابط يقود لأي صفحة. ملف web.js هو الأهم للمبتدئين.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-100 border border-slate-200">
+                            <p class="font-black text-indigo-600 mb-1 text-center">resources/js/</p>
+                            <p class="text-xs text-slate-600">ملفات الواجهة: React Components و Pages. هذا هو المكان الذي سنعمل فيه أكثر.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-100 border border-slate-200">
+                            <p class="font-black text-indigo-600 mb-1 text-center">config/</p>
+                            <p class="text-xs text-slate-600">إعدادات التطبيق: قاعدة البيانات، البريد، الملفات، والـ API.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-100 border border-slate-200">
+                            <p class="font-black text-indigo-600 mb-1 text-center">database/</p>
+                            <p class="text-xs text-slate-600">ملفات قاعدة البيانات: هيكل الجداول والبيانات التجريبية (migrations, seeders).</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-100 border border-slate-200">
+                            <p class="font-black text-indigo-600 mb-1 text-center">package.json</p>
+                            <p class="text-xs text-slate-600">قائمة بجميع مكتبات JavaScript المستخدمة (React، Inertia، Tailwind).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: إلقاء نظرة على أول صفحة React</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> رؤية كيف تبدو صفحة React داخل مشروع Laravel.</p>
+                    <div class="p-4 rounded-xl bg-amber-50 border border-amber-100 mb-4">
+                        <p class="text-sm font-bold text-amber-800">ملف Welcome.jsx هو صفحة الترحيب التي تظهر عند فتح http://localhost:8000. Breeze قام بإنشائها تلقائياً.</p>
+                    </div>
+                    <p class="font-bold text-slate-700 mb-2">افتح الملف: <code>resources/js/Pages/Welcome.jsx</code></p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left" dir="ltr">
+                        <p><span class="text-purple-400">import</span> { Link } <span class="text-purple-400">from</span> <span class="text-amber-400">'@inertiajs/react'</span>;</p>
+                        <p>&nbsp;</p>
+                        <p><span class="text-purple-400">export default function</span> <span class="text-yellow-400">Welcome</span>() {</p>
+                        <p>&nbsp;&nbsp;<span class="text-purple-400">return</span> (</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">&lt;div className="..."&gt;</span></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">&lt;h1&gt;</span>FlowPilot<span class="text-slate-500">&lt;/h1&gt;</span></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">&lt;/div&gt;</span></p>
+                        <p>&nbsp;&nbsp;);</p>
+                        <p>}</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
+                        <p class="font-bold mb-2">ماذا نرى هنا؟</p>
+                        <ul class="space-y-1">
+                            <li><code class="font-mono">import { Link } from '@inertiajs/react'</code>: نستورد أداة "Link" من مكتبة Inertia لاستخدامها في التنقل بين الصفحات.</li>
+                            <li><code class="font-mono">export default function Welcome()</code>: نعرّف دالة (وظيفة) اسمها Welcome. في React، كل صفحة هي "مكون" (Component).</li>
+                            <li>داخل الدالة، نعيد (return) كود JSX (شبيه HTML) يمثل شكل الصفحة.</li>
+                        </ul>
                     </div>
                 </div>
             </section>
 
+            <!-- Code Explanation -->
             <section id="code" class="mt-16">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">شرح كود الربط الأساسي</h2>
-                <div class="mt-8 space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">شرح تفصيلي لملفات الإعداد الأساسية</h2>
+                
+                <div class="mt-8 space-y-6">
                     <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
-                        <code class="text-indigo-600 font-bold block mb-2 text-left">return Inertia::render('Home');</code>
-                        <p class="text-sm text-slate-600 leading-relaxed">
-                            هذا السطر يخبر Laravel: "لا تبحث عن صفحة HTML عادية، بل ابحث عن صفحة React اسمها Home في مجلد الصفحات، وأرسلها للمستخدم عبر جسر Inertia".
+                        <h3 class="font-black text-slate-900 mb-3">ملف <code>routes/web.php</code> (مسار Laravel)</h3>
+                        <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-indigo-400 overflow-x-auto mb-3 text-left" dir="ltr">
+                            <p><span class="text-slate-500">&lt;?php</span></p>
+                            <p>&nbsp;</p>
+                            <p><span class="text-purple-400">use</span> Illuminate\Support\Facades\Route;</p>
+                            <p><span class="text-purple-400">use</span> Inertia\Inertia;</p>
+                            <p>&nbsp;</p>
+                            <p>Route::get(<span class="text-amber-400">'/'</span>, <span class="text-purple-400">function</span> () {</p>
+                            <p>&nbsp;&nbsp;<span class="text-purple-400">return</span> Inertia::render(<span class="text-amber-400">'Welcome'</span>);</p>
+                            <p>});</p>
+                        </div>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>الشرح سطراً سطراً:</strong>
+                        </p>
+                        <ul class="text-sm text-slate-700 space-y-2 mt-2">
+                            <li><code class="font-mono">&lt;?php</code>: علامة تفتح كود PHP. كل ملفات Laravel تبدأ بهذه العلامة.</li>
+                            <li><code class="font-mono">use Illuminate\Support\Facades\Route;</code>: نستورد (نستدعي) مكتبة Route من Laravel. "Facades" هي طريقة Laravel لاستخدام الأدوات بسهولة.</li>
+                            <li><code class="font-mono">use Inertia\Inertia;</code>: نستورد مكتبة Inertia.</li>
+                            <li><code class="font-mono">Route::get('/', function () { ... })</code>: نعرّف مساراً (Route). <code>get</code> يعني أن المتصفح يطلب الصفحة عبر HTTP GET. <code>'/'</code> هو الرابط الرئيسي (الصفحة الأولى). <code>function ()</code> هي دالة مجهولة تنفذ عندما يزور المستخدم هذا الرابط.</li>
+                            <li><code class="font-mono">return Inertia::render('Welcome');</code>: بدلاً من إعادة صفحة HTML عادية، نطلب من Inertia أن يبحث عن صفحة React اسمها <code>Welcome</code> في مجلد <code>resources/js/Pages/</code> ويعرضها.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
+                        <h3 class="font-black text-slate-900 mb-3">ملف <code>resources/js/app.jsx</code> (نقطة دخول React)</h3>
+                        <div class="bg-slate-900 rounded-2xl p-4 font-mono text-sm text-indigo-400 overflow-x-auto mb-3 text-left" dir="ltr">
+                            <p><span class="text-purple-400">import</span> { createInertiaApp } <span class="text-purple-400">from</span> <span class="text-amber-400">'@inertiajs/react'</span>;</p>
+                            <p><span class="text-purple-400">import</span> { createRoot } <span class="text-purple-400">from</span> <span class="text-amber-400">'react-dom/client'</span>;</p>
+                            <p>&nbsp;</p>
+                            <p>createInertiaApp({</p>
+                            <p>&nbsp;&nbsp;resolve: name => {</p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-purple-400">const</span> pages = import.meta.glob(<span class="text-amber-400">'./Pages/**/*.jsx'</span>, { eager: <span class="text-purple-400">true</span> });</p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-purple-400">return</span> pages[<span class="text-amber-400">`./Pages/${name}.jsx`</span>];</p>
+                            <p>&nbsp;&nbsp;},</p>
+                            <p>&nbsp;&nbsp;setup({ el, App, props }) {</p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;createRoot(el).render(<span class="text-slate-500">&lt;App {...props} /&gt;</span>);</p>
+                            <p>&nbsp;&nbsp;},</p>
+                            <p>});</p>
+                        </div>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            هذا الملف يربط Inertia بـ React. يخبر Inertia كيف يجد صفحات React (في مجلد Pages/) وكيف يعرضها في المتصفح. لا تقلق من تفاصيله الآن - ستفهمه أكثر مع الوقت. المهم أن تعرف أن هذا الملف موجود ويعمل.
                         </p>
                     </div>
                 </div>
             </section>
 
+            <!-- Expected Result -->
+            <section class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">النتيجة المتوقعة</h2>
+                <div class="mt-6 p-6 rounded-2xl border border-emerald-100 bg-emerald-50">
+                    <p class="text-emerald-900 font-bold text-lg mb-4">بعد تنفيذ جميع الخطوات، يجب أن ترى:</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 p-3 rounded-xl bg-white shadow-sm">
+                            <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-black">1</span>
+                            <span>نافذة Terminal (Laravel) تعرض <code>Server running on http://localhost:8000</code></span>
+                        </li>
+                        <li class="flex items-center gap-3 p-3 rounded-xl bg-white shadow-sm">
+                            <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-black">2</span>
+                            <span>نافذة Terminal (Vite) تعرض <code>VITE v6.x ready</code> ورابط محلي</span>
+                        </li>
+                        <li class="flex items-center gap-3 p-3 rounded-xl bg-white shadow-sm">
+                            <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-black">3</span>
+                            <span>المتصفح يعرض صفحة Laravel/React الترحيبية (شعار Laravel + روابط)</span>
+                        </li>
+                        <li class="flex items-center gap-3 p-3 rounded-xl bg-white shadow-sm">
+                            <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-black">4</span>
+                            <span>مجلد <code>flowpilot</code> على جهازك يحتوي على جميع ملفات المشروع</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Common Errors -->
             <section id="errors" class="mt-16">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-rose-600 pr-4">أخطاء قد تواجهك</h2>
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-rose-600 pr-4">الأخطاء الشائعة والحلول</h2>
                 <div class="mt-8 space-y-6">
                     <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
-                        <h4 class="font-black text-rose-700 mb-2">خطأ: Composer is not recognized</h4>
-                        <p class="text-sm text-rose-900/70 mb-2">يعني أنك لم تثبت Composer أو لم تضفه للمسار.</p>
-                        <p class="text-sm font-black text-rose-900">الحل: عد للدرس الأول وتأكد من تثبيت Composer بنجاح.</p>
+                        <h4 class="font-black text-rose-700 mb-2">1. خطأ: Composer require فشل (مشكلة إنترنت)</h4>
+                        <p class="text-sm text-rose-900 leading-relaxed mb-4"><strong>السبب:</strong> اتصال الإنترنت ضعيف أو Packagist محظور.</p>
+                        <p class="text-sm font-black text-rose-900">الحل: جرب مرة أخرى. إذا استمرت المشكلة، استخدم VPN أو غيّر DNS لسيرفر Google (8.8.8.8).</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h4 class="font-black text-rose-700 mb-2">2. خطأ: 500 Server Error عند فتح المتصفح</h4>
+                        <p class="text-sm text-rose-900 leading-relaxed mb-4"><strong>السبب:</strong> غالباً مشكلة في ملف <code>.env</code> (بيئة التطوير).</p>
+                        <p class="text-sm font-black text-rose-900">الحل: تأكد من وجود ملف <code>.env</code> في مجلد المشروع. إذا لم يكن موجوداً، انسخ <code>.env.example</code> إلى <code>.env</code>. ثم شغّل <code>php artisan key:generate</code>.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h4 class="font-black text-rose-700 mb-2">3. خطأ: npm run dev لا يعمل (Vite)</h4>
+                        <p class="text-sm text-rose-900 leading-relaxed mb-4"><strong>السبب:</strong> لم تقم بتثبيت مكتبات npm بعد.</p>
+                        <p class="text-sm font-black text-rose-900">الحل: شغّل <code>npm install</code> قبل <code>npm run dev</code>. هذا الأمر يقوم بتحميل كل مكتبات JavaScript المذكورة في <code>package.json</code>.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h4 class="font-black text-rose-700 mb-2">4. خطأ: "Route [login] not defined"</h4>
+                        <p class="text-sm text-rose-900 leading-relaxed mb-4"><strong>السبب:</strong> تأتي بعض صفحات Breeze مع نظام مصادقة. إذا لم تكمل تثبيت Breeze بالكامل، قد تظهر هذه الرسالة.</p>
+                        <p class="text-sm font-black text-rose-900">الحل: تأكد أنك نفذت جميع أوامر تثبيت Breeze بشكل صحيح. جرب <code>php artisan breeze:install react</code> مرة أخرى.</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h4 class="font-black text-rose-700 mb-2">5. مشكلة: الصفحة تظهر بيضاء أو لا تحمل CSS</h4>
+                        <p class="text-sm text-rose-900 leading-relaxed mb-4"><strong>السبب:</strong> خادم Vite لم يتم تحميله بالكامل أو هناك تعارض في المنافذ (Port).</p>
+                        <p class="text-sm font-black text-rose-900">الحل: تأكد من تشغيل <code>npm run dev</code> في نافذة منفصلة. أعد تحميل الصفحة في المتصفح (Ctrl+F5). إذا استمرت المشكلة، أعد تشغيل الكمبيوتر.</p>
                     </div>
                 </div>
             </section>
 
+            <!-- Diagrams -->
+            <section class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">مخططات توضيحية</h2>
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="diagram.svg" alt="Technical Diagram" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">كيف تترابط Laravel و Inertia و React معاً</p>
+                    </div>
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="visual-example.svg" alt="Teaching Diagram" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">تشبيه المطعم الذكي لفهم الـ Stack التقني</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary -->
             <section class="mt-16 p-10 rounded-[2.5rem] bg-slate-900 text-white">
                 <h2 class="text-2xl font-black mb-6">ملخص الدرس</h2>
-                <p class="text-slate-400 leading-relaxed mb-6">اليوم قمنا بإنشاء مشروع FlowPilot وربطنا Laravel بـ React باستخدام Inertia. هذه الخطوة هي التي حولت مشروعنا من مجرد فكرة إلى تطبيق ويب حديث جاهز للتطوير.</p>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="space-y-2">
-                        <h4 class="text-indigo-400 font-black uppercase text-xs tracking-widest">أهم ما تعلمناه</h4>
-                        <ul class="text-sm text-slate-400 space-y-1">
-                            <li>• إنشاء مشروع Laravel 12.</li>
-                            <li>• مفهوم الـ Stack التقني.</li>
-                            <li>• دور Inertia كجسر بين الخلفية والواجهة.</li>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="space-y-3">
+                        <h4 class="text-indigo-400 font-black uppercase text-xs tracking-widest">ماذا أنجزنا؟</h4>
+                        <ul class="text-sm text-slate-400 space-y-2">
+                            <li>• أنشأنا مشروع Laravel 12 باسم <code>flowpilot</code></li>
+                            <li>• ثبتنا Breeze مع React stack</li>
+                            <li>• شغّلنا خادمي Laravel و Vite معاً</li>
+                            <li>• استعرضنا أول صفحة React في المتصفح</li>
                         </ul>
                     </div>
-                    <div class="space-y-2">
-                        <h4 class="text-indigo-400 font-black uppercase text-xs tracking-widest">الدرس القادم</h4>
-                        <p class="text-sm text-slate-400 leading-relaxed">سنتعلم كيف نستخدم Tailwind CSS لنجعل تطبيق FlowPilot يبدو رائعاً من اللمسة الأولى!</p>
+                    <div class="space-y-3">
+                        <h4 class="text-indigo-400 font-black uppercase text-xs tracking-widest">مفاهيم تعلمناها</h4>
+                        <ul class="text-sm text-slate-400 space-y-2">
+                            <li>• Laravel = إطار عمل PHP للخلفية</li>
+                            <li>• React = مكتبة JavaScript للواجهة</li>
+                            <li>• Inertia.js = جسر يربط Laravel بـ React</li>
+                            <li>• php artisan = واجهة أوامر Laravel</li>
+                        </ul>
+                    </div>
+                    <div class="space-y-3">
+                        <h4 class="text-indigo-400 font-black uppercase text-xs tracking-widest">الخطوة القادمة</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed">الآن لدينا مشروع يعمل. في الدرس القادم، سنجعل صفحته الأولى جميلة باستخدام Tailwind CSS.</p>
                     </div>
                 </div>
             </section>
 
             <div class="mt-12 flex justify-between gap-4">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../../week-01/lesson-03/index.html">الدرس التالي: Tailwind CSS ←</a>
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-01/index.html">← الدرس السابق: تهيئة البيئة</a>
+                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 hover:-translate-x-2 transition-all shadow-xl shadow-indigo-100" href="../lesson-03/index.html">الدرس التالي: Tailwind CSS ←</a>
             </div>
         </article>
     </div>
@@ -199,10 +475,9 @@
 
 <footer class="mt-24 border-t bg-white">
     <div class="mx-auto max-w-7xl px-4 py-8 text-center text-slate-400 text-sm font-medium">
-        © 2025 FlowPilot Academy. المحتوى مصمم لمساعدتك على بناء مشاريعك الخاصة.
+        © 2025 FlowPilot Academy. المحتوى مصمم خصيصاً للمبتدئين.
     </div>
 </footer>
 
-<script src="../../../assets/js/app.js"></script>
 </body>
 </html>

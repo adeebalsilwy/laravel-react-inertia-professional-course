@@ -1,14 +1,76 @@
 {
   "lesson": 14,
   "title": "الصلاحيات Policies وحماية المشاريع",
+  "description": "يقيس هذا الكويز فهمك لمفاهيم Policies والترخيص (Authorization) في Laravel",
+  "totalQuestions": 9,
+  "objectiveQuestions": 7,
+  "passingScore": 5,
   "questions": [
     {
-      "q": "ما أهم هدف من الدرس؟",
-      "answer": "فهم المفهوم وتطبيقه داخل FlowPilot"
+      "id": 1,
+      "type": "mcq",
+      "question": "ما الفرق بين Authentication و Authorization؟",
+      "options": ["كلاهما نفس الشيء", "الأول لتصميم الألوان والثاني للقاعدة", "الأول يثبت الهوية والثاني يحدد الصلاحيات", "الأول للخادم والثاني للعميل"],
+      "correctAnswer": 2,
+      "explanation": "Authentication = من أنت؟ Authorization = ماذا يسمح لك أن تفعل؟"
     },
     {
-      "q": "لماذا نكتب خطوات عملية مفصلة؟",
-      "answer": "حتى يفهم الطالب الهدف والمكان والكود والنتيجة"
+      "id": 2,
+      "type": "mcq",
+      "question": "أي أمر ينشئ Policy مرتبطة بموديل Project؟",
+      "options": ["php artisan make:model Project --policy", "php artisan make:policy ProjectPolicy --model=Project", "php artisan make:controller ProjectPolicy", "php artisan policy:create Project"],
+      "correctAnswer": 1,
+      "explanation": "php artisan make:policy ProjectPolicy --model=Project ينشئ Policy مع دوال افتراضية."
+    },
+    {
+      "id": 3,
+      "type": "mcq",
+      "question": "أين يتم تسجيل Policy لربطها بالموديل؟",
+      "options": ["AuthServiceProvider في مصفوفة $policies", "routes/web.php", "ملف .env", "config/app.php"],
+      "correctAnswer": 0,
+      "explanation": "Policy تسجل في AuthServiceProvider.php عبر مصفوفة $policies."
+    },
+    {
+      "id": 4,
+      "type": "mcq",
+      "question": "ماذا تفعل $this->authorize('update', $project) في Controller؟",
+      "options": ["تحديث المشروع مباشرة", "تستدعي Policy للتأكد من صلاحية المستخدم", "ترسل إيميل للمستخدم", "تحذف المشروع"],
+      "correctAnswer": 1,
+      "explanation": "authorize() تستدعي الدالة المناسبة من Policy. إذا رجعت false، ترسل 403."
+    },
+    {
+      "id": 5,
+      "type": "mcq",
+      "question": "لماذا نتحقق من الصلاحيات في React أيضاً وليس فقط في Laravel؟",
+      "options": ["لأن React أسرع", "لأن Laravel لا يستطيع لوحده", "لتجربة مستخدم أفضل", "لا داعي للتحقق في React"],
+      "correctAnswer": 2,
+      "explanation": "التحقق في Laravel هو الأساس. التحقق في React يحسن تجربة المستخدم."
+    },
+    {
+      "id": 6,
+      "type": "tf",
+      "question": "الدالة create() في Policy لا تحتاج لكائن (Object) من الموديل.",
+      "correctAnswer": true,
+      "explanation": "لأن create يتعلق بإنشاء كائن جديد، لذا تأخذ فقط User كمعامل."
+    },
+    {
+      "id": 7,
+      "type": "tf",
+      "question": "التحقق من الصلاحيات في الواجهة الأمامية (React) يغني عن التحقق في الخلفية (Laravel).",
+      "correctAnswer": false,
+      "explanation": "خطأ. التحقق في الخلفية هو خط الدفاع الأول. الواجهة الأمامية يمكن اختراقها."
+    },
+    {
+      "id": 8,
+      "type": "theory",
+      "question": "اشرح بمثال: لماذا نحتاج Policy منفصلة لكل موديل؟",
+      "modelAnswer": "كل موديل له قواعد صلاحيات مختلفة. مثلاً، صلاحية تعديل مشروع تختلف عن صلاحية تعديل تعليق. Policy منفصلة تنظم الكود وتتبع مبدأ المسؤولية الواحدة (Single Responsibility)."
+    },
+    {
+      "id": 9,
+      "type": "practical",
+      "question": "أكتب دالة Policy (update) تسمح للمالك والمشرف (admin) بتعديل المشروع.",
+      "modelAnswer": "public function update(User $user, Project $project): bool\n{\n    if ($user->id === $project->user_id) return true;\n    if ($user->is_admin) return true;\n    return false;\n}"
     }
   ]
 }

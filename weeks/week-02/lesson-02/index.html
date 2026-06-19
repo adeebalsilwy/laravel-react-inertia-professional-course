@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 6: بناء Layout رئيسي وشريط تنقل ثابت</title>
+    <title>الدرس 6: بناء Layout رئيسي وشريط تنقل ثابت | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,13 +13,22 @@
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
         .step-card { border-right: 4px solid #10b981; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .code-line { display: block; padding: 0.1rem 0; }
+        .error-box { background: #fef2f2; border-right: 4px solid #ef4444; padding: 1rem; border-radius: 1rem; margin-bottom: 1rem; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../index.html">الرئيسية</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/curriculum.html">الفهرس</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/lessons.html">الدروس</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/beginner-guide.html">دليل الطالب</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/project.html">المشروع</a>
+        </nav>
     </div>
 </header>
 
@@ -27,92 +36,541 @@
     <div class="grid lg:grid-cols-4 gap-8">
         <aside class="hidden lg:block">
             <div class="sidebar-sticky space-y-4">
-                <a class="font-black text-emerald-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الثاني</a>
+                <a class="font-black text-emerald-700 hover:underline block mb-6 text-sm" href="../index.html">← العودة للأسبوع الثاني</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-emerald-50 text-emerald-700" href="#intro">مفهوم الـ Layout</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">قاعدة (DRY)</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال إطار الصورة</a>
+                    <a class="block p-3 rounded-xl bg-emerald-50 text-emerald-700" href="#importance">لماذا هذا الدرس مهم؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">الشرح النظري</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#analogy">مثال من الحياة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">في مشروع FlowPilot</a>
                     <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#code">شرح الكود</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">الأخطاء الشائعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#visuals">المخططات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#summary">الملخص</a>
                 </div>
             </div>
         </aside>
 
         <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
+            <!-- Header -->
             <section class="border-b pb-8 mb-12">
                 <span class="px-3 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-bold text-xs uppercase tracking-widest">الأسبوع 2 · الدرس 2</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">بناء القالب الرئيسي (Layout): كيف لا نكرر كود الواجهة؟</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"المبرمج الذكي هو من يكتب الكود مرة واحدة ويستخدمه في كل مكان."</p>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">بناء القالب الرئيسي (Layout): شريط التنقل والقائمة الجانبية الثابتة</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"المبرمج الذكي لا يكرر نفسه. القالب (Layout) هو سرعة البرمجة وجودة التصميم."</p>
             </section>
 
-            <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">لماذا نحتاج الـ Layout؟</h2>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    تخيل أن تطبيق FlowPilot يحتوي على 50 صفحة. في كل صفحة نحتاج لشريط تنقل (Navbar) في الأعلى وقائمة جانبية (Sidebar). هل يعقل أن ننسخ كود الـ Navbar في 50 ملفاً؟
-                </p>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    بالطبع لا. إذا أردنا تغيير لون الـ Navbar لاحقاً، سيتعين علينا تعديل 50 ملفاً! الحل هو الـ <strong>Layout</strong>؛ وهو قالب ثابت نضع فيه العناصر المشتركة، ثم نضع محتوى كل صفحة "بداخله".
-                </p>
-            </section>
-
-            <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">قاعدة DRY البرمجية</h2>
-                <p class="text-slate-600 leading-relaxed">
-                    في البرمجة هناك قاعدة ذهبية تسمى <strong>DRY</strong> وهي اختصار لـ <em>Don't Repeat Yourself</em> (لا تكرر نفسك). الـ Layout هو تطبيق عملي لهذه القاعدة في تصميم الواجهات.
-                </p>
-                <div class="p-6 rounded-2xl bg-slate-900 text-indigo-400 font-mono text-sm text-left">
-                    &lt;Layout&gt;<br>
-                    &nbsp;&nbsp;{/* محتوى الصفحة يتغير هنا */}<br>
-                    &nbsp;&nbsp;{children}<br>
-                    &lt;/Layout&gt;
+            <!-- لماذا هذا الدرس مهم -->
+            <section id="importance" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">🔍 لماذا هذا الدرس مهم؟</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed text-lg">
+                    <p>تخيل أن تطبيق FlowPilot سيحتوي على 20 صفحة مختلفة. في كل صفحة، نحتاج إلى <strong>شريط تنقل (Navbar)</strong> في الأعلى يحتوي على الشعار والروابط الرئيسية، و<strong>قائمة جانبية (Sidebar)</strong> للتنقل السريع.</p>
+                    <p>الآن تخيل أنك ستنسخ كود الـ Navbar في كل صفحة من الـ 20 صفحة! ماذا لو أردت تغيير لون الخلفية؟ ستعدّل 20 ملفاً! هذا <strong>مضيعة للوقت ومصدر للأخطاء</strong>.</p>
+                    <p>الحل هو <strong>الـ Layout (القالب)</strong>. وهو ملف واحد نضع فيه كل العناصر المشتركة، ثم كل صفحة جديدة نضع فقط <strong>المحتوى الخاص بها</strong> داخل القالب. هذا هو مبدأ <strong>DRY (Don't Repeat Yourself)</strong> - لا تكرر نفسك.</p>
                 </div>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-emerald-600 text-white shadow-xl shadow-emerald-100">
-                <h2 class="text-2xl font-black mb-4">مثال من الواقع (إطار الصور)</h2>
-                <p class="text-indigo-50 leading-relaxed text-lg">
-                    تخيل الـ <strong>Layout</strong> كـ "إطار خشبي" جميل معلق على الحائط. الإطار ثابت لا يتغير مكانه ولا شكله. 
-                    <br><br>
-                    أما <strong>محتوى الصفحة</strong> فهو "الصورة" التي تضعها داخل هذا الإطار. يمكنك تغيير الصورة في أي وقت (تبديل الصفحات)، لكن الإطار يظل يحميها ويزينها بشكل ثابت.
-                </p>
-            </section>
+            <!-- الشرح النظري -->
+            <section id="theory" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">📚 الشرح النظري المفصل</h2>
+                <div class="space-y-6 text-slate-600 leading-relaxed text-lg">
 
-            <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">التطبيق العملي خطوة بخطوة</h2>
+                    <div class="p-6 rounded-2xl bg-indigo-50 border border-indigo-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">ما هو الـ Layout في React و Inertia؟</h3>
+                        <p>الـ <strong>Layout</strong> هو مكون (Component) React عادي، لكن وظيفته هي <strong>تغليف</strong> المحتوى الآخر. تخيل أنه "إطار" يحيط بكل صفحة.</p>
+                        <p class="mt-2">الفكرة الأساسية: Layout يستقبل <strong>children</strong> (أي المحتوى الداخلي) ويعرضه داخل هيكل ثابت.</p>
+                        <div class="bg-slate-900 text-green-400 rounded-xl p-4 font-mono text-sm mt-3 text-left overflow-x-auto">
+                            <span class="code-line">function AppLayout({ children }) {</span>
+                            <span class="code-line">&nbsp;&nbsp;return (</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Navbar /&gt;          &lt;!-- يظهر في كل الصفحات --&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Sidebar /&gt;         &lt;!-- يظهر في كل الصفحات --&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;main&gt;{children}&lt;/main&gt; &lt;!-- المحتوى الخاص بكل صفحة --&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;);</span>
+                            <span class="code-line">}</span>
+                        </div>
+                    </div>
 
-                <!-- Step 1 -->
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء ملف Layout.jsx</h3>
-                    <p class="text-slate-600 mb-4"><strong>المكان:</strong> مجلد <code>resources/js/Layouts/AppLayout.jsx</code></p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
-                        <p>export default function AppLayout({ children }) {</p>
-                        <p>&nbsp;&nbsp;return (</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="min-h-screen bg-gray-100"&gt;</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nav class="bg-white shadow"&gt;...شريط التنقل...&lt;/nav&gt;</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;main&gt;{children}&lt;/main&gt;</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</p>
-                        <p>&nbsp;&nbsp;);</p>
-                        <p>}</p>
+                    <div class="p-6 rounded-2xl bg-blue-50 border border-blue-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">مبدأ DRY (لا تكرر نفسك)</h3>
+                        <p><strong>DRY</strong> اختصار لـ <em>Don't Repeat Yourself</em>. هو مبدأ برمجي يقول: "كل معلومة يجب أن يكون لها تمثيل واحد لا لبس فيه في النظام".</p>
+                        <p class="mt-2">ببساطة: إذا وجدت نفسك تنسخ كوداً وتلصقه في أكثر من مكان، فهناك خطأ في تصميمك. استخرج هذا الكود في مكان واحد وأعد استخدامه.</p>
+                        <p class="mt-2">الـ Layout هو تطبيق عملي لمبدأ DRY في تصميم واجهات المستخدم.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-purple-50 border border-purple-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">كيف يعمل Inertia Layout؟</h3>
+                        <p>Inertia يوفر طريقتين لاستخدام Layout:</p>
+                        <ul class="list-disc pr-6 space-y-2 mt-3">
+                            <li><strong>الطريقة 1 (المفضلة):</strong> إضافة خاصية <code>layout</code> لكل صفحة React. هذه هي الطريقة التي سنستخدمها في FlowPilot لأنها تعطينا مرونة.</li>
+                            <li><strong>الطريقة 2 (العامة):</strong> تمرير Layout عند تهيئة تطبيق Inertia في <code>createInertiaApp</code>.</li>
+                        </ul>
+                        <div class="bg-slate-900 text-cyan-400 rounded-xl p-4 font-mono text-sm mt-3 text-left overflow-x-auto">
+                            <span class="code-line">// في صفحة Dashboard.jsx</span>
+                            <span class="code-line">import AppLayout from '../Layouts/AppLayout';</span>
+                            <span class="code-line">Dashboard.layout = page =&gt; &lt;AppLayout children={page} /&gt;</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">export default function Dashboard() {</span>
+                            <span class="code-line">&nbsp;&nbsp;return &lt;h1&gt;لوحة التحكم&lt;/h1&gt;;</span>
+                            <span class="code-line">}</span>
+                        </div>
+                        <p class="mt-2 text-sm">بهذه الطريقة، صفحة Dashboard ستُعرض <strong>داخل</strong> Layout الذي يحتوي على Navbar و Sidebar.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-amber-50 border border-amber-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">مكونات الـ Layout في FlowPilot</h3>
+                        <p>الـ Layout الخاص بنا سيحتوي على:</p>
+                        <ul class="list-disc pr-6 space-y-2 mt-3">
+                            <li><strong>Navbar (شريط التنقل العلوي):</strong> شعار FlowPilot، روابط سريعة، صورة المستخدم.</li>
+                            <li><strong>Sidebar (القائمة الجانبية):</strong> روابط التصفح الرئيسية مع أيقونات.</li>
+                            <li><strong>Main Content (المحتوى الرئيسي):</strong> المنطقة التي يتغير محتواها حسب الصفحة.</li>
+                            <li><strong>Footer (التذييل):</strong> حقوق الملكية وروابط إضافية.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-teal-50 border border-teal-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">تمييز الرابط النشط (Active Link)</h3>
+                        <p>من المهم جداً أن يعرف المستخدم في أي صفحة هو حالياً. عندما يكون في "المشاريع"، يجب أن يظهر رابط "المشاريع" بلون مختلف.</p>
+                        <p>Inertia يوفر مكون <code>&lt;Link&gt;</code> يمكنه اكتشاف الرابط النشط:</p>
+                        <div class="bg-slate-900 text-amber-400 rounded-xl p-4 font-mono text-sm mt-3 text-left overflow-x-auto">
+                            <span class="code-line">&lt;Link</span>
+                            <span class="code-line">&nbsp;&nbsp;href={route('projects.index')}</span>
+                            <span class="code-line">&nbsp;&nbsp;className={route().current('projects.*') ? 'bg-emerald-100 text-emerald-700' : 'text-slate-600'}</span>
+                            <span class="code-line">&gt;المشاريع&lt;/Link&gt;</span>
+                        </div>
+                        <p class="mt-2 text-sm"><code>route().current('projects.*')</code> تتحقق إذا كان المسار الحالي يبدأ بـ "projects" - إذا كان كذلك، نطبق كلاس التمييز.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">القائمة المتجاوبة (Responsive Mobile Menu)</h3>
+                        <p>على الشاشات الصغيرة (الموبايل)، القائمة الجانبية قد تكون ضيقة جداً. الحل هو إخفاؤها وإظهار زر قائمة (Hamburger Menu) بدلاً منها.</p>
+                        <p>سنستخدم <strong>State</strong> في React (useState) للتحكم في إظهار وإخفاء القائمة.</p>
+                        <div class="bg-slate-900 text-pink-400 rounded-xl p-4 font-mono text-sm mt-3 text-left overflow-x-auto">
+                            <span class="code-line">const [sidebarOpen, setSidebarOpen] = useState(false);</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">&lt;button onClick={() =&gt; setSidebarOpen(!sidebarOpen)}&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;{sidebarOpen ? '✕' : '☰'}</span>
+                            <span class="code-line">&lt;/button&gt;</span>
+                        </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- Step 2 -->
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: استخدام القالب في صفحاتنا</h3>
-                    <p class="text-slate-600 mb-4">افتح ملف <code>Dashboard.jsx</code> وقم بتغليفه بالقالب الجديد.</p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-sky-400 overflow-x-auto mb-4 text-left">
-                        <p>import AppLayout from '../Layouts/AppLayout';</p>
-                        <p>Dashboard.layout = page => &lt;AppLayout children={page} /&gt;</p>
+            <!-- مثال من الحياة اليومية -->
+            <section id="analogy" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">🌍 مثال من الحياة اليومية</h2>
+                <div class="p-8 rounded-3xl bg-emerald-600 text-white shadow-xl shadow-emerald-100">
+                    <h3 class="text-2xl font-black mb-4">تشبيه "إطار الصور"</h3>
+                    <div class="space-y-4 text-emerald-50 leading-relaxed text-lg">
+                        <p>تخيل أن لديك <strong>إطاراً خشبياً</strong> جميلاً معلقاً على حائط غرفة المعيشة. هذا الإطار هو <strong>الـ Layout</strong>.</p>
+                        <ul class="list-disc pr-6 space-y-3">
+                            <li><strong>الإطار:</strong> ثابت لا يتغير. له شكل وحجم ولون محدد. (هذا هو Layout - Navbar + Sidebar).</li>
+                            <li><strong>الصورة داخل الإطار:</strong> هي ما يتغير. اليوم قد تكون صورة عائلية، وغداً صورة من السفر. (هذا هو محتوى <code>{children}</code>).</li>
+                            <li><strong>أنت:</strong> عندما تريد تغيير الصورة، تفتح الإطار وتضع صورة جديدة. لا تحتاج لشراء إطار جديد كل مرة!</li>
+                        </ul>
+                        <p class="mt-4 text-emerald-100 italic">في البرمجة: نغير "المحتوى" (الصفحات) ونبقي "الإطار" (Layout) ثابتاً. هذا يوفر علينا وقتاً وجهداً كبيرين.</p>
                     </div>
                 </div>
             </section>
 
+            <!-- كيف يخدم هذا الدرس مشروع FlowPilot -->
+            <section id="flowpilot" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">🚀 كيف يخدم هذا الدرس مشروع FlowPilot؟</h2>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                    <p class="text-slate-600 leading-relaxed text-lg">في FlowPilot، جميع الصفحات الداخلية (Dashboard، المشاريع، المهام، الفريق، الإعدادات) ستشارك نفس الـ Layout.</p>
+                    <div class="mt-4 p-4 bg-white rounded-xl border border-slate-100">
+                        <p class="font-bold text-slate-900">مكونات Layout FlowPilot:</p>
+                        <ul class="list-disc pr-6 mt-2 space-y-1 text-slate-600">
+                            <li><strong>Navbar:</strong> شعار FlowPilot، زر القائمة الجانبية، صورة المستخدم.</li>
+                            <li><strong>Sidebar:</strong> 🏠 Dashboard | 📁 المشاريع | ✅ المهام | 👥 الفريق | ⚙️ الإعدادات</li>
+                            <li><strong>Main:</strong> محتوى الصفحة الحالية (يتغير حسب الصفحة).</li>
+                            <li><strong>Footer:</strong> © 2026 FlowPilot - كل الحقوق محفوظة.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- التطبيق العملي -->
+            <section id="practice" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">⚡ التطبيق العملي خطوة بخطوة</h2>
+                <div class="space-y-12">
+
+                    <!-- Step 1 -->
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء مجلد Layouts وملف AppLayout</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> <code>resources/js/Layouts/AppLayout.jsx</code> (أنشئ المجلد أولاً)</p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-green-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">import { useState } from 'react';</span>
+                            <span class="code-line">import { Link } from '@inertiajs/react';</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">export default function AppLayout({ children }) {</span>
+                            <span class="code-line">&nbsp;&nbsp;const [sidebarOpen, setSidebarOpen] = useState(false);</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">&nbsp;&nbsp;return (</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="min-h-screen bg-slate-50 flex"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{/* Sidebar */}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;aside className={`w-64 bg-white border-l shadow-sm ${sidebarOpen ? 'block' : 'hidden'} md:block`}&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="p-6"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2 className="text-xl font-black text-indigo-600"&gt;FlowPilot&lt;/h2&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nav className="space-y-1 px-4"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link href="/dashboard" className="flex items-center gap-3 p-3 rounded-xl text-slate-600 hover:bg-slate-100 font-bold"&gt;🏠 Dashboard&lt;/Link&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link href="/projects" className="flex items-center gap-3 p-3 rounded-xl text-slate-600 hover:bg-slate-100 font-bold"&gt;📁 المشاريع&lt;/Link&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link href="/tasks" className="flex items-center gap-3 p-3 rounded-xl text-slate-600 hover:bg-slate-100 font-bold"&gt;✅ المهام&lt;/Link&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link href="/team" className="flex items-center gap-3 p-3 rounded-xl text-slate-600 hover:bg-slate-100 font-bold"&gt;👥 الفريق&lt;/Link&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/nav&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/aside&gt;</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{/* Main Content */}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="flex-1 flex flex-col"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{/* Navbar */}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;header className="bg-white border-b px-6 py-4 flex items-center justify-between"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button onClick={() =&gt; setSidebarOpen(!sidebarOpen)} className="md:hidden p-2 rounded-lg hover:bg-slate-100"&gt;☰&lt;/button&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="flex items-center gap-3"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span className="font-bold text-slate-700"&gt;مرحباً بك 👋&lt;/span&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/header&gt;</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{/* Page Content */}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;main className="flex-1 p-6"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{children}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/main&gt;</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{/* Footer */}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;footer className="border-t p-4 text-center text-sm text-slate-400"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;© 2026 FlowPilot. كل الحقوق محفوظة.</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/footer&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;);</span>
+                            <span class="code-line">}</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: استخدام Layout في صفحة Dashboard</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> <code>resources/js/Pages/Dashboard.jsx</code></p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-sky-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">import AppLayout from '../Layouts/AppLayout';</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">export default function Dashboard() {</span>
+                            <span class="code-line">&nbsp;&nbsp;return (</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1 className="text-3xl font-black mb-4"&gt;لوحة التحكم&lt;/h1&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;مرحباً بك في FlowPilot!&lt;/p&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;);</span>
+                            <span class="code-line">}</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">// ربط Layout بالصفحة</span>
+                            <span class="code-line">Dashboard.layout = page =&gt; &lt;AppLayout children={page} /&gt;</span>
+                        </div>
+                        <p class="text-slate-500 text-sm"><strong>ملاحظة مهمة:</strong> السطر الأخير <code>Dashboard.layout = ...</code> هو الذي يربط الصفحة بالـ Layout. بدونه، ستظهر الصفحة فارغة بدون Navbar أو Sidebar.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: إضافة التمييز للرابط النشط</h3>
+                        <p class="text-slate-600 mb-4">لنعدّل روابط Sidebar لتظهر بشكل مختلف عندما نكون في الصفحة الحالية.</p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">// داخل AppLayout.jsx - استبدل روابط الـ Link بهذا الكود</span>
+                            <span class="code-line">const navItems = [</span>
+                            <span class="code-line">&nbsp;&nbsp;{ name: 'لوحة التحكم', href: '/dashboard', icon: '🏠' },</span>
+                            <span class="code-line">&nbsp;&nbsp;{ name: 'المشاريع', href: '/projects', icon: '📁' },</span>
+                            <span class="code-line">&nbsp;&nbsp;{ name: 'المهام', href: '/tasks', icon: '✅' },</span>
+                            <span class="code-line">&nbsp;&nbsp;{ name: 'الفريق', href: '/team', icon: '👥' },</span>
+                            <span class="code-line">];</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">{navItems.map(item =&gt; (</span>
+                            <span class="code-line">&nbsp;&nbsp;&lt;Link</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;key={item.name}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;href={item.href}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;className={`flex items-center gap-3 p-3 rounded-xl font-bold transition-all</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${route().current(item.href.replace('/', '') + '*')</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;? 'bg-indigo-100 text-indigo-700'</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 'text-slate-600 hover:bg-slate-100'}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;`}</span>
+                            <span class="code-line">&nbsp;&nbsp;&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;{item.icon}&lt;/span&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;{item.name}&lt;/span&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&lt;/Link&gt;</span>
+                            <span class="code-line">))}</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: إنشاء مكون Navbar منفصل</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> <code>resources/js/Components/Navbar.jsx</code></p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">export default function Navbar({ onToggleSidebar }) {</span>
+                            <span class="code-line">&nbsp;&nbsp;return (</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;header className="bg-white border-b px-6 py-4 flex items-center justify-between sticky top-0 z-40"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="flex items-center gap-4"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;onClick={onToggleSidebar}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;className="md:hidden p-2 rounded-lg hover:bg-slate-100 text-xl"</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;☰&lt;/button&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1 className="text-lg font-black text-slate-900"&gt;FlowPilot&lt;/h1&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="flex items-center gap-3"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span className="text-sm text-slate-600"&gt;أحمد المستخدم&lt;/span&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold"&gt;أ&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/header&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;);</span>
+                            <span class="code-line">}</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: إنشاء مكون Sidebar منفصل</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> <code>resources/js/Components/Sidebar.jsx</code></p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-amber-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">import { Link } from '@inertiajs/react';</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">const navItems = [</span>
+                            <span class="code-line">&nbsp;&nbsp;{ name: 'Dashboard', href: '/dashboard', icon: '🏠' },</span>
+                            <span class="code-line">&nbsp;&nbsp;{ name: 'المشاريع', href: '/projects', icon: '📁' },</span>
+                            <span class="code-line">&nbsp;&nbsp;{ name: 'المهام', href: '/tasks', icon: '✅' },</span>
+                            <span class="code-line">&nbsp;&nbsp;{ name: 'الفريق', href: '/team', icon: '👥' },</span>
+                            <span class="code-line">&nbsp;&nbsp;{ name: 'الإعدادات', href: '/settings', icon: '⚙️' },</span>
+                            <span class="code-line">];</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">export default function Sidebar({ open }) {</span>
+                            <span class="code-line">&nbsp;&nbsp;return (</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;aside className={`w-64 bg-white border-l shadow-sm ${open ? 'block' : 'hidden'} md:block shrink-0`}&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="p-6 border-b"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link href="/dashboard" className="text-2xl font-black text-indigo-600"&gt;FlowPilot&lt;/Link&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nav className="p-4 space-y-1"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{navItems.map(item =&gt; (</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key={item.name}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;href={item.href}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;className={`flex items-center gap-3 p-3 rounded-xl font-bold transition-all</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${route().current(item.href.replace('/', '') + '*')</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;? 'bg-indigo-100 text-indigo-700'</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 'text-slate-600 hover:bg-slate-100'}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;{item.icon}&lt;/span&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;{item.name}&lt;/span&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Link&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;))}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/nav&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/aside&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;);</span>
+                            <span class="code-line">}</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 6 -->
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 6: تحديث AppLayout لاستخدام المكونات المنفصلة</h3>
+                        <p class="text-slate-600 mb-4">الآن أصبح AppLayout أنظف وأبسط:</p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-green-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">import { useState } from 'react';</span>
+                            <span class="code-line">import Navbar from '../Components/Navbar';</span>
+                            <span class="code-line">import Sidebar from '../Components/Sidebar';</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">export default function AppLayout({ children }) {</span>
+                            <span class="code-line">&nbsp;&nbsp;const [sidebarOpen, setSidebarOpen] = useState(false);</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">&nbsp;&nbsp;return (</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="min-h-screen bg-slate-50 flex"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Sidebar open={sidebarOpen} /&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="flex-1 flex flex-col"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Navbar onToggleSidebar={() =&gt; setSidebarOpen(!sidebarOpen)} /&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;main className="flex-1 p-6"&gt;{children}&lt;/main&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;footer className="border-t p-4 text-center text-sm text-slate-400"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;© 2026 FlowPilot. كل الحقوق محفوظة.</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/footer&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;);</span>
+                            <span class="code-line">}</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- شرح الكود -->
+            <section id="code" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">📝 شرح الكود سطراً سطراً</h2>
+
+                <div class="space-y-8">
+                    <div class="p-6 rounded-2xl bg-slate-900">
+                        <h3 class="text-white font-black mb-4">تحليل AppLayout.jsx (الأجزاء الرئيسية)</h3>
+                        <div class="font-mono text-sm text-left space-y-2">
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">1</span>
+                                <span class="text-code">import { useState } from 'react';</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">2</span>
+                                <span class="text-code">import { Link } from '@inertiajs/react';</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">4</span>
+                                <span class="text-code">export default function AppLayout({ children }) {</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">5</span>
+                                <span class="text-code">&nbsp;&nbsp;const [sidebarOpen, setSidebarOpen] = useState(false);</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-3 pr-4">
+                        <div class="border-r-4 border-indigo-500 pr-4">
+                            <p class="font-bold text-slate-900">السطر 1: <code>import { useState } from 'react';</code></p>
+                            <p class="text-slate-600 text-sm">نستورد دالة <strong>useState</strong> من React. هذه الدالة تسمح لنا بإنشاء "حالة" (State) - وهي متغير يمكن أن يتغير ويؤدي إلى إعادة رسم الواجهة. سنستخدمها لتتبع هل القائمة الجانبية مفتوحة أم لا.</p>
+                        </div>
+                        <div class="border-r-4 border-indigo-500 pr-4">
+                            <p class="font-bold text-slate-900">السطر 2: <code>import { Link } from '@inertiajs/react';</code></p>
+                            <p class="text-slate-600 text-sm">مكون <code>Link</code> من Inertia هو بديل عن <code>&lt;a&gt;</code> العادي. هو يمنع إعادة تحميل الصفحة بالكامل ويستخدم التنقل عبر JavaScript (SPA-like). يجعل التطبيق أسرع.</p>
+                        </div>
+                        <div class="border-r-4 border-indigo-500 pr-4">
+                            <p class="font-bold text-slate-900">السطر 4: <code>export default function AppLayout({ children })</code></p>
+                            <p class="text-slate-600 text-sm">هذه دالة المكون. <code>{ children }</code> هو " Prop خاص" في React. أي شيء نضعه بين وسمي <code>&lt;AppLayout&gt;...&lt;/AppLayout&gt;</code> سيُمرر كـ children. هذا هو المحتوى المتغير.</p>
+                        </div>
+                        <div class="border-r-4 border-indigo-500 pr-4">
+                            <p class="font-bold text-slate-900">السطر 5: <code>const [sidebarOpen, setSidebarOpen] = useState(false);</code></p>
+                            <p class="text-slate-600 text-sm"><code>useState(false)</code> تنشئ متغير حالة بقيمة ابتدائية <code>false</code> (القائمة مقفلة). <code>sidebarOpen</code> هو القيمة الحالية. <code>setSidebarOpen</code> هي دالة نستخدمها لتغيير القيمة. مثلاً <code>setSidebarOpen(true)</code> تفتح القائمة.</p>
+                        </div>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-slate-900 mt-6">
+                        <h3 class="text-white font-black mb-4">تحليل Sidebar.jsx - تمييز الرابط النشط</h3>
+                        <div class="font-mono text-sm text-left space-y-2">
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">1</span>
+                                <span class="text-code">className={`... ${route().current(...) ? 'bg-indigo-100' : 'text-slate-600'}`}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pr-4">
+                        <div class="border-r-4 border-emerald-500 pr-4">
+                            <p class="font-bold text-slate-900">شرط التمييز النشط</p>
+                            <p class="text-slate-600 text-sm"><code>route().current(item.href.replace('/', '') + '*')</code> تتحقق مما إذا كان المسار الحالي (الرابط الذي نحن فيه الآن) يطابق هذا الرابط. علامة <code>*</code> تعني "أي شيء بعد هذا". مثلاً <code>projects*</code> يطابق <code>/projects</code> و <code>/projects/create</code>.</p>
+                            <p class="text-slate-600 text-sm mt-1">إذا كان التطابق صحيحاً، نضيف كلاس <code>bg-indigo-100 text-indigo-700</code> (خلفية زرقاء فاتحة ونص أزرق غامق)، وإلا نستخدم الكلاس العادي.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- النتيجة المتوقعة -->
+            <section class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">✅ النتيجة المتوقعة</h2>
+                <div class="p-6 rounded-2xl bg-green-50 border border-green-200">
+                    <p class="text-green-800 font-bold text-lg">بعد تطبيق الـ Layout، يجب أن ترى:</p>
+                    <ul class="list-disc pr-6 mt-4 space-y-2 text-green-700">
+                        <li>شريط جانبي (Sidebar) على اليمين بعرض 256px يحتوي على شعار FlowPilot و 5 روابط.</li>
+                        <li>شريط علوي (Navbar) يظهر في كل الصفحات بعنوان "FlowPilot" واسم المستخدم.</li>
+                        <li>الرابط النشط في Sidebar يظهر بلون مميز (خلفية indigo-100).</li>
+                        <li>على الموبايل، تختفي القائمة الجانبية ويظهر زر ☰ لفتحها.</li>
+                        <li>التذييل (Footer) يظهر في أسفل كل صفحة.</li>
+                        <li>كل صفحة جديدة تستخدم Layout تلقائياً دون تكرار الكود.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- الأخطاء الشائعة -->
+            <section id="errors" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">⚠️ الأخطاء الشائعة</h2>
+                <div class="space-y-4">
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 1: الصفحة تظهر بدون Navbar أو Sidebar</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> نسيت إضافة <code>Page.layout = page =&gt; &lt;AppLayout&gt;...&lt;/AppLayout&gt;</code> في صفحة React.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> أضف السطر بعد تعريف الدالة مباشرة. مثال: <code>Dashboard.layout = page =&gt; &lt;AppLayout children={page} /&gt;;</code></p>
+                    </div>
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 2: خطأ "Cannot read properties of undefined (reading 'current')"</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> دالة <code>route().current()</code> قد لا تكون متوفرة إذا لم يتم تثبيت حزمة Inertia بشكل صحيح.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> تأكد من أنك استوردت <code>route</code> من Inertia، أو استخدم <code>usePage()</code> بدلاً منها.</p>
+                    </div>
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 3: Sidebar يظهر في الموبايل ويغطي المحتوى</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> لم نضف كلاس <code>md:block</code> الذي يخفي القائمة في الشاشات الصغيرة ويظهرها في الكبيرة.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> استخدم كلاسات Tailwind: <code>hidden md:block</code> للإخفاء/الإظهار حسب حجم الشاشة.</p>
+                    </div>
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 4: الضغط على الرابط يعيد تحميل الصفحة بالكامل</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> استخدمت <code>&lt;a&gt;</code> بدلاً من <code>&lt;Link&gt;</code> من Inertia.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> استخدم <code>import { Link } from '@inertiajs/react'</code> واستبدل <code>&lt;a&gt;</code> بـ <code>&lt;Link&gt;</code>.</p>
+                    </div>
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 5: محتوى الصفحة يختفي خلف الـ Navbar الثابت</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> الـ Navbar له خاصية <code>sticky top-0</code> لكننا لم نضف padding علوي للمحتوى.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> أضف <code>pt-16</code> (أو padding مناسب) للحاوية التي تحتوي على المحتوى الرئيسي.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- المخططات -->
+            <section id="visuals" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">📊 مخططات توضيحية</h2>
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="diagram.svg" alt="مخطط هيكل Layout" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">هيكل الـ Layout في FlowPilot</p>
+                    </div>
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="visual-example.svg" alt="تشبيه إطار الصور" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">تشبيه إطار الصور للـ Layout</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ملخص -->
+            <section id="summary" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">📋 ملخص الدرس</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-6 rounded-2xl bg-indigo-50 border border-indigo-100">
+                        <h3 class="font-black text-indigo-800 mb-3">المفاهيم الرئيسية</h3>
+                        <ul class="space-y-2 text-sm text-indigo-700">
+                            <li>🔹 <strong>Layout</strong>: قالب ثابت يلتف حول محتوى الصفحات.</li>
+                            <li>🔹 <strong>DRY</strong>: مبدأ "لا تكرر نفسك" - الكود المكتوب مرة واحدة يُستخدم في كل مكان.</li>
+                            <li>🔹 <strong>children</strong>: Prop خاص في React يمثل المحتوى الداخلي للمكون.</li>
+                            <li>🔹 <strong>Active Link</strong>: تمييز الرابط الحالي بلون مختلف.</li>
+                            <li>🔹 <strong>Responsive Design</strong>: تصميم يتكيف مع كل أحجام الشاشات.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-emerald-50 border border-emerald-100">
+                        <h3 class="font-black text-emerald-800 mb-3">المصطلحات المهمة</h3>
+                        <ul class="space-y-2 text-sm text-emerald-700">
+                            <li>🔸 <strong>Navbar</strong>: شريط التنقل العلوي.</li>
+                            <li>🔸 <strong>Sidebar</strong>: القائمة الجانبية.</li>
+                            <li>🔸 <strong>useState</strong>: دالة React لإنشاء متغيرات الحالة.</li>
+                            <li>🔸 <strong>Sticky</strong>: خاصية CSS تثبّت العنصر عند التمرير.</li>
+                            <li>🔸 <strong>Hamburger Menu</strong>: زر ☰ للقوائم على الموبايل.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Previous/Next -->
             <div class="mt-12 flex justify-between gap-4">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-01/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-emerald-600 px-8 py-4 text-white font-black hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-100" href="../lesson-03/index.html">الدرس التالي: مكونات React ←</a>
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all text-sm" href="../../week-02/lesson-01/index.html">← الدرس السابق: فهم المسارات</a>
+                <a class="rounded-2xl bg-emerald-600 px-8 py-4 text-white font-black hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-100 text-sm" href="../../week-02/lesson-03/index.html">الدرس التالي: مكونات React ←</a>
+            </div>
+
+            <!-- روابط الواجب والكويز -->
+            <div class="mt-8 flex gap-4 justify-center">
+                <a class="rounded-xl bg-indigo-600 px-6 py-3 text-white font-bold hover:bg-indigo-700 transition-all text-sm" href="assignment.html">📄 عرض الواجب</a>
+                <a class="rounded-xl bg-amber-600 px-6 py-3 text-white font-bold hover:bg-amber-700 transition-all text-sm" href="quiz.html">📝 اختبار فهمك</a>
             </div>
         </article>
     </div>
 </main>
+
+<footer class="mt-24 border-t bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-8 text-center text-slate-400 text-sm font-medium">
+        © 2026 FlowPilot Academy. لا تكرر نفسك - ابنِ قالباً واحداً واستخدمه في كل مكان.
+    </div>
+</footer>
 
 <script src="../../../assets/js/app.js"></script>
 </body>

@@ -3,27 +3,102 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 22: البحث الذكي</title>
+    <title>واجب الدرس 22: البحث والفلاتر | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .task-box { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 1.5rem; background: #f8fafc; padding: 1.5rem; border-radius: 1rem; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
-<main class="mx-auto max-w-3xl px-4 py-12 text-right">
-    <div class="card p-12 space-y-8">
-        <h1 class="text-3xl font-black text-center text-indigo-600">واجب البحث والفلترة</h1>
-        <div class="space-y-6">
-            <h3 class="font-black text-xl">المطلوب منك:</h3>
-            <ol class="list-decimal pr-6 space-y-4 font-bold text-slate-700">
-                <li>أضف حقل إدخال (Input) للبحث في صفحة قائمة المشاريع.</li>
-                <li>استخدم <code>router.get</code> من Inertia لإرسال نص البحث للـ Controller عند الكتابة.</li>
-                <li>في الـ Controller، طبق شرط <code>when()</code> لفلترة النتائج بناءً على الاسم أو الوصف.</li>
-                <li>تأكد من أن زر "المسح" يقوم بإعادة عرض كل المشاريع.</li>
-            </ol>
+
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+    </div>
+</header>
+
+<main class="mx-auto max-w-3xl px-4 py-12">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-6" href="index.html">← العودة إلى الدرس</a>
+
+    <div class="card p-12 bg-white rounded-3xl shadow-sm space-y-8">
+        <div class="text-center">
+            <span class="bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الواجب العملي</span>
+            <h1 class="text-3xl font-black text-slate-900 mt-4">واجب: بناء نظام بحث وفلاتر لمهام FlowPilot</h1>
+            <p class="text-slate-500 mt-2">طبّق البحث الذكي مع فلاتر متعددة على صفحة المهام.</p>
+        </div>
+
+        <div class="border-t pt-8">
+            <h2 class="text-xl font-black text-slate-900 mb-6">📋 المهام المطلوبة:</h2>
+
+            <div class="task-box">
+                <h3 class="font-black text-lg text-indigo-700">المهمة 1: إنشاء البحث الأساسي</h3>
+                <p class="text-slate-600 mt-2">في <code>TaskController</code>، أضف search parameter يبحث في حقل <code>title</code> باستخدام <code>when()</code> و <code>LIKE</code>.</p>
+                <div class="bg-slate-900 text-emerald-400 rounded-xl p-4 font-mono text-sm mt-3 text-left">->when($search, fn($q, $s) => $q->where('title', 'like', "%{$s}%"))</div>
+            </div>
+
+            <div class="task-box">
+                <h3 class="font-black text-lg text-indigo-700">المهمة 2: إضافة فلتر الحالة (Status)</h3>
+                <p class="text-slate-600 mt-2">أضف فلتر <code>status</code> يقبل: <code>pending</code> أو <code>in_progress</code> أو <code>completed</code>.</p>
+            </div>
+
+            <div class="task-box">
+                <h3 class="font-black text-lg text-indigo-700">المهمة 3: إضافة فلتر الأولوية (Priority)</h3>
+                <p class="text-slate-600 mt-2">أضف فلتر <code>priority</code> يقبل <code>high</code> أو <code>medium</code> أو <code>low</code>. استخدم where مع equality.</p>
+            </div>
+
+            <div class="task-box">
+                <h3 class="font-black text-lg text-indigo-700">المهمة 4: البحث في العنوان والوصف معاً</h3>
+                <p class="text-slate-600 mt-2">عدّل البحث ليشمل <code>title</code> و <code>description</code> باستخدام <code>orWhere()</code>.</p>
+                <div class="bg-slate-900 text-emerald-400 rounded-xl p-4 font-mono text-sm mt-3 text-left">$q->where('title','like',"%{$s}%")->orWhere('description','like',"%{$s}%")</div>
+            </div>
+
+            <div class="task-box">
+                <h3 class="font-black text-lg text-indigo-700">المهمة 5: الحفاظ على الفلاتر مع Pagination</h3>
+                <p class="text-slate-600 mt-2">أضف <code>->appends($request->only([...]))</code> بعد paginate. أرسل الفلاتر إلى Inertia كـ <code>filters</code> prop.</p>
+            </div>
+
+            <div class="task-box">
+                <h3 class="font-black text-lg text-indigo-700">المهمة 6: اختبار النتيجة</h3>
+                <p class="text-slate-600 mt-2">افتح صفحة المهام في FlowPilot. اكتب كلمة في البحث، اختر حالة وتأكد من:</p>
+                <ul class="list-disc pr-6 mt-2 space-y-1 text-sm text-slate-600">
+                    <li>ظهور النتائج المفلترة فقط.</li>
+                    <li>بقاء القيم في مربع البحث والفلاتر بعد التنقل بين الصفحات.</li>
+                    <li>روابط الترقيم تحتوي على معاملات البحث (?page=2&search=...&status=...).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t pt-8">
+            <h2 class="text-xl font-black text-slate-900 mb-4">📤 تسليم الواجب</h2>
+            <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                <li>كود <code>TaskController.php</code> كاملاً مع دوال البحث والفلاتر.</li>
+                <li>سكرين شوت (Screenshot) يظهر نتائج البحث مع الفلاتر النشطة.</li>
+                <li>سكرين شوت يظهر روابط الترقيم مع معاملات البحث في عنوان URL.</li>
+                <li>فقرة قصيرة (3-5 جمل) تشرح كيف يعمل <code>when()</code> و <code>appends()</code>.</li>
+            </ul>
+        </div>
+
+        <div class="bg-amber-50 rounded-2xl p-6 border border-amber-200">
+            <p class="font-black text-amber-800">💡 تلميحات للمبتدئين:</p>
+            <ul class="list-disc pr-6 mt-2 space-y-1 text-amber-700 text-sm">
+                <li>استخدم <code>php artisan make:controller TaskController</code> إذا لم يكن موجوداً.</li>
+                <li>تأكد من إضافة <code>use Illuminate\Http\Request;</code> في أعلى الـ Controller.</li>
+                <li>في React، استخدم <code>usePage().props.filters</code> لقراءة الفلاتر.</li>
+                <li>اختبر مع 10 مهام على الأقل لترى pagination يعمل.</li>
+            </ul>
         </div>
     </div>
 </main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. الممارسة تصنع الفرق.
+</footer>
+
+<script src="../../../assets/js/app.js"></script>
 </body>
 </html>

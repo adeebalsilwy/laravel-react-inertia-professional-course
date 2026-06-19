@@ -1,1 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="240" viewBox="0 0 900 240"><defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#0f172a"/></marker></defs><rect width="900" height="240" rx="28" fill="#ffffff"/><text x="450" y="40" text-anchor="middle" font-size="24" font-weight="700" font-family="Tahoma" fill="#111827">البحث والفلاتر المتقدمة</text><rect x="40" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="105" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">الفكرة</text><rect x="210" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="275" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">Laravel</text><rect x="380" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="445" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">Inertia</text><rect x="550" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="615" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">React</text><rect x="720" y="80" width="130" height="70" rx="16" fill="#eef2ff" stroke="#6366f1"/><text x="785" y="122" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#111827">FlowPilot</text><path d="M 170 115 L 205 115" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M 340 115 L 375 115" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M 510 115 L 545 115" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M 680 115 L 715 115" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><text x="450" y="205" text-anchor="middle" font-size="15" font-family="Tahoma" fill="#64748b">مخطط مبسط يوضح انتقال الفكرة من الشرح النظري إلى التطبيق العملي داخل FlowPilot</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <rect width="800" height="400" rx="28" fill="#ffffff"/>
+  <text x="400" y="45" text-anchor="middle" font-size="22" font-weight="700" font-family="Tajawal, sans-serif" fill="#111827">تدفق البحث والفلاتر في FlowPilot</text>
+
+  <!-- User input -->
+  <rect x="50" y="80" width="220" height="130" rx="16" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+  <text x="160" y="110" text-anchor="middle" font-size="15" font-weight="700" font-family="Tajawal, sans-serif" fill="#4338ca">إدخال المستخدم</text>
+  <text x="65" y="135" font-size="12" font-family="Tajawal, sans-serif" fill="#64748b">• search: "تصميم"</text>
+  <text x="65" y="155" font-size="12" font-family="Tajawal, sans-serif" fill="#64748b">• status: "active"</text>
+  <text x="65" y="175" font-size="12" font-family="Tajawal, sans-serif" fill="#64748b">• priority: "high"</text>
+  <text x="65" y="195" font-size="12" font-family="Tajawal, sans-serif" fill="#64748b">• date_from: "2025-01-01"</text>
+
+  <!-- Arrow -->
+  <path d="M 270 145 L 335 145" stroke="#0f172a" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- Controller -->
+  <rect x="340" y="70" width="220" height="150" rx="16" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+  <text x="450" y="100" text-anchor="middle" font-size="15" font-weight="700" font-family="Tajawal, sans-serif" fill="#15803d">الـ Controller</text>
+  <text x="355" y="125" font-size="11" font-family="Consolas, monospace" fill="#64748b">when($search, fn($q) =></text>
+  <text x="355" y="142" font-size="11" font-family="Consolas, monospace" fill="#64748b">  $q->where('name','like',"%...%"))</text>
+  <text x="355" y="162" font-size="11" font-family="Consolas, monospace" fill="#64748b">when($status, fn($q) =></text>
+  <text x="355" y="182" font-size="11" font-family="Consolas, monospace" fill="#64748b">  $q->where('status',$status))</text>
+  <text x="355" y="202" font-size="11" font-family="Consolas, monospace" fill="#64748b">->paginate(10)->appends(...)</text>
+
+  <!-- Arrow -->
+  <path d="M 560 145 L 625 145" stroke="#0f172a" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- Result -->
+  <rect x="630" y="80" width="140" height="130" rx="16" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+  <text x="700" y="115" text-anchor="middle" font-size="14" font-weight="700" font-family="Tajawal, sans-serif" fill="#dc2626">النتيجة</text>
+  <text x="700" y="145" text-anchor="middle" font-size="12" font-family="Tajawal, sans-serif" fill="#64748b">بيانات مفلترة</text>
+  <text x="700" y="165" text-anchor="middle" font-size="12" font-family="Tajawal, sans-serif" fill="#64748b">مع pagination</text>
+  <text x="700" y="185" text-anchor="middle" font-size="12" font-family="Tajawal, sans-serif" fill="#64748b">وفلاتر محفوظة</text>
+
+  <!-- Bottom explanation -->
+  <rect x="100" y="280" width="600" height="80" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="400" y="310" text-anchor="middle" font-size="13" font-weight="700" font-family="Tajawal, sans-serif" fill="#475569">كيف يعمل؟</text>
+  <text x="400" y="335" text-anchor="middle" font-size="12" font-family="Tajawal, sans-serif" fill="#64748b">المستخدم يرسل parameters ← Laravel يبني Query ديناميكي ← يرجع نتائج مفلترة مع pagination</text>
+  <text x="400" y="352" text-anchor="middle" font-size="11" font-family="Tajawal, sans-serif" fill="#94a3b8">appends() تضمن أن روابط الصفحات تحتفظ بمعاملات البحث</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0f172a"/>
+    </marker>
+  </defs>
+</svg>

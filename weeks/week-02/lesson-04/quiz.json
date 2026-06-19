@@ -3,12 +3,88 @@
   "title": "إنشاء Dashboard أولية لمؤشرات FlowPilot",
   "questions": [
     {
-      "q": "ما أهم هدف من الدرس؟",
-      "answer": "فهم المفهوم وتطبيقه داخل FlowPilot"
+      "type": "mcq",
+      "question": "ما هي وظيفة Dashboard في تطبيق ويب؟",
+      "options": [
+        "عرض جميع بيانات قاعدة البيانات",
+        "إخفاء البيانات عن المستخدم",
+        "تلخيص مؤشرات الأداء في صفحة واحدة",
+        "تسجيل خروج المستخدم"
+      ],
+      "correctIndex": 2,
+      "explanation": "Dashboard تلخص المؤشرات المهمة في مكان واحد."
     },
     {
-      "q": "لماذا نكتب خطوات عملية مفصلة؟",
-      "answer": "حتى يفهم الطالب الهدف والمكان والكود والنتيجة"
+      "type": "mcq",
+      "question": "كيف تصل إلى البيانات المشتركة (Shared Data) من Inertia داخل React؟",
+      "options": [
+        "import { useData } from 'react'",
+        "import { usePage } from '@inertiajs/react'",
+        "window.sharedData",
+        "axios.get('/shared-data')"
+      ],
+      "correctIndex": 1,
+      "explanation": "usePage() هو Hook Inertia للوصول للبيانات المشتركة."
+    },
+    {
+      "type": "mcq",
+      "question": "ماذا يفعل auth?.user?.name في JavaScript؟",
+      "options": [
+        "يصل إلى name بأمان - إذا كان auth أو user null لا يسبب خطأ",
+        "يغير اسم المستخدم",
+        "يحذف المستخدم",
+        "يعيد خطأ دائماً"
+      ],
+      "correctIndex": 0,
+      "explanation": "Optional Chaining (?.) يمنع الخطأ عند الوصول إلى null."
+    },
+    {
+      "type": "mcq",
+      "question": "أين نكتب Shared Data لـ Inertia في Laravel؟",
+      "options": [
+        "routes/web.php",
+        "resources/js/app.js",
+        "config/app.php",
+        "app/Http/Middleware/HandleInertiaRequests.php"
+      ],
+      "correctIndex": 3,
+      "explanation": "HandleInertiaRequests هو المكان الصحيح لمشاركة البيانات."
+    },
+    {
+      "type": "mcq",
+      "question": "أي كلاسات Tailwind تجعل Grid بعمودين في التابلت و 4 أعمدة في سطح المكتب؟",
+      "options": [
+        "grid-cols-2 md:grid-cols-4",
+        "sm:grid-cols-4 lg:grid-cols-2",
+        "grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
+        "flex-cols-2"
+      ],
+      "correctIndex": 2,
+      "explanation": "1→2→4 أعمدة حسب حجم الشاشة."
+    },
+    {
+      "type": "truefalse",
+      "question": "البيانات المشتركة في Inertia متوفرة في كل الصفحات دون الحاجة لتمريرها من كل Controller.",
+      "correctAnswer": true,
+      "explanation": "Shared Data متوفرة في كل الصفحات تلقائياً."
+    },
+    {
+      "type": "truefalse",
+      "question": "Dashboard يمكنها استخدام مكونات مخصصة مثل StatCard و ProjectCard.",
+      "correctAnswer": true,
+      "explanation": "إعادة استخدام المكونات هو الهدف منها."
+    },
+    {
+      "type": "theory",
+      "question": "لماذا نستخدم Shared Data في Inertia بدلاً من تمرير البيانات في كل Controller على حدة؟",
+      "keywords": ["تكر", "مرة", "جميع"],
+      "minLength": 30,
+      "sampleAnswer": "Shared Data يمنع تكرار نفس البيانات في كل Controller ويجعلها متوفرة في جميع الصفحات تلقائياً."
+    },
+    {
+      "type": "practical",
+      "question": "اكتب كود Inertia::render() لدالة index في DashboardController ترسل stats و recentProjects.",
+      "expectedCode": "return Inertia::render('Dashboard', ['stats' => $stats, 'recentProjects' => $recentProjects]);"
     }
   ]
 }

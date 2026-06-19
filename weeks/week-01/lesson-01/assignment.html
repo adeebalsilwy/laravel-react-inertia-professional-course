@@ -3,22 +3,26 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 1: تفقد أسلحتك البرمجية</title>
+    <title>واجب الدرس 1: تهيئة بيئة العمل</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../assets/css/style.css">
     <style>
         :root { font-family: 'Tajawal', sans-serif; }
         .card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; }
+        code { direction: ltr; display: inline-block; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../index.html">الرئيسية</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/curriculum.html">الفهرس</a>
+        </nav>
     </div>
 </header>
 
@@ -26,10 +30,10 @@
     <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة لشرح الدرس</a>
     
     <section class="space-y-8">
-        <div class="card p-8 bg-indigo-600 text-white shadow-xl shadow-indigo-100">
-            <h1 class="text-3xl font-black">واجب الدرس الأول: تفقد أسلحتك البرمجية</h1>
+        <div class="card p-8 bg-gradient-to-l from-indigo-600 to-indigo-700 text-white shadow-xl shadow-indigo-100">
+            <h1 class="text-3xl font-black">واجب الدرس الأول: تجهيز صندوق أدوات FlowPilot</h1>
             <p class="mt-4 text-indigo-100 leading-relaxed italic">
-                "قبل أن نبدأ الرحلة، يجب أن نتأكد من أن جميع الأدوات جاهزة وتعمل بكفاءة. هذا الواجب هو أول خطوة فعلية لك في مشروع FlowPilot."
+                "الواجب ليس مجرد خطوات تقنية - إنه أول إنجاز حقيقي لك في رحلة البرمجة. بعد إتمامه، سيكون جهازك جاهزاً لبناء أي مشروع ويب."
             </p>
         </div>
 
@@ -38,19 +42,37 @@
             <section class="card p-8 md:p-10 space-y-6 shadow-sm">
                 <h2 class="text-2xl font-black flex items-center gap-3">
                     <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">01</span>
-                    التحقق العملي (Terminal Check)
+                    فحص الأدوات في Terminal (الجزء الأساسي)
                 </h2>
                 <div class="space-y-4 text-slate-600">
-                    <p class="font-bold">الهدف من الخطوة:</p>
-                    <p>التأكد من أن جهازك "يتحدث" لغة البرمجة المطلوبة ويفهم أوامر إدارة الحزم.</p>
-                    <p class="font-bold">المطلوب تنفيذه:</p>
-                    <p>قم بفتح شاشة الأوامر (Terminal) ونفذ الأوامر التالية، ثم التقط صورة (Screenshot) للنتائج:</p>
-                    <ul class="list-disc pr-6 space-y-2 text-slate-700 font-bold">
-                        <li>أمر فحص نسخة PHP (يجب أن تكون 8.2+).</li>
-                        <li>أمر فحص نسخة Composer.</li>
-                        <li>أمر فحص نسخة Node.js و NPM.</li>
-                    </ul>
-                    <p class="text-sm italic">ملفات يجب تعديلها: لا يوجد، فقط شاشة الأوامر.</p>
+                    <p class="font-bold text-lg">الهدف: التأكد من أن جميع الأدوات مثبتة وتعمل بشكل صحيح.</p>
+                    
+                    <div class="p-4 rounded-xl bg-slate-100 text-sm">
+                        <p class="font-bold mb-2">الخطوات المطلوبة بالتفصيل:</p>
+                        <ol class="space-y-3 pr-6">
+                            <li>1. افتح Terminal (cmd أو PowerShell).</li>
+                            <li>2. اكتب الأمر <code dir="ltr" class="bg-slate-200 px-2 py-1 rounded">php -v</code> واضغط Enter.</li>
+                            <li>3. اكتب الأمر <code dir="ltr" class="bg-slate-200 px-2 py-1 rounded">composer -v</code> واضغط Enter.</li>
+                            <li>4. اكتب الأمر <code dir="ltr" class="bg-slate-200 px-2 py-1 rounded">node -v</code> واضغط Enter.</li>
+                            <li>5. اكتب الأمر <code dir="ltr" class="bg-slate-200 px-2 py-1 rounded">npm -v</code> واضغط Enter.</li>
+                            <li>6. اكتب الأمر <code dir="ltr" class="bg-slate-200 px-2 py-1 rounded">git --version</code> واضغط Enter.</li>
+                        </ol>
+                    </div>
+
+                    <p class="font-bold mt-6">ماذا يجب أن ترى بالضبط؟</p>
+                    <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-sm">
+                        <p class="text-emerald-800">لكل أمر، يجب أن يظهر رقم إصدار وليس رسالة خطأ. مثلاً:</p>
+                        <ul class="text-emerald-700 space-y-1 mt-2 font-mono text-xs">
+                            <li>PHP 8.2.26 (cli) (built: ... )</li>
+                            <li>Composer version 2.8.3</li>
+                            <li>v22.11.0</li>
+                            <li>10.9.0</li>
+                            <li>git version 2.47.0.windows.2</li>
+                        </ul>
+                    </div>
+
+                    <p class="font-bold mt-6">طريقة التسليم:</p>
+                    <p>التقط لقطة شاشة (Screenshot) كاملة للنافذة بعد كتابة جميع الأوامر. يجب أن تظهر جميع النتائج في صورة واحدة.</p>
                 </div>
             </section>
 
@@ -58,49 +80,101 @@
             <section class="card p-8 md:p-10 space-y-6 shadow-sm">
                 <h2 class="text-2xl font-black flex items-center gap-3 text-indigo-600">
                     <span class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">02</span>
-                    تحدي الفهم (Explain it)
+                    تثبيت VS Code والإضافات
                 </h2>
                 <div class="space-y-4 text-slate-600">
-                    <p class="font-bold">المطلوب:</p>
-                    <p>بأسلوبك الخاص، اشرح لزميلك المبتدئ: لماذا نحتاج لـ <strong>Composer</strong> ولماذا نحتاج لـ <strong>Node.js</strong> في مشروع Laravel؟</p>
-                    <p class="font-bold">معايير التقييم:</p>
-                    <ul class="list-disc pr-6 space-y-2 text-sm">
-                        <li>وضوح الشرح.</li>
-                        <li>استخدام تشبيهات بسيطة.</li>
-                        <li>ذكر دور كل أداة في مشروع FlowPilot.</li>
-                    </ul>
+                    <p class="font-bold">الهدف: تثبيت محرر الكود الأساسي وتجهيزه لتطوير FlowPilot.</p>
+                    <div class="p-4 rounded-xl bg-slate-100 text-sm">
+                        <ol class="space-y-2 pr-6">
+                            <li>1. اذهب إلى <strong>code.visualstudio.com</strong> وحمل VS Code.</li>
+                            <li>2. ثبت البرنامج (اختر "Add to PATH" أثناء التثبيت).</li>
+                            <li>3. افتح VS Code، اذهب لإدارة الإضافات (Ctrl+Shift+X).</li>
+                            <li>4. ابحث عن الإضافات التالية وقم بتثبيتها:
+                                <ul class="list-disc pr-8 mt-2 space-y-1">
+                                    <li>PHP Intelephense (Ben Mewburn)</li>
+                                    <li>Laravel Extension Pack (Winnie Lin)</li>
+                                    <li>ES7+ React/Redux Snippets</li>
+                                    <li>Tailwind CSS IntelliSense</li>
+                                    <li>GitLens</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    <p class="font-bold mt-4">طريقة التسليم: التقط صورة لـ VS Code مفتوحاً مع ظهور الإضافات المثبتة في الشريط الجانبي.</p>
                 </div>
             </section>
 
             <!-- Part 3 -->
             <section class="card p-8 md:p-10 space-y-6 shadow-sm">
-                <h2 class="text-2xl font-black flex items-center gap-3 text-rose-600">
-                    <span class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-sm font-black">03</span>
-                    تحدي إضافي
+                <h2 class="text-2xl font-black flex items-center gap-3 text-amber-600">
+                    <span class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-sm font-black">03</span>
+                    تحدي الشرح: اشرح لأخيك المبتدئ
                 </h2>
-                <p class="text-slate-600 leading-relaxed">
-                    قم بإنشاء مجلد جديد على جهازك باسم <code>FlowPilot-Academy</code> ليكون هو مكان عملك طوال الدورة. هل تستطيع تثبيت VS Code وإضافة إضافات (Extensions) خاصة بـ PHP و React؟
-                </p>
+                <div class="space-y-4 text-slate-600">
+                    <p class="font-bold">المطلوب منك (تحدي فهم، لا يحتاج Terminal):</p>
+                    <p>اكتب فقرة (5-10 أسطر) تشرح فيها لشخص لا يعرف أي شيء عن البرمجة لماذا نحتاج كل أداة. استخدم التشبيهات. مثلاً:</p>
+                    <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-sm text-amber-800">
+                        <p class="italic">"PHP هو الطباخ، Composer هو من يشتري المكونات، Node.js هو الفرن، Git هو كاميرا المراقبة..."</p>
+                    </div>
+                    <p class="font-bold mt-4">معايير التقييم:</p>
+                    <ul class="list-disc pr-6 space-y-1 text-sm">
+                        <li>الوضوح: هل يستطيع شخص عادي فهمك؟</li>
+                        <li>الدقة: هل ذكرت الوظيفة الصحيحة لكل أداة؟</li>
+                        <li>الإبداع: هل استخدمت تشبيهاً مبتكراً؟</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Part 4 - Extra Challenge -->
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm">
+                <h2 class="text-2xl font-black flex items-center gap-3 text-rose-600">
+                    <span class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-sm font-black">★</span>
+                    التحدي الإضافي (اختياري)
+                </h2>
+                <div class="space-y-4 text-slate-600">
+                    <p>للمتقدمين فقط - هذا الجزء غير مطلوب للنجاح لكنه سيمنحك خبرة إضافية:</p>
+                    <ol class="list-decimal pr-6 space-y-2 text-sm">
+                        <li>قم بإنشاء مجلد باسم <code>FlowPilot-Academy</code> على سطح المكتب.</li>
+                        <li>افتح هذا المجلد في VS Code (File → Open Folder).</li>
+                        <li>أنشئ ملف جديد باسم <code>env-check.txt</code>.</li>
+                        <li>انسخ فيه نتائج الأوامر الستة من الجزء الأول.</li>
+                        <li>احفظ الملف باستخدام Ctrl+S.</li>
+                    </ol>
+                    <p class="text-rose-600 font-bold text-sm">هذا التحدي يعلمك التعامل مع الملفات في VS Code - مهارة أساسية.</p>
+                </div>
             </section>
         </div>
 
         <!-- Submission Guide -->
         <div class="p-8 rounded-[2rem] bg-slate-900 text-white space-y-4">
-            <h3 class="text-xl font-black">طريقة التسليم</h3>
-            <p class="text-slate-400 text-sm leading-relaxed">
-                ارفع صورة الـ Terminal وملف الشرح على المنصة التعليمية. تأكد من مراجعة الخطوات قبل التسليم للتأكد من عدم وجود أخطاء.
-            </p>
-            <div class="p-4 bg-slate-800 rounded-xl text-amber-400 text-xs font-bold">
-                ⚠️ تذكر: بدون تهيئة البيئة بشكل صحيح، لن تستطيع تشغيل الدروس القادمة.
-            </div>
+            <h3 class="text-xl font-black">طريقة التسليم النهائية</h3>
+            <ul class="space-y-3 text-slate-300 text-sm">
+                <li>• <strong>الجزء 1 + 2:</strong> صورتان (واحدة للـ Terminal، واحدة لـ VS Code مع الإضافات).</li>
+                <li>• <strong>الجزء 3:</strong> نص الشرح (يفضل أن يكون في ملف Word أو نصي).</li>
+                <li>• <strong>الجزء 4 (اختياري):</strong> ملف <code>env-check.txt</code>.</li>
+                <li class="p-3 rounded-xl bg-slate-800 text-amber-400 font-bold">
+                    ⚠️ تذكير مهم جداً: إذا لم تتمكن من إكمال هذا الواجب، راجع الدرس مرة أخرى. الدروس القادمة تعتمد على أن أدواتك جاهزة.
+                </li>
+            </ul>
+        </div>
+
+        <!-- Pitfalls -->
+        <div class="card p-8 space-y-4 border-rose-200 bg-rose-50">
+            <h3 class="text-xl font-black text-rose-800">مخاطر ومشاكل شائعة يجب الانتباه لها</h3>
+            <ul class="space-y-3 text-sm text-rose-900">
+                <li>• <strong>نسخ الأوامر من الإنترنت:</strong> قد تحتوي الأوامر المنقولة من مواقع غير موثوقة على مسافات مخفية أو أحرف خاصة. اكتب الأوامر بنفسك.</li>
+                <li>• <strong>نسخة PHP غير صحيحة:</strong> تأكد أنك تثبت PHP 8.2+ وليس 7.x. Laravel 12 لا يعمل على الإصدارات القديمة.</li>
+                <li>• <strong>عدم إغلاق وإعادة فتح Terminal:</strong> بعد تثبيت أداة جديدة، أعد فتح الـ Terminal حتى يتعرف على المسار الجديد.</li>
+                <li>• <strong>تجاهل رسائل التحذير:</strong> إذا ظهرت رسالة تحذير صفراء أو حمراء، لا تتجاهلها. اقرأها، ابحث عن معناها، ثم قرر.</li>
+                <li>• <strong>تثبيت برامج من مصادر غير رسمية:</strong> استخدم فقط الموقع الرسمي لكل أداة.</li>
+            </ul>
         </div>
     </section>
 </main>
 
 <footer class="mt-24 border-t py-8 text-center text-slate-400 text-sm font-medium">
-    © 2025 FlowPilot Academy. التزامك بالواجبات هو سر تفوقك.
+    © 2025 FlowPilot Academy. الواجب هو مفتاح التطبيق العملي للمعرفة.
 </footer>
 
-<script src="../../../assets/js/app.js"></script>
 </body>
 </html>

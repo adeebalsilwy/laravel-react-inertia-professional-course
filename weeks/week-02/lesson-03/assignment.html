@@ -3,27 +3,152 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 7: مكوناتك الأولى</title>
+    <title>واجب الدرس 7: مكونات React الأولى | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .step-num { width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.1rem; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
-<main class="mx-auto max-w-3xl px-4 py-12">
-    <div class="card p-12 space-y-8">
-        <h1 class="text-3xl font-black text-center text-indigo-600">واجب المكونات الذكية</h1>
-        <div class="space-y-6 text-right">
-            <h3 class="font-black text-xl">المطلوب:</h3>
-            <ol class="list-decimal pr-6 space-y-4 font-bold text-slate-700">
-                <li>أنشئ مجلداً جديداً باسم <code>resources/js/Components</code>.</li>
-                <li>أنشئ ملفاً باسم <code>ProjectCard.jsx</code>.</li>
-                <li>اجعل المكون يستقبل <code>title</code> و <code>status</code> كـ Props.</li>
-                <li>استخدم المكون داخل صفحة <code>Dashboard.jsx</code> لعرض 3 مشاريع وهمية.</li>
-            </ol>
-        </div>
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../index.html">الرئيسية</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/curriculum.html">الفهرس</a>
+        </nav>
     </div>
+</header>
+<main class="mx-auto max-w-4xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8 text-sm" href="index.html">← العودة لشرح الدرس</a>
+    <section class="space-y-8">
+        <div class="card p-8 bg-gradient-to-l from-indigo-600 to-indigo-700 text-white shadow-xl rounded-3xl">
+            <h1 class="text-3xl font-black">📄 واجب الدرس 7: بناء مكونات React القابلة لإعادة الاستخدام</h1>
+            <p class="mt-4 text-indigo-100 leading-relaxed italic text-lg">"قسّم تطبيقك إلى قطع صغيرة، واجعل كل قطعة تتقن وظيفة واحدة."</p>
+        </div>
+
+        <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-indigo-600">
+                <span class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">🎯</span>
+                الهدف
+            </h2>
+            <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                <li>إنشاء 3 مكونات React قابلة لإعادة الاستخدام.</li>
+                <li>تمرير Props بين المكونات.</li>
+                <li>استخدام map() لعرض قائمة بيانات.</li>
+                <li>استخدام العرض الشرطي.</li>
+            </ul>
+        </section>
+
+        <section class="card p-8 md:p-10 space-y-8 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-emerald-600">
+                <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">📋</span>
+                خطوات الواجب
+            </h2>
+
+            <div class="flex gap-4 items-start">
+                <div class="step-num bg-emerald-100 text-emerald-700 shrink-0 mt-1">1</div>
+                <div>
+                    <h4 class="font-black text-slate-900 text-lg">إنشاء مجلد Components</h4>
+                    <p class="text-sm text-slate-500 mt-1">أنشئ مجلد <code>resources/js/Components/</code> (إذا لم يكن موجوداً).</p>
+                </div>
+            </div>
+
+            <div class="flex gap-4 items-start">
+                <div class="step-num bg-emerald-100 text-emerald-700 shrink-0 mt-1">2</div>
+                <div>
+                    <h4 class="font-black text-slate-900 text-lg">مكون UserCard.jsx</h4>
+                    <p class="text-sm text-slate-500 mt-1">أنشئ مكوناً يستقبل Props: <code>name</code>, <code>role</code>, <code>avatar</code>. يعرض بطاقة عضو فريق.</p>
+                    <div class="bg-slate-900 text-green-400 rounded-xl p-4 font-mono text-xs mt-2 text-left overflow-x-auto">
+                        <span class="code-line">export default function UserCard({ name, role, avatar }) {</span>
+                        <span class="code-line">&nbsp;&nbsp;return (</span>
+                        <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="flex items-center gap-4 p-4 border rounded-xl"&gt;</span>
+                        <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-xl font-bold"&gt;{avatar}&lt;/div&gt;</span>
+                        <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;</span>
+                        <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h3 className="font-bold"&gt;{name}&lt;/h3&gt;</span>
+                        <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p className="text-sm text-slate-500"&gt;{role}&lt;/p&gt;</span>
+                        <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                        <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                        <span class="code-line">&nbsp;&nbsp;);</span>
+                        <span class="code-line">}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex gap-4 items-start">
+                <div class="step-num bg-emerald-100 text-emerald-700 shrink-0 mt-1">3</div>
+                <div>
+                    <h4 class="font-black text-slate-900 text-lg">مكون EmptyState.jsx</h4>
+                    <p class="text-sm text-slate-500 mt-1">مكون يعرض رسالة "لا توجد بيانات" مع أيقونة ونص. يستقبل Props: <code>icon</code>, <code>title</code>, <code>message</code>.</p>
+                </div>
+            </div>
+
+            <div class="flex gap-4 items-start">
+                <div class="step-num bg-emerald-100 text-emerald-700 shrink-0 mt-1">4</div>
+                <div>
+                    <h4 class="font-black text-slate-900 text-lg">مكون Badge.jsx</h4>
+                    <p class="text-sm text-slate-500 mt-1">مكون شارة (Badge) يستقبل <code>text</code> و <code>variant</code> (success, warning, danger, info). يظهر بنص ولون حسب الـ variant.</p>
+                </div>
+            </div>
+
+            <div class="flex gap-4 items-start">
+                <div class="step-num bg-emerald-100 text-emerald-700 shrink-0 mt-1">5</div>
+                <div>
+                    <h4 class="font-black text-slate-900 text-lg">استخدام المكونات في Dashboard</h4>
+                    <p class="text-sm text-slate-500 mt-1">افتح Dashboard.jsx واستخدم المكونات الجديدة:</p>
+                    <ul class="text-sm text-slate-500 list-disc pr-6 mt-1">
+                        <li>استخدم UserCard لعرض 3 أعضاء فريق (بيانات وهمية).</li>
+                        <li>استخدم Badge لعرض حالات المشاريع.</li>
+                        <li>استخدم EmptyState مع شرط: إذا كانت المصفوفة فارغة.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-emerald-600">
+                <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">✅</span>
+                معايير القبول
+            </h2>
+            <ul class="list-disc pr-6 space-y-3 text-slate-600">
+                <li>المكونات الثلاثة تعمل وتعرض البيانات بشكل صحيح.</li>
+                <li>كل مكون يستقبل Props ويعرضها.</li>
+                <li>استخدام map() لعرض قائمة من المكونات.</li>
+                <li>العرض الشرطي يعمل عند وجود بيانات فارغة.</li>
+                <li>الكود منظم - كل مكون في ملف منفصل.</li>
+            </ul>
+        </section>
+
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white border-2 border-amber-200">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-amber-600">
+                <span class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-sm font-black">⭐</span>
+                تحديات إضافية
+            </h2>
+            <ul class="list-disc pr-6 space-y-3 text-slate-600">
+                <li>أنشئ مكون ProgressBar.jsx يستقبل <code>percentage</code> ويعرض شريط تقدم.</li>
+                <li>أضف زر "إضافة مشروع" كـ مكون Button.jsx بأنماط مختلفة.</li>
+                <li>استخدم مكون Badge داخل ProjectCard بدلاً من النص العادي.</li>
+            </ul>
+        </section>
+
+        <section class="card p-8 md:p-10 space-y-4 shadow-sm rounded-3xl bg-white">
+            <h2 class="text-2xl font-black flex items-center gap-3 text-indigo-600">
+                <span class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">📬</span>
+                طريقة التسليم
+            </h2>
+            <ol class="list-decimal pr-6 space-y-3 text-slate-600">
+                <li>لقطة شاشة للصفحة تظهر جميع المكونات.</li>
+                <li>محتوى الملفات: UserCard.jsx, Badge.jsx, EmptyState.jsx, Dashboard.jsx.</li>
+                <li>إرسال كل ما سبق للمدرب.</li>
+            </ol>
+        </section>
+    </section>
 </main>
+<footer class="mt-24 border-t bg-white py-12 text-center text-slate-400 text-sm font-medium">© 2026 FlowPilot Academy. المكونات هي لبنات التطبيق.</footer>
 </body>
 </html>

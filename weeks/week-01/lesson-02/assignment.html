@@ -3,21 +3,26 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 2: بناء أول صفحة FlowPilot</title>
+    <title>واجب الدرس 2: تثبيت Laravel وربطه بـ React</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=display=swap" rel="stylesheet">
     <style>
         :root { font-family: 'Tajawal', sans-serif; }
+        .card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; }
+        code { direction: ltr; display: inline-block; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../index.html">الرئيسية</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/curriculum.html">الفهرس</a>
+        </nav>
     </div>
 </header>
 
@@ -25,36 +30,177 @@
     <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة لشرح الدرس</a>
     
     <section class="space-y-8">
-        <div class="card p-8 bg-indigo-600 text-white shadow-xl shadow-indigo-100 rounded-3xl">
-            <h1 class="text-3xl font-black">واجب الدرس 2: إنشاء قلب المشروع</h1>
+        <div class="card p-8 bg-gradient-to-l from-indigo-600 to-indigo-700 text-white shadow-xl shadow-indigo-100">
+            <h1 class="text-3xl font-black">واجب الدرس 2: إنشاء أول مشروع FlowPilot</h1>
             <p class="mt-4 text-indigo-100 leading-relaxed italic">
-                "سنقوم اليوم بتنصيب الأدوات وبناء أول صفحة حقيقية تربط Laravel بـ React."
+                "هذه هي اللحظة التي يولد فيها مشروعك. سنقوم بإنشاء Laravel، ربطه بـ React، وتشغيل أول صفحة."
             </p>
         </div>
 
         <div class="space-y-8">
-            <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+            <!-- Part 1 -->
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm">
                 <h2 class="text-2xl font-black flex items-center gap-3">
                     <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">01</span>
-                    المطلوب تنفيذه
+                    إنشاء مشروع Laravel
                 </h2>
-                <ol class="list-decimal pr-6 space-y-4 text-slate-700">
-                    <li>أنشئ مشروع Laravel جديد باسم <code>flowpilot</code>.</li>
-                    <li>ثبت حزمة Inertia جانب السيرفر باستخدام Composer.</li>
-                    <li>ثبت مكتبات React و Inertia جانب الواجهة باستخدام NPM.</li>
-                    <li>تأكد من وجود مجلد <code>resources/js/Pages</code>.</li>
-                </ol>
+                <div class="space-y-4 text-slate-600">
+                    <p class="font-bold">الهدف:</p>
+                    <p>استخدام Composer لإنشاء مشروع Laravel 12 باسم <code>flowpilot</code>.</p>
+                    
+                    <p class="font-bold">الخطوات:</p>
+                    <ol class="space-y-3 pr-6">
+                        <li>1. افتح Terminal في أي مكان تريد (مثلاً سطح المكتب).</li>
+                        <li>2. اكتب: <code dir="ltr" class="bg-slate-200 px-2 py-1 rounded">composer create-project laravel/laravel flowpilot</code></li>
+                        <li>3. انتظر حتى يكتمل التحميل (قد يستغرق 1-3 دقائق).</li>
+                        <li>4. اكتب: <code dir="ltr" class="bg-slate-200 px-2 py-1 rounded">cd flowpilot</code> لدخول مجلد المشروع.</li>
+                    </ol>
+
+                    <div class="p-4 rounded-xl bg-amber-50 border border-amber-100">
+                        <p class="text-sm font-bold text-amber-800">⚠️ قد تظهر رسالة تحذير حول "APP_KEY" - هذا طبيعي، سنحلها في الخطوة التالية.</p>
+                    </div>
+
+                    <p class="font-bold">ماذا تتحقق منه؟</p>
+                    <ul class="list-disc pr-6 space-y-1 text-sm">
+                        <li>تأكد من وجود مجلد <code>flowpilot</code> في المكان الذي نفذت فيه الأمر.</li>
+                        <li>تأكد من وجود ملف <code>artisan</code> داخل المجلد (هذا هو واجهة أوامر Laravel).</li>
+                    </ul>
+                </div>
             </section>
 
-            <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
-                <h2 class="text-2xl font-black text-emerald-600">معايير النجاح</h2>
-                <ul class="list-disc pr-6 space-y-2 text-slate-600">
-                    <li>عدم وجود أخطاء في الـ Terminal أثناء التثبيت.</li>
-                    <li>ظهور ملف <code>package.json</code> يحتوي على React و Inertia.</li>
-                </ul>
+            <!-- Part 2 -->
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm">
+                <h2 class="text-2xl font-black flex items-center gap-3 text-indigo-600">
+                    <span class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">02</span>
+                    تثبيت Breeze مع React
+                </h2>
+                <div class="space-y-4 text-slate-600">
+                    <p class="font-bold">الهدف:</p>
+                    <p>إضافة Breeze (قالب البداية) مع خيار React لتثبيت Inertia والمكتبات تلقائياً.</p>
+                    
+                    <p class="font-bold">الخطوات:</p>
+                    <ol class="space-y-3 pr-6">
+                        <li>1. تأكد أنك داخل مجلد <code>flowpilot</code> (استخدم <code dir="ltr">cd flowpilot</code> إذا لزم الأمر).</li>
+                        <li>2. اكتب: <code dir="ltr" class="bg-slate-200 px-2 py-1 rounded">composer require laravel/breeze --dev</code></li>
+                        <li>3. اكتب: <code dir="ltr" class="bg-slate-200 px-2 py-1 rounded">php artisan breeze:install react</code></li>
+                        <li>4. اكتب: <code dir="ltr" class="bg-slate-200 px-2 py-1 rounded">npm install</code> (تحميل مكتبات JavaScript)</li>
+                    </ol>
+
+                    <p class="font-bold">ماذا تتحقق منه؟</p>
+                    <ul class="list-disc pr-6 space-y-1 text-sm">
+                        <li>ظهرت رسالة نجاح من Breeze: "Breeze scaffolding installed successfully."</li>
+                        <li>ملف <code>package.json</code> أصبح يحتوي على <code>@inertiajs/react</code> و <code>react</code>.</li>
+                        <li>ظهر مجلد <code>resources/js/Pages/</code> يحتوي على ملفات <code>Welcome.jsx</code> و <code>Dashboard.jsx</code>.</li>
+                    </ul>
+                </div>
             </section>
+
+            <!-- Part 3 -->
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm">
+                <h2 class="text-2xl font-black flex items-center gap-3 text-emerald-600">
+                    <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">03</span>
+                    تشغيل الخادمين ورؤية الصفحة
+                </h2>
+                <div class="space-y-4 text-slate-600">
+                    <p class="font-bold">الهدف:</p>
+                    <p>تشغيل Laravel و Vite معاً والتحقق من ظهور الصفحة في المتصفح.</p>
+                    
+                    <p class="font-bold">الخطوات:</p>
+                    <ol class="space-y-3 pr-6">
+                        <li>1. افتح نافذة Terminal جديدة (احتفظ بالأولى).</li>
+                        <li>2. في النافذة الأولى: <code dir="ltr" class="bg-slate-200 px-2 py-1 rounded">php artisan serve</code></li>
+                        <li>3. في النافذة الثانية: <code dir="ltr" class="bg-slate-200 px-2 py-1 rounded">npm run dev</code></li>
+                        <li>4. افتح المتصفح واذهب إلى: <strong>http://localhost:8000</strong></li>
+                        <li>5. التقط لقطة شاشة للصفحة التي تظهر.</li>
+                    </ol>
+
+                    <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-100">
+                        <p class="text-sm font-bold text-emerald-800">💡 نصيحة: إذا لم تعمل الصفحة، تأكد من تشغيل كلا الخادمين في نفس الوقت. Vite يجب أن يعمل في نافذة Laravel في أخرى.</p>
+                    </div>
+
+                    <p class="font-bold">ماذا تتحقق منه؟</p>
+                    <ul class="list-disc pr-6 space-y-1 text-sm">
+                        <li>صفحة Laravel الترحيبية تظهر في المتصفح.</li>
+                        <li>لا توجد أخطاء حمراء في أي من نافذتي Terminal.</li>
+                        <li>الصفحة تستجيب (يمكنك النقر على الروابط).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Part 4 - Extra Challenge -->
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm">
+                <h2 class="text-2xl font-black flex items-center gap-3 text-rose-600">
+                    <span class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-sm font-black">★</span>
+                    التحدي الإضافي (اختياري)
+                </h2>
+                <div class="space-y-4 text-slate-600">
+                    <p>للمتقدمين - ستندهش مما يمكنك فعله:</p>
+                    <ol class="list-decimal pr-6 space-y-2 text-sm">
+                        <li>افتح ملف <code>resources/js/Pages/Welcome.jsx</code> في VS Code.</li>
+                        <li>غيّر النص الموجود إلى "مرحباً بك في FlowPilot Academy!"</li>
+                        <li>احفظ الملف (Ctrl+S) - ستلاحظ أن المتصفح يتحدّث تلقائياً!</li>
+                        <li>هذا هو "Hot Module Replacement" (HMR) - تغيير الكود يظهر فوراً دون إعادة تحميل الصفحة.</li>
+                    </ol>
+                    <p class="text-rose-600 font-bold text-sm">التقط صورة للصفحة بعد التعديل - سترى النص الجديد مباشرة!</p>
+                </div>
+            </section>
+
+            <!-- Part 5 - Theory -->
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm">
+                <h2 class="text-2xl font-black flex items-center gap-3 text-amber-600">
+                    <span class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-sm font-black">04</span>
+                    أسئلة فهم نظري
+                </h2>
+                <div class="space-y-4 text-slate-600">
+                    <p>أجب عن الأسئلة التالية بجملة أو جملتين:</p>
+                    <ol class="list-decimal pr-6 space-y-4 text-sm">
+                        <li>
+                            <strong>ما الفرق بين Laravel و React؟</strong>
+                            <p class="text-slate-400 mt-1">(تلميح: أحدهما للخلفية والآخر للواجهة)</p>
+                        </li>
+                        <li>
+                            <strong>ما دور Inertia.js في مشروعنا؟</strong>
+                            <p class="text-slate-400 mt-1">(تلميح: فكر في النادل في المطعم)</p>
+                        </li>
+                        <li>
+                            <strong>لماذا نحتاج نافذتي Terminal؟</strong>
+                            <p class="text-slate-400 mt-1">(تلميح: ماذا يحدث إذا أغلقت إحداهما؟)</p>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+
+        <!-- Submission Guide -->
+        <div class="p-8 rounded-[2rem] bg-slate-900 text-white space-y-4">
+            <h3 class="text-xl font-black">طريقة التسليم</h3>
+            <ul class="space-y-3 text-slate-300 text-sm">
+                <li>• <strong>لقطة شاشة 1:</strong> Terminal بعد إنشاء المشروع (يظهر مجلد flowpilot).</li>
+                <li>• <strong>لقطة شاشة 2:</strong> المتصفح يعرض صفحة Laravel الترحيبية على localhost:8000.</li>
+                <li>• <strong>لقطة شاشة 3 (اختياري):</strong> بعد تعديل Welcome.jsx.</li>
+                <li>• <strong>النص:</strong> إجابات الأسئلة النظرية.</li>
+                <li class="p-3 rounded-xl bg-slate-800 text-amber-400 font-bold">
+                    ⚠️ احتفظ بمجلد <code>flowpilot</code> - سنستخدمه في كل الدروس القادمة!
+                </li>
+            </ul>
+        </div>
+
+        <!-- Pitfalls -->
+        <div class="card p-8 space-y-4 border-rose-200 bg-rose-50">
+            <h3 class="text-xl font-black text-rose-800">مخاطر شائعة</h3>
+            <ul class="space-y-3 text-sm text-rose-900">
+                <li>• <strong>نسيان تشغيل npm run dev:</strong> الصفحة ستظهر لكن بدون CSS وتفاعل. تأكد من تشغيل Vite.</li>
+                <li>• <strong>إغلاق Terminal عن طريق الخطأ:</strong> الخادم سيتوقف. أعد تشغيله.</li>
+                <li>• <strong>مشكلة المنافذ (Port):</strong> إذا كان port 8000 مشغولاً، استخدم <code>php artisan serve --port=8080</code>.</li>
+                <li>• <strong>عدم تثبيت Breeze أولاً:</strong> إذا حاولت تشغيل npm run dev قبل Breeze، ستفشل لأن package.json لا يحتوي React بعد.</li>
+            </ul>
         </div>
     </section>
 </main>
+
+<footer class="mt-24 border-t py-8 text-center text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. كل درس يبني على الذي قبله.
+</footer>
+
 </body>
 </html>

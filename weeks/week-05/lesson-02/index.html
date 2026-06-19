@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 18: بناء لوحة مهام Kanban</title>
+    <title>الدرس 18: بناء لوحة مهام Kanban | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,12 @@
     <style>
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
-        .step-card { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .step-card { border-right: 4px solid #3b82f6; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .code-line { display: block; padding: 2px 0; }
+        .code-comment { color: #6b7280; }
+        .code-keyword { color: #818cf8; }
+        .code-string { color: #34d399; }
+        .error-box { background: #fef2f2; border-right: 4px solid #ef4444; padding: 1.5rem; border-radius: 1rem; margin-bottom: 1.5rem; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -24,93 +29,419 @@
 </header>
 
 <main class="mx-auto max-w-7xl px-4 py-8">
-    <div class="grid lg:grid-cols-4 gap-8 text-right">
+    <div class="grid lg:grid-cols-4 gap-8">
         <aside class="hidden lg:block">
-            <div class="sidebar-sticky space-y-4">
+            <div class="sidebar-sticky space-y-4 text-right">
                 <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الخامس</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم الـ Kanban</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">تقسيم الحالات</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال المطبخ</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl bg-blue-50 text-blue-700" href="#intro">ما هو Kanban؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#letters">الأعمدة الثلاثة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">حالة المهمة (Status)</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#analogy">مثال: لوحة المهام المنزلية</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">الربط مع FlowPilot</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#steps">6 خطوات عملية</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#code">شرح الكود سطراً سطراً</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#result">النتيجة المتوقعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">الأخطاء الشائعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#summary">الملخص</a>
                 </div>
             </div>
         </aside>
 
-        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm">
+        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
             <section class="border-b pb-8 mb-12">
-                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 5 · الدرس 2</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">لوحة Kanban: كيف نصمم تجربة إدارة مهام بصرية؟</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"الصور تغني عن ألف كلمة؛ لوحة الكانبان تجعل المستخدم يرى تقدم العمل بوضوح مذهل."</p>
+                <span class="badge bg-blue-50 text-blue-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 5 · الدرس 2</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">بناء لوحة مهام Kanban: تنظيم العمل بصرياً</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"الرؤية البصرية لسير العمل تجعل الإنتاجية أسرع وأوضح."</p>
             </section>
 
+            <!-- Intro -->
             <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هو الـ Kanban؟</h2>
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-blue-600 pr-4">ما هو Kanban؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    الـ <strong>Kanban</strong> هو أسلوب ياباني لإدارة العمل يعتمد على الأعمدة. كل عمود يمثل "حالة" (مثل: للقيام، قيد التنفيذ، منجز). المهام تنتقل بين هذه الأعمدة مثل البطاقات.
+                    <strong>Kanban</strong> (تُنطق "كان بان") هي كلمة يابانية تعني "اللوحة البصرية" أو "البطاقة المرئية". في عالم البرمجة، هي <strong>طريقة لتنظيم وإدارة المهام</strong> باستخدام أعمدة تمثل مراحل سير العمل.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    في FlowPilot، سنبني لوحة Kanban تفاعلية تسمح للمدير برؤية أين تقف كل مهمة ومن يعمل عليها حالياً.
+                    بدلاً من أن يكون لديك قائمة طويلة من المهام المختلطة (قائمة عادية)، تقسم المهام إلى 3 أعمدة حسب حالتها:
+                </p>
+                <div class="grid md:grid-cols-3 gap-4 mt-4">
+                    <div class="p-6 rounded-2xl bg-orange-50 border border-orange-200 text-center">
+                        <p class="text-3xl mb-2">🔴</p>
+                        <p class="font-black text-orange-700">معلقة</p>
+                        <p class="text-xs text-slate-500">لم تبدأ بعد</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-blue-50 border border-blue-200 text-center">
+                        <p class="text-3xl mb-2">🟡</p>
+                        <p class="font-black text-blue-700">قيد التنفيذ</p>
+                        <p class="text-xs text-slate-500">يعمل عليها شخص الآن</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-green-50 border border-green-200 text-center">
+                        <p class="text-3xl mb-2">🟢</p>
+                        <p class="font-black text-green-700">مكتملة</p>
+                        <p class="text-xs text-slate-500">تم الانتهاء منها</p>
+                    </div>
+                </div>
+                <p class="text-slate-600 leading-relaxed text-lg mt-4">
+                    كل مهمة (Task) تبدأ في العمود الأيمن (معلقة)، ثم تنتقل إلى الوسط (قيد التنفيذ) عندما يبدأ شخص العمل عليها، وأخيراً إلى اليسار (مكتملة) عندما تنتهي.
                 </p>
             </section>
 
+            <!-- الأعمدة الثلاثة بالتفصيل -->
+            <section id="letters" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-blue-600 pr-4">الأعمدة الثلاثة: تفصيل كامل</h2>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="p-6 rounded-2xl bg-orange-50 border border-orange-300">
+                        <h3 class="font-black text-orange-700 text-lg mb-2">🔴 Pending (معلقة)</h3>
+                        <p class="text-sm text-slate-600">المهام التي لم يبدأ العمل عليها بعد. تنتظر دورها. يمكن لأي شخص سحب مهمة من هذا العمود عندما يكون مستعداً.</p>
+                        <p class="text-sm text-slate-600 mt-2">في قاعدة البيانات: <code class="bg-slate-200 px-2 rounded">status = 'pending'</code></p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-blue-50 border border-blue-300">
+                        <h3 class="font-black text-blue-700 text-lg mb-2">🟡 In Progress (قيد التنفيذ)</h3>
+                        <p class="text-sm text-slate-600">المهام التي يعمل عليها شخص ما الآن. يجب أن يكون عدد المهام في هذا العمود محدوداً (WIP Limit) لضمان التركيز.</p>
+                        <p class="text-sm text-slate-600 mt-2">في قاعدة البيانات: <code class="bg-slate-200 px-2 rounded">status = 'in_progress'</code></p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-green-50 border border-green-300">
+                        <h3 class="font-black text-green-700 text-lg mb-2">🟢 Completed (مكتملة)</h3>
+                        <p class="text-sm text-slate-600">المهام التي تم الانتهاء منها بنجاح. عادةً تمر بمرحلة مراجعة قبل الوصول إلى هنا.</p>
+                        <p class="text-sm text-slate-600 mt-2">في قاعدة البيانات: <code class="bg-slate-200 px-2 rounded">status = 'completed'</code></p>
+                    </div>
+                </div>
+                <p class="text-slate-600 leading-relaxed mt-4">
+                    <strong>ملاحظة مهمة:</strong> يمكنك إضافة أعمدة أخرى حسب حاجة مشروعك (مثل "مراجعة" أو "اختبار"). لكن للمبتدئين، 3 أعمدة هي البداية المثالية.
+                </p>
+            </section>
+
+            <!-- Theory: Status -->
             <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">حالات المهام (Task Status)</h2>
-                <div class="space-y-4 text-slate-600">
-                    <p>أي مهمة في تطبيقنا ستمر بثلاث مراحل:</p>
-                    <ul class="list-disc pr-6 space-y-2">
-                        <li><span class="font-bold text-gray-600">To Do:</span> مهمة لم يبدأ العمل عليها بعد.</li>
-                        <li><span class="font-bold text-blue-600">In Progress:</span> مهمة يعمل عليها أحد الأعضاء حالياً.</li>
-                        <li><span class="font-bold text-emerald-600">Done:</span> مهمة انتهت وتم التأكد منها.</li>
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-blue-600 pr-4">حالة المهمة (Status) وأهميتها</h2>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    في قاعدة البيانات، كل مهمة لها عمود اسمه <code>status</code> (حالة). هذا العمود يخبرنا <strong>أين توجد المهمة حالياً</strong> في دورة العمل.
+                </p>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    عندما يسحب المستخدم مهمة من عمود "معلق" إلى "قيد التنفيذ"، ما يحدث فعلياً هو:
+                </p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left">
+                    <p><span class="text-slate-500">// عندما يضغط المستخدم "نقل إلى قيد التنفيذ"</span></p>
+                    <p><span class="text-slate-500">// React ترسل طلب PATCH إلى الخادم</span></p>
+                    <p>PATCH /tasks/5/status</p>
+                    <p>Body: { status: <span class="text-green-300">"in_progress"</span> }</p>
+                    <p>&nbsp;</p>
+                    <p><span class="text-slate-500">// Laravel يستقبل ويحدث في قاعدة البيانات</span></p>
+                    <p>UPDATE tasks SET status = <span class="text-green-300">'in_progress'</span> WHERE id = 5;</p>
+                </div>
+                <p class="text-slate-600 leading-relaxed">
+                    هذا يعني أن <strong>تغيير الحالة ليس مجرد حركة بصرية</strong> - إنه تحديث حقيقي في قاعدة البيانات. وعندما تعيد تحميل الصفحة، ستجد المهام في أماكنها الصحيحة.
+                </p>
+            </section>
+
+            <!-- Analogy -->
+            <section id="analogy" class="mt-16 p-8 rounded-3xl bg-blue-600 text-white shadow-xl shadow-blue-100">
+                <h2 class="text-2xl font-black mb-4">🏠 مثال من حياتنا اليومية: لوحة المهام المنزلية</h2>
+                <p class="text-blue-50 leading-relaxed text-lg mb-4">
+                    تخيل أن عائلة تستخدم لوحة بيضاء في المطبخ لتنظيم المهام المنزلية:
+                </p>
+                <div class="grid md:grid-cols-3 gap-4 text-right">
+                    <div class="bg-blue-500 rounded-2xl p-4">
+                        <p class="font-black text-white">📝 معلقة (Pending)</p>
+                        <ul class="text-blue-200 text-sm space-y-1">
+                            <li>• غسل الملابس</li>
+                            <li>• تنظيف الشبابيك</li>
+                            <li>• شراء البقالة</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-500 rounded-2xl p-4">
+                        <p class="font-black text-white">👨‍🍳 قيد التنفيذ (In Progress)</p>
+                        <ul class="text-blue-200 text-sm space-y-1">
+                            <li>• تحضير الغداء → أحمد يعمل عليها الآن</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-500 rounded-2xl p-4">
+                        <p class="font-black text-white">✅ مكتملة (Completed)</p>
+                        <ul class="text-blue-200 text-sm space-y-1">
+                            <li>• ترتيب غرفة المعيشة ✓</li>
+                            <li>• إخراج القمامة ✓</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="mt-4 text-blue-200 text-sm">لاحظ كيف أن <strong>اللوحة</strong> تعطيك صورة كاملة عن وضع المنزل في ثانية واحدة. هذا هو بالضبط ما تفعله Kanban في تطبيق الويب!</p>
+            </section>
+
+            <!-- FlowPilot -->
+            <section id="flowpilot" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-blue-600 pr-4">الربط مع FlowPilot: مهام المشاريع</h2>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    في FlowPilot، كل مشروع (Project) يحتوي على عدة مهام (Tasks). الآن سنضيف لوحة Kanban لإدارة هذه المهام بصرياً.
+                </p>
+                <div class="bg-blue-50 rounded-2xl p-6 border border-blue-200">
+                    <p class="font-black text-blue-700 mb-2">ما سنبنيه في FlowPilot:</p>
+                    <ul class="space-y-2 text-slate-700 pr-4">
+                        <li>✅ جدول <code>tasks</code> مرتبط بجدول <code>projects</code> عبر <code>project_id</code>.</li>
+                        <li>✅ كل مهمة لها <code>status</code> بقيم: pending, in_progress, completed.</li>
+                        <li>✅ صفحة <code>/tasks/board</code> تعرض 3 أعمدة حسب الحالة.</li>
+                        <li>✅ أزرار "نقل →" لتغيير حالة المهمة.</li>
+                        <li>✅ كل عمود له لون مميز (أحمر، أزرق، أخضر).</li>
                     </ul>
                 </div>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
-                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (طلبات المطعم)</h2>
-                <p class="text-indigo-50 leading-relaxed text-lg">
-                    تخيل شاشة في مطبخ مطعم:
-                    <br><br>
-                    1. <strong>العمود الأول:</strong> الطلبات الجديدة التي وصلت للتو (To Do).
-                    <br>
-                    2. <strong>العمود الثاني:</strong> الأطباق التي يطبخها الشيف الآن (In Progress).
-                    <br>
-                    3. <strong>العمود الثالث:</strong> الأطباق الجاهزة للتسليم (Done).
-                    <br><br>
-                    هذا الترتيب يمنع الفوضى ويجعل الجميع يعرف ماذا يحدث!
-                </p>
+            <!-- 6 Steps -->
+            <section id="steps" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-blue-600 pr-4">6 خطوات عملية لبناء لوحة Kanban</h2>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء Task Model مع Migration</h3>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-purple-400 overflow-x-auto text-left">
+                        <p>php artisan make:model Task -m</p>
+                    </div>
+                    <p class="mt-3 text-slate-600">في ملف migration، أضف الأعمدة: <code>project_id</code> (مفتاح خارجي)، <code>title</code>، <code>description</code> (اختياري)، <code>status</code> (القيمة الافتراضية 'pending')، <code>user_id</code>.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: كتابة Migration الصحيح</h3>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left">
+                        <p><span class="text-keyword">public function</span> up(): <span class="text-keyword">void</span></p>
+                        <p>{</p>
+                        <p>&nbsp;&nbsp;Schema::<span class="text-function">create</span>(<span class="text-string">'tasks'</span>, <span class="text-keyword">function</span> (Blueprint $table) {</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$table-><span class="text-function">id</span>();</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$table-><span class="text-function">foreignId</span>(<span class="text-string">'project_id'</span>)-><span class="text-function">constrained</span>()-><span class="text-function">cascadeOnDelete</span>();</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$table-><span class="text-function">string</span>(<span class="text-string">'title'</span>, 255);</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$table-><span class="text-function">text</span>(<span class="text-string">'description'</span>)-><span class="text-function">nullable</span>();</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$table-><span class="text-function">string</span>(<span class="text-string">'status'</span>, 20)-><span class="text-function">default</span>(<span class="text-string">'pending'</span>);</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$table-><span class="text-function">foreignId</span>(<span class="text-string">'user_id'</span>)-><span class="text-function">constrained</span>()-><span class="text-function">cascadeOnDelete</span>();</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;$table-><span class="text-function">timestamps</span>();</p>
+                        <p>&nbsp;&nbsp;});</p>
+                        <p>}</p>
+                    </div>
+                    <p class="mt-3 text-slate-600"><code>cascadeOnDelete()</code> تعني: إذا حذف المستخدم أو المشروع، تحذف كل مهامه تلقائياً. هذا يمنع البيانات اليتيمة (orphaned records).</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: إضافة العلاقات في Model</h3>
+                    <p class="mb-4 text-slate-600">في <code>Task.php</code> و <code>Project.php</code>، نضيف دوال العلاقات (relationships) لربط الجدولين.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto text-left">
+                        <p><span class="text-slate-500">// app/Models/Task.php</span></p>
+                        <p><span class="text-keyword">protected</span> <span class="text-function">$fillable</span> = [<span class="text-string">'project_id'</span>, <span class="text-string">'title'</span>, <span class="text-string">'description'</span>, <span class="text-string">'status'</span>, <span class="text-string">'user_id'</span>];</p>
+                        <p>&nbsp;</p>
+                        <p><span class="text-keyword">public function</span> <span class="text-function">project</span>()</p>
+                        <p>{</p>
+                        <p>&nbsp;&nbsp;<span class="text-keyword">return</span> $this-><span class="text-function">belongsTo</span>(Project::class);</p>
+                        <p>}</p>
+                    </div>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-pink-400 overflow-x-auto text-left mt-3">
+                        <p><span class="text-slate-500">// app/Models/Project.php - أضف هذه الدالة</span></p>
+                        <p><span class="text-keyword">public function</span> <span class="text-function">tasks</span>()</p>
+                        <p>{</p>
+                        <p>&nbsp;&nbsp;<span class="text-keyword">return</span> $this-><span class="text-function">hasMany</span>(Task::class);</p>
+                        <p>}</p>
+                    </div>
+                    <p class="mt-3 text-slate-600"><code>belongsTo</code> تعني أن المهمة تنتمي لمشروع واحد. <code>hasMany</code> تعني أن المشروع له مهام متعددة.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: إنشاء TaskController مع updateStatus</h3>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left">
+                        <p>php artisan make:controller TaskController</p>
+                    </div>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-yellow-400 overflow-x-auto text-left mt-3">
+                        <p><span class="text-slate-500">// دالة index() - تجلب المهام وتعرض اللوحة</span></p>
+                        <p><span class="text-keyword">public function</span> <span class="text-function">index</span>()</p>
+                        <p>{</p>
+                        <p>&nbsp;&nbsp;$tasks = Task::<span class="text-function">with</span>(<span class="text-string">'project'</span>)-><span class="text-function">get</span>();</p>
+                        <p>&nbsp;&nbsp;<span class="text-keyword">return</span> Inertia::<span class="text-function">render</span>(<span class="text-string">'Tasks/Board'</span>, [</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-string">'tasks'</span> => $tasks,</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-string">'success'</span> => session(<span class="text-string">'success'</span>),</p>
+                        <p>&nbsp;&nbsp;]);</p>
+                        <p>}</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: كتابة updateStatus()</h3>
+                    <p class="mb-4 text-slate-600">هذه الدالة هي قلب لوحة Kanban. تستقبل status جديد وتحدثه في قاعدة البيانات.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left">
+                        <p><span class="text-keyword">public function</span> <span class="text-function">updateStatus</span>(Request $request, Task $task)</p>
+                        <p>{</p>
+                        <p>&nbsp;&nbsp;<span class="text-slate-500">// 1. التحقق من أن status الجديد صالح</span></p>
+                        <p>&nbsp;&nbsp;$validated = $request-><span class="text-function">validate</span>([</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-string">'status'</span> => <span class="text-string">'required|in:pending,in_progress,completed'</span>,</p>
+                        <p>&nbsp;&nbsp;]);</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;&nbsp;<span class="text-slate-500">// 2. تحديث الحالة في قاعدة البيانات</span></p>
+                        <p>&nbsp;&nbsp;$task-><span class="text-function">update</span>($validated);</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;&nbsp;<span class="text-slate-500">// 3. إعادة التوجيه مع رسالة نجاح</span></p>
+                        <p>&nbsp;&nbsp;<span class="text-keyword">return</span> <span class="text-function">redirect</span>()-><span class="text-function">back</span>()-><span class="text-function">with</span>(<span class="text-string">'success'</span>, <span class="text-string">'تم تحديث حالة المهمة'</span>);</p>
+                        <p>}</p>
+                    </div>
+                    <p class="mt-3 text-slate-600">قاعدة <code>in:pending,in_progress,completed</code> تمنع المستخدم من إرسال حالة غير صالحة مثل <code>'done'</code> أو <code>'deleted'</code>. هذا مهم لأمان البيانات.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 6: تسجيل المسارات وبناء واجهة React</h3>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-yellow-400 overflow-x-auto text-left">
+                        <p><span class="text-slate-500">// routes/web.php</span></p>
+                        <p>Route::<span class="text-function">middleware</span>([<span class="text-string">'auth'</span>])-><span class="text-function">group</span>(<span class="text-keyword">function</span> () {</p>
+                        <p>&nbsp;&nbsp;Route::<span class="text-function">get</span>(<span class="text-string">'/tasks/board'</span>, [TaskController::class, <span class="text-string">'index'</span>])-><span class="text-function">name</span>(<span class="text-string">'tasks.board'</span>);</p>
+                        <p>&nbsp;&nbsp;Route::<span class="text-function">patch</span>(<span class="text-string">'/tasks/{task}/status'</span>, [TaskController::class, <span class="text-string">'updateStatus'</span>])-><span class="text-function">name</span>(<span class="text-string">'tasks.status'</span>);</p>
+                        <p>});</p>
+                    </div>
+                    <p class="mt-3 text-slate-600">في واجهة React، أنشئ مكون <code>KanbanColumn</code> لكل عمود. استخدم <code>useForm</code> من Inertia لإرسال طلب PATCH عند الضغط على زر النقل.</p>
+                </div>
             </section>
 
-            <section id="visuals" class="mt-16">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">مخططات توضيحية</h2>
-                <div class="grid md:grid-cols-2 gap-8 mt-8">
-                    <div class="card p-4 text-center space-y-4">
-                        <img src="diagram.svg" alt="Technical Diagram" class="w-full rounded-xl border">
-                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط Kanban</p>
+            <!-- Code Explanation -->
+            <section id="code" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-blue-600 pr-4">شرح الكود سطراً سطراً: TaskController</h2>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-blue-300 overflow-x-auto text-left">
+                    <p><span class="text-slate-500"><?php</span></p>
+                    <p><span class="text-slate-500">// namespace: مجلد الـ Controllers</span></p>
+                    <p><span class="text-keyword">namespace</span> App\Http\Controllers;</p>
+                    <p>&nbsp;</p>
+                    <p><span class="text-slate-500">// استيراد الكلاسات</span></p>
+                    <p><span class="text-keyword">use</span> App\Models\Task;</p>
+                    <p><span class="text-keyword">use</span> Illuminate\Http\Request;</p>
+                    <p><span class="text-keyword">use</span> Inertia\Inertia;</p>
+                    <p>&nbsp;</p>
+                    <p><span class="text-keyword">class</span> TaskController <span class="text-keyword">extends</span> Controller</p>
+                    <p>{</p>
+                    <p>&nbsp;&nbsp;<span class="text-slate-500">// index: تجلب المهام مع المشروع المرتبط</span></p>
+                    <p>&nbsp;&nbsp;<span class="text-keyword">public function</span> <span class="text-function">index</span>() {</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">// with('project') تجلب اسم المشروع لكل مهمة (Eager Loading)</span></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;$tasks = Task::<span class="text-function">with</span>(<span class="text-string">'project'</span>)-><span class="text-function">get</span>();</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-keyword">return</span> Inertia::<span class="text-function">render</span>(<span class="text-string">'Tasks/Board'</span>, [</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-string">'tasks'</span> => $tasks,</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-string">'success'</span> => session(<span class="text-string">'success'</span>),</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;]);</p>
+                    <p>&nbsp;&nbsp;}</p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;&nbsp;<span class="text-slate-500">// updateStatus: تغيير حالة المهمة</span></p>
+                    <p>&nbsp;&nbsp;<span class="text-keyword">public function</span> <span class="text-function">updateStatus</span>(Request $request, Task $task) {</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">// التحقق: status يجب أن يكون واحداً من 3 قيم فقط</span></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;$validated = $request-><span class="text-function">validate</span>([</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-string">'status'</span> => <span class="text-string">'required|in:pending,in_progress,completed'</span>,</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;]);</p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">// تحديث حقل status فقط (وليس كل الحقول)</span></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;$task-><span class="text-function">update</span>($validated);</p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">// redirect()->back() يعيد المستخدم لنفس الصفحة</span></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-keyword">return</span> <span class="text-function">redirect</span>()-><span class="text-function">back</span>()-><span class="text-function">with</span>(<span class="text-string">'success'</span>, <span class="text-string">'تم تحديث حالة المهمة'</span>);</p>
+                    <p>&nbsp;&nbsp;}</p>
+                    <p>}</p>
+                </div>
+                <p class="text-slate-600 text-sm mt-4"><code>redirect()->back()</code> مفيدة هنا لأننا نريد البقاء في نفس صفحة اللوحة بعد تحديث الحالة، وعدم التنقل لصفحة أخرى.</p>
+            </section>
+
+            <!-- Result -->
+            <section id="result" class="mt-16 p-8 rounded-3xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200">
+                <h2 class="text-2xl font-black text-blue-800 mb-4">النتيجة المتوقعة</h2>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-white rounded-2xl p-5 shadow-sm">
+                        <p class="font-black text-orange-700 mb-2">🔴 عمود "معلق"</p>
+                        <ul class="text-sm text-slate-600 space-y-1">
+                            <li>✅ المهام التي status = 'pending'</li>
+                            <li>✅ كل بطاقة تظهر عنوان المهمة.</li>
+                            <li>✅ زر "نقل → قيد التنفيذ".</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm">
+                        <p class="font-black text-blue-700 mb-2">🟡 عمود "قيد التنفيذ"</p>
+                        <ul class="text-sm text-slate-600 space-y-1">
+                            <li>✅ المهام التي status = 'in_progress'</li>
+                            <li>✅ أزرار: "→ معلقة" و "→ مكتملة".</li>
+                            <li>✅ لون خلفية أزرق فاتح.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm">
+                        <p class="font-black text-green-700 mb-2">🟢 عمود "مكتملة"</p>
+                        <ul class="text-sm text-slate-600 space-y-1">
+                            <li>✅ المهام التي status = 'completed'</li>
+                            <li>✅ زر "→ قيد التنفيذ" (للتراجع).</li>
+                            <li>✅ لون خلفية أخضر فاتح.</li>
+                        </ul>
                     </div>
                 </div>
             </section>
 
-            <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي</h2>
+            <!-- Errors -->
+            <section id="errors" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-blue-600 pr-4">❌ الأخطاء الشائعة</h2>
 
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: تقسيم البيانات في React</h3>
-                    <p class="text-slate-600 mb-4">بدلاً من عرض كل المهام في قائمة واحدة، سنقوم بفلترتها حسب الحالة.</p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left">
-                        <p>const todoTasks = tasks.filter(t => t.status === 'todo');</p>
-                        <p>const doingTasks = tasks.filter(t => t.status === 'doing');</p>
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">🚫 الخطأ 1: صفحة فارغة - لا تظهر المهام</p>
+                    <p class="text-sm text-slate-700"><strong>السبب:</strong> نسيت تمرير <code>'tasks' => $tasks</code> في Inertia::render، أو لم تستخدم <code>usePage().props</code> بشكل صحيح في React.</p>
+                    <p class="text-sm text-slate-700"><strong>الحل:</strong> تأكد من أن الـ Controller يمرر المصفوفة وأن React تقرأها من props.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">🚫 الخطأ 2: MethodNotAllowedHttpException (405)</p>
+                    <p class="text-sm text-slate-700"><strong>السبب:</strong> أرسلت طلب POST بدلاً من PATCH. أو نسيت <code>_method: 'patch'</code> في طلب Inertia.</p>
+                    <p class="text-sm text-slate-700"><strong>الحل:</strong> استخدم <code>router.patch()</code> من Inertia أو أضف <code>_method: 'patch'</code> في بيانات الطلب.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">🚫 الخطأ 3: Validation error - الحالة غير صالحة</p>
+                    <p class="text-sm text-slate-700"><strong>السبب:</strong> أرسلت status مثل 'done' أو 'finished' ولكن Laravel ينتظر pending, in_progress, completed فقط.</p>
+                    <p class="text-sm text-slate-700"><strong>الحل:</strong> استخدم القيم الصحيحة أو أضف القيمة الجديدة إلى قاعدة <code>in:</code>.</p>
+                </div>
+
+                <div class="error-box">
+                    <p class="font-black text-red-700 mb-2">🚫 الخطأ 4: Cascade delete لا يعمل - بيانات يتيمة</p>
+                    <p class="text-sm text-slate-700"><strong>السبب:</strong> نسيت <code>cascadeOnDelete()</code> عند إنشاء جدول tasks. عند حذف مشروع، تبقى مهامه عالقة.</p>
+                    <p class="text-sm text-slate-700"><strong>الحل:</strong> أضف <code>->cascadeOnDelete()</code> في migration وأعد تشغيله.</p>
+                </div>
+            </section>
+
+            <!-- Visuals -->
+            <section id="visuals" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-blue-600 pr-4">مخططات توضيحية</h2>
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="diagram.svg" alt="Kanban Diagram" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">لوحة Kanban: الأعمدة الثلاثة</p>
+                    </div>
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="visual-example.svg" alt="Visual Example" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">قبل وبعد: من القائمة العادية إلى Kanban</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section id="summary" class="mt-16 p-8 rounded-3xl bg-slate-900 text-white">
+                <h2 class="text-2xl font-black mb-4">📌 ملخص الدرس</h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <p class="font-black text-blue-400">المفاهيم الرئيسية:</p>
+                        <ul class="text-sm text-slate-300 space-y-1 mt-2">
+                            <li>✅ Kanban = لوحة بصرية لإدارة سير العمل.</li>
+                            <li>✅ 3 أعمدة: معلقة، قيد التنفيذ، مكتملة.</li>
+                            <li>✅ كل مهمة لها status في قاعدة البيانات.</li>
+                            <li>✅ تغيير الحالة = تحديث في قاعدة البيانات.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="font-black text-blue-400">الخطوات القادمة:</p>
+                        <ul class="text-sm text-slate-300 space-y-1 mt-2">
+                            <li>📌 الدرس القادم: Inertia Forms - إدارة النماذج بذكاء.</li>
+                            <li>📌 ثم: رفع الملفات والمرفقات للمهام.</li>
+                        </ul>
                     </div>
                 </div>
             </section>
 
             <div class="mt-12 flex justify-between gap-4">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-01/index.html">← الدرس السابق</a>
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-05/lesson-01/index.html">← الدرس السابق</a>
                 <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../../week-05/lesson-03/index.html">الدرس التالي: Inertia Forms ←</a>
             </div>
         </article>
     </div>
 </main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. الرؤية البصرية تجعل العمل أسهل.
+</footer>
 
 <script src="../../../assets/js/app.js"></script>
 </body>

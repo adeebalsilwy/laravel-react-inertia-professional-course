@@ -23,7 +23,7 @@
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../index.html">الرئيسية</a>
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="curriculum.html">الفهرس</a>
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="lessons.html">الدروس</a>
-            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="beginner-guide.html">دليل المبتدئ</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="beginner-guide.html">دليل الطالب</a>
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="project.html">المشروع العملي</a>
         </nav>
         <button onclick="toggleMenu()" class="md:hidden rounded-xl border border-slate-200 bg-white px-3 py-2 hover:bg-slate-50 transition-all">☰</button>
@@ -32,43 +32,87 @@
         <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="../index.html">الرئيسية</a>
         <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="curriculum.html">الفهرس</a>
         <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="lessons.html">الدروس</a>
-        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="beginner-guide.html">دليل المبتدئ</a>
+        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="beginner-guide.html">دليل الطالب</a>
         <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="project.html">المشروع العملي</a>
     </div>
 </header>
 
 <main class="mx-auto max-w-4xl px-4 py-12 md:py-20 text-right">
     <section class="text-center space-y-6">
-        <span class="badge bg-emerald-50 text-emerald-700 font-bold px-4 py-2 rounded-full">دليلك للنجاح</span>
-        <h1 class="text-4xl md:text-5xl font-black text-slate-900 leading-tight">أهلاً بك في رحلة التعلم <br><span class="text-indigo-600">خطوة بخطوة</span></h1>
-        <p class="text-lg text-slate-600 leading-relaxed">
-            البرمجة ليست صعبة إذا تعلمتها بالطريقة الصحيحة. هذا الدليل سيشرح لك كيف تستفيد من كل درس وتطور مهاراتك بسرعة وثقة.
+        <span class="px-4 py-2 rounded-full bg-emerald-50 text-emerald-700 font-bold text-sm">دليلك للنجاح في هذه الدورة</span>
+        <h1 class="text-4xl md:text-5xl font-black text-slate-900 leading-tight">أهلاً بك في رحلة التعلم</h1>
+        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+            هذه الدورة مصممة خصيصاً للمبتدئين الذين ليس لديهم أي خبرة سابقة في Laravel أو React أو Inertia أو Tailwind. سنأخذ بيدك خطوة بخطوة حتى تصبح مطور تطبيقات ويب قادراً على بناء مشاريع حقيقية.
         </p>
     </section>
 
     <div class="mt-16 space-y-12">
-        <!-- How to study -->
+
+        <!-- How this course works -->
         <section class="card p-8 md:p-10 space-y-6 shadow-sm">
-            <h2 class="text-2xl font-black border-r-4 border-indigo-600 pr-4">كيف تدرس كل درس؟</h2>
+            <h2 class="text-2xl font-black border-r-4 border-indigo-600 pr-4">كيف تعمل هذه الدورة؟</h2>
             <div class="space-y-6 text-slate-600 leading-relaxed">
-                <p>كل درس في الأكاديمية منظم ليقدم لك تجربة تعليمية متكاملة. نوصيك باتباع هذا الترتيب:</p>
+                <p>هذه الدورة ليست مجرد فيديوهات أو مقالات نظرية. كل درس في FlowPilot Academy مبني ليعطيك تجربة تعليمية متكاملة. إليك كيف تستفيد من كل درس:</p>
                 <div class="grid md:grid-cols-2 gap-4">
                     <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-                        <h4 class="font-black text-slate-900 mb-2">1. الشرح النظري والمثال</h4>
-                        <p class="text-sm">ابدأ بفهم "لماذا" نستخدم هذا المفهوم وكيف يشبه الأشياء في حياتنا اليومية.</p>
+                        <h4 class="font-black text-slate-900 mb-2">1. اقرأ الشرح النظري والمثال</h4>
+                        <p class="text-sm">كل درس يبدأ بشرح المفهوم بلغة بسيطة مع مثال من الحياة اليومية. خذ وقتك في فهم لماذا نستخدم هذا المفهوم قبل أن تنتقل للكود.</p>
                     </div>
                     <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-                        <h4 class="font-black text-slate-900 mb-2">2. التطبيق العملي</h4>
-                        <p class="text-sm">افتح محرر الأكواد وطبق الخطوات بنفسك. لا تكتفِ بالقراءة، البرمجة مهارة عملية.</p>
+                        <h4 class="font-black text-slate-900 mb-2">2. طبق الخطوات العملية بنفسك</h4>
+                        <p class="text-sm">افتح محرر الأكواد (VS Code) وشغّل Terminal. اقرأ كل خطوة، افهمها، ثم اطبقها. لا تنسخ والصق - اكتب الكود بنفسك لتتعلم.</p>
                     </div>
                     <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-                        <h4 class="font-black text-slate-900 mb-2">3. الواجب المنزلي</h4>
-                        <p class="text-sm">حل الواجب لتتأكد من قدرتك على تنفيذ ما تعلمته بشكل مستقل وبناء جزء من مشروعك.</p>
+                        <h4 class="font-black text-slate-900 mb-2">3. حل الواجب</h4>
+                        <p class="text-sm">الواجب يختبر قدرتك على تطبيق ما تعلمته بشكل مستقل. حاول حل الواجب قبل أن تنظر لأي مساعدة. الأخطاء جزء من التعلم.</p>
                     </div>
                     <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-                        <h4 class="font-black text-slate-900 mb-2">4. الكويز التفاعلي</h4>
-                        <p class="text-sm">اختبر فهمك للمصطلحات والمفاهيم التقنية من خلال الأسئلة السريعة بنهاية كل درس.</p>
+                        <h4 class="font-black text-slate-900 mb-2">4. اختبر فهمك بالكويز</h4>
+                        <p class="text-sm">الكويز يقيس فهمك للمفاهيم الأساسية. لا تقلق من الدرجة - الهدف هو أن تحدد نقاط ضعفك قبل الانتقال للدرس التالي.</p>
                     </div>
+                </div>
+                <div class="p-6 rounded-2xl bg-indigo-50 border border-indigo-100">
+                    <h4 class="font-black text-indigo-900 mb-2">نصيحة مهمة</h4>
+                    <p class="text-sm text-indigo-800">لا تتخطى أي درس و لا تنتقل للدرس التالي إلا بعد إتمام الواجب والكويز. كل درس يبني على الذي قبله في مشروع FlowPilot.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Start -->
+        <section class="card p-8 md:p-10 space-y-6 shadow-sm">
+            <h2 class="text-2xl font-black border-r-4 border-indigo-600 pr-4">كيف تبدأ من الصفر؟</h2>
+            <div class="space-y-4 text-slate-600 leading-relaxed">
+                <p>إذا كنت مبتدئاً تماماً، اتبع هذه الخطوات بالترتيب:</p>
+                <ol class="space-y-4 pr-6 list-decimal">
+                    <li><strong>اقرأ صفحة المشروع العملي</strong> أولاً لتفهم ما الذي ستبنيه خلال الدورة.</li>
+                    <li><strong>اطلع على الفهرس</strong> لترى خريطة الـ 8 أسابيع.</li>
+                    <li><strong>ابدأ من الدرس الأول</strong> في الأسبوع الأول. لا تقفز إلى دروس متقدمة.</li>
+                    <li>لكل درس، اقرأ المقدمة، ثم الشرح النظري، ثم طبق الخطوات العملية.</li>
+                    <li>بعد التطبيق، حل الواجب واختبر نفسك بالكويز.</li>
+                    <li>قبل الانتقال للدرس التالي، تأكد أن مشروع FlowPilot يعمل عندك بشكل صحيح.</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Tools You Need -->
+        <section class="card p-8 md:p-10 space-y-6 shadow-sm">
+            <h2 class="text-2xl font-black border-r-4 border-indigo-600 pr-4">ماذا تحتاج قبل البدء؟</h2>
+            <div class="grid md:grid-cols-2 gap-4 text-slate-600">
+                <div class="p-4 rounded-2xl bg-slate-50 border">
+                    <h4 class="font-black text-slate-900">💻 جهاز كمبيوتر</h4>
+                    <p class="text-sm mt-1">ويندوز أو ماك أو لينكس - كلها مناسبة. الأهم هو أن يكون لديك 8GB RAM على الأقل ومساحة كافية.</p>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50 border">
+                    <h4 class="font-black text-slate-900">🌐 اتصال بالإنترنت</h4>
+                    <p class="text-sm mt-1">لتحميل الأدوات والمكتبات. أغلب العمل يتم على جهازك المحلي، لكن التحميلات تحتاج إنترنت.</p>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50 border">
+                    <h4 class="font-black text-slate-900">📝 محرر أكواد</h4>
+                    <p class="text-sm mt-1">سنستخدم VS Code (Visual Studio Code) لأنه مجاني وأكثر محرر استخداماً بين مطوري Laravel و React.</p>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50 border">
+                    <h4 class="font-black text-slate-900">🧠 رغبة في التعلم</h4>
+                    <p class="text-sm mt-1">الأهم من كل شيء. البرمجة مثل أي مهارة جديدة - تحتاج صبراً وتكراراً. لا تستسلم عند أول خطأ.</p>
                 </div>
             </div>
         </section>
@@ -77,13 +121,67 @@
         <section class="card p-8 md:p-10 space-y-6 shadow-sm bg-amber-50 border-amber-200">
             <h2 class="text-2xl font-black border-r-4 border-amber-600 pr-4 text-amber-900">ماذا تفعل عند ظهور خطأ؟</h2>
             <div class="text-amber-800 leading-relaxed space-y-4">
-                <p>ظهور الأخطاء (Bugs) هو أمر طبيعي جداً بل هو وسيلة للتعلم. إذا واجهت خطأ:</p>
-                <ul class="list-disc pr-6 space-y-2">
-                    <li>اقرأ رسالة الخطأ جيداً؛ فهي غالباً تخبرك بالسطر والملف الذي تسبب في المشكلة.</li>
-                    <li>تأكد من تشغيل الأوامر المطلوبة (مثل php artisan serve و npm run dev).</li>
-                    <li>راجع قسم "الأخطاء الشائعة" في نهاية كل درس.</li>
-                    <li>لا تتردد في سؤال مدربك أو زملائك في القاعة التدريبية.</li>
-                </ul>
+                <p>ظهور الأخطاء (Bugs) هو جزء طبيعي جداً من رحلة تعلم البرمجة. في الواقع، المبرمجون المحترفون يقضون وقتاً طويلاً في قراءة وإصلاح الأخطاء. إذا واجهت خطأ:</p>
+                <ol class="space-y-3 pr-6 list-decimal">
+                    <li><strong>اقرأ رسالة الخطأ كاملة.</strong> لا تخف من النص الإنجليزي. رسالة الخطأ تخبرك بالمكان (اسم الملف ورقم السطر) ونوع المشكلة.</li>
+                    <li><strong>تأكد من تشغيل الخوادم.</strong> أغلب أخطاء المبتدئين سببها نسيان تشغيل <code>php artisan serve</code> أو <code>npm run dev</code>.</li>
+                    <li><strong>راجع قسم الأخطاء الشائعة</strong> في نهاية كل درس. غالباً ما يكون خطأك مذكوراً هناك مع الحل.</li>
+                    <li><strong>تأكد من كتابة الكود تماماً كما في الدرس.</strong> نقطة أو فاصلة منقوصة ناقصة قد تسبب الخطأ.</li>
+                    <li><strong>اسأل مدربك أو زملائك.</strong> لا تتردد في طلب المساعدة. التعلم الجماعي أسرع وأمتع.</li>
+                </ol>
+                <div class="p-4 bg-amber-100 rounded-xl text-amber-900 text-sm font-bold">
+                    تذكر: كل خطأ تصلحه يجعلك مبرمجاً أفضل. المبرمج الذي لم يرَ خطأً قط لم يبرمج حقيقةً.
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Read Code -->
+        <section class="card p-8 md:p-10 space-y-6 shadow-sm">
+            <h2 class="text-2xl font-black border-r-4 border-indigo-600 pr-4">كيف تقرأ الكود في هذه الدورة؟</h2>
+            <div class="text-slate-600 leading-relaxed space-y-4">
+                <p>في كل درس ستجد أكواداً مكتوبة في صناديق داكنة. هذه الأكواد مقسمة إلى ثلاثة أنواع:</p>
+                <div class="space-y-3">
+                    <div class="p-4 rounded-2xl bg-slate-100">
+                        <h4 class="font-black text-indigo-700">🟣 أكواد PHP / Laravel</h4>
+                        <p class="text-sm">هذه هي أكواد الجزء الخلفي. ستجدها في ملفات مثل routes/web.php أو app/Http/Controllers. غالباً ما تكون باللون الأرجواني في صناديق الكود.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-100">
+                        <h4 class="font-black text-emerald-700">🟢 أكواد JavaScript / React</h4>
+                        <p class="text-sm">هذه أكواد الواجهة. ستجدها في ملفات مثل resources/js/Pages/...jsx. تظهر غالباً باللون الأخضر في صناديق الكود.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-100">
+                        <h4 class="font-black text-sky-700">🔵 أوامر Terminal</h4>
+                        <p class="text-sm">هذه أوامر تكتبها في شاشة الأوامر (Terminal). تبدأ غالباً بـ php artisan أو npm أو composer. تظهر باللون الأزرق السماوي.</p>
+                    </div>
+                </div>
+                <p>كل كود في هذه الدورة يتم شرحه. لا تنتقل إلى الكود التالي إلا بعد فهم الكود الحالي. استخدم زر النسخ (Copy) الموجود بجانب كل كود إذا أردت.</p>
+            </div>
+        </section>
+
+        <!-- Project Flow -->
+        <section class="card p-8 md:p-10 space-y-6 shadow-sm">
+            <h2 class="text-2xl font-black border-r-4 border-indigo-600 pr-4">كيف سيتطور مشروع FlowPilot؟</h2>
+            <div class="space-y-6 text-slate-600 leading-relaxed">
+                <p>مشروع FlowPilot ليس مثالاً منفصلاً. إنه مشروع حقيقي ينمو معك أسبوعاً بعد أسبوع. إليك كيف سيتطور:</p>
+                <div class="grid md:grid-cols-4 gap-3 text-center text-sm">
+                    <div class="p-4 rounded-2xl bg-indigo-50 text-indigo-800 font-bold">
+                        <div class="text-2xl">1</div>
+                        <div>هيكل فارغ + أدوات</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-emerald-50 text-emerald-800 font-bold">
+                        <div class="text-2xl">2</div>
+                        <div>صفحات + تنقل</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-amber-50 text-amber-800 font-bold">
+                        <div class="text-2xl">3-6</div>
+                        <div>بيانات + ميزات</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-rose-50 text-rose-800 font-bold">
+                        <div class="text-2xl">7-8</div>
+                        <div>اختبارات + نشر</div>
+                    </div>
+                </div>
+                <p>في الأسبوع الأول والثاني تبني الهيكل الأساسي. في الأسبوع الثالث والرابع تضيف قاعدة البيانات والمصادقة. من الأسبوع الخامس للسادس تضيف الميزات القوية مثل CRUD والبحث والتنبيهات. في الأسبوع السابع والثالث تختمر وتنشر المشروع.</p>
             </div>
         </section>
 
@@ -92,32 +190,68 @@
             <h2 class="text-2xl font-black border-r-4 border-indigo-600 pr-4">نصائح ذهبية للمبتدئين</h2>
             <div class="space-y-6">
                 <div class="flex gap-4">
-                    <div class="text-2xl">🌱</div>
+                    <div class="flex-none w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-xl font-black">1</div>
                     <div>
-                        <h4 class="font-black text-slate-900">افهم لا تحفظ</h4>
-                        <p class="text-sm text-slate-500">لا تحاول حفظ الأكواد؛ فالمبرمج المحترف يبحث دائماً عن الطريقة الصحيحة. المهم هو فهم المنطق وراء كل خطوة.</p>
+                        <h4 class="font-black text-slate-900">افهم، لا تحفظ</h4>
+                        <p class="text-sm text-slate-500">المبرمج المحترف لا يحفظ الأكواد. هو يفهم المنطق ويعرف أين يبحث عن الحل. ركز على فهم لماذا يعمل الكود بهذه الطريقة، وليس على حفظ سطوره.</p>
                     </div>
                 </div>
                 <div class="flex gap-4">
-                    <div class="text-2xl">🐢</div>
+                    <div class="flex-none w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl font-black">2</div>
                     <div>
                         <h4 class="font-black text-slate-900">الاستمرارية أهم من السرعة</h4>
-                        <p class="text-sm text-slate-500">من الأفضل أن تدرس ساعة واحدة يومياً بانتظام بدلاً من الدراسة لـ 10 ساعات متواصلة في يوم واحد ثم التوقف.</p>
+                        <p class="text-sm text-slate-500">من الأفضل أن تدرس ساعة واحدة يومياً بانتظام بدلاً من 10 ساعات في يوم واحد ثم التوقف لأسبوع. العقل يتعلم تدريجياً وباستمرار.</p>
                     </div>
                 </div>
                 <div class="flex gap-4">
-                    <div class="text-2xl">🤝</div>
+                    <div class="flex-none w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-xl font-black">3</div>
                     <div>
-                        <h4 class="font-black text-slate-900">طبق في مشروعك الخاص</h4>
-                        <p class="text-sm text-slate-500">بجانب مشروع FlowPilot، حاول تطبيق ما تتعلمه في فكرة مشروع صغيرة تهمك أنت.</p>
+                        <h4 class="font-black text-slate-900">الأخطاء هي معلمك الأفضل</h4>
+                        <p class="text-sm text-slate-500">كل خطأ تصلحه يثبت المعلومة في ذهنك بشكل أقوى. لا تخف من الأخطاء، بل اعتبرها فرصة للتعلم. المبرمج المحترف هو من يعرف كيف يصلح أخطاءه.</p>
                     </div>
                 </div>
+                <div class="flex gap-4">
+                    <div class="flex-none w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl font-black">4</div>
+                    <div>
+                        <h4 class="font-black text-slate-900">لا تقارن نفسك بالآخرين</h4>
+                        <p class="text-sm text-slate-500">كل شخص يتعلم بوتيرته الخاصة. ركز على تقدمك أنت. قارن نفسك اليوم بنفسك الأسبوع الماضي، وسترى الفرق.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="flex-none w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl font-black">5</div>
+                    <div>
+                        <h4 class="font-black text-slate-900">طبق خارج الدورة أيضاً</h4>
+                        <p class="text-sm text-slate-500">بجانب مشروع FlowPilot، حاول تطبيق ما تتعلمه على فكرة مشروع صغيرة خاصة بك. حتى لو كان تطبيقاً بسيطاً، فالتطبيق على فكرة جديدة يثبت فهمك.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="flex-none w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl font-black">6</div>
+                    <div>
+                        <h4 class="font-black text-slate-900">تعلم قراءة الوثائق الرسمية</h4>
+                        <p class="text-sm text-slate-500">الدورة تعطيك الأساس، لكن المبرمج المحترف يعرف كيف يقرأ الوثائق الرسمية (Documentation) لـ Laravel و React. حاول مع الوقت أن تعتاد على قراءة الوثائق.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What you will NOT learn -->
+        <section class="card p-8 md:p-10 space-y-6 shadow-sm bg-slate-900 text-white">
+            <h2 class="text-2xl font-black border-r-4 border-indigo-400 pr-4">ما الذي لن تتعلمه في هذه الدورة (ولماذا)؟</h2>
+            <div class="space-y-4 text-slate-300 leading-relaxed">
+                <p>هذه الدورة تركز على Laravel 12 + React + Inertia + Tailwind CSS. هناك مواضيع لن نغطيها:</p>
+                <ul class="space-y-2 pr-6 list-disc">
+                    <li><strong>PHP من الصفر:</strong> سنشرح أساسيات PHP أثناء العمل لكن الدورة ليست دورة PHP كاملة.</li>
+                    <li><strong>JavaScript ES6+ بالتفصيل:</strong> سنستخدم React لكننا لا ندرس JavaScript من الصفر بالتفصيل.</li>
+                    <li><strong>Livewire أو Alpine.js:</strong> نركز على React فقط.</li>
+                    <li><strong>Docker أو DevOps متقدم:</strong> سنستخدم نشراً بسيطاً مناسباً للمبتدئين.</li>
+                </ul>
+                <p class="text-sm text-indigo-400 mt-4">لا تقلق - سنشرح كل ما تحتاجه لفهم الكود الذي نكتبه. لن تفاجأ بأي مصطلح بدون شرح.</p>
             </div>
         </section>
     </div>
 
     <div class="mt-16 text-center">
-        <a href="curriculum.html" class="inline-block rounded-2xl bg-indigo-600 px-10 py-4 text-white font-black text-lg shadow-xl shadow-indigo-200 hover:bg-indigo-700 transition-all">
+        <a href="curriculum.html" class="inline-block rounded-2xl bg-indigo-600 px-10 py-4 text-white font-black text-lg shadow-xl shadow-indigo-200 hover:bg-indigo-700 hover:-translate-y-1 transition-all">
             أنا جاهز، لنبدأ بالدروس!
         </a>
     </div>
@@ -125,7 +259,7 @@
 
 <footer class="mt-24 border-t bg-white">
     <div class="mx-auto max-w-7xl px-4 py-12 text-center text-slate-500 font-medium">
-        © 2025 FlowPilot Academy. رحلتك نحو الاحتراف تبدأ بقرار.
+        <p>© 2025 FlowPilot Academy. رحلتك نحو الاحتراف تبدأ بقرار. ابدأ اليوم.</p>
     </div>
 </footer>
 

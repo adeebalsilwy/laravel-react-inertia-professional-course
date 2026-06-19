@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 21: Laravel API Resources وتنظيم البيانات</title>
+    <title>الدرس 21: API Resources وتنظيم البيانات | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,9 +13,15 @@
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
         .step-card { border-right: 4px solid #4f46e5; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .error-card { border-right: 4px solid #ef4444; padding-right: 1.5rem; margin-bottom: 1.5rem; background: #fef2f2; border-radius: 1rem; padding: 1rem 1.5rem; }
+        .code-line { display: block; padding: 0.125rem 0; }
+        .code-comment { color: #6b7280; }
+        .code-keyword { color: #818cf8; }
+        .code-string { color: #34d399; }
+        .code-function { color: #fbbf24; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
@@ -29,10 +35,15 @@
             <div class="sidebar-sticky space-y-4">
                 <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع السادس</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم الـ API Resource</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">تنظيف البيانات</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال الفلتر</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">ما هو API Resource؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">لماذا ننظف البيانات؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#analogy">التشبيه الواقعي</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">الربط مع FlowPilot</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#steps">5 خطوات تطبيقية</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#explain">شرح الكود</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#result">النتيجة المتوقعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">الأخطاء الشائعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#diagrams">الرسوم البيانية</a>
                 </div>
             </div>
         </aside>
@@ -40,73 +51,262 @@
         <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm">
             <section class="border-b pb-8 mb-12">
                 <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 6 · الدرس 1</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">API Resources: كيف نرسل البيانات للواجهة بذكاء؟</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"لا ترسل كل شيء؛ أرسل فقط ما تحتاجه الواجهة لتبدو منظمة وسريعة."</p>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">API Resources: كيف ننظم البيانات قبل إرسالها للواجهة؟</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"لا ترسل كل شيء من قاعدة البيانات؛ أرسل فقط ما تحتاجه الواجهة. السر في <strong>API Resources</strong>."</p>
             </section>
 
             <section id="intro" class="space-y-4">
                 <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هو الـ API Resource؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    قاعدة البيانات تحتوي على معلومات كثيرة قد لا نحتاجها في الواجهة (مثل <code>updated_at</code> أو <code>password</code>). الـ <strong>API Resource</strong> هو طبقة تنظيمية تسمح لنا باختيار "ماذا" نرسل و "كيف" يظهر شكله في React.
+                    الـ <strong>API Resource</strong> (مورد واجهة البرمجة) هو طبقة (Layer) موجودة بين قاعدة البيانات وواجهة المستخدم. وظيفتها <strong>تحويل</strong> شكل البيانات (Transformation) قبل إرسالها.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    في FlowPilot، سنستخدمه لنتأكد من أن بيانات المشاريع والمهام تصل للواجهة بتنسيق موحد وجميل، مما يسهل عملنا في React.
+                    ببساطة: بدلاً من إرسال كل أعمدة جدول قاعدة البيانات (Table columns) إلى React، نمرر البيانات عبر Resource ليختار فقط الحقول التي نحتاجها، ويعيد تسميتها إن لزم الأمر، ويضيف حقولاً محسوبة.
                 </p>
-            </section>
-
-            <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">لماذا ننظف البيانات؟</h2>
-                <div class="space-y-4 text-slate-600 leading-relaxed">
-                    <ul class="list-disc pr-6 space-y-2">
-                        <li><strong>الأمان:</strong> منع تسريب بيانات حساسة بالخطأ.</li>
-                        <li><strong>الأداء:</strong> تقليل حجم البيانات المرسلة عبر الإنترنت.</li>
-                        <li><strong>التوحيد:</strong> جعل أسماء الحقول واضحة (مثلاً تغيير <code>is_active</code> إلى <code>status</code>).</li>
+                <div class="bg-indigo-50 rounded-2xl p-6 mt-4">
+                    <p class="font-bold text-indigo-800">📌 المصطلحات المهمة للمبتدئ:</p>
+                    <ul class="list-disc pr-6 mt-2 space-y-1 text-indigo-700">
+                        <li><strong>API Resource</strong>: كلاس (Class) في Laravel يتحكم بشكل البيانات.</li>
+                        <li><strong>toArray()</strong>: دالة (Method) داخل الـ Resource تحدد الحقول التي سترسل.</li>
+                        <li><strong>Collection Resource</strong>: نسخة مخصصة لإرسال قائمة (قائمة مشاريع مثلاً).</li>
+                        <li><strong>Conditional Attribute</strong>: حقل يُرسَل فقط إذا تحقق شرط معين.</li>
                     </ul>
                 </div>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
-                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (فلتر المياه)</h2>
-                <p class="text-indigo-50 leading-relaxed text-lg">
-                    تخيل قاعدة البيانات هي "خزان مياه" كبير يحتوي على شوائب وأملاح. الـ <strong>API Resource</strong> هو "الفلتر". 
-                    <br><br>
-                    أنت لا تريد شرب الماء مباشرة من الخزان؛ بل تمرره عبر الفلتر ليخرج لك ماءً نقياً وصالحاً للشرب (الاستخدام في الواجهة).
-                </p>
+            <section id="theory" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">لماذا نحتاج لتنظيف البيانات؟</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <p>تخيل أن جدول <code>projects</code> يحتوي على 15 عموداً (Column). هل تحتاج واجهة React إلى كل هذه الأعمدة؟ بالطبع لا! إليك الأسباب:</p>
+                    <ul class="list-disc pr-6 space-y-3 mt-4">
+                        <li><strong>الأمان (Security):</strong> قد يحتوي الجدول على <code>password</code> أو <code>is_admin</code> أو <code>internal_code</code>. إرسال هذه البيانات للواجهة يعرض النظام لخطر تسريب المعلومات.</li>
+                        <li><strong>الأداء (Performance):</strong> كلما زاد حجم البيانات المرسلة، زاد وقت التحميل. تقليل الحقول يسرّع الاستجابة.</li>
+                        <li><strong>التوحيد (Consistency):</strong> يمكنك تغيير اسم الحقل من <code>is_active</code> إلى <code>status</code> ليكون أوضح لمطوري الواجهة.</li>
+                        <li><strong>التحكم (Control):</strong> يمكنك إضافة حقول محسوبة (Computed fields) مثل <code>tasks_count</code> التي لا توجد في قاعدة البيانات لكنها مفيدة للواجهة.</li>
+                    </ul>
+                </div>
             </section>
 
-            <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي</h2>
+            <section id="analogy" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">🧪 تشبيه واقعي: فلتر تنقية المياه</h2>
+                <p class="text-indigo-50 leading-relaxed text-lg">
+                    تخيل أن قاعدة البيانات هي <strong>خزان مياه</strong> كبير. الماء فيه غير نقي ويحتوي على شوائب (بيانات غير مرغوب فيها).
+                    <br><br>
+                    الـ <strong>API Resource</strong> هو <strong>فلتر (Filter)</strong> متصل بالخزان. عندما تريد شرب الماء (عرض البيانات في React)، يمر الماء عبر الفلتر ويخرج لك نقياً وصافياً.
+                    <br><br>
+                    <strong>الخلاصة:</strong> الفلتر يزيل الشوائب ويحسّن الجودة. الـ Resource يفعل نفس الشيء مع البيانات!</p>
+            </section>
+
+            <section id="flowpilot" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">🔗 الربط مع FlowPilot</h2>
+                <div class="bg-gradient-to-l from-indigo-50 to-white rounded-2xl p-6">
+                    <p class="text-slate-700 leading-relaxed">
+                        في تطبيق FlowPilot، لدينا موديلين رئيسيين: <code>Project</code> و <code>Task</code>. عند إرسال بياناتهما إلى واجهة React، نريد:
+                    </p>
+                    <ul class="list-disc pr-6 mt-3 space-y-2 text-slate-600">
+                        <li>إرسال <code>id</code> و <code>name</code> و <code>status</code> فقط من المشروع، وليس كل الحقول.</li>
+                        <li>إضافة عدد المهام (<code>tasks_count</code>) لكل مشروع.</li>
+                        <li>للمهام: إرسال <code>title</code> و <code>assigned_to</code> (اسم المستخدم وليس ID).</li>
+                        <li>إخفاء الحساسية مثل <code>created_by</code> الداخلي.</li>
+                    </ul>
+                    <p class="mt-4 font-bold text-indigo-700">لهذا سننشئ ProjectResource و TaskResource!</p>
+                </div>
+            </section>
+
+            <section id="steps" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">🛠 5 خطوات تطبيقية عملية</h2>
 
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء Resource للمشروع</h3>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
-                        <p>php artisan make:resource ProjectResource</p>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء ProjectResource</h3>
+                    <p class="text-slate-500 text-sm mb-3">نستخدم أمر Artisan لإنشاء ملف الـ Resource:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                        <p class="code-line"><span class="text-indigo-400">$</span> php artisan make:resource ProjectResource</p>
                     </div>
+                    <p class="text-slate-600"><strong>الشرح:</strong> هذا الأمر ينشئ ملفاً جديداً في المسار <code>app/Http/Resources/ProjectResource.php</code>. هذا الملف هو "الفلتر" الخاص بمشاريعنا.</p>
                 </div>
 
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تحديد البيانات المرسلة</h3>
-                    <p class="mb-4">داخل ملف <code>app/Http/Resources/ProjectResource.php</code>:</p>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تعريف الحقول في toArray()</h3>
+                    <p class="text-slate-500 text-sm mb-3">نفتح الملف ونكتب الحقول التي نريد إرسالها:</p>
                     <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
-                        <p>return [</p>
-                        <p>&nbsp;&nbsp;'id' => $this->id,</p>
-                        <p>&nbsp;&nbsp;'name' => $this->name,</p>
-                        <p>&nbsp;&nbsp;'tasks_count' => $this->tasks()->count(),</p>
-                        <p>];</p>
+                        <p class="code-line"><span class="text-slate-500">// app/Http/Resources/ProjectResource.php</span></p>
+                        <p class="code-line"><span class="text-indigo-400">public function</span> <span class="text-yellow-300">toArray</span>(<span class="text-sky-300">Request</span> $request): array</p>
+                        <p class="code-line">{</p>
+                        <p class="code-line">  <span class="text-indigo-400">return</span> [</p>
+                        <p class="code-line">    <span class="text-sky-300">'id'</span> => $this->id,</p>
+                        <p class="code-line">    <span class="text-sky-300">'name'</span> => $this->name,</p>
+                        <p class="code-line">    <span class="text-sky-300">'status'</span> => $this->status,</p>
+                        <p class="code-line">    <span class="text-sky-300">'tasks_count'</span> => $this->tasks()->count(),</p>
+                        <p class="code-line">    <span class="text-sky-300">'created_at'</span> => $this->created_at->format(<span class="text-emerald-400">'Y-m-d'</span>),</p>
+                        <p class="code-line">  ];</p>
+                        <p class="code-line">}</p>
+                    </div>
+                    <p class="text-slate-600"><strong>الشرح:</strong> <code>$this</code> يشير إلى الموديل (Project). <code>tasks_count</code> هو حقل محسوب ليس موجوداً في قاعدة البيانات - نستخدم <code>->count()</code> لحسابه أثناء الإرسال. ننسق التاريخ ليكون مقروءاً.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: إنشاء TaskResource</h3>
+                    <p class="text-slate-500 text-sm mb-3">ننشئ Resource للمهام ونربطه بالمستخدم:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto mb-4 text-left">
+                        <p class="code-line"><span class="text-indigo-400">$</span> php artisan make:resource TaskResource</p>
+                    </div>
+                    <p class="text-slate-500 text-sm mb-3">ثم في toArray():</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <p class="code-line"><span class="text-indigo-400">public function</span> <span class="text-yellow-300">toArray</span>(<span class="text-sky-300">Request</span> $request): array</p>
+                        <p class="code-line">{</p>
+                        <p class="code-line">  <span class="text-indigo-400">return</span> [</p>
+                        <p class="code-line">    <span class="text-sky-300">'id'</span> => $this->id,</p>
+                        <p class="code-line">    <span class="text-sky-300">'title'</span> => $this->title,</p>
+                        <p class="code-line">    <span class="text-sky-300">'status'</span> => $this->status,</p>
+                        <p class="code-line">    <span class="text-sky-300">'assigned_to'</span> => <span class="text-indigo-400">new</span> UserResource($this->assignedUser),</p>
+                        <p class="code-line">    <span class="text-sky-300">'due_date'</span> => $this->due_date?->format(<span class="text-emerald-400">'Y-m-d'</span>),</p>
+                        <p class="code-line">  ];</p>
+                        <p class="code-line">}</p>
+                    </div>
+                    <p class="text-slate-600"><strong>الشرح:</strong> نستخدم <code>new UserResource(...)</code> لتغليف بيانات المستخدم المُسنَد إليه المهمة. علامة <code>?</code> بعد <code>$this->due_date</code> تعني "إذا كان موجوداً" (تجنب الخطأ لو كان فارغاً).</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: استخدام الـ Resource في الـ Controller</h3>
+                    <p class="text-slate-500 text-sm mb-3">في <code>ProjectController</code>، نغلف البيانات قبل إرسالها لـ Inertia:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <p class="code-line"><span class="text-slate-500">// app/Http/Controllers/ProjectController.php</span></p>
+                        <p class="code-line"><span class="text-indigo-400">use</span> App\Http\Resources\ProjectResource;</p>
+                        <p class="code-line"> </p>
+                        <p class="code-line"><span class="text-indigo-400">public function</span> <span class="text-yellow-300">index</span>()</p>
+                        <p class="code-line">{</p>
+                        <p class="code-line">  $projects = Project::paginate(10);</p>
+                        <p class="code-line">  <span class="text-indigo-400">return</span> <span class="text-yellow-300">Inertia::render</span>(<span class="text-emerald-400">'Projects/Index'</span>, [</p>
+                        <p class="code-line">    <span class="text-sky-300">'projects'</span> => ProjectResource::collection($projects),</p>
+                        <p class="code-line">  ]);</p>
+                        <p class="code-line">}</p>
+                    </div>
+                    <p class="text-slate-600"><strong>الشرح:</strong> <code>ProjectResource::collection()</code> يطبق الـ Resource على كل مشروع في القائمة. <code>paginate(10)</code> يجلب 10 مشاريع فقط مع معلومات الصفحات.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: إضافة خصائص شرطية (Conditional Attributes)</h3>
+                    <p class="text-slate-500 text-sm mb-3">أحياناً نريد إرسال حقل فقط إذا كان المستخدم هو المدير:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <p class="code-line"><span class="text-indigo-400">public function</span> <span class="text-yellow-300">toArray</span>(<span class="text-sky-300">Request</span> $request): array</p>
+                        <p class="code-line">{</p>
+                        <p class="code-line">  <span class="text-indigo-400">return</span> [</p>
+                        <p class="code-line">    <span class="text-sky-300">'id'</span> => $this->id,</p>
+                        <p class="code-line">    <span class="text-sky-300">'name'</span> => $this->name,</p>
+                        <p class="code-line">    <span class="text-sky-300">'status'</span> => $this->status,</p>
+                        <p class="code-line">    <span class="text-sky-300">'internal_notes'</span> => <span class="text-indigo-400">$this->when</span>(</p>
+                        <p class="code-line">      $request->user()?->is_admin,</p>
+                        <p class="code-line">      $this->internal_notes</p>
+                        <p class="code-line">    ),</p>
+                        <p class="code-line">  ];</p>
+                        <p class="code-line">}</p>
+                    </div>
+                    <p class="text-slate-600"><strong>الشرح:</strong> <code>$this->when(شرط, قيمة)</code> ترسل الحقل فقط إذا تحقق الشرط. هنا، <code>internal_notes</code> ترسل فقط لو كان المستخدم مديراً (<code>is_admin == true</code>). هذا يعزز الأمان.</p>
+                </div>
+            </section>
+
+            <section id="explain" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">🔍 شرح الكود سطراً سطراً</h2>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm overflow-x-auto text-right">
+                    <p class="code-line text-white"><span class="text-slate-400">// 1️⃣</span> نستخدم الكلمة المفتاحية <span class="text-yellow-300">class</span> لتعريف كلاس جديد</p>
+                    <p class="code-line text-white"><span class="text-slate-400">// 2️⃣</span> <span class="text-indigo-400">extends JsonResource</span> يعني هذا الكlass يرث خصائص JsonResource</p>
+                    <p class="code-line text-white"><span class="text-slate-400">// 3️⃣</span> <span class="text-yellow-300">toArray()</span> هي الدالة التي تحدد ماذا نرسل</p>
+                    <p class="code-line text-white"><span class="text-slate-400">// 4️⃣</span> <span class="text-sky-300">$this->id</span> السهم <span class="text-yellow-300">-></span> يعني "خاص بـ" - نصل لحقل id من الموديل</p>
+                    <p class="code-line text-white"><span class="text-slate-400">// 5️⃣</span> <span class="text-sky-300">'name' => $this->name</span> المفتاح (key) في JSON هو 'name' وقيمته من قاعدة البيانات</p>
+                    <p class="code-line text-white"><span class="text-slate-400">// 6️⃣</span> <span class="text-indigo-400">::collection()</span> النقطتين المزدوجتين تعني "استدعاء دالة ثابتة من الكلاس"</p>
+                    <p class="code-line text-white"><span class="text-slate-400">// 7️⃣</span> <span class="text-indigo-400">$this->when()</span> دالة ذكية: ترسل الحقل فقط إذا تحقق الشرط</p>
+                </div>
+            </section>
+
+            <section id="result" class="mt-16 p-8 rounded-3xl bg-emerald-50 border border-emerald-200">
+                <h2 class="text-2xl font-black text-slate-900 mb-4">✅ النتيجة المتوقعة</h2>
+                <p class="text-slate-600 mb-4">بعد تطبيق الـ Resource، عندما تفتح صفحة المشاريع في React، ستصل البيانات بهذا الشكل:</p>
+                <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left">
+                    <p class="code-line">{</p>
+                    <p class="code-line">  <span class="text-sky-300">"data"</span>: [</p>
+                    <p class="code-line">    {</p>
+                    <p class="code-line">      <span class="text-sky-300">"id"</span>: 1,</p>
+                    <p class="code-line">      <span class="text-sky-300">"name"</span>: <span class="text-emerald-400">"مشروع تصميم الموقع"</span>,</p>
+                    <p class="code-line">      <span class="text-sky-300">"status"</span>: <span class="text-emerald-400">"active"</span>,</p>
+                    <p class="code-line">      <span class="text-sky-300">"tasks_count"</span>: 5,</p>
+                    <p class="code-line">      <span class="text-sky-300">"created_at"</span>: <span class="text-emerald-400">"2025-06-19"</span></p>
+                    <p class="code-line">    }</p>
+                    <p class="code-line">  ],</p>
+                    <p class="code-line">  <span class="text-sky-300">"links"</span>: { <span class="text-slate-500">...معلومات الصفحات...</span> }</p>
+                    <p class="code-line">}</p>
+                </div>
+                <p class="text-slate-600 mt-4"><strong>ماذا نلاحظ؟</strong> البيانات أصبحت نظيفة، لا توجد حقول داخلية أو حساسة. فقط ما تحتاجه React. <code>tasks_count</code> ظهر كرقم محسوب.</p>
+            </section>
+
+            <section id="errors" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">⚠️ الأخطاء الشائعة (4+)</h2>
+
+                <div class="error-card">
+                    <p class="font-black text-red-700">❌ الخطأ 1: نسيان استخدام Resource في الـ Controller</p>
+                    <p class="text-red-600 text-sm mt-1"><strong>المشكلة:</strong> إرسال <code>$projects</code> مباشرة دون <code>ProjectResource::collection()</code>.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> تأكد من تغليف البيانات بالـ Resource في كل دالة Controller تُرجع بيانات.</p>
+                </div>
+
+                <div class="error-card">
+                    <p class="font-black text-red-700">❌ الخطأ 2: إرسال علاقة (Relationship) دون تحميلها مسبقاً (Lazy Loading)</p>
+                    <p class="text-red-600 text-sm mt-1"><strong>المشكلة:</strong> كتابة <code>$this->tasks()->count()</code> قد ينفذ استعلام SQL إضافي لكل مشروع (N+1 problem).</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> استخدم <code>Project::withCount('tasks')->get()</code> في الـ Controller لتحميل العدد مرة واحدة.</p>
+                </div>
+
+                <div class="error-card">
+                    <p class="font-black text-red-700">❌ الخطأ 3: إرسال علاقة بدون <code>?</code> (Nullable)</p>
+                    <p class="text-red-600 text-sm mt-1"><strong>المشكلة:</strong> لو كان <code>assigned_user_id</code> فارغاً (null)، سيظهر خطأ <strong>"Call to a member function on null"</strong>.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> استخدم <code>$this->whenLoaded('assignedUser')</code> أو أضف علامة <code>?</code>.</p>
+                </div>
+
+                <div class="error-card">
+                    <p class="font-black text-red-700">❌ الخطأ 4: نسيان استيراد (Import) الـ Resource</p>
+                    <p class="text-red-600 text-sm mt-1"><strong>المشكلة:</strong> كتابة <code>ProjectResource::collection(...)</code> دون وجود <code>use App\Http\Resources\ProjectResource;</code> في أعلى ملف الـ Controller.</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> أضف السطر <code>use App\Http\Resources\ProjectResource;</code> بعد namespace.</p>
+                </div>
+
+                <div class="error-card">
+                    <p class="font-black text-red-700">❌ الخطأ 5: إرسال البيانات الحساسة مثل <code>password</code></p>
+                    <p class="text-red-600 text-sm mt-1"><strong>المشكلة:</strong> نسيان إزالة <code>password</code> أو <code>remember_token</code> من toArray().</p>
+                    <p class="text-red-600 text-sm"><strong>الحل:</strong> راجع toArray() جيداً وتأكد من أنك تختار يدوياً كل حقل بدلاً من استخدام <code>$this->all()</code>.</p>
+                </div>
+            </section>
+
+            <section id="diagrams" class="mt-16 space-y-8">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">📊 الرسوم البيانية</h2>
+                <div class="grid gap-6">
+                    <div>
+                        <p class="text-sm font-bold text-slate-500 mb-2">مخطط: تدفق البيانات مع API Resources</p>
+                        <img src="diagram.svg" alt="مخطط API Resources" class="w-full rounded-2xl border border-slate-200">
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-slate-500 mb-2">مثال توضيحي: من البيانات الخام إلى النظيفة</p>
+                        <img src="visual-example.svg" alt="مثال توضيحي" class="w-full rounded-2xl border border-slate-200">
                     </div>
                 </div>
+            </section>
+
+            <section class="mt-16 p-8 rounded-3xl bg-slate-900 text-white">
+                <h2 class="text-2xl font-black mb-4">📝 الخلاصة</h2>
+                <ul class="space-y-3 text-slate-300 leading-relaxed">
+                    <li>✅ <strong>API Resource</strong> هو طبقة تحويل (Transformation Layer) بين قاعدة البيانات وواجهة المستخدم.</li>
+                    <li>✅ نستخدم <code>php artisan make:resource</code> لإنشائه، ونحدد الحقول في دالة <code>toArray()</code>.</li>
+                    <li>✅ نطبق الـ Resource في الـ Controller باستخدام <code>::collection()</code> للقوائم.</li>
+                    <li>✅ نضيف خصائص شرطية <code>$this->when()</code> لإرسال بيانات حسب صلاحية المستخدم.</li>
+                    <li>✅ في FlowPilot، <strong>ProjectResource</strong> و <strong>TaskResource</strong> يضمنان وصول بيانات نظيفة ومنظمة لـ React.</li>
+                </ul>
             </section>
 
             <div class="mt-12 flex justify-between gap-4">
                 <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-05/lesson-04/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../../week-06/lesson-02/index.html">الدرس التالي: البحث والفلاتر ←</a>
+                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../lesson-02/index.html">الدرس التالي: البحث والفلاتر ←</a>
             </div>
         </article>
     </div>
 </main>
 
 <footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
-    © 2025 FlowPilot Academy. أنت الآن تتعلم كيف تبني أنظمة قوية ومنظمة.
+    © 2025 FlowPilot Academy. نظف بياناتك، تحكم بمستقبلك.
 </footer>
 
 <script src="../../../assets/js/app.js"></script>

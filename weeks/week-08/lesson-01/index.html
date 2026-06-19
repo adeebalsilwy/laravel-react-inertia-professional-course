@@ -13,6 +13,12 @@
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
         .step-card { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .error-card { border-right: 4px solid #ef4444; padding-right: 1.5rem; margin-bottom: 1rem; background: #fef2f2; padding: 1rem; border-radius: 1rem; }
+        .code-block { background: #1e293b; border-radius: 1rem; padding: 1.5rem; font-family: 'Courier New', monospace; font-size: 0.9rem; direction: ltr; text-align: left; overflow-x: auto; margin: 1rem 0; }
+        .code-block .comment { color: #94a3b8; }
+        .code-block .keyword { color: #818cf8; }
+        .code-block .string { color: #34d399; }
+        .code-block .number { color: #fbbf24; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
@@ -29,10 +35,16 @@
             <div class="sidebar-sticky space-y-4">
                 <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الثامن</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم الإنتاج</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">ملفات البيئة</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال خلف الكواليس</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">ما هي بيئة الإنتاج؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">ملف .env بالتفصيل</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#analogy">تشبيه واقعي</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">الربط مع FlowPilot</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">6 خطوات عملية</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#code">شرح الكود</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#result">النتيجة المتوقعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">5 أخطاء شائعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#diagrams">مخططات توضيحية</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#summary">ملخص</a>
                 </div>
             </div>
         </aside>
@@ -40,67 +52,319 @@
         <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm">
             <section class="border-b pb-8 mb-12">
                 <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 8 · الدرس 1</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">بيئة الإنتاج (Production): كيف نجهز FlowPilot للعالم الحقيقي؟</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"هناك فرق كبير بين تشغيل الموقع على جهازك، وتشغيله لآلاف المستخدمين على الإنترنت."</p>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">تجهيز Production Build وملفات البيئة</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"الفرق بين موقع يعمل على جهازك وموقع يعمل في العالم الحقيقي هو الفرق بين سيارة لعبة وسيارة حقيقية."</p>
             </section>
 
             <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هي بيئة الإنتاج؟</h2>
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هي بيئة الإنتاج (Production Environment)؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    حتى الآن، نستخدم أوامر مثل <code>npm run dev</code> التي تستهلك موارد الجهاز لتسهيل التطوير. لكن عند نشر الموقع، نحتاج لنسخة "مضغوطة" وسريعة جداً تسمى الـ <strong>Build</strong>.
+                    <strong>بيئة الإنتاج</strong> هي النسخة النهائية من موقعك التي تعمل على سيرفر حقيقي ويستخدمها الزوار والعملاء. تختلف تماماً عن <strong>بيئة التطوير (Development)</strong> التي كنا نعمل عليها طوال الدورة.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    في هذا الدرس، سنتعلم كيف نحول كود React الضخم إلى ملفات JavaScript صغيرة جداً يفهمها المتصفح بسرعة، وكيف نغير إعدادات Laravel ليصبح أكثر أماناً في السيرفر.
+                    في بيئة التطوير، نستخدم <code>npm run dev</code> الذي يحمل آلاف الملفات الصغيرة ليسهل علينا التعديل. أما في الإنتاج، فنحتاج <code>npm run build</code> لدمج وضغط كل الملفات في ملفات قليلة جداً وسريعة التحميل.
                 </p>
+                <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100 mt-4">
+                    <p class="font-bold text-indigo-800 mb-2">مصطلحات مهمة للمبتدئين:</p>
+                    <ul class="space-y-2 text-indigo-700 text-sm">
+                        <li><strong>Build</strong>: عملية تحويل الكود المصدري (Source Code) إلى ملفات جاهزة للنشر.</li>
+                        <li><strong>Environment</strong>: البيئة أو الإعدادات التي يعمل فيها التطبيق (تطوير / إنتاج / اختبار).</li>
+                        <li><strong>Optimize</strong>: تحسين الأداء عن طريق تخزين المعلومات مؤقتاً (Cache).</li>
+                        <li><strong>Vite</strong>: أداة بناء حديثة تقوم بضغط ملفات JavaScript و CSS بكفاءة عالية.</li>
+                    </ul>
+                </div>
             </section>
 
             <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ملف .env للإنتاج</h2>
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ملف .env بالتفصيل</h2>
                 <p class="text-slate-600 leading-relaxed">
-                    أهم خطوة هي تغيير <code>APP_DEBUG</code> إلى <code>false</code>. إذا تركتها <code>true</code>، سيظهر كودك وأسرار قاعدة بياناتك لأي شخص إذا حدث خطأ في الموقع!
+                    ملف <code>.env</code> هو ملف خاص يخزن إعدادات المشروع السرية والحساسة. تخيل أن موقعك عبارة عن منزل، وملف <code>.env</code> هو صندوق المفاتيح السري الذي لا يراه أحد.
+                </p>
+                
+                <h3 class="text-xl font-bold text-slate-800 mt-6">المتغيرات الرئيسية في ملف .env:</h3>
+                
+                <div class="code-block">
+                    <p><span class="keyword">APP_ENV</span>=production  <span class="comment">// يخبر Laravel أن هذا هو وضع الإنتاج</span></p>
+                    <p><span class="keyword">APP_DEBUG</span>=false      <span class="comment">// يمنع ظهور الأخطاء التفصيلية للمستخدمين</span></p>
+                    <p><span class="keyword">APP_URL</span>=https://example.com <span class="comment">// رابط موقعك الرسمي</span></p>
+                    <p><span class="keyword">DB_HOST</span>=127.0.0.1    <span class="comment">// مكان استضافة قاعدة البيانات</span></p>
+                    <p><span class="keyword">DB_DATABASE</span>=flowpilot_db <span class="comment">// اسم قاعدة البيانات</span></p>
+                    <p><span class="keyword">DB_USERNAME</span>=root     <span class="comment">// اسم مستخدم قاعدة البيانات</span></p>
+                    <p><span class="keyword">DB_PASSWORD</span>=secret   <span class="comment">// كلمة سر قاعدة البيانات (سرية جداً!)</span></p>
+                </div>
+
+                <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl mt-4">
+                    <p class="font-bold text-amber-800 mb-2">تحذير أمني مهم:</p>
+                    <p class="text-amber-700 text-sm">إذا تركت <code>APP_DEBUG=true</code> في الإنتاج، فإن أي خطأ في موقعك سيعرض معلومات حساسة للمستخدمين مثل كلمات سر قاعدة البيانات ومسارات الملفات. هذا خطر أمني كبير يجب تجنبه!</p>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-800 mt-6">شرح كل متغير:</h3>
+                <div class="space-y-4">
+                    <div class="bg-slate-50 p-4 rounded-xl">
+                        <p class="font-bold text-slate-800">APP_ENV=production</p>
+                        <p class="text-slate-600 text-sm">هذا المتغير يحدد البيئة التي يعمل فيها التطبيق. عندما يساوي <code>production</code>، يعرف Laravel أنه يجب أن يتصرف كموقع حقيقي (لا يظهر أخطاء، يستخدم الكاش، إلخ).</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl">
+                        <p class="font-bold text-slate-800">APP_DEBUG=false</p>
+                        <p class="text-slate-600 text-sm">هذا المتغير يتحكم في ظهور الأخطاء. في التطوير نضعه <code>true</code> لنرى التفاصيل. في الإنتاج نضعه <code>false</code> لحماية الموقع.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl">
+                        <p class="font-bold text-slate-800">APP_URL</p>
+                        <p class="text-slate-600 text-sm">هذا هو الرابط الرسمي لموقعك. Laravel يستخدمه لتوليد روابط صحيحة في البريد الإلكتروني والإشعارات.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="analogy" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">تشبيه واقعي (مطعم جاهز)</h2>
+                <p class="text-indigo-50 leading-relaxed text-lg">
+                    تخيل أنك طباخ محترف. 
+                    <br><br>
+                    في <strong>التطوير</strong>: أنت في مطبخك الخاص، ترتكب أخطاء، تسكب الملح، وتتذوق الطعام وتصححه. لا أحد يراك.
+                    <br><br>
+                    في <strong>الإنتاج</strong>: أنت تفتتح مطعماً للجمهور. يجب أن يكون الطعام جاهزاً ومثالياً. لا يمكن للزبائن رؤية الأطباق المتسخة أو الوصفات السرية. كل ما يظهر هو الوجبة النهائية الجميلة.
+                    <br><br>
+                    <code>npm run build</code> هو كأنك تحضر الوجبة وتزينها قبل تقديمها للزبون. <code>APP_DEBUG=false</code> هو كأنك تخفي مطبخك خلف باب مغلق.
                 </p>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
-                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (خلف الكواليس)</h2>
-                <p class="text-indigo-50 leading-relaxed text-lg">
-                    تخيل <strong>مرحلة التطوير</strong> كأنها "بروفة" لمسرحية؛ الممثلون يرتدون ملابس عادية، والمخرج يوقف العرض كل دقيقة ليصلح خطأ (Debug Mode).
-                    <br><br>
-                    أما <strong>مرحلة الإنتاج</strong> فهي "يوم العرض"؛ كل شيء يجب أن يكون مثالياً، الإضاءة منسقة، والجمهور لا يرى الكواليس ولا الأخطاء، فقط يرى المسرحية النهائية الجميلة!
+            <section id="flowpilot" class="mt-16 p-8 rounded-3xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-500 pr-4">الربط مع مشروع FlowPilot</h2>
+                <p class="text-slate-600 leading-relaxed mt-4">
+                    في <strong>FlowPilot</strong>، كل الميزات التي بنيناها - تسجيل الدخول، إدارة الملفات، لوحة التحكم - يجب أن تعمل بسلاسة فائقة في الإنتاج. 
                 </p>
+                <div class="bg-white p-6 rounded-2xl mt-4 shadow-sm">
+                    <p class="font-bold text-emerald-800">ما سنفعله الآن بالضبط:</p>
+                    <ol class="list-decimal pr-6 mt-2 space-y-2 text-emerald-700 text-sm">
+                        <li>نبني ملفات React و Tailwind جاهزة للإنتاج بأمر <code>npm run build</code>.</li>
+                        <li>نعدل ملف <code>.env</code> ليكون مناسباً للإنتاج.</li>
+                        <li>نحسن أداء Laravel بأوامر الـ Optimization.</li>
+                        <li>نتأكد أن Vite يعمل بشكل صحيح للإنتاج.</li>
+                    </ol>
+                </div>
             </section>
 
             <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي</h2>
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">6 خطوات عملية لتحضير الإنتاج</h2>
 
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: بناء ملفات React</h3>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: بناء ملفات الواجهة الأمامية (Frontend Build)</h3>
+                    <div class="code-block">
                         <p>npm run build</p>
                     </div>
-                    <p class="text-xs text-slate-400 italic">هذا الأمر سيقوم بضغط ملفات الـ JSX والـ CSS في مجلد واحد صغير اسمه public/build.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl mt-3">
+                        <p class="font-bold text-sm text-slate-700">شرح الأمر:</p>
+                        <p class="text-xs text-slate-500">Vite يقوم بقراءة جميع ملفات React و Tailwind من مجلد resources/، ثم يدمجها ويضغطها ويخرجها في مجلد public/build/. الناتج يكون ملفات صغيرة جداً (bundle) المتصفح يحملها بسرعة.</p>
+                    </div>
                 </div>
 
                 <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تهيئة الإعدادات للأمان</h3>
-                    <p class="text-slate-600 mb-4">تأكد من تعديل ملف <code>.env</code> ليكون هكذا:</p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
-                        <p>APP_ENV=production</p>
-                        <p>APP_DEBUG=false</p>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تحديث ملف .env</h3>
+                    <p class="text-slate-600 mb-3">افتح ملف <code>.env</code> في جذر المشروع وغير القيم التالية:</p>
+                    <div class="code-block">
+                        <p><span class="keyword">APP_ENV</span>=production</p>
+                        <p><span class="keyword">APP_DEBUG</span>=false</p>
+                        <p><span class="keyword">APP_URL</span>=https://yourdomain.com</p>
                     </div>
+                    <div class="bg-slate-50 p-4 rounded-xl mt-3">
+                        <p class="font-bold text-sm text-slate-700">شرح التغييرات:</p>
+                        <p class="text-xs text-slate-500">- APP_ENV: يغير سلوك Laravel ليتصرف كموقع إنتاج.<br>- APP_DEBUG: يمنع ظهور أخطاء PHP التفصيلية.<br>- APP_URL: يضمن أن كل الروابط في الموقع تستخدم النطاق الصحيح.</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: تحسين Laravel (Optimization)</h3>
+                    <div class="code-block">
+                        <p>php artisan optimize</p>
+                    </div>
+                    <p class="text-slate-600 text-sm mt-2">هذا الأمر يقوم بتخزين مؤقت (Cache) لجميع الإعدادات والمسارات لزيادة السرعة.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: تخزين الإعدادات (Config Cache)</h3>
+                    <div class="code-block">
+                        <p>php artisan config:cache</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl mt-3">
+                        <p class="font-bold text-sm text-slate-700">ماذا يحدث بالضبط؟</p>
+                        <p class="text-xs text-slate-500">Laravel يدمج جميع ملفات config/*.php في ملف واحد كبير (bootstrap/cache/config.php). هذا يمنع Laravel من قراءة 50 ملف config كل مرة، وبدلاً من ذلك يقرأ ملفاً واحداً فقط. السرعة تزيد بشكل هائل!</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: تخزين المسارات (Route Cache)</h3>
+                    <div class="code-block">
+                        <p>php artisan route:cache</p>
+                    </div>
+                    <p class="text-slate-600 text-sm mt-2">مثل الخطوة السابقة، لكن للمسارات (routes/web.php و routes/api.php). يدمجها في ملف واحد لتسريع معالجة الطلبات.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 6: التحقق من إعدادات Vite</h3>
+                    <p class="text-slate-600 mb-3">تأكد من أن ملف <code>vite.config.js</code> جاهز للإنتاج. افتح الملف وتأكد من وجود هذا الإعداد:</p>
+                    <div class="code-block">
+                        <p><span class="keyword">import</span> { defineConfig } <span class="keyword">from</span> <span class="string">'vite'</span>;</p>
+                        <p><span class="keyword">import</span> laravel <span class="keyword">from</span> <span class="string">'laravel-vite-plugin'</span>;</p>
+                        <p><span class="keyword">import</span> react <span class="keyword">from</span> <span class="string">'@vitejs/plugin-react'</span>;</p>
+                        <p>&nbsp;</p>
+                        <p><span class="keyword">export default</span> defineConfig({</p>
+                        <p>&nbsp;&nbsp;plugins: [</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;laravel({</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input: <span class="string">'resources/js/app.jsx'</span>,</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ssr: <span class="string">'resources/js/ssr.jsx'</span>,</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;}),</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;react(),</p>
+                        <p>&nbsp;&nbsp;],</p>
+                        <p>});</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl mt-3">
+                        <p class="font-bold text-sm text-slate-700">شرح الكود:</p>
+                        <p class="text-xs text-slate-500">- <code>laravel()</code>: يخبر Vite بمكان ملفات JavaScript الأساسية.<br>- <code>react()</code>: يضيف دعم React لتحويل JSX إلى JavaScript عادي.<br>- <code>npm run build</code> يستخدم هذا الإعداد لتوليد الملفات النهائية.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="code" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">شرح الكود سطراً سطراً</h2>
+                
+                <div class="bg-slate-900 rounded-2xl p-6 text-white">
+                    <h3 class="text-lg font-black text-indigo-400 mb-4">أمر npm run build</h3>
+                    <div class="space-y-3 text-sm leading-relaxed font-mono">
+                        <p><span class="text-indigo-400">npm</span><span class="text-slate-400"> // Node Package Manager - أداة إدارة الحزم</span></p>
+                        <p><span class="text-indigo-400">run</span><span class="text-slate-400">    // تشغيل أمر معين موجود في package.json</span></p>
+                        <p><span class="text-indigo-400">build</span><span class="text-slate-400">  // اسم الأمر الذي ينفذ: vite build</span></p>
+                        <p>&nbsp;</p>
+                        <p><span class="text-green-400">ماذا يحدث داخل Vite عند build؟</span></p>
+                        <p><span class="text-slate-400">1. يقرأ ملف resources/js/app.jsx</span></p>
+                        <p><span class="text-slate-400">2. يتتبع جميع الاستيرادات (imports)</span></p>
+                        <p><span class="text-slate-400">3. يدمج كل الملفات في bundle واحد</span></p>
+                        <p><span class="text-slate-400">4. يضغط الأسماء (minify) ويصغر الحجم</span></p>
+                        <p><span class="text-slate-400">5. يكتب الناتج في public/build/assets/</span></p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 rounded-2xl p-6 text-white mt-4">
+                    <h3 class="text-lg font-black text-indigo-400 mb-4">أمر php artisan optimize</h3>
+                    <div class="space-y-3 text-sm leading-relaxed font-mono">
+                        <p><span class="text-indigo-400">php</span><span class="text-slate-400">      // لغة PHP - مشغل Laravel</span></p>
+                        <p><span class="text-indigo-400">artisan</span><span class="text-slate-400">  // أداة الأوامر المضمنة في Laravel</span></p>
+                        <p><span class="text-indigo-400">optimize</span><span class="text-slate-400"> // أمر يحسن الأداء عبر تخزين مؤقت للـ config و routes و views</span></p>
+                        <p>&nbsp;</p>
+                        <p><span class="text-green-400">ماذا يحدث بالتفصيل؟</span></p>
+                        <p><span class="text-slate-400">1. config:cache - يخزن كل config/bootstrap/cache/config.php</span></p>
+                        <p><span class="text-slate-400">2. route:cache - يخزن كل المسارات في ملف واحد</span></p>
+                        <p><span class="text-slate-400">3. view:cache - يخزن قوالب Blade في صيغة PHP سريعة</span></p>
+                        <p><span class="text-slate-400">النتيجة: موقع أسرع بمقدار 5-10 مرات!</span></p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="result" class="mt-16 p-8 rounded-3xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-green-500 pr-4">النتيجة المتوقعة</h2>
+                <div class="mt-6 space-y-4">
+                    <div class="flex items-start gap-4 bg-white p-4 rounded-xl shadow-sm">
+                        <span class="text-2xl">✅</span>
+                        <div>
+                            <p class="font-bold text-green-800">ظهور مجلد public/build</p>
+                            <p class="text-sm text-slate-600">ستظهر مجلدات assets/ داخل public/build/ تحتوي على ملفات .js و .css بأسماء عشوائية (مثل: index-H37s.js). هذا طبيعي - Vite يضيف بصمة لتحديث الكاش تلقائياً.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 bg-white p-4 rounded-xl shadow-sm">
+                        <span class="text-2xl">✅</span>
+                        <div>
+                            <p class="font-bold text-green-800">اختفاء أخطاء Debug</p>
+                            <p class="text-sm text-slate-600">عند إيقاف التطوير (npm run dev) وتشغيل الموقع من Laravel مباشرة، لن تظهر شريط الأخطاء الأصفر Debugbar (إن كان مثبتاً).</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 bg-white p-4 rounded-xl shadow-sm">
+                        <span class="text-2xl">✅</span>
+                        <div>
+                            <p class="font-bold text-green-800">سرعة تحميل فائقة</p>
+                            <p class="text-sm text-slate-600">بدلاً من تحميل 100 ملف صغير، المتصفح سيحمل 2-3 ملفات فقط. الصفحة ستظهر أسرع بكثير.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 bg-white p-4 rounded-xl shadow-sm">
+                        <span class="text-2xl">✅</span>
+                        <div>
+                            <p class="font-bold text-green-800">صفحة 404 بسيطة</p>
+                            <p class="text-sm text-slate-600">بدلاً من صفحة خطأ مفصلة مع trace، ستظهر صفحة 404 مخصصة وجميلة.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="errors" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-red-500 pr-4">5 أخطاء شائعة وكيفية حلها</h2>
+
+                <div class="error-card">
+                    <p class="font-bold text-red-800">الخطأ 1: npm run build يفشل مع خطأ في Vite</p>
+                    <p class="text-sm text-slate-600 mt-1">السبب: غالباً حذف مجلد node_modules أو عدم تثبيت الحزم.</p>
+                    <p class="text-sm text-green-700 font-bold mt-1">الحل: شغل <code>npm install</code> أولاً ثم أعد <code>npm run build</code>.</p>
+                </div>
+
+                <div class="error-card">
+                    <p class="font-bold text-red-800">الخطأ 2: الموقع يعرض شاشة بيضاء (White Screen)</p>
+                    <p class="text-sm text-slate-600 mt-1">السبب: ملفات الـ build قديمة أو تالفة.</p>
+                    <p class="text-sm text-green-700 font-bold mt-1">الحل: احذف مجلد public/build واعد تشغيل <code>npm run build</code>.</p>
+                </div>
+
+                <div class="error-card">
+                    <p class="font-bold text-red-800">الخطأ 3: ظهور أخطاء PHP بعد رفع الموقع</p>
+                    <p class="text-sm text-slate-600 mt-1">السبب: نسيت تغيير APP_DEBUG إلى false.</p>
+                    <p class="text-sm text-green-700 font-bold mt-1">الحل: تأكد من ملف .env أن APP_DEBUG=false، ثم شغل <code>php artisan config:cache</code>.</p>
+                </div>
+
+                <div class="error-card">
+                    <p class="font-bold text-red-800">الخطأ 4: الروابط لا تعمل (404 على كل الصفحات)</p>
+                    <p class="text-sm text-slate-600 mt-1">السبب: لم يتم تشغيل route:cache أو أن ملف الـ routes غير صحيح.</p>
+                    <p class="text-sm text-green-700 font-bold mt-1">الحل: شغل <code>php artisan route:clear</code> ثم <code>php artisan route:cache</code>.</p>
+                </div>
+
+                <div class="error-card">
+                    <p class="font-bold text-red-800">الخطأ 5: النمط (CSS) لا يظهر بشكل صحيح</p>
+                    <p class="text-sm text-slate-600 mt-1">السبب: Tailwind لم يبنَ بشكل صحيح أو أن ملفات CSS لم تُضمن.</p>
+                    <p class="text-sm text-green-700 font-bold mt-1">الحل: تأكد من وجود <code>@vite('resources/css/app.css')</code> في ملف layout الرئيسي.</p>
+                </div>
+            </section>
+
+            <section id="diagrams" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">مخططات توضيحية</h2>
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="diagram.svg" alt="مخطط بيئة الإنتاج" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مقارنة بيئة التطوير vs الإنتاج</p>
+                    </div>
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="visual-example.svg" alt="مثال بصري" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">رحلة الكود من التطوير إلى الإنتاج</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="summary" class="mt-16 p-8 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+                <h2 class="text-2xl font-black mb-4 border-r-4 border-indigo-400 pr-4">ملخص الدرس</h2>
+                <div class="space-y-3 text-slate-300 leading-relaxed">
+                    <p>🔹 <strong>بيئة الإنتاج</strong> هي النسخة النهائية للموقع التي يراها المستخدمون.</p>
+                    <p>🔹 ملف <code>.env</code> يتحكم في إعدادات البيئة: <code>APP_ENV</code> و <code>APP_DEBUG</code> و <code>APP_URL</code>.</p>
+                    <p>🔹 <code>APP_DEBUG=false</code> يمنع تسريب المعلومات الحساسة في حال حدوث خطأ.</p>
+                    <p>🔹 <code>npm run build</code> يضغط ملفات الواجهة الأمامية للإنتاج.</p>
+                    <p>🔹 <code>php artisan optimize</code> يحسن أداء Laravel عبر التخزين المؤقت.</p>
+                    <p>🔹 <code>config:cache</code> و <code>route:cache</code> يدمجان الإعدادات والمسارات في ملف واحد.</p>
+                    <p>🔹 Vite يتعامل تلقائياً مع ضغط الملفات وإضافة بصمات للتحديث.</p>
+                    <p class="mt-4 text-indigo-300 font-bold italic">"الإعداد الجيد للإنتاج هو الفرق بين مطور هاوٍ ومطور محترف."</p>
                 </div>
             </section>
 
             <div class="mt-12 flex justify-between gap-4">
                 <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-07/lesson-04/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../../week-08/lesson-02/index.html">الدرس التالي: خطوات النشر ←</a>
+                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../lesson-02/index.html">الدرس التالي: خطوات النشر ←</a>
             </div>
         </article>
     </div>
 </main>
 
 <footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
-    © 2025 FlowPilot Academy. الاحتراف يبدأ بالاهتمام بالتفاصيل الدقيقة.
+    © 2026 FlowPilot Academy. الاحتراف هو أن تهتم بالتفاصيل التي لا يراها الآخرون.
 </footer>
 
 <script src="../../../assets/js/app.js"></script>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 5: فهم المسارات Routing واستجابة Inertia</title>
+    <title>الدرس 5: فهم المسارات Routing وربطها بصفحات React | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,13 +13,22 @@
         :root { font-family: 'Tajawal', sans-serif; }
         .sidebar-sticky { position: sticky; top: 5rem; }
         .step-card { border-right: 4px solid #10b981; padding-right: 1.5rem; margin-bottom: 2rem; }
+        .code-line { display: block; padding: 0.1rem 0; }
+        .error-box { background: #fef2f2; border-right: 4px solid #ef4444; padding: 1rem; border-radius: 1rem; margin-bottom: 1rem; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../index.html">الرئيسية</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/curriculum.html">الفهرس</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/lessons.html">الدروس</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/beginner-guide.html">دليل الطالب</a>
+            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/project.html">المشروع</a>
+        </nav>
     </div>
 </header>
 
@@ -27,118 +36,479 @@
     <div class="grid lg:grid-cols-4 gap-8">
         <aside class="hidden lg:block">
             <div class="sidebar-sticky space-y-4">
-                <a class="font-black text-emerald-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الثاني</a>
+                <a class="font-black text-emerald-700 hover:underline block mb-6 text-sm" href="../index.html">← العودة للأسبوع الثاني</a>
                 <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
-                    <a class="block p-3 rounded-xl bg-emerald-50 text-emerald-700" href="#intro">مقدمة في المسارات</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">كيف يعمل Routing؟</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال المجمع التجاري</a>
-                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">في FlowPilot</a>
+                    <a class="block p-3 rounded-xl bg-emerald-50 text-emerald-700" href="#importance">لماذا هذا الدرس مهم؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">الشرح النظري</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#analogy">مثال من الحياة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">في مشروع FlowPilot</a>
                     <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#code">شرح الكود</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">الأخطاء الشائعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#visuals">المخططات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#summary">الملخص</a>
                 </div>
             </div>
         </aside>
 
         <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
+            <!-- Header -->
             <section class="border-b pb-8 mb-12">
                 <span class="px-3 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-bold text-xs uppercase tracking-widest">الأسبوع 2 · الدرس 1</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">فهم المسارات (Routing) وكيف يرسل Laravel البيانات لـ React</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"المسار هو الباب الذي يدخل منه المستخدم لتطبيقك. لنتعلم كيف نبني أبوابنا الذكية."</p>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">فهم المسارات (Routing) وكيف يربط Laravel الطلبات بصفحات React</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"المسار هو الباب الذي يدخل منه المستخدم إلى تطبيقك. لنتعلم كيف نصنع أبواباً ذكية لمشروع FlowPilot."</p>
             </section>
 
-            <section id="intro" class="space-y-4">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">لماذا نحتاج الـ Routing؟</h2>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    عندما تكتب <code>facebook.com/profile</code>، كيف يعرف الفيسبوك أنه يجب عرض صفحتك الشخصية وليس صفحة الأخبار؟ هذا هو دور <strong>الـ Routing</strong>. هو نظام توجيه يربط "الرابط" الذي يطلبه المستخدم بـ "الكود" الذي يجب أن يعمل.
-                </p>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    بدون مسارات، سيكون تطبيقنا عبارة عن صفحة واحدة صماء. في مشروعنا <strong>FlowPilot</strong>، سنحتاج لمسارات كثيرة مثل: مسار لعرض المهام، ومسار لإنشاء مشروع جديد، ومسار لتعديل البيانات الشخصية.
-                </p>
-            </section>
-
-            <section id="theory" class="mt-16 space-y-6">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">كيف يعمل Inertia Response؟</h2>
-                <p class="text-slate-600 leading-relaxed">
-                    في Laravel التقليدي، كنا نعيد ملف Blade (HTML عادي). لكننا الآن نستخدم React. هنا يأتي دور <code>Inertia::render()</code>. 
-                    هذه الدالة تخبر Laravel: "توقف، لا ترسل HTML عادياً، بل أرسل البيانات لصفحة React الفلانية لتقوم هي بالعرض".
-                </p>
-                <div class="p-6 rounded-2xl bg-indigo-50 border border-indigo-100 font-mono text-sm text-indigo-700 text-left">
-                    return Inertia::render('Dashboard', [<br>
-                    &nbsp;&nbsp;'projects' => $projects<br>
-                    ]);
+            <!-- لماذا هذا الدرس مهم -->
+            <section id="importance" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">🔍 لماذا هذا الدرس مهم؟</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed text-lg">
+                    <p>تخيل أن تطبيق FlowPilot عبارة عن فندق ضخم. كل غرفة في هذا الفندق هي صفحة من صفحات التطبيق. بدون <strong>ممرات وأرقام غرف</strong> (أي بدون مسارات)، لن يعرف الزائر كيف يصل إلى غرفته!</p>
+                    <p>في عالم البرمجة، الـ <strong>Route</strong> (ويُلفظ "روت" ويعني "مسار") هو الرابط الذي يكتبه المستخدم في المتصفح. مثلاً: <code>flowpilot.com/projects</code> أو <code>flowpilot.com/dashboard</code>. مهمة الـ Route هي أن يأخذ هذا الرابط ويقرره: "أي كود يجب أن يعمل؟ وأي صفحة يجب أن تظهر؟"</p>
+                    <p>بدون فهم المسارات، لا يمكنك بناء أي تطبيق ويب متعدد الصفحات. هذا الدرس هو <strong>أساس كل ما سنبنيه</strong> في FlowPilot.</p>
                 </div>
             </section>
 
-            <section id="example" class="mt-16 p-8 rounded-3xl bg-emerald-600 text-white shadow-xl shadow-emerald-100">
-                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (المجمع التجاري)</h2>
-                <p class="text-emerald-50 leading-relaxed text-lg">
-                    تخيل تطبيق FlowPilot كـ "مجمع تجاري" ضخم. 
-                    <br><br>
-                    - <strong>الـ Route</strong> هو اللوحات الإرشادية عند المدخل التي تخبرك: "للوصول لقسم الملابس اذهب يميناً، ولقسم المطاعم اصعد للدور الثاني".
-                    <br>
-                    - <strong>المتصفح</strong> هو الزائر الذي يتبع اللوحات.
-                    <br>
-                    - <strong>Inertia</strong> هو الموظف الذي يفتح لك باب القسم المخصص ويجهز لك البضائع (البيانات) لتراها بشكل أنيق.
-                </p>
-            </section>
+            <!-- الشرح النظري المفصل -->
+            <section id="theory" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">📚 الشرح النظري المفصل</h2>
+                <div class="space-y-6 text-slate-600 leading-relaxed text-lg">
 
-            <section id="flowpilot" class="mt-16">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">في مشروع FlowPilot</h2>
-                <div class="mt-6 p-6 rounded-2xl bg-slate-50 border border-slate-100 text-slate-900">
-                    <p class="leading-relaxed">
-                        سنبدأ بإنشاء مسار لوحة التحكم <code>/dashboard</code>. هذا المسار سيكون هو "المركز" الذي يرى فيه المستخدم ملخصاً لمشاريعه ومهامه. سنربطه بصفحة React تسمى <code>Dashboard.jsx</code>.
-                    </p>
+                    <div class="p-6 rounded-2xl bg-indigo-50 border border-indigo-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">ما هو الـ Route بالضبط؟</h3>
+                        <p>الـ <strong>Route</strong> هو عبارة عن "قاعدة" في ملف <code>routes/web.php</code> تخبر Laravel: "إذا جاء مستخدم إلى هذا الرابط، افعل كذا".</p>
+                        <p>مثال توضيحي: عندما يكتب المستخدم <code>https://flowpilot.com/projects</code> في المتصفح، يبحث Laravel في ملف <code>web.php</code> عن Route يناسب هذا الرابط. إذا وجده، ينفذ الكود المرتبط به.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-blue-50 border border-blue-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">أنواع المسارات (HTTP Methods)</h3>
+                        <p>هناك عدة أنواع من المسارات، لكن الأكثر شيوعاً:</p>
+                        <ul class="list-disc pr-6 space-y-2 mt-3">
+                            <li><strong>Route::get()</strong> - يستخدم عندما يريد المستخدم <strong>رؤية</strong> صفحة (مثلاً: عرض صفحة المشاريع).</li>
+                            <li><strong>Route::post()</strong> - يستخدم عندما يريد المستخدم <strong>إرسال</strong> بيانات (مثلاً: تسجيل الدخول أو إنشاء مشروع جديد).</li>
+                            <li><strong>Route::put() / patch()</strong> - لتعديل بيانات موجودة.</li>
+                            <li><strong>Route::delete()</strong> - لحذف بيانات.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-purple-50 border border-purple-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">ما هو الـ Controller؟</h3>
+                        <p>الـ <strong>Controller</strong> (ويعني "وحدة التحكم") هو ملف منفصل ينظم الكود الخاص بصفحة معينة. بدلاً من كتابة كل الكود داخل ملف <code>web.php</code> (مما يجعله فوضوياً)، نكتب الكود في Controller ونستخدم سطراً واحداً فقط في ملف المسارات.</p>
+                        <p class="mt-2">مثال: بدلاً من:</p>
+                        <div class="bg-slate-900 text-green-400 rounded-xl p-4 font-mono text-sm mt-2 text-left overflow-x-auto">
+                            <span class="code-line">Route::get('/projects', function () {</span>
+                            <span class="code-line">&nbsp;&nbsp;// 50 سطر من الكود هنا!</span>
+                            <span class="code-line">&nbsp;&nbsp;return Inertia::render('Projects/Index');</span>
+                            <span class="code-line">});</span>
+                        </div>
+                        <p class="mt-2">نكتب:</p>
+                        <div class="bg-slate-900 text-green-400 rounded-xl p-4 font-mono text-sm mt-2 text-left overflow-x-auto">
+                            <span class="code-line">Route::get('/projects', [ProjectController::class, 'index'])</span>
+                            <span class="code-line">&nbsp;&nbsp;->name('projects.index');</span>
+                        </div>
+                        <p class="mt-2 text-sm">وهذا أنظف بكثير! الكود الفعلي سيكون في <code>ProjectController.php</code>.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-amber-50 border border-amber-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">ما هو Inertia::render()؟</h3>
+                        <p>في تطبيقات Laravel التقليدية، كنا نستخدم <code>return view('welcome')</code> لعرض صفحة Blade (HTML عادي). أما الآن مع <strong>Inertia</strong>، نستخدم:</p>
+                        <div class="bg-slate-900 text-cyan-400 rounded-xl p-4 font-mono text-sm mt-2 text-left overflow-x-auto">
+                            <span class="code-line">return Inertia::render('Projects/Index', [</span>
+                            <span class="code-line">&nbsp;&nbsp;'projects' => $projects</span>
+                            <span class="code-line">]);</span>
+                        </div>
+                        <p class="mt-2"><strong>ماذا يفعل هذا السطر؟</strong></p>
+                        <ul class="list-disc pr-6 space-y-1 text-sm mt-1">
+                            <li>Inertia::render() تخبر Laravel: "لا ترسل HTML عادياً، بل أرسل البيانات إلى React".</li>
+                            <li>المعامل الأول <code>'Projects/Index'</code> هو اسم ملف React الذي سيتم عرضه (الموجود في <code>resources/js/Pages/Projects/Index.jsx</code>).</li>
+                            <li>المعامل الثاني <code>['projects' => $projects]</code> هو البيانات التي نريد إرسالها إلى صفحة React.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-teal-50 border border-teal-100">
+                        <h3 class="font-black text-slate-900 text-xl mb-3">ما هي Named Routes (المسارات المسماة)؟</h3>
+                        <p>بدلاً من استخدام الرابط مباشرة في كل مكان (مثل <code>/projects</code>)، نعطي كل Route اسماً. هذا أفضل لأنه إذا تغير الرابط يوماً ما، نغير في مكان واحد فقط!</p>
+                        <div class="bg-slate-900 text-yellow-400 rounded-xl p-4 font-mono text-sm mt-2 text-left overflow-x-auto">
+                            <span class="code-line">Route::get('/projects', ...)->name('projects.index');</span>
+                        </div>
+                        <p class="mt-2">في React، نستخدم دالة <code>route()</code> التي يوفرها Inertia لاستخدام الاسم:</p>
+                        <div class="bg-slate-900 text-yellow-400 rounded-xl p-4 font-mono text-sm mt-2 text-left overflow-x-auto">
+                            <span class="code-line">&lt;Link href={route('projects.index')}&gt;المشاريع&lt;/Link&gt;</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <section id="visuals" class="mt-16">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">مخططات توضيحية</h2>
+            <!-- مثال من الحياة اليومية -->
+            <section id="analogy" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">🌍 مثال من الحياة اليومية</h2>
+                <div class="p-8 rounded-3xl bg-emerald-600 text-white shadow-xl shadow-emerald-100">
+                    <h3 class="text-2xl font-black mb-4">تشبيه "المطعم الذكي"</h3>
+                    <div class="space-y-4 text-emerald-50 leading-relaxed text-lg">
+                        <p>تخيل أنك تدخل مطعماً. ما الذي يحدث؟</p>
+                        <ul class="list-disc pr-6 space-y-3">
+                            <li><strong>المتصفح (Browser):</strong> أنت كزائر تدخل المطعم.</li>
+                            <li><strong>الرابط (URL):</strong> هو عنوان المطعم (مثلاً: مطعم السلام في شارع الملك).</li>
+                            <li><strong>الـ Route:</strong> هو "النادل" الذي يستقبلك ويسألك: "طاولة للأكل أم طلب سفري؟". هو يقرر أين يوجهك بناءً على طلبك.</li>
+                            <li><strong>الـ Controller:</strong> هو " chef الطاهي" في المطبخ. عندما يطلب النادل طبقاً معيناً، chef هو من يحضره.</li>
+                            <li><strong>Inertia::render():</strong> هو "صينية التقديم" التي يحمل عليها النادل الطبق (البيانات) ليقدمها لك بشكل جميل.</li>
+                            <li><strong>صفحة React:</strong> هي "الطبق" نفسه بعد تقديمه وتزيينه.</li>
+                        </ul>
+                        <p class="mt-4 text-emerald-100 italic">المهم أن تفهم: كل طلب يمر بنفس الرحلة: زائر ← نادل ← طاهٍ ← تقديم. وفي البرمجة: متصفح ← Route ← Controller ← Inertia ← صفحة React.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- كيف يخدم هذا الدرس مشروع FlowPilot -->
+            <section id="flowpilot" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">🚀 كيف يخدم هذا الدرس مشروع FlowPilot؟</h2>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                    <p class="text-slate-600 leading-relaxed text-lg">في مشروع FlowPilot، سنحتاج إلى عدة صفحات:</p>
+                    <ul class="list-disc pr-6 space-y-2 mt-4 text-slate-600 text-lg">
+                        <li><code>/dashboard</code> ← لوحة التحكم الرئيسية.</li>
+                        <li><code>/projects</code> ← عرض كل المشاريع.</li>
+                        <li><code>/projects/create</code> ← إنشاء مشروع جديد.</li>
+                        <li><code>/tasks</code> ← عرض المهام.</li>
+                        <li><code>/team</code> ← صفحة الفريق.</li>
+                    </ul>
+                    <p class="mt-4 text-slate-600">كل صفحة من هذه الصفحات تحتاج إلى Route في ملف <code>web.php</code>، و Controller لمعالجة البيانات، وصفحة React لعرضها. هذا الدرس يؤسس لهذه البنية التحتية.</p>
+                </div>
+            </section>
+
+            <!-- التطبيق العملي -->
+            <section id="practice" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">⚡ التطبيق العملي خطوة بخطوة</h2>
+                <div class="space-y-12">
+
+                    <!-- Step 1 -->
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء Controller لمشاريع FlowPilot</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> نافذة الطرفية (Terminal) في مشروع Laravel</p>
+                        <p class="text-slate-600 mb-2 text-sm">نستخدم أمر Artisan لإنشاء Controller جديد:</p>
+                        <div class="bg-slate-900 text-indigo-400 rounded-2xl p-6 font-mono text-sm text-left overflow-x-auto mb-4">
+                            <span class="code-line">php artisan make:controller ProjectController</span>
+                        </div>
+                        <p class="text-slate-500 text-sm"><strong>ماذا حدث؟</strong> تم إنشاء ملف جديد في المسار <code>app/Http/Controllers/ProjectController.php</code>. هذا الملف سيكون مسؤولاً عن كل العمليات المتعلقة بالمشاريع.</p>
+                        <p class="text-slate-500 text-sm mt-1"><strong>ملاحظة للمبتدئين:</strong> <code>php artisan</code> هو اسم أداة Laravel السحرية. أي أمر يبدأ بـ <code>php artisan</code> هو أمر يساعدك في إنشاء ملفات جاهزة بدلاً من كتابتها يدوياً.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: كتابة دالة index في Controller</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> <code>app/Http/Controllers/ProjectController.php</code></p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-green-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">&lt;?php</span>
+                            <span class="code-line">namespace App\Http\Controllers;</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">use Inertia\Inertia;</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">class ProjectController extends Controller</span>
+                            <span class="code-line">{</span>
+                            <span class="code-line">&nbsp;&nbsp;public function index()</span>
+                            <span class="code-line">&nbsp;&nbsp;{</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;$projects = [</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;['id' => 1, 'title' => 'موقع الشركة', 'status' => 'نشط'],</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;['id' => 2, 'title' => 'تطبيق الجوال', 'status' => 'قيد التطوير'],</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;['id' => 3, 'title' => 'لوحة التحكم', 'status' => 'مكتمل'],</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;];</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;return Inertia::render('Projects/Index', [</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'projects' => $projects</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;]);</span>
+                            <span class="code-line">&nbsp;&nbsp;}</span>
+                            <span class="code-line">}</span>
+                        </div>
+                        <p class="text-slate-500 text-sm"><strong>ملاحظة مهمة:</strong> في هذه المرحلة نستخدم بيانات "وهمية" (مصفوفة مكتوبة يدوياً). لاحقاً في الأسبوع 3 سنستبدلها ببيانات حقيقية من قاعدة البيانات.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: تعريف المسار في routes/web.php</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> <code>routes/web.php</code></p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">&lt;?php</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">use Illuminate\Support\Facades\Route;</span>
+                            <span class="code-line">use App\Http\Controllers\ProjectController;</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">Route::get('/', function () {</span>
+                            <span class="code-line">&nbsp;&nbsp;return Inertia::render('Welcome');</span>
+                            <span class="code-line">});</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">Route::get('/projects', [ProjectController::class, 'index'])</span>
+                            <span class="code-line">&nbsp;&nbsp;->name('projects.index');</span>
+                        </div>
+                        <p class="text-slate-500 text-sm"><strong>شرح السطر الجديد:</strong></p>
+                        <ul class="text-slate-500 text-sm list-disc pr-6 space-y-1">
+                            <li><code>Route::get('/projects', ...)</code> يعني: عندما يزور المستخدم الرابط <code>/projects</code>...</li>
+                            <li><code>[ProjectController::class, 'index']</code> يعني: اذهب إلى ملف ProjectController ونفذ الدالة التي اسمها <code>index</code>.</li>
+                            <li><code>->name('projects.index')</code> يعني: أعط هذا المسار اسماً هو <code>projects.index</code> حتى نستخدمه لاحقاً في الروابط.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 4: إنشاء صفحة React لعرض المشاريع</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> <code>resources/js/Pages/Projects/Index.jsx</code></p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">import { Link } from '@inertiajs/react';</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">export default function ProjectsIndex({ projects }) {</span>
+                            <span class="code-line">&nbsp;&nbsp;return (</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="p-8"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1 className="text-3xl font-black mb-6"&gt;المشاريع&lt;/h1&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="grid gap-4"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{projects.map(project =&gt; (</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div key={project.id} className="p-4 border rounded-xl shadow-sm"&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2 className="font-bold text-xl"&gt;{project.title}&lt;/h2&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;الحالة: {project.status}&lt;/p&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;))}</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;);</span>
+                            <span class="code-line">}</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 5: إضافة رابط لصفحة المشاريع في الواجهة</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> أي صفحة React أخرى تريد إضافة رابط منها</p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-sky-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">import { Link } from '@inertiajs/react';</span>
+                            <span class="code-line"> </span>
+                            <span class="code-line">// داخل JSX:</span>
+                            <span class="code-line">&lt;Link</span>
+                            <span class="code-line">&nbsp;&nbsp;href={route('projects.index')}</span>
+                            <span class="code-line">&nbsp;&nbsp;className="px-4 py-2 bg-indigo-600 text-white rounded-xl"</span>
+                            <span class="code-line">&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;عرض المشاريع</span>
+                            <span class="code-line">&lt;/Link&gt;</span>
+                        </div>
+                        <p class="text-slate-500 text-sm mt-2"><strong>ملاحظة:</strong> دالة <code>route()</code> متوفرة تلقائياً في صفحات React عند استخدام Inertia. هي تترجم اسم المسار (مثل <code>projects.index</code>) إلى الرابط الفعلي (مثل <code>/projects</code>). هذا يعني أنه إذا غيرنا الرابط في <code>web.php</code> لاحقاً، كل الروابط في React ستتحدّث تلقائياً!</p>
+                    </div>
+
+                    <!-- Step 6 -->
+                    <div class="step-card">
+                        <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 6: اختبار المسار</h3>
+                        <p class="text-slate-600 mb-4"><strong>المكان:</strong> المتصفح</p>
+                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-amber-400 overflow-x-auto mb-4 text-left">
+                            <span class="code-line">php artisan serve</span>
+                        </div>
+                        <p class="text-slate-500 text-sm">افتح المتصفح واذهب إلى: <code>http://localhost:8000/projects</code></p>
+                        <p class="text-slate-500 text-sm">يجب أن ترى صفحة المشاريع مع عناوين المشاريع الوهمية الثلاثة التي أنشأناها.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- شرح الكود سطراً سطراً -->
+            <section id="code" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">📝 شرح الكود سطراً سطراً</h2>
+
+                <div class="space-y-8">
+                    <!-- Code block 1: web.php -->
+                    <div class="p-6 rounded-2xl bg-slate-900">
+                        <h3 class="text-white font-black mb-4">ملف routes/web.php</h3>
+                        <div class="font-mono text-sm text-left space-y-2">
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">1</span>
+                                <span class="text-gray-400">&lt;?php</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">2</span>
+                                <span class="text-gray-400"></span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">3</span>
+                                <span class="text-code">use Illuminate\Support\Facades\Route;</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">4</span>
+                                <span class="text-code">use App\Http\Controllers\ProjectController;</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">5</span>
+                                <span class="text-gray-400"></span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">6</span>
+                                <span class="text-code">Route::get('/projects', [ProjectController::class, 'index'])</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">7</span>
+                                <span class="text-code">&nbsp;&nbsp;->name('projects.index');</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-3 pr-4">
+                        <div class="border-r-4 border-indigo-500 pr-4">
+                            <p class="font-bold text-slate-900">السطر 3: <code>use Illuminate\Support\Facades\Route;</code></p>
+                            <p class="text-slate-600 text-sm">هذا السطر يستورد (import) مكتبة Route من Laravel. تخيل أنك تستعير صندوق أدوات من جارك - هذا السطر يقول "أنا بحاجة لصندوق أدوات Route".</p>
+                        </div>
+                        <div class="border-r-4 border-indigo-500 pr-4">
+                            <p class="font-bold text-slate-900">السطر 4: <code>use App\Http\Controllers\ProjectController;</code></p>
+                            <p class="text-slate-600 text-sm">هنا نستورد ملف ProjectController الذي أنشأناه. هذا يخبر Laravel بمكان ملف الـ Controller.</p>
+                        </div>
+                        <div class="border-r-4 border-indigo-500 pr-4">
+                            <p class="font-bold text-slate-900">السطر 6-7: تعريف المسار</p>
+                            <p class="text-slate-600 text-sm"><code>Route::get('/projects', ...)</code>: هذا هو تعريف المسار. <code>get</code> تعني أن هذا المسار يستجيب لطلبات العرض فقط.</p>
+                            <p class="text-slate-600 text-sm"><code>[ProjectController::class, 'index']</code>: هذا يشير إلى أن الدالة <code>index</code> في ProjectController هي المسؤولة عن معالجة هذا المسار.</p>
+                            <p class="text-slate-600 text-sm"><code>->name('projects.index')</code>: نعطي المسار اسماً لاستخدامه في الروابط لاحقاً.</p>
+                        </div>
+                    </div>
+
+                    <!-- Code block 2: ProjectController -->
+                    <div class="p-6 rounded-2xl bg-slate-900 mt-6">
+                        <h3 class="text-white font-black mb-4">ملف ProjectController.php (دالة index)</h3>
+                        <div class="font-mono text-sm text-left space-y-2">
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">1</span>
+                                <span class="text-code">public function index()</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">2</span>
+                                <span class="text-code">{</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">3</span>
+                                <span class="text-code">&nbsp;&nbsp;$projects = [ /* المصفوفة */ ];</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">4</span>
+                                <span class="text-code">&nbsp;&nbsp;return Inertia::render('Projects/Index', [</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">5</span>
+                                <span class="text-code">&nbsp;&nbsp;&nbsp;&nbsp;'projects' => $projects</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">6</span>
+                                <span class="text-code">&nbsp;&nbsp;]);</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gray-500 shrink-0 w-6">7</span>
+                                <span class="text-code">}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-3 pr-4">
+                        <div class="border-r-4 border-emerald-500 pr-4">
+                            <p class="font-bold text-slate-900">السطر 3: <code>$projects = [...]</code></p>
+                            <p class="text-slate-600 text-sm">ننشئ مصفوفة (array) تحتوي على بيانات المشاريع. المصفوفة هي مجموعة من العناصر، تماماً مثل قائمة التسوق. كل مشروع له id، title، و status.</p>
+                        </div>
+                        <div class="border-r-4 border-emerald-500 pr-4">
+                            <p class="font-bold text-slate-900">السطر 4-6: <code>return Inertia::render(...)</code></p>
+                            <p class="text-slate-600 text-sm"><code>Inertia::render('Projects/Index', ...)</code> الجزء الأول هو مسار ملف React (بدون .jsx). الجزء الثاني هو البيانات التي نرسلها كمصفوفة (key => value).</p>
+                            <p class="text-slate-600 text-sm"><code>'projects' => $projects</code>: المفتاح 'projects' سيصبح هو اسم Prop الذي سنستقبله في React.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- النتيجة المتوقعة -->
+            <section class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">✅ النتيجة المتوقعة</h2>
+                <div class="p-6 rounded-2xl bg-green-50 border border-green-200">
+                    <p class="text-green-800 font-bold text-lg">بعد تنفيذ الخطوات، يجب أن ترى في المتصفح:</p>
+                    <ul class="list-disc pr-6 mt-4 space-y-2 text-green-700">
+                        <li>شريط عنوان المتصفح يظهر: <code>http://localhost:8000/projects</code></li>
+                        <li>صفحة بيضاء تحتوي على عنوان "المشاريع" في الأعلى.</li>
+                        <li>تحت العنوان، 3 بطاقات (cards) تعرض المشاريع:</li>
+                        <ul class="list-disc pr-6 space-y-1 text-green-600 text-sm">
+                            <li>موقع الشركة - الحالة: نشط</li>
+                            <li>تطبيق الجوال - الحالة: قيد التطوير</li>
+                            <li>لوحة التحكم - الحالة: مكتمل</li>
+                        </ul>
+                        <li>البطاقات مرتبة في عمود واحد (يمكن تحسينها لاحقاً باستخدام Grid).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- الأخطاء الشائعة -->
+            <section id="errors" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">⚠️ الأخطاء الشائعة</h2>
+                <div class="space-y-4">
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 1: صفحة 404 (الصفحة غير موجودة)</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> لم يتم تعريف المسار في <code>web.php</code>، أو أن الرابط الذي كتبته غير مطابق.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> تأكد من أن الرابط في المتصفح يطابق بالضبط ما كتبته في <code>Route::get()</code>. مثلاً إذا كتبت <code>/projects</code> في الكود، فتأكد أنك لا تتصفح <code>/project</code> (بدون حرف s).</p>
+                    </div>
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 2: Class "ProjectController" not found</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> نسيت استيراد ProjectController في أعلى ملف <code>web.php</code>.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> أضف السطر <code>use App\Http\Controllers\ProjectController;</code> في بداية الملف.</p>
+                    </div>
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 3: Target class [ProjectController] does not exist</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> الملف لم يُنشأ بعد، أو اسم الملف خطأ.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> شغّل الأمر <code>php artisan make:controller ProjectController</code> وتأكد من ظهور الملف في المجلد الصحيح.</p>
+                    </div>
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 4: صفحة بيضاء فارغة (White Screen)</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> عادةً خطأ في بناء JavaScript (Syntax error) في ملف React.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> افتح وحدة التحكم في المتصفح (F12 ثم تبويب Console) وابحث عن الخطأ الأحمر. الأكثر شيوعاً هو نسيان قوس إغلاق <code>)</code> أو <code>}</code>.</p>
+                    </div>
+                    <div class="error-box">
+                        <p class="font-bold text-red-700">🚫 الخطأ 5: البيانات لا تظهر في الصفحة (undefined)</p>
+                        <p class="text-sm text-red-600 mt-1"><strong>السبب:</strong> اسم Prop في React لا يطابق المفتاح الذي أرسلته من Controller.</p>
+                        <p class="text-sm text-red-600"><strong>الحل:</strong> تأكد من أن المفتاح في <code>Inertia::render('Page', ['projects' => $data])</code> يطابق اسم المتغير في <code>export default function Page({ projects })</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- المخططات التوضيحية -->
+            <section id="visuals" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">📊 مخططات توضيحية</h2>
                 <div class="grid md:grid-cols-2 gap-8 mt-8">
                     <div class="card p-4 text-center space-y-4">
-                        <img src="diagram.svg" alt="Technical Diagram" class="w-full rounded-xl border">
-                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط دورة الطلب</p>
+                        <img src="diagram.svg" alt="مخطط تقني يوضح دورة حياة المسار" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط دورة حياة المسار (Route Lifecycle)</p>
                     </div>
                     <div class="card p-4 text-center space-y-4">
-                        <img src="visual-example.svg" alt="Teaching Diagram" class="w-full rounded-xl border">
-                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">التشبيه البصري (المجمع التجاري)</p>
+                        <img src="visual-example.svg" alt="تشبيه المطعم للمسارات" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">تشبيه "المطعم" للمسارات</p>
                     </div>
                 </div>
             </section>
 
-            <section id="practice" class="mt-16 space-y-12">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">التطبيق العملي خطوة بخطوة</h2>
-
-                <!-- Step 1 -->
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: تعريف المسار في Laravel</h3>
-                    <p class="text-slate-600 mb-4"><strong>المكان:</strong> ملف <code>routes/web.php</code></p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
-                        <p>use Inertia\Inertia;</p>
-                        <p>Route::get('/dashboard', function () {</p>
-                        <p>&nbsp;&nbsp;return Inertia::render('Dashboard');</p>
-                        <p>});</p>
+            <!-- ملخص الدرس -->
+            <section id="summary" class="mb-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4 mb-6">📋 ملخص الدرس</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-6 rounded-2xl bg-indigo-50 border border-indigo-100">
+                        <h3 class="font-black text-indigo-800 mb-3">المفاهيم الرئيسية</h3>
+                        <ul class="space-y-2 text-sm text-indigo-700">
+                            <li>🔹 <strong>Route</strong>: هو الرابط الذي يوجه الطلب إلى الكود المناسب.</li>
+                            <li>🔹 <strong>Controller</strong>: ملف ينظم كود معالجة الطلبات.</li>
+                            <li>🔹 <strong>Inertia::render()</strong>: دالة ترسل البيانات إلى صفحات React.</li>
+                            <li>🔹 <strong>Named Routes</strong>: أسماء للمسارات لتسهيل استخدامها في الروابط.</li>
+                            <li>🔹 <strong>route() helper</strong>: دالة تحول اسم المسار إلى رابط فعلي.</li>
+                        </ul>
                     </div>
-                    <p class="text-slate-500 text-sm italic">شرح: قمنا بربط الرابط <code>/dashboard</code> بصفحة React التي تحمل اسم Dashboard.</p>
-                </div>
-
-                <!-- Step 2 -->
-                <div class="step-card">
-                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: إنشاء صفحة React</h3>
-                    <p class="text-slate-600 mb-4"><strong>المكان:</strong> مجلد <code>resources/js/Pages/Dashboard.jsx</code></p>
-                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
-                        <p>export default function Dashboard() {</p>
-                        <p>&nbsp;&nbsp;return (</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="p-8"&gt;</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1 className="text-2xl font-bold"&gt;لوحة تحكم FlowPilot&lt;/h1&gt;</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</p>
-                        <p>&nbsp;&nbsp;);</p>
-                        <p>}</p>
+                    <div class="p-6 rounded-2xl bg-emerald-50 border border-emerald-100">
+                        <h3 class="font-black text-emerald-800 mb-3">المصطلحات المهمة</h3>
+                        <ul class="space-y-2 text-sm text-emerald-700">
+                            <li>🔸 <strong>HTTP GET</strong>: طلب لعرض البيانات (تستخدمه عندما تتصفح صفحة).</li>
+                            <li>🔸 <strong>HTTP POST</strong>: طلب لإرسال بيانات (تستخدمه عند تسجيل الدخول).</li>
+                            <li>🔸 <strong>Artisan</strong>: أداة Laravel لإنشاء الملفات تلقائياً.</li>
+                            <li>🔸 <strong>Props</strong>: بيانات تُمرر من Controller إلى صفحة React.</li>
+                            <li>🔸 <strong>JSX</strong>: لغة تشبه HTML ولكن داخل JavaScript.</li>
+                        </ul>
                     </div>
                 </div>
             </section>
 
+            <!-- Previous/Next -->
             <div class="mt-12 flex justify-between gap-4">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-01/lesson-04/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-emerald-600 px-8 py-4 text-white font-black hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-100" href="../../week-02/lesson-02/index.html">الدرس التالي: بناء الـ Layout ←</a>
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all text-sm" href="../../week-01/lesson-04/index.html">← الدرس السابق: مقدمة عن Laravel & React</a>
+                <a class="rounded-2xl bg-emerald-600 px-8 py-4 text-white font-black hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-100 text-sm" href="../../week-02/lesson-02/index.html">الدرس التالي: بناء الـ Layout الرئيسي ←</a>
+            </div>
+
+            <!-- روابط الواجب والكويز -->
+            <div class="mt-8 flex gap-4 justify-center">
+                <a class="rounded-xl bg-indigo-600 px-6 py-3 text-white font-bold hover:bg-indigo-700 transition-all text-sm" href="assignment.html">📄 عرض الواجب</a>
+                <a class="rounded-xl bg-amber-600 px-6 py-3 text-white font-bold hover:bg-amber-700 transition-all text-sm" href="quiz.html">📝 اختبار فهمك</a>
             </div>
         </article>
     </div>
@@ -146,7 +516,7 @@
 
 <footer class="mt-24 border-t bg-white">
     <div class="mx-auto max-w-7xl px-4 py-8 text-center text-slate-400 text-sm font-medium">
-        © 2025 FlowPilot Academy. المحتوى مصمم لربط المفاهيم ببعضها.
+        © 2026 FlowPilot Academy. المحتوى مصمم لربط المفاهيم ببعضها.
     </div>
 </footer>
 

@@ -1,1 +1,233 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>كويز - Laravel API Resources وتنظيم البيانات - FlowPilot Academy</title><link rel="stylesheet" href="../../../assets/css/style.css"></head><body><nav class="nav"><div class="container inner"><a class="brand" href="../../../index.html"><span class="logo">F</span><span>FlowPilot Academy</span></a><div class="links"><a href="../../../index.html">الرئيسية</a><a href="../../../pages/curriculum.html">الفهرس</a><a href="../../../pages/lessons.html">الدروس</a><a href="../../../pages/beginner-guide.html">دليل الطالب</a><a href="../../../pages/project.html">المشروع</a><a href="../../../pages/plan.html">خطة التطوير</a><a href="../../../pages/references.html">المراجع</a></div></div></nav><main class="container section"><a class="btn" href="index.html">← العودة إلى الدرس</a><section class="card"><span class="badge">كويز الأسبوع 6 · الدرس 1</span><h1 class="title">كويز: Laravel API Resources وتنظيم البيانات</h1><p class="lead">الكويز يقيس الفهم الحقيقي: لماذا نستخدم المفهوم، وكيف يظهر داخل FlowPilot، وما العلاقة بين النظرية والتطبيق.</p></section><section class="grid" style="margin-top:20px"><div class="card" data-answer="b"><h3>السؤال 1: ما الهدف الأساسي من هذا الدرس؟</h3><label class="quiz-option"><input type="radio" name="q1" value="a"> حفظ أسماء الملفات فقط</label><label class="quiz-option"><input type="radio" name="q1" value="b"> فهم مفهوم عملي وربطه بمشروع FlowPilot</label><label class="quiz-option"><input type="radio" name="q1" value="c"> تغيير ألوان الصفحة فقط</label><label class="quiz-option"><input type="radio" name="q1" value="d"> تجاهل التطبيق العملي</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> الهدف هو الفهم والتطبيق، وليس الحفظ أو التزيين فقط.</p></div><div class="card" data-answer="c"><h3>السؤال 2: ما العلاقة الصحيحة بين Laravel وReact وInertia؟</h3><label class="quiz-option"><input type="radio" name="q2" value="a"> Laravel يعرض الواجهة فقط</label><label class="quiz-option"><input type="radio" name="q2" value="b"> React يدير قاعدة البيانات</label><label class="quiz-option"><input type="radio" name="q2" value="c"> Inertia يربط Laravel بصفحات React</label><label class="quiz-option"><input type="radio" name="q2" value="d"> Tailwind يحفظ البيانات</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> Inertia يعمل كجسر بين Laravel وReact.</p></div><div class="card" data-answer="b"><h3>السؤال 3: لماذا نشرح السبب قبل الكود؟</h3><label class="quiz-option"><input type="radio" name="q3" value="a"> حتى ينسخ الطالب بسرعة</label><label class="quiz-option"><input type="radio" name="q3" value="b"> حتى يفهم الطالب وظيفة الخطوة ويكررها لاحقاً</label><label class="quiz-option"><input type="radio" name="q3" value="c"> حتى نقلل الشرح</label><label class="quiz-option"><input type="radio" name="q3" value="d"> لأن الكود غير مهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> فهم السبب يجعل الطالب قادراً على حل الأخطاء وتطبيق الفكرة في مكان آخر.</p></div><div class="card" data-answer="b"><h3>السؤال 4: ما أفضل طريقة للتعامل مع خطأ يظهر أثناء التطبيق؟</h3><label class="quiz-option"><input type="radio" name="q4" value="a"> حذف الملفات</label><label class="quiz-option"><input type="radio" name="q4" value="b"> قراءة رسالة الخطأ ومراجعة المسار والاسم</label><label class="quiz-option"><input type="radio" name="q4" value="c"> تجاهل الخطأ</label><label class="quiz-option"><input type="radio" name="q4" value="d"> إغلاق المشروع</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> رسالة الخطأ غالباً توضح مكان المشكلة أو سببها.</p></div><div class="card" data-answer="b"><h3>السؤال 5: ماذا يعني نجاح الدرس داخل FlowPilot؟</h3><label class="quiz-option"><input type="radio" name="q5" value="a"> وجود عنوان فقط</label><label class="quiz-option"><input type="radio" name="q5" value="b"> ظهور نتيجة عملية مفهومة يمكن البناء عليها</label><label class="quiz-option"><input type="radio" name="q5" value="c"> عدم تشغيل المشروع</label><label class="quiz-option"><input type="radio" name="q5" value="d"> نسخ الكود دون فهم</label><p class="explain muted" style="display:none"><strong>الشرح:</strong> كل درس يجب أن يضيف نتيجة تعليمية وعملية واضحة.</p></div></section><section class="card"><button class="btn" data-grade-quiz>تصحيح الكويز</button><p id="quizResult" class="result"></p></section></main><footer class="footer"><div class="container">© FlowPilot Academy - دورة Laravel 12 + React + Inertia.js + Tailwind CSS</div></footer><script src="../../../assets/js/app.js"></script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>كويز - الدرس 21: API Resources | FlowPilot Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .quiz-card { border: 2px solid #e2e8f0; border-radius: 1.5rem; padding: 2rem; margin-bottom: 2rem; background: white; }
+        .quiz-card.correct { border-color: #22c55e; background: #f0fdf4; }
+        .quiz-card.wrong { border-color: #ef4444; background: #fef2f2; }
+        .option-label { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 1rem; border: 2px solid #e2e8f0; margin-bottom: 0.5rem; cursor: pointer; transition: all 0.2s; }
+        .option-label:hover { border-color: #6366f1; background: #eef2ff; }
+        .option-label.selected { border-color: #6366f1; background: #eef2ff; }
+        .option-label input { display: none; }
+        #result-box { display: none; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+    </div>
+</header>
+
+<main class="mx-auto max-w-3xl px-4 py-8">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-6" href="index.html">← العودة إلى الدرس</a>
+
+    <div class="card p-8 bg-white rounded-3xl shadow-sm mb-8">
+        <span class="bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">كويز الأسبوع 6 · الدرس 1</span>
+        <h1 class="mt-4 text-3xl font-black">كويز: API Resources وتنظيم البيانات</h1>
+        <p class="text-slate-500 mt-2">اختبر فهمك لمفهوم API Resources وكيفية تطبيقه في FlowPilot.</p>
+    </div>
+
+    <form id="quizForm">
+        <div id="questions-container"></div>
+
+        <div class="text-center mt-8">
+            <button type="button" onclick="gradeQuiz()" class="bg-indigo-600 text-white px-12 py-4 rounded-2xl font-black text-lg hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100">تصحيح الإجابات</button>
+            <button type="button" onclick="resetQuiz()" class="mr-4 bg-slate-200 text-slate-700 px-8 py-4 rounded-2xl font-black hover:bg-slate-300 transition-all">إعادة المحاولة</button>
+        </div>
+    </form>
+
+    <div id="result-box" class="mt-8 p-8 rounded-3xl text-center">
+        <h2 class="text-2xl font-black" id="result-title"></h2>
+        <p class="text-lg mt-2" id="result-detail"></p>
+    </div>
+</main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. اختبر فهمك، ثم طبّق بثقة.
+</footer>
+
+<script>
+const questions = [
+    {
+        type: 'mcq',
+        question: 'ما هو الهدف الرئيسي من API Resource في Laravel؟',
+        options: ['تحسين سرعة قاعدة البيانات', 'تحويل وتنظيم البيانات قبل إرسالها للواجهة', 'إنشاء جداول جديدة في قاعدة البيانات', 'تسجيل الدخول للمستخدمين'],
+        answer: 1,
+        explanation: 'API Resource هو طبقة تحويل (Transformation Layer) تسمح لنا باختيار الحقول التي نرسلها للواجهة وتنسيقها.'
+    },
+    {
+        type: 'mcq',
+        question: 'ما هي الدالة التي تحدد الحقول المرسلة في Resource؟',
+        options: ['index()', 'show()', 'toArray()', 'render()'],
+        answer: 2,
+        explanation: 'دالة toArray() هي التي نكتب فيها الحقول التي نريد إرسالها للواجهة.'
+    },
+    {
+        type: 'mcq',
+        question: 'كيف نطبق Resource على قائمة مشاريع في الـ Controller؟',
+        options: ['ProjectResource::all()', 'ProjectResource::collection($projects)', 'new ProjectResource($projects)', '$projects->resource()'],
+        answer: 1,
+        explanation: 'نستخدم ProjectResource::collection($projects) لتطبيق الـ Resource على كل عنصر في القائمة.'
+    },
+    {
+        type: 'mcq',
+        question: 'ما فائدة $this->when() في Resource؟',
+        options: ['تكرر الحقل عدة مرات', 'ترسل الحقل فقط إذا تحقق شرط', 'تحذف الحقل نهائياً', 'تضيف بادئة للحقل'],
+        answer: 1,
+        explanation: '$this->when(شرط, قيمة) ترسل الحقل فقط إذا كان الشرط true. مفيد للأمان.'
+    },
+    {
+        type: 'mcq',
+        question: 'أي من التالي ليس فائدة من فوائد API Resources؟',
+        options: ['الأمان بمنع تسريب البيانات الحساسة', 'تحسين أداء التطبيق بتقليل حجم البيانات', 'إنشاء حسابات مستخدمين جديدة', 'توحيد أسماء الحقول للواجهة'],
+        answer: 2,
+        explanation: 'API Resources لا علاقة لها بإنشاء الحسابات. وظيفتها تنظيم البيانات.'
+    },
+    {
+        type: 'tf',
+        question: 'API Resource يمكنه إضافة حقول محسوبة (Computed fields) مثل tasks_count.',
+        answer: true,
+        explanation: 'صحيح. يمكننا إضافة حقول غير موجودة في قاعدة البيانات مثل عدد المهام.'
+    },
+    {
+        type: 'tf',
+        question: 'يجب استخدام Resource فقط مع الاستعلامات التي تعيد بيانات مفردة (Model)، وليس مع القوائم (Collections).',
+        answer: false,
+        explanation: 'خطأ. Resource يدعم كلاً من ::make() للمفرد و ::collection() للقوائم.'
+    },
+    {
+        type: 'theory',
+        question: 'اشرح بجملتين: لماذا نستخدم API Resources في FlowPilot بدلاً من إرسال البيانات الخام من قاعدة البيانات؟',
+        answer: 'نستخدمها لتنقية البيانات من الحقول الحساسة والداخلية، ولإضافة حقول محسوبة مثل عدد المهام، ولتوحيد شكل البيانات المرسلة لواجهة React.'
+    },
+    {
+        type: 'practical',
+        question: 'في FlowPilot، تحتاج إنشاء Resource لموديل Task يرسل: id, title, status, assigned_user_name (من علاقة belongsTo). اكتب المطلوب خطوة بخطوة.',
+        answer: '1. php artisan make:resource TaskResource. 2. في toArray أضف id و title و status. 3. أضف assigned_user_name => $this->assignedUser?->name. 4. في الـ Controller استخدم TaskResource::collection($tasks) عند الإرسال لـ Inertia.'
+    }
+];
+
+function renderQuestions() {
+    const container = document.getElementById('questions-container');
+    container.innerHTML = '';
+    questions.forEach((q, i) => {
+        const card = document.createElement('div');
+        card.className = 'quiz-card';
+        card.id = 'q' + i;
+        const num = i + 1;
+
+        let typeLabel = '';
+        if (q.type === 'mcq') typeLabel = '<span class="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded text-xs font-bold">اختيار من متعدد</span>';
+        else if (q.type === 'tf') typeLabel = '<span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-xs font-bold">صح/خطأ</span>';
+        else if (q.type === 'theory') typeLabel = '<span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-xs font-bold">نظري</span>';
+        else if (q.type === 'practical') typeLabel = '<span class="bg-rose-100 text-rose-700 px-2 py-0.5 rounded text-xs font-bold">عملي</span>';
+
+        let innerHtml = `<div class="flex items-center gap-2 mb-4">${typeLabel}<span class="text-xs text-slate-400">سؤال ${num}</span></div>`;
+        innerHtml += `<h3 class="text-lg font-bold mb-4">${q.question}</h3>`;
+
+        if (q.type === 'mcq') {
+            q.options.forEach((opt, oi) => {
+                innerHtml += `<label class="option-label" onclick="selectOption(${i}, ${oi})"><span class="w-8 h-8 rounded-full border-2 border-slate-300 flex items-center justify-center text-sm font-bold" id="opt-${i}-${oi}">${String.fromCharCode(65 + oi)}</span><span>${opt}</span></label>`;
+            });
+        } else if (q.type === 'tf') {
+            innerHtml += `<label class="option-label" onclick="selectTF(${i}, true)"><span class="w-8 h-8 rounded-full border-2 border-slate-300 flex items-center justify-center text-sm font-bold" id="tf-${i}-true">✓</span><span>صح</span></label>`;
+            innerHtml += `<label class="option-label" onclick="selectTF(${i}, false)"><span class="w-8 h-8 rounded-full border-2 border-slate-300 flex items-center justify-center text-sm font-bold" id="tf-${i}-false">✗</span><span>خطأ</span></label>`;
+        } else if (q.type === 'theory' || q.type === 'practical') {
+            innerHtml += `<textarea id="answer-${i}" class="w-full p-4 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:ring-0 bg-white text-right" rows="4" placeholder="اكتب إجابتك هنا..."></textarea>`;
+        }
+
+        card.innerHTML = innerHtml;
+        container.appendChild(card);
+    });
+}
+
+function selectOption(qi, oi) {
+    questions[qi].selected = oi;
+    for (let j = 0; j < questions[qi].options.length; j++) {
+        document.getElementById(`opt-${qi}-${j}`).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold ' + (j === oi ? 'bg-indigo-600 text-white border-indigo-600' : 'border-slate-300');
+    }
+}
+
+function selectTF(qi, val) {
+    questions[qi].selected = val;
+    document.getElementById(`tf-${qi}-true`).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold ' + (val === true ? 'bg-emerald-600 text-white border-emerald-600' : 'border-slate-300');
+    document.getElementById(`tf-${qi}-false`).className = 'w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold ' + (val === false ? 'bg-red-600 text-white border-red-600' : 'border-slate-300');
+}
+
+function gradeQuiz() {
+    let correct = 0;
+    let total = 0;
+
+    questions.forEach((q, i) => {
+        const card = document.getElementById('q' + i);
+        card.classList.remove('correct', 'wrong');
+        let isCorrect = false;
+
+        if (q.type === 'mcq') {
+            total++;
+            if (q.selected === q.answer) { isCorrect = true; correct++; }
+            card.classList.add(isCorrect ? 'correct' : 'wrong');
+        } else if (q.type === 'tf') {
+            total++;
+            if (q.selected === q.answer) { isCorrect = true; correct++; }
+            card.classList.add(isCorrect ? 'correct' : 'wrong');
+        } else if (q.type === 'theory' || q.type === 'practical') {
+            total++;
+            const userAnswer = document.getElementById('answer-' + i).value.trim();
+            if (userAnswer.length > 10) { isCorrect = true; correct++; }
+            card.classList.add(isCorrect ? 'correct' : 'wrong');
+        }
+
+        const existing = card.querySelector('.explanation');
+        if (!existing) {
+            const exp = document.createElement('div');
+            exp.className = 'explanation mt-4 p-4 rounded-xl bg-slate-50 text-slate-700 text-sm border border-slate-200';
+            exp.innerHTML = '<strong>الشرح:</strong> ' + q.explanation;
+            card.appendChild(exp);
+        }
+    });
+
+    const pct = Math.round((correct / total) * 100);
+    const box = document.getElementById('result-box');
+    box.style.display = 'block';
+    document.getElementById('result-title').textContent = pct >= 70 ? '🎉 أحسنت! اجتزت الكويز بنجاح' : '📖 تحتاج إلى مراجعة';
+    document.getElementById('result-detail').textContent = `عدد الإجابات الصحيحة: ${correct} من ${total} (${pct}%)`;
+    box.className = 'mt-8 p-8 rounded-3xl text-center ' + (pct >= 70 ? 'bg-emerald-50 text-emerald-800' : 'bg-amber-50 text-amber-800');
+}
+
+function resetQuiz() {
+    questions.forEach((q, i) => {
+        q.selected = undefined;
+        const card = document.getElementById('q' + i);
+        card.classList.remove('correct', 'wrong');
+        const exp = card.querySelector('.explanation');
+        if (exp) exp.remove();
+        if (q.type === 'mcq') {
+            for (let j = 0; j < q.options.length; j++) {
+                document.getElementById(`opt-${i}-${j}`).className = 'w-8 h-8 rounded-full border-2 border-slate-300 flex items-center justify-center text-sm font-bold';
+            }
+        } else if (q.type === 'tf') {
+            document.getElementById(`tf-${i}-true`).className = 'w-8 h-8 rounded-full border-2 border-slate-300 flex items-center justify-center text-sm font-bold';
+            document.getElementById(`tf-${i}-false`).className = 'w-8 h-8 rounded-full border-2 border-slate-300 flex items-center justify-center text-sm font-bold';
+        } else {
+            document.getElementById('answer-' + i).value = '';
+        }
+    });
+    document.getElementById('result-box').style.display = 'none';
+}
+
+renderQuestions();
+</script>
+</body>
+</html>
