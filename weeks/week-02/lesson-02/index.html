@@ -3,84 +3,112 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 6: بناء الـ Layout الثابت والقوائم</title>
+    <title>الدرس 6: بناء Layout رئيسي وشريط تنقل ثابت</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .sidebar-sticky { position: sticky; top: 5rem; }
+        .step-card { border-right: 4px solid #10b981; padding-right: 1.5rem; margin-bottom: 2rem; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+<body class="bg-slate-50 text-slate-900">
 
-<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
 </header>
 
 <main class="mx-auto max-w-7xl px-4 py-8">
-    <div class="lesson-layout">
-        <aside class="sidebar-sticky h-fit card p-4 hidden lg:block">
-            <a class="font-black text-indigo-700 hover:underline" href="../index.html">← العودة للأسبوع الثاني</a>
-            <div class="mt-8 space-y-2 text-sm font-bold text-slate-600">
-                <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم الـ Layout</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">قوة Reusability</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">بناء أول Layout</a>
+    <div class="grid lg:grid-cols-4 gap-8">
+        <aside class="hidden lg:block">
+            <div class="sidebar-sticky space-y-4">
+                <a class="font-black text-emerald-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الثاني</a>
+                <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
+                    <a class="block p-3 rounded-xl bg-emerald-50 text-emerald-700" href="#intro">مفهوم الـ Layout</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">قاعدة (DRY)</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال إطار الصورة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                </div>
             </div>
         </aside>
 
-        <article class="card p-6 md:p-12 prose-box bg-white shadow-sm border-slate-200">
-            <section class="lesson-hero border-b pb-8 mb-12">
-                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs tracking-widest">الأسبوع 2 · الدرس 2</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">بناء الهيكل الثابت (Layout) وأنظمة التنقل الذكية</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"لا تكرر نفسك! لنتعلم كيف نبني إطاراً واحداً يسع جميع صفحات تطبيقنا."</p>
+        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
+            <section class="border-b pb-8 mb-12">
+                <span class="px-3 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-bold text-xs uppercase tracking-widest">الأسبوع 2 · الدرس 2</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">بناء القالب الرئيسي (Layout): كيف لا نكرر كود الواجهة؟</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"المبرمج الذكي هو من يكتب الكود مرة واحدة ويستخدمه في كل مكان."</p>
             </section>
 
-            <section class="student-section space-y-4" id="intro">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">ما هو الـ Layout؟</h2>
+            <section id="intro" class="space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">لماذا نحتاج الـ Layout؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    في أي موقع، تجد أن "شريط التنقل العلوي" (Header) و "القائمة الجانبية" (Sidebar) ثابتة في كل الصفحات، بينما يتغير المحتوى في المنتصف فقط. هذا الهيكل الثابت يسمى <strong>الـ Layout</strong>.
+                    تخيل أن تطبيق FlowPilot يحتوي على 50 صفحة. في كل صفحة نحتاج لشريط تنقل (Navbar) في الأعلى وقائمة جانبية (Sidebar). هل يعقل أن ننسخ كود الـ Navbar في 50 ملفاً؟
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    بدلاً من نسخ كود القائمة في كل صفحة (وهذا خطأ فادح!)، سنقوم بكتابته مرة واحدة فقط، ونجعل جميع صفحات FlowPilot "تغلف" نفسها داخله.
+                    بالطبع لا. إذا أردنا تغيير لون الـ Navbar لاحقاً، سيتعين علينا تعديل 50 ملفاً! الحل هو الـ <strong>Layout</strong>؛ وهو قالب ثابت نضع فيه العناصر المشتركة، ثم نضع محتوى كل صفحة "بداخله".
                 </p>
             </section>
 
-            <section class="student-section mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100" id="example">
-                <h2 class="text-2xl font-black mb-4">تشبيه بصري</h2>
+            <section id="theory" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">قاعدة DRY البرمجية</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    في البرمجة هناك قاعدة ذهبية تسمى <strong>DRY</strong> وهي اختصار لـ <em>Don't Repeat Yourself</em> (لا تكرر نفسك). الـ Layout هو تطبيق عملي لهذه القاعدة في تصميم الواجهات.
+                </p>
+                <div class="p-6 rounded-2xl bg-slate-900 text-indigo-400 font-mono text-sm text-left">
+                    &lt;Layout&gt;<br>
+                    &nbsp;&nbsp;{/* محتوى الصفحة يتغير هنا */}<br>
+                    &nbsp;&nbsp;{children}<br>
+                    &lt;/Layout&gt;
+                </div>
+            </section>
+
+            <section id="example" class="mt-16 p-8 rounded-3xl bg-emerald-600 text-white shadow-xl shadow-emerald-100">
+                <h2 class="text-2xl font-black mb-4">مثال من الواقع (إطار الصور)</h2>
                 <p class="text-indigo-50 leading-relaxed text-lg">
-                    تخيل الـ Layout كـ "برواز صورة" جميل. 
-                    <br>
-                    البرواز يظل ثابتاً على الحائط، وأنت فقط تقوم بتغيير "الصورة" (محتوى الصفحة) بداخله كلما أردت. هذا يوفر عليك وقتاً وجهداً كبيراً ويضمن تناسق الشكل.
+                    تخيل الـ <strong>Layout</strong> كـ "إطار خشبي" جميل معلق على الحائط. الإطار ثابت لا يتغير مكانه ولا شكله. 
+                    <br><br>
+                    أما <strong>محتوى الصفحة</strong> فهو "الصورة" التي تضعها داخل هذا الإطار. يمكنك تغيير الصورة في أي وقت (تبديل الصفحات)، لكن الإطار يظل يحميها ويزينها بشكل ثابت.
                 </p>
             </section>
 
-            <section class="student-section mt-16 space-y-12" id="practice">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">التطبيق العملي</h2>
+            <section id="practice" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">التطبيق العملي خطوة بخطوة</h2>
+
+                <!-- Step 1 -->
                 <div class="step-card">
-                    <div class="flex items-center gap-4 mb-4">
-                        <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl">1</span>
-                        <h3 class="text-xl font-black text-slate-900">إنشاء ملف AuthenticatedLayout.jsx</h3>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء ملف Layout.jsx</h3>
+                    <p class="text-slate-600 mb-4"><strong>المكان:</strong> مجلد <code>resources/js/Layouts/AppLayout.jsx</code></p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <p>export default function AppLayout({ children }) {</p>
+                        <p>&nbsp;&nbsp;return (</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="min-h-screen bg-gray-100"&gt;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nav class="bg-white shadow"&gt;...شريط التنقل...&lt;/nav&gt;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;main&gt;{children}&lt;/main&gt;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</p>
+                        <p>&nbsp;&nbsp;);</p>
+                        <p>}</p>
                     </div>
-                    <div class="space-y-4 pr-16">
-                        <p class="text-slate-600">سننشئ مكوناً جديداً في React يستقبل <code>children</code> (وهو محتوى الصفحة المتغير) ويعرضه داخل هيكل منظم.</p>
-                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400">
-                            <p>export default function AuthenticatedLayout({ children }) {</p>
-                            <p>&nbsp;&nbsp;return (</p>
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="min-h-screen bg-gray-100"&gt;</p>
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nav&gt;... (قائمة التنقل) ...&lt;/nav&gt;</p>
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;main&gt;{children}&lt;/main&gt;</p>
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</p>
-                            <p>&nbsp;&nbsp;);</p>
-                            <p>}</p>
-                        </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: استخدام القالب في صفحاتنا</h3>
+                    <p class="text-slate-600 mb-4">افتح ملف <code>Dashboard.jsx</code> وقم بتغليفه بالقالب الجديد.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-sky-400 overflow-x-auto mb-4 text-left">
+                        <p>import AppLayout from '../Layouts/AppLayout';</p>
+                        <p>Dashboard.layout = page => &lt;AppLayout children={page} /&gt;</p>
                     </div>
                 </div>
             </section>
 
             <div class="mt-12 flex justify-between gap-4">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-02/lesson-01/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all" href="../../week-02/lesson-03/index.html">الدرس التالي: مكونات React ←</a>
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-01/index.html">← الدرس السابق</a>
+                <a class="rounded-2xl bg-emerald-600 px-8 py-4 text-white font-black hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-100" href="../lesson-03/index.html">الدرس التالي: مكونات React ←</a>
             </div>
         </article>
     </div>

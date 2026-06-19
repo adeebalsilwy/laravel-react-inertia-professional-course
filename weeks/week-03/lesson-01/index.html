@@ -9,82 +9,136 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .sidebar-sticky { position: sticky; top: 5rem; }
+        .step-card { border-right: 4px solid #0ea5e9; padding-right: 1.5rem; margin-bottom: 2rem; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+<body class="bg-slate-50 text-slate-900">
 
-<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
 </header>
 
 <main class="mx-auto max-w-7xl px-4 py-8">
-    <div class="lesson-layout">
-        <aside class="sidebar-sticky h-fit card p-4 hidden lg:block">
-            <a class="font-black text-indigo-700 hover:underline" href="../index.html">← العودة للأسبوع الثالث</a>
-            <div class="mt-8 space-y-2 text-sm font-bold text-slate-600">
-                <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم قاعدة البيانات</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">الجداول والعلاقات</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">هيكل FlowPilot</a>
+    <div class="grid lg:grid-cols-4 gap-8">
+        <aside class="hidden lg:block">
+            <div class="sidebar-sticky space-y-4">
+                <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الثالث</a>
+                <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
+                    <a class="block p-3 rounded-xl bg-sky-50 text-sky-700" href="#intro">مفهوم قاعدة البيانات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">الجداول والعلاقات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال الأرشيف</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">هيكل FlowPilot</a>
+                </div>
             </div>
         </aside>
 
-        <article class="card p-6 md:p-12 prose-box bg-white shadow-sm border-slate-200">
-            <section class="lesson-hero border-b pb-8 mb-12">
-                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs tracking-widest">الأسبوع 3 · الدرس 1</span>
+        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
+            <section class="border-b pb-8 mb-12">
+                <span class="badge bg-sky-50 text-sky-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 3 · الدرس 1</span>
                 <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">تصميم "ذاكرة" التطبيق: فهم هيكل قاعدة البيانات</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"البيانات هي أغلى ما يملك التطبيق. لنتعلم كيف نحفظها بنظام وذكاء."</p>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"البيانات هي أغلى ما يملك التطبيق. لنتعلم كيف نحفظها بنظام وذكاء لضمان استمرارية العمل."</p>
             </section>
 
-            <section class="student-section space-y-4" id="intro">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">لماذا قاعدة البيانات؟</h2>
+            <section id="intro" class="space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">لماذا نحتاج لقاعدة بيانات؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    عندما يغلق المستخدم المتصفح، تختفي كل المعلومات الموجودة في React. لكي "يتذكر" التطبيق أسماء المشاريع والمهام والمستخدمين، نحتاج لمكان دائم لحفظها. هذا المكان هو <strong>قاعدة البيانات (Database)</strong>.
+                    عندما يغلق المستخدم المتصفح، تختفي كل المعلومات المؤقتة الموجودة في React. لكي "يتذكر" التطبيق أسماء المشاريع والمهام والمستخدمين حتى بعد إغلاق الجهاز، نحتاج لمكان دائم وآمن لحفظها. هذا المكان هو <strong>قاعدة البيانات (Database)</strong>.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    بدون قاعدة بيانات، سيبدأ تطبيق <strong>FlowPilot</strong> من الصفر في كل مرة تفتحه فيها، وهذا غير ممكن في التطبيقات الحقيقية.
+                    بدون قاعدة بيانات، سيبدأ تطبيق <strong>FlowPilot</strong> من الصفر في كل مرة يفتحه فيها المستخدم، وهذا يجعل التطبيق عديم الفائدة. في هذا الدرس، سنتعلم كيف نخطط لهذا "المخزن" قبل أن نبدأ بكتابة الكود.
                 </p>
             </section>
 
-            <section class="student-section mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100" id="example">
-                <h2 class="text-2xl font-black mb-4">تشبيه بصري</h2>
-                <p class="text-indigo-50 leading-relaxed text-lg">
-                    تخيل قاعدة البيانات كـ "أرشيف ملفات" ضخم في شركة. 
+            <section id="theory" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">المفاهيم الأساسية: جداول وسجلات</h2>
+                <div class="space-y-4 text-slate-600">
+                    <p>قاعدة البيانات ليست مجرد ملف واحد، بل هي نظام منظم يتكون من:</p>
+                    <ul class="list-disc pr-6 space-y-4">
+                        <li><strong>Table (الجدول):</strong> يمثل فئة معينة من البيانات (مثل جدول "المشاريع").</li>
+                        <li><strong>Column (العمود):</strong> يمثل صفة معينة للبيانات (مثل "اسم المشروع" أو "تاريخ البدء").</li>
+                        <li><strong>Row (السجل):</strong> يمثل بياناً واحداً مكتملاً (مثل مشروع "تطوير الموقع" الذي بدأ في "1 يناير").</li>
+                        <li><strong>Primary Key (المفتاح الأساسي):</strong> رقم فريد يميز كل سجل عن غيره (مثل رقم الهوية).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="example" class="mt-16 p-8 rounded-3xl bg-sky-600 text-white shadow-xl shadow-sky-100">
+                <h2 class="text-2xl font-black mb-4">مثال من حياتنا (أرشيف الشركة)</h2>
+                <p class="text-sky-50 leading-relaxed text-lg">
+                    تخيل قاعدة البيانات كـ "خزانة أرشيف" ضخمة في شركة. 
+                    <br><br>
+                    - كل <strong>درج</strong> في الخزانة هو <strong>جدول</strong>؛ هناك درج لملفات الموظفين، ودرج لملفات المشاريع.
                     <br>
-                    - كل درج في الأرشيف هو <strong>جدول (Table)</strong>؛ درج للموظفين، ودرج للمشاريع.
+                    - كل <strong>ملف</strong> ورقي داخل الدرج هو <strong>سجل (Row)</strong> يمثل موظفاً واحداً.
                     <br>
-                    - كل ملف داخل الدرج هو <strong>سجل (Row)</strong> يمثل موظفاً واحداً أو مشروعاً واحداً.
-                    <br>
-                    - الأوراق الملونة التي تربط الملفات ببعضها هي <strong>العلاقات (Relationships)</strong>.
+                    - <strong>رقم الملف</strong> المكتوب على الغلاف هو <strong>المفتاح الأساسي</strong> الذي لا يتكرر أبداً.
                 </p>
             </section>
 
-            <section class="student-section mt-16" id="practice">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">هيكل بيانات FlowPilot</h2>
-                <p class="mt-6 text-slate-600">سنحتاج في تطبيقنا للجداول التالية:</p>
-                <div class="grid md:grid-cols-2 gap-6 mt-8">
+            <section id="flowpilot" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">هيكل بيانات FlowPilot</h2>
+                <p class="mt-6 text-slate-600">لكي يعمل تطبيقنا، سنحتاج في البداية لثلاثة جداول رئيسية:</p>
+                <div class="grid md:grid-cols-3 gap-6 mt-8">
                     <div class="p-6 rounded-2xl border-2 border-dashed border-slate-200">
-                        <h4 class="font-black text-indigo-600 mb-2 text-lg">جدول المستخدمين (Users)</h4>
-                        <p class="text-sm text-slate-500">يحفظ الاسم، البريد، وكلمة المرور.</p>
+                        <h4 class="font-black text-indigo-600 mb-2">Users</h4>
+                        <p class="text-xs text-slate-500">يحفظ بيانات دخول أعضاء الفريق.</p>
                     </div>
                     <div class="p-6 rounded-2xl border-2 border-dashed border-slate-200">
-                        <h4 class="font-black text-indigo-600 mb-2 text-lg">جدول المشاريع (Projects)</h4>
-                        <p class="text-sm text-slate-500">يحفظ اسم المشروع، الوصف، وتاريخ البداية.</p>
+                        <h4 class="font-black text-indigo-600 mb-2">Projects</h4>
+                        <p class="text-xs text-slate-500">يحفظ تفاصيل كل مشروع ومواعيد تسليمه.</p>
                     </div>
                     <div class="p-6 rounded-2xl border-2 border-dashed border-slate-200">
-                        <h4 class="font-black text-indigo-600 mb-2 text-lg">جدول المهام (Tasks)</h4>
-                        <p class="text-sm text-slate-500">يحفظ عنوان المهمة، حالتها (Todo, Done)، ولمن تتبع.</p>
+                        <h4 class="font-black text-indigo-600 mb-2">Tasks</h4>
+                        <p class="text-xs text-slate-500">يحفظ المهام التفصيلية وحالتها (قيد التنفيذ، مكتمل).</p>
                     </div>
+                </div>
+            </section>
+
+            <section id="visuals" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">مخططات توضيحية</h2>
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="diagram.svg" alt="Technical Diagram" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط قاعدة البيانات</p>
+                    </div>
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="visual-example.svg" alt="Teaching Diagram" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">التشبيه البصري (الأرشيف)</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="practice" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">كيف نصمم الجدول؟ (نظري قبل التطبيق)</h2>
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: تحديد الحقول</h3>
+                    <p class="text-slate-600">لجدول المشاريع <code>Projects</code> سنحتاج لـ:</p>
+                    <ul class="text-sm text-slate-500 pr-6 mt-2 space-y-1">
+                        <li>1. <strong>id:</strong> رقم تسلسلي فريد.</li>
+                        <li>2. <strong>name:</strong> نص (String) لاسم المشروع.</li>
+                        <li>3. <strong>description:</strong> نص طويل (Text) لشرح المشروع.</li>
+                        <li>4. <strong>status:</strong> نص (String) يحدد الحالة.</li>
+                        <li>5. <strong>created_at:</strong> تاريخ إنشاء السجل.</li>
+                    </ul>
                 </div>
             </section>
 
             <div class="mt-12 flex justify-between gap-4">
                 <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-02/lesson-04/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all" href="../../week-03/lesson-02/index.html">الدرس التالي: Migrations ←</a>
+                <a class="rounded-2xl bg-sky-600 px-8 py-4 text-white font-black hover:bg-sky-700 transition-all shadow-xl shadow-sky-100" href="../../week-03/lesson-02/index.html">الدرس التالي: Migrations ←</a>
             </div>
         </article>
     </div>
 </main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. التخطيط الجيد هو نصف العمل.
+</footer>
 
 <script src="../../../assets/js/app.js"></script>
 </body>

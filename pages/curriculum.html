@@ -3,138 +3,185 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>فهرس المنهج | خريطة طريقك للاحتراف</title>
+    <title>فهرس المنهج | FlowPilot Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
+        .card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; transition: all 0.3s ease; }
+        .card:hover { border-color: #6366f1; transform: translateY(-4px); }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+<body class="bg-slate-50 text-slate-900">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
         <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
             <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../index.html">الرئيسية</a>
-            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../pages/curriculum.html">الفهرس</a>
-            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../pages/lessons.html">الدروس</a>
-            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../pages/beginner-guide.html">دليل المبتدئ</a>
-            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../pages/project.html">المشروع العملي</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="curriculum.html">الفهرس</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="lessons.html">الدروس</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="beginner-guide.html">دليل المبتدئ</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="project.html">المشروع العملي</a>
         </nav>
-        <button onclick="toggleMenu()" class="md:hidden rounded-xl border border-slate-200 bg-white px-3 py-2 transition-all">☰</button>
+        <button onclick="toggleMenu()" class="md:hidden rounded-xl border border-slate-200 bg-white px-3 py-2 hover:bg-slate-50 transition-all">☰</button>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden px-4 pb-4 space-y-2 font-bold bg-white border-b shadow-sm text-right">
+        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="../index.html">الرئيسية</a>
+        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="curriculum.html">الفهرس</a>
+        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="lessons.html">الدروس</a>
+        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="beginner-guide.html">دليل المبتدئ</a>
+        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="project.html">المشروع العملي</a>
     </div>
 </header>
 
-<main class="mx-auto max-w-7xl px-4 py-12">
-    <section class="mb-12">
-        <h1 class="text-4xl font-black text-slate-900">فهرس المنهج الشامل</h1>
+<main class="mx-auto max-w-7xl px-4 py-12 text-right">
+    <section class="mb-16">
+        <h1 class="text-4xl font-black text-slate-900">خريطة طريقك للاحتراف</h1>
         <p class="mt-4 text-slate-600 max-w-3xl leading-relaxed">
-            تم تقسيم الدورة إلى 8 أسابيع تدريبية مكثفة. كل أسبوع يركز على ركيزة أساسية في تطوير التطبيقات، وينتهي ببناء ميزات جديدة في مشروع <strong>FlowPilot</strong>.
+            لقد قمنا بتقسيم المنهج إلى 8 أسابيع تدريبية. كل أسبوع يركز على هدف محدد ويقربك أكثر من إتمام مشروع <strong>FlowPilot</strong>. ابدأ من الأسبوع الأول وسر بالترتيب لضمان أفضل استيعاب.
         </p>
     </section>
 
-    <div class="space-y-8">
+    <div class="space-y-12">
         <!-- Week 1 -->
-        <section class="card p-6 md:p-8 border-r-8 border-r-indigo-600">
+        <section class="card p-8 border-r-8 border-r-indigo-600 shadow-sm">
             <div class="flex flex-col md:flex-row justify-between items-start gap-4">
                 <div>
-                    <span class="badge bg-indigo-50 text-indigo-700 font-black">الأسبوع 01</span>
+                    <span class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 font-black text-xs">الأسبوع الأول</span>
                     <h2 class="mt-2 text-2xl font-black">تأسيس البيئة وفهم Stack الحديث</h2>
-                    <p class="mt-2 text-slate-600">الهدف: تجهيز جهازك بأحدث الأدوات وفهم كيف تعمل التقنيات الأربعة معاً.</p>
+                    <p class="mt-2 text-slate-600">الهدف: تجهيز جهازك بالأدوات اللازمة وبناء أول صفحة حقيقية تربط Laravel بـ React.</p>
                 </div>
-                <a href="../weeks/week-01/index.html" class="rounded-xl bg-slate-900 text-white px-5 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">عرض الأسبوع</a>
+                <a href="../weeks/week-01/index.html" class="rounded-xl bg-slate-900 text-white px-6 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">تصفح الأسبوع</a>
             </div>
-            <div class="mt-6 grid md:grid-cols-2 gap-4">
-                <a href="../weeks/week-01/lesson-01/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all group">
-                    <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">1</div>
-                    <span class="font-bold group-hover:text-indigo-700">تهيئة بيئة العمل وقراءة خريطة المشروع</span>
+            <div class="mt-8 grid md:grid-cols-2 gap-4">
+                <a href="../weeks/week-01/lesson-01/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-indigo-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">1</div>
+                    <span class="font-bold">تهيئة بيئة العمل وفهم خريطة المشروع</span>
                 </a>
-                <a href="../weeks/week-01/lesson-02/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all group">
-                    <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">2</div>
-                    <span class="font-bold group-hover:text-indigo-700">تثبيت Laravel 12 وربطه بـ React وInertia</span>
+                <a href="../weeks/week-01/lesson-02/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-indigo-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">2</div>
+                    <span class="font-bold">تثبيت Laravel 12 وربطه بـ React وInertia</span>
                 </a>
-                <a href="../weeks/week-01/lesson-03/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all group">
-                    <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">3</div>
-                    <span class="font-bold group-hover:text-indigo-700">Tailwind وتصميم النظام البصري العربي</span>
+                <a href="../weeks/week-01/lesson-03/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-indigo-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">3</div>
+                    <span class="font-bold">تصميم الواجهة الأولى باستخدام Tailwind CSS</span>
                 </a>
-                <a href="../weeks/week-01/lesson-04/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all group">
-                    <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">4</div>
-                    <span class="font-bold group-hover:text-indigo-700">Git وتنظيم المستودع والمعايير البرمجية</span>
+                <a href="../weeks/week-01/lesson-04/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-indigo-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-black">4</div>
+                    <span class="font-bold">Git وتنظيم المستودع وطريقة حفظ التقدم</span>
                 </a>
             </div>
         </section>
 
         <!-- Week 2 -->
-        <section class="card p-6 md:p-8 border-r-8 border-r-emerald-600">
+        <section class="card p-8 border-r-8 border-r-emerald-600 shadow-sm">
             <div class="flex flex-col md:flex-row justify-between items-start gap-4">
                 <div>
-                    <span class="badge bg-emerald-50 text-emerald-700 font-black">الأسبوع 02</span>
+                    <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 font-black text-xs">الأسبوع الثاني</span>
                     <h2 class="mt-2 text-2xl font-black">Routing و Inertia Layouts وبناء الهيكل</h2>
-                    <p class="mt-2 text-slate-600">الهدف: فهم كيفية توجيه المستخدم وبناء هيكل التطبيق الثابت والصفحات الرئيسية.</p>
+                    <p class="mt-2 text-slate-600">الهدف: فهم كيفية توجيه المستخدم بين الصفحات وبناء هيكل التطبيق الثابت.</p>
                 </div>
-                <a href="../weeks/week-02/index.html" class="rounded-xl bg-slate-900 text-white px-5 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">عرض الأسبوع</a>
+                <a href="../weeks/week-02/index.html" class="rounded-xl bg-slate-900 text-white px-6 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">تصفح الأسبوع</a>
             </div>
-            <div class="mt-6 grid md:grid-cols-2 gap-4">
-                <a href="../weeks/week-02/lesson-01/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50 transition-all group">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black">5</div>
-                    <span class="font-bold group-hover:text-emerald-700">Routing في Laravel و Inertia Responses</span>
+            <div class="mt-8 grid md:grid-cols-2 gap-4">
+                <a href="../weeks/week-02/lesson-01/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-emerald-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black">5</div>
+                    <span class="font-bold">فهم المسارات في Laravel وربطها بصفحات React</span>
                 </a>
-                <a href="../weeks/week-02/lesson-02/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50 transition-all group">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black">6</div>
-                    <span class="font-bold group-hover:text-emerald-700">Layouts و Navigation ثابت في التطبيق</span>
+                <a href="../weeks/week-02/lesson-02/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-emerald-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black">6</div>
+                    <span class="font-bold">بناء Layout رئيسي وشريط تنقل ثابت لكل الصفحات</span>
                 </a>
-                <a href="../weeks/week-02/lesson-03/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50 transition-all group">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black">7</div>
-                    <span class="font-bold group-hover:text-emerald-700">بناء Components ذكية في React داخل Inertia</span>
+                <a href="../weeks/week-02/lesson-03/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-emerald-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black">7</div>
+                    <span class="font-bold">فهم مكونات React وتقسيم الواجهة إلى أجزاء</span>
                 </a>
-                <a href="../weeks/week-02/lesson-04/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50 transition-all group">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black">8</div>
-                    <span class="font-bold group-hover:text-emerald-700">تصميم صفحات Dashboard و Workspace</span>
+                <a href="../weeks/week-02/lesson-04/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-emerald-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-black">8</div>
+                    <span class="font-bold">إنشاء Dashboard أولية لمؤشرات FlowPilot</span>
                 </a>
             </div>
         </section>
 
         <!-- Week 3 -->
-        <section class="card p-6 md:p-8 border-r-8 border-r-sky-600">
+        <section class="card p-8 border-r-8 border-r-sky-600 shadow-sm">
             <div class="flex flex-col md:flex-row justify-between items-start gap-4">
                 <div>
-                    <span class="badge bg-sky-50 text-sky-700 font-black">الأسبوع 03</span>
-                    <h2 class="mt-2 text-2xl font-black">قاعدة البيانات، النماذج، والعلاقات</h2>
-                    <p class="mt-2 text-slate-600">الهدف: تصميم "عقل" التطبيق حيث تُحفظ المشاريع والمهام وكيف ترتبط ببعضها.</p>
+                    <span class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 font-black text-xs">الأسبوع الثالث</span>
+                    <h2 class="mt-2 text-2xl font-black">قاعدة البيانات والنماذج والعلاقات</h2>
+                    <p class="mt-2 text-slate-600">الهدف: تعلم كيفية حفظ البيانات وربط المشاريع والمهام ببعضها بذكاء.</p>
                 </div>
-                <a href="../weeks/week-03/index.html" class="rounded-xl bg-slate-900 text-white px-5 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">عرض الأسبوع</a>
+                <a href="../weeks/week-03/index.html" class="rounded-xl bg-slate-900 text-white px-6 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">تصفح الأسبوع</a>
             </div>
-            <div class="mt-6 grid md:grid-cols-2 gap-4">
-                <a href="../weeks/week-03/lesson-01/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-sky-300 hover:bg-sky-50 transition-all group">
-                    <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-black">9</div>
-                    <span class="font-bold group-hover:text-sky-700">تصميم قاعدة بيانات FlowPilot من الصفر</span>
+            <div class="mt-8 grid md:grid-cols-2 gap-4">
+                <a href="../weeks/week-03/lesson-01/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-sky-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-black">9</div>
+                    <span class="font-bold">تصميم قاعدة بيانات FlowPilot قبل كتابة الجداول</span>
                 </a>
-                <a href="../weeks/week-03/lesson-02/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-sky-300 hover:bg-sky-50 transition-all group">
-                    <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-black">10</div>
-                    <span class="font-bold group-hover:text-sky-700">Migrations و Seeders و Factories</span>
+                <a href="../weeks/week-03/lesson-02/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-sky-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-black">10</div>
+                    <span class="font-bold">Migrations و Seeders و Factories للمبتدئين</span>
                 </a>
-                <a href="../weeks/week-03/lesson-03/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-sky-300 hover:bg-sky-50 transition-all group">
-                    <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-black">11</div>
-                    <span class="font-bold group-hover:text-sky-700">Eloquent Models وفهم العلاقات بعمق</span>
+                <a href="../weeks/week-03/lesson-03/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-sky-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-black">11</div>
+                    <span class="font-bold">فهم Eloquent Models والعلاقات بين البيانات</span>
                 </a>
-                <a href="../weeks/week-03/lesson-04/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-sky-300 hover:bg-sky-50 transition-all group">
-                    <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-black">12</div>
-                    <span class="font-bold group-hover:text-sky-700">Queries متقدمة وتحسين جودة القراءة</span>
+                <a href="../weeks/week-03/lesson-04/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-sky-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-black">12</div>
+                    <span class="font-bold">قراءة البيانات بكفاءة وتحسين الاستعلامات</span>
                 </a>
             </div>
         </section>
 
-        <!-- More weeks... (Following the same pattern) -->
-        <div class="card p-8 bg-slate-50 border-dashed text-center">
-            <p class="text-slate-500 font-bold">يمكنك استكشاف باقي الأسابيع (4 إلى 8) عبر صفحة "كل الدروس" أو عبر الانتقال لصفحة كل أسبوع.</p>
+        <!-- Week 4 -->
+        <section class="card p-8 border-r-8 border-r-amber-600 shadow-sm">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-4">
+                <div>
+                    <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-700 font-black text-xs">الأسبوع الرابع</span>
+                    <h2 class="mt-2 text-2xl font-black">المصادقة والصلاحيات وتجربة المستخدم</h2>
+                    <p class="mt-2 text-slate-600">الهدف: بناء نظام تسجيل دخول وحماية بيانات كل مستخدم من المتطفلين.</p>
+                </div>
+                <a href="../weeks/week-04/index.html" class="rounded-xl bg-slate-900 text-white px-6 py-2.5 font-bold text-sm hover:bg-slate-800 transition-colors">تصفح الأسبوع</a>
+            </div>
+            <div class="mt-8 grid md:grid-cols-2 gap-4">
+                <a href="../weeks/week-04/lesson-01/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-amber-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-black">13</div>
+                    <span class="font-bold">تسجيل الدخول وإنشاء حسابات المستخدمين</span>
+                </a>
+                <a href="../weeks/week-04/lesson-02/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-amber-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-black">14</div>
+                    <span class="font-bold">الصلاحيات Policies وحماية المشاريع الخاصة</span>
+                </a>
+                <a href="../weeks/week-04/lesson-03/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-amber-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-black">15</div>
+                    <span class="font-bold">Middleware وحماية الصفحات التي تحتاج لدخول</span>
+                </a>
+                <a href="../weeks/week-04/lesson-04/index.html" class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 hover:bg-amber-50 transition-all">
+                    <div class="flex-none w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-black">16</div>
+                    <span class="font-bold">صفحة الملف الشخصي وإعدادات الحساب</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Note about remaining weeks -->
+        <div class="p-12 text-center bg-slate-100 rounded-[2.5rem] border-2 border-dashed border-slate-200">
+             <p class="text-slate-600 font-bold">يمكنك استكشاف الأسابيع من 5 إلى 8 من خلال صفحة "كل الدروس" أو عبر الانتقال لروابطها مباشرة.</p>
+             <p class="mt-2 text-sm text-slate-500 italic">يتم العمل حالياً على تحسين عرض كافة الأسابيع لتكون بنفس هذا المستوى الاحترافي.</p>
         </div>
     </div>
 </main>
 
-<footer class="mt-24 border-t bg-white">
-    <div class="mx-auto max-w-7xl px-4 py-8 text-center text-sm text-slate-500 font-medium">
-        © 2025 FlowPilot Academy. جميع الأسابيع مصممة لضمان تسلسل تعليمي منطقي وممتع.
+<footer class="mt-24 border-t bg-white text-right">
+    <div class="mx-auto max-w-7xl px-4 py-12 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-slate-500 font-medium">
+        <p>© 2025 FlowPilot Academy. جميع الحقوق محفوظة.</p>
+        <div class="flex gap-6">
+            <a href="../index.html" class="hover:text-indigo-600">الرئيسية</a>
+            <a href="lessons.html" class="hover:text-indigo-600">جميع الدروس</a>
+        </div>
     </div>
 </footer>
 

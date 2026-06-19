@@ -3,27 +3,90 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 13: تفعيل نظام الدخول</title>
+    <title>واجب الدرس 13: تفعيل نظام الدخول الاحترافي</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
-<main class="mx-auto max-w-3xl px-4 py-12">
-    <div class="card p-12 space-y-8">
-        <h1 class="text-3xl font-black text-center text-indigo-600">واجب تأمين المشروع</h1>
-        <div class="space-y-6 text-right">
-            <h3 class="font-black text-xl">المطلوب:</h3>
-            <ol class="list-decimal pr-6 space-y-4 font-bold text-slate-700">
-                <li>ثبت حزمة Laravel Breeze في مشروعك.</li>
-                <li>نفذ أوامر التثبيت لـ React.</li>
-                <li>قم بإنشاء حساب جديد من المتصفح (Register).</li>
-                <li>تأكد من ظهور اسمك في لوحة التحكم بعد الدخول.</li>
-            </ol>
-        </div>
+<body class="bg-slate-50 text-slate-900">
+
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
+</header>
+
+<main class="mx-auto max-w-4xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة لشرح الدرس</a>
+    
+    <section class="space-y-8">
+        <div class="card p-8 bg-indigo-600 text-white shadow-xl shadow-indigo-100 rounded-3xl">
+            <h1 class="text-3xl font-black">واجب الدرس 13: تأمين FlowPilot</h1>
+            <p class="mt-4 text-indigo-100 leading-relaxed italic">
+                "اليوم ستضع أول قفل ذكي على مشروعك. هذا الواجب سيعلمك كيف تجعل التطبيق يفرق بين الزوار وبين أعضاء الفريق الحقيقيين."
+            </p>
+        </div>
+
+        <div class="space-y-8">
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+                <h2 class="text-2xl font-black flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">01</span>
+                    الهدف من الواجب
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    تمكين المستخدم من إنشاء حساب (Register) والدخول (Login) إلى لوحة تحكم FlowPilot باستخدام Laravel Breeze و React.
+                </p>
+            </section>
+
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+                <h2 class="text-2xl font-black flex items-center gap-3 text-indigo-600">
+                    <span class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">02</span>
+                    خطوات التنفيذ بالتفصيل
+                </h2>
+                <div class="space-y-6">
+                    <div class="border-r-4 border-indigo-500 pr-6">
+                        <h4 class="font-black text-slate-900">1. تثبيت حزمة Breeze</h4>
+                        <p class="text-sm text-slate-500 mt-1">افتح الـ Terminal داخل مجلد مشروعك ونفذ أمر `composer require laravel/breeze --dev`.</p>
+                    </div>
+                    <div class="border-r-4 border-indigo-500 pr-6">
+                        <h4 class="font-black text-slate-900">2. اختيار قالب React</h4>
+                        <p class="text-sm text-slate-500 mt-1">نفذ الأمر `php artisan breeze:install react` واتبع التعليمات (اختر خيار Functional Components).</p>
+                    </div>
+                    <div class="border-r-4 border-indigo-500 pr-6">
+                        <h4 class="font-black text-slate-900">3. تهجير قاعدة البيانات</h4>
+                        <p class="text-sm text-slate-500 mt-1">نفذ `php artisan migrate` لإنشاء جدول المستخدمين.</p>
+                    </div>
+                    <div class="border-r-4 border-indigo-500 pr-6">
+                        <h4 class="font-black text-slate-900">4. التجربة العملية</h4>
+                        <p class="text-sm text-slate-500 mt-1">افتح المتصفح، اذهب لـ `/register` وأنشئ حساباً جديداً. تأكد أن النظام أدخلك لصفحة Dashboard.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+                <h2 class="text-2xl font-black text-emerald-600">معايير التقييم</h2>
+                <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                    <li>نجاح عملية التسجيل بدون أخطاء.</li>
+                    <li>ظهور اسم المستخدم في شريط التنقل العلوي.</li>
+                    <li>القدرة على تسجيل الخروج والعودة بنجاح.</li>
+                </ul>
+            </section>
+        </div>
+
+        <div class="p-8 rounded-[2rem] bg-slate-900 text-white space-y-4">
+            <h3 class="text-xl font-black">تحدي إضافي 🚀</h3>
+            <p class="text-slate-400 text-sm">هل يمكنك تغيير لون زر "تسجيل الدخول" في ملف React ليتناسب مع لون ماركة FlowPilot البنفسجي؟</p>
+        </div>
+    </section>
 </main>
+
+<footer class="mt-24 border-t py-8 text-center text-slate-400 text-sm">
+    © 2025 FlowPilot Academy. التزامك هو طريقك للاحتراف.
+</footer>
 </body>
 </html>

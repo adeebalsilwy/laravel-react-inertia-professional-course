@@ -1,1 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360"><rect width="900" height="360" rx="30" fill="#f8fafc"/><circle cx="150" cy="120" r="54" fill="#dbeafe"/><text x="150" y="128" text-anchor="middle" font-family="Tahoma" font-size="18" font-weight="700">طالب</text><rect x="280" y="70" width="180" height="100" rx="22" fill="#eef2ff" stroke="#6366f1"/><text x="370" y="112" text-anchor="middle" font-family="Tahoma" font-size="18" font-weight="700">يفهم الفكرة</text><text x="370" y="142" text-anchor="middle" font-family="Tahoma" font-size="13" fill="#64748b">شرح نظري واضح</text><rect x="520" y="70" width="180" height="100" rx="22" fill="#ecfeff" stroke="#06b6d4"/><text x="610" y="112" text-anchor="middle" font-family="Tahoma" font-size="18" font-weight="700">يطبق عملياً</text><text x="610" y="142" text-anchor="middle" font-family="Tahoma" font-size="13" fill="#64748b">خطوات وكود</text><rect x="360" y="220" width="220" height="88" rx="22" fill="#f0fdf4" stroke="#22c55e"/><text x="470" y="258" text-anchor="middle" font-family="Tahoma" font-size="18" font-weight="700">نتيجة داخل FlowPilot</text><text x="470" y="287" text-anchor="middle" font-family="Tahoma" font-size="13" fill="#64748b">صفحة أو ميزة قابلة للمشاهدة</text><path d="M205 120 H280" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M460 120 H520" stroke="#0f172a" stroke-width="3" marker-end="url(#a)"/><path d="M610 170 C610 205 555 220 510 235" stroke="#0f172a" stroke-width="3" fill="none" marker-end="url(#a)"/><defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#0f172a"/></marker></defs><text x="450" y="35" text-anchor="middle" font-family="Tahoma" font-size="22" font-weight="700" fill="#111827">تهيئة بيئة العمل وفهم خريطة مشروع FlowPilot</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
+  <rect width="800" height="300" fill="#eff6ff" rx="20"/>
+  
+  <!-- Kitchen Analogy -->
+  <rect x="100" y="100" width="150" height="100" rx="10" fill="white" stroke="#3b82f6" stroke-width="2"/>
+  <text x="175" y="145" text-anchor="middle" font-family="Arial" font-weight="bold">الطباخ</text>
+  <text x="175" y="170" text-anchor="middle" font-size="12" fill="#64748b">PHP / Laravel</text>
+  
+  <rect x="325" y="100" width="150" height="100" rx="10" fill="white" stroke="#10b981" stroke-width="2"/>
+  <text x="400" y="145" text-anchor="middle" font-family="Arial" font-weight="bold">الأدوات</text>
+  <text x="400" y="170" text-anchor="middle" font-size="12" fill="#64748b">Node.js / NPM</text>
+  
+  <rect x="550" y="100" width="150" height="100" rx="10" fill="white" stroke="#f59e0b" stroke-width="2"/>
+  <text x="625" y="145" text-anchor="middle" font-family="Arial" font-weight="bold">المساعد</text>
+  <text x="625" y="170" text-anchor="middle" font-size="12" fill="#64748b">Composer</text>
+  
+  <text x="400" y="50" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="24" fill="#1e3a8a">تشبيه "المطبخ" لبيئة البرمجة</text>
+  <text x="400" y="250" text-anchor="middle" font-family="Arial" font-size="14" fill="#334155">كل أداة لها دور حيوي في "طهي" تطبيق FlowPilot بنجاح</text>
+</svg>

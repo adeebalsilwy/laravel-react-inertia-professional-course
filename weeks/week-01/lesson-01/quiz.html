@@ -14,75 +14,180 @@
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
-        <a href="../../../index.html" class="font-black text-2xl text-slate-900">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
 </header>
 
-<main class="mx-auto max-w-3xl px-4 py-12">
-    <a class="font-black text-indigo-700 hover:underline" href="index.html">← العودة للدرس</a>
+<main class="mx-auto max-w-3xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة للدرس</a>
     
-    <div class="mt-8 space-y-12">
+    <div class="space-y-12">
         <div class="text-center space-y-4">
-            <h1 class="text-3xl font-black">اختبر معلوماتك (Lesson 01)</h1>
+            <h1 class="text-3xl font-black">اختبر فهمك للبيئة والأدوات</h1>
             <p class="text-slate-600">هذا الكويز يقيس مدى استيعابك للمفاهيم الأساسية قبل الانتقال للكود.</p>
         </div>
 
         <div id="quiz-container" class="space-y-8">
-            <!-- Question 1 -->
-            <div class="card p-8 space-y-6">
-                <p class="font-black text-xl leading-relaxed">1. ما هي الوظيفة الأساسية لـ Composer في مشروع FlowPilot؟</p>
+            <!-- Questions 1-5 MCQs -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="1" data-answer="b">
+                <p class="font-black text-xl leading-relaxed">1. ما الدور الأساسي لـ Composer في مشروع FlowPilot؟</p>
                 <div class="space-y-3">
-                    <button onclick="checkAnswer(this, false)" class="w-full text-right p-4 rounded-2xl border-2 border-slate-100 hover:border-indigo-300 transition-all font-bold">تعديل صور المشروع</button>
-                    <button onclick="checkAnswer(this, true)" class="w-full text-right p-4 rounded-2xl border-2 border-slate-100 hover:border-indigo-300 transition-all font-bold">إدارة وجلب مكتبات لغة PHP</button>
-                    <button onclick="checkAnswer(this, false)" class="w-full text-right p-4 rounded-2xl border-2 border-slate-100 hover:border-indigo-300 transition-all font-bold">تشغيل متصفح الإنترنت</button>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="a" class="hidden">
+                        <span>أ) تصميم واجهات المستخدم بالـ CSS</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="b" class="hidden">
+                        <span>ب) جلب وإدارة مكتبات لغة PHP التي يحتاجها Laravel</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="c" class="hidden">
+                        <span>ج) تشغيل قاعدة البيانات بشكل مباشر</span>
+                    </label>
+                </div>
+                <p class="explain hidden text-sm text-indigo-600 font-bold mt-4">الشرح: Composer هو مدير حزم PHP، وظيفته جلب الأدوات الجاهزة لـ Laravel.</p>
+            </div>
+
+            <div class="card p-8 space-y-6 shadow-sm" data-question="2" data-answer="a">
+                <p class="font-black text-xl leading-relaxed">2. لماذا نحتاج لتثبيت Node.js رغم أننا نبرمج بـ Laravel؟</p>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="a" class="hidden">
+                        <span>أ) لبناء ومعالجة ملفات React و Tailwind</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="b" class="hidden">
+                        <span>ب) لأن Laravel لا يعمل بدون Node.js نهائياً</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="c" class="hidden">
+                        <span>ج) لتخزين بيانات المستخدمين</span>
+                    </label>
                 </div>
             </div>
 
-            <!-- Question 2 -->
-            <div class="card p-8 space-y-6">
-                <p class="font-black text-xl leading-relaxed">2. لماذا نحتاج لتثبيت Node.js رغم أننا نبرمج بلغة PHP؟</p>
+            <div class="card p-8 space-y-6 shadow-sm" data-question="3" data-answer="c">
+                <p class="font-black text-xl leading-relaxed">3. ما وظيفة نظام Git في دورتنا؟</p>
                 <div class="space-y-3">
-                    <button onclick="checkAnswer(this, true)" class="w-full text-right p-4 rounded-2xl border-2 border-slate-100 hover:border-indigo-300 transition-all font-bold">لمعالجة وبناء ملفات واجهة المستخدم (React & Tailwind)</button>
-                    <button onclick="checkAnswer(this, false)" class="w-full text-right p-4 rounded-2xl border-2 border-slate-100 hover:border-indigo-300 transition-all font-bold">لأنها أسرع من PHP في قواعد البيانات</button>
-                    <button onclick="checkAnswer(this, false)" class="w-full text-right p-4 rounded-2xl border-2 border-slate-100 hover:border-indigo-300 transition-all font-bold">لتشغيل خادم البريد الإلكتروني</button>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="a" class="hidden">
+                        <span>أ) تسريع سرعة الإنترنت</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="b" class="hidden">
+                        <span>ب) تشغيل السيرفر المحلي</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="c" class="hidden">
+                        <span>ج) تتبع التغييرات في الكود وحفظ نسخ منه</span>
+                    </label>
                 </div>
             </div>
 
-            <!-- Question 3 -->
-            <div class="card p-8 space-y-6 text-center">
-                <p class="font-black text-xl">درجتك النهائية</p>
-                <div id="score" class="text-5xl font-black text-indigo-600">--</div>
-                <p id="feedback" class="text-slate-500 font-bold italic"></p>
+            <div class="card p-8 space-y-6 shadow-sm" data-question="4" data-answer="b">
+                <p class="font-black text-xl leading-relaxed">4. أي نسخة PHP مطلوبة على الأقل لتشغيل Laravel 12؟</p>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="a" class="hidden">
+                        <span>أ) 7.4</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="b" class="hidden">
+                        <span>ب) 8.2</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="c" class="hidden">
+                        <span>ج) 5.6</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="card p-8 space-y-6 shadow-sm" data-question="5" data-answer="a">
+                <p class="font-black text-xl leading-relaxed">5. ما المقصود بـ "تهيئة البيئة"؟</p>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="a" class="hidden">
+                        <span>أ) تجهيز الكمبيوتر بالأدوات واللغات اللازمة للبرمجة</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="b" class="hidden">
+                        <span>ب) تنظيف القرص الصلب من الملفات الزائدة</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 hover:border-indigo-300 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="c" class="hidden">
+                        <span>ج) شراء جهاز كمبيوتر جديد</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questions 6-7 T/F -->
+            <div class="card p-8 space-y-6 shadow-sm" data-question="6" data-answer="true">
+                <p class="font-black text-xl leading-relaxed">6. صح أو خطأ: بدون Composer لا يمكننا تثبيت Laravel بسهولة.</p>
+                <div class="flex gap-4">
+                    <label class="flex-1 text-center p-4 rounded-xl border-2 border-slate-100 hover:border-emerald-300 cursor-pointer transition-all font-bold">
+                        <input type="radio" name="q6" value="true" class="hidden"> صح
+                    </label>
+                    <label class="flex-1 text-center p-4 rounded-xl border-2 border-slate-100 hover:border-rose-300 cursor-pointer transition-all font-bold">
+                        <input type="radio" name="q6" value="false" class="hidden"> خطأ
+                    </label>
+                </div>
+            </div>
+
+            <div class="card p-8 space-y-6 shadow-sm" data-question="7" data-answer="false">
+                <p class="font-black text-xl leading-relaxed">7. صح أو خطأ: يجب أن نكون خبراء في Git قبل البدء في الكورس.</p>
+                <div class="flex gap-4">
+                    <label class="flex-1 text-center p-4 rounded-xl border-2 border-slate-100 hover:border-emerald-300 cursor-pointer transition-all font-bold">
+                        <input type="radio" name="q7" value="true" class="hidden"> صح
+                    </label>
+                    <label class="flex-1 text-center p-4 rounded-xl border-2 border-slate-100 hover:border-rose-300 cursor-pointer transition-all font-bold">
+                        <input type="radio" name="q7" value="false" class="hidden"> خطأ
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 8 Theory -->
+            <div class="card p-8 space-y-6 shadow-sm">
+                <p class="font-black text-xl leading-relaxed">8. سؤال فهم نظري: لماذا نشبه البيئة بالمطبخ الاحترافي؟</p>
+                <textarea class="w-full p-4 rounded-xl border-2 border-slate-100 outline-none focus:border-indigo-300 text-sm" rows="3" placeholder="اكتب إجابتك هنا..."></textarea>
+                <p class="explain hidden text-sm text-indigo-600 font-bold">لأن المطبخ يحتاج أدوات (فرن، طباخ، مساعدين) قبل البدء في الطبخ، والبرمجة تحتاج (PHP، Composer، Node) قبل كتابة الكود.</p>
+            </div>
+
+            <!-- Question 9 Practical -->
+            <div class="card p-8 space-y-6 shadow-sm">
+                <p class="font-black text-xl leading-relaxed">9. سؤال تطبيقي: ما الأمر الذي تكتبه للتأكد من وجود PHP؟</p>
+                <input type="text" class="w-full p-4 rounded-xl border-2 border-slate-100 outline-none focus:border-indigo-300 font-mono text-sm" placeholder="اكتب الأمر هنا...">
+                <p class="explain hidden text-sm text-indigo-600 font-bold">الإجابة الصحيحة: php -v</p>
+            </div>
+
+            <!-- Final Result -->
+            <div class="card p-10 text-center space-y-6 bg-slate-900 text-white">
+                <p class="font-black text-2xl">النتيجة النهائية</p>
+                <div id="quizResult" class="text-5xl font-black text-indigo-400">-- / 7</div>
+                <button data-grade-quiz class="px-10 py-4 bg-indigo-600 rounded-2xl font-black hover:bg-indigo-700 transition-all">تصحيح الإجابات</button>
+                <p id="feedback" class="text-slate-400 font-bold italic"></p>
             </div>
         </div>
     </div>
 </main>
 
+<script src="../../../assets/js/app.js"></script>
 <script>
-    let correctAnswers = 0;
-    let totalQuestions = 2;
-    let answeredCount = 0;
-
-    function checkAnswer(btn, isCorrect) {
-        if (btn.parentElement.dataset.answered) return;
-        
-        btn.parentElement.dataset.answered = "true";
-        answeredCount++;
-
-        if (isCorrect) {
-            correctAnswers++;
-            btn.classList.remove('border-slate-100');
-            btn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-700');
-        } else {
-            btn.classList.remove('border-slate-100');
-            btn.classList.add('bg-rose-50', 'border-rose-500', 'text-rose-700');
-        }
-
-        if (answeredCount === totalQuestions) {
-            document.getElementById('score').innerText = correctAnswers + ' / ' + totalQuestions;
-            document.getElementById('feedback').innerText = correctAnswers === totalQuestions ? "أحسنت! أنت مستعد تماماً." : "جيد، راجع المفاهيم التي أخطأت بها.";
-        }
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+        const labels = document.querySelectorAll('label');
+        labels.forEach(label => {
+            label.addEventListener('click', () => {
+                const radio = label.querySelector('input[type="radio"]');
+                const group = radio.name;
+                document.querySelectorAll(`input[name="${group}"]`).forEach(input => {
+                    input.parentElement.classList.remove('bg-indigo-50', 'border-indigo-500');
+                    input.parentElement.classList.add('border-slate-100');
+                });
+                label.classList.remove('border-slate-100');
+                label.classList.add('bg-indigo-50', 'border-indigo-500');
+                radio.checked = true;
+            });
+        });
+    });
 </script>
 </body>
 </html>

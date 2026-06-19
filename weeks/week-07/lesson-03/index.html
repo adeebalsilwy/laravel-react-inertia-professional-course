@@ -3,12 +3,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 27: Performance و Caching | سرعة البرق</title>
+    <title>الدرس 27: الأداء وPagination وCaching</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .sidebar-sticky { position: sticky; top: 5rem; }
+        .step-card { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
@@ -18,58 +23,78 @@
     </div>
 </header>
 
-<main class="mx-auto max-w-7xl px-4 py-8 text-right">
-    <div class="lesson-layout">
-        <aside class="sidebar-sticky h-fit card p-4 hidden lg:block">
-            <a class="font-black text-indigo-700 hover:underline" href="../index.html">← العودة للأسبوع السابع</a>
-            <div class="mt-8 space-y-2 text-sm font-bold text-slate-600">
-                <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم الكاش Cache</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">متى نخزن البيانات؟</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+<main class="mx-auto max-w-7xl px-4 py-8">
+    <div class="grid lg:grid-cols-4 gap-8 text-right">
+        <aside class="hidden lg:block">
+            <div class="sidebar-sticky space-y-4">
+                <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع السابع</a>
+                <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
+                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم الأداء</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">تقسيم الصفحات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال الكتاب</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                </div>
             </div>
         </aside>
 
-        <article class="card p-6 md:p-12 prose-box bg-white shadow-sm border-slate-200">
-            <section class="lesson-hero border-b pb-8 mb-12">
-                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs tracking-widest text-right">الأسبوع 7 · الدرس 3</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">السرعة القصوى: تحسين الأداء واستخدام التخزين المؤقت (Caching)</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"كما ورد في موسوعة حسوب: يوفر Laravel واجهة برمجية موحدة لمختلف أنظمة التخزين المؤقت، مما يساعد في تقليل الضغط على قاعدة البيانات."</p>
+        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm">
+            <section class="border-b pb-8 mb-12">
+                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 7 · الدرس 3</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">السرعة الفائقة: كيف نجعل FlowPilot يتحمل آلاف البيانات؟</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"لا أحد يحب المواقع البطيئة؛ لنتعلم كيف نجعل تطبيقنا يطير!"</p>
             </section>
 
-            <section class="student-section space-y-4" id="intro">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4 text-right">ما هو الـ Caching؟</h2>
+            <section id="intro" class="space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">لماذا نهتم بالأداء الآن؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    بدلاً من مطالبة قاعدة البيانات بالبحث عن "إحصائيات المشاريع" في كل مرة يفتح فيها أي مستخدم لوحة التحكم، نقوم بحفظ النتيجة في "ذاكرة سريعة" (Cache) لمدة 10 دقائق مثلاً.
+                    حتى الآن، لدينا عدد قليل من المشاريع. لكن ماذا لو كان لدى المستخدم 5000 مشروع؟ إذا جلبناهم جميعاً مرة واحدة، ستنهار صفحة المتصفح!
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    هذا يجعل التطبيق يستجيب في أجزاء من الثانية بدلاً من الانتظار لثوانٍ طويلة، ويحمي السيرفر من الانهيار عند كثرة المستخدمين.
+                    في هذا الدرس، سنتعلم تقنية <strong>Pagination</strong> (تقسيم الصفحات) لجلب 10 مشاريع فقط في كل مرة، وتقنية <strong>Caching</strong> (التخزين المؤقت) لتذكر النتائج دون العودة لقاعدة البيانات في كل مرة.
                 </p>
             </section>
 
-            <section class="student-section mt-16 space-y-12" id="practice">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">التطبيق العملي</h2>
+            <section id="theory" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التخزين المؤقت (Caching)</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    هو حفظ نسخة من البيانات "خارج قاعدة البيانات" في مكان سريع جداً (مثل الذاكرة العشوائية RAM). عندما يطلب المستخدم نفس البيانات مرة أخرى، نعطيها له من الذاكرة السريعة فوراً.
+                </p>
+            </section>
+
+            <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (قراءة الكتاب)</h2>
+                <p class="text-indigo-50 leading-relaxed text-lg">
+                    - <strong>بدون Pagination:</strong> كأنك تحاول قراءة كتاب من 1000 صفحة في ورقة واحدة عملاقة! (مستحيل).
+                    <br>
+                    - <strong>مع Pagination:</strong> الكتاب مقسم لصفحات؛ تقرأ صفحة واحدة، وعندما تنتهي تقلب للصفحة التالية.
+                    <br><br>
+                    - <strong>مع Caching:</strong> كأنك وضعت "علامة مرجعية" على الصفحة الأخيرة التي قرأتها لتعود إليها فوراً دون أن تبحث عنها من البداية.
+                </p>
+            </section>
+
+            <section id="practice" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي</h2>
+
                 <div class="step-card">
-                    <div class="flex items-center gap-4 mb-4">
-                        <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl shadow-lg">1</span>
-                        <h3 class="text-xl font-black text-slate-900">تخزين نتيجة استعلام ثقيل</h3>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: تفعيل الـ Pagination في Laravel</h3>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <p>$projects = Project::paginate(10);</p>
                     </div>
-                    <div class="space-y-4 pr-16">
-                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left" dir="ltr">
-                            <p>$stats = Cache::remember('global_stats', 600, function () {</p>
-                            <p>&nbsp;&nbsp;return [</p>
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;'total_projects' => Project::count(),</p>
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;'completed_tasks' => Task::where('status', 'done')->count(),</p>
-                            <p>&nbsp;&nbsp;];</p>
-                            <p>});</p>
-                        </div>
-                        <p class="text-sm text-slate-500 italic italic">هنا أخبرنا Laravel: "تذكر هذه البيانات لمدة 600 ثانية (10 دقائق) ولا تسأل قاعدة البيانات مجدداً حتى تنتهي المدة".</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: استخدام الـ Cache لملخص الـ Dashboard</h3>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-sky-400 overflow-x-auto mb-4 text-left">
+                        <p>$stats = Cache::remember('stats', 3600, function () {</p>
+                        <p>&nbsp;&nbsp;return Project::count();</p>
+                        <p>});</p>
                     </div>
                 </div>
             </section>
 
-            <div class="mt-12 flex justify-between gap-4 border-t pt-8">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all" href="../lesson-04/index.html">الدرس التالي: تأمين النظام ←</a>
+            <div class="mt-12 flex justify-between gap-4">
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-02/index.html">← الدرس السابق</a>
+                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../../week-07/lesson-04/index.html">الدرس التالي: تقوية الأمان ←</a>
             </div>
         </article>
     </div>

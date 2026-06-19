@@ -9,23 +9,52 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
-<main class="mx-auto max-w-3xl px-4 py-12">
-    <a class="font-black text-indigo-700 hover:underline" href="index.html">← العودة للدرس</a>
-    <div class="mt-8 card p-8 space-y-8">
-        <h1 class="text-3xl font-black text-center text-indigo-600">واجب المسارات الذكية</h1>
-        <div class="space-y-6 text-right">
-            <h3 class="font-black text-xl">المطلوب منك:</h3>
-            <ol class="list-decimal pr-6 space-y-4 font-bold text-slate-700">
-                <li>افتح ملف <code>routes/web.php</code>.</li>
-                <li>أنشئ مساراً جديداً بعنوان <code>/test-inertia</code>.</li>
-                <li>اجعل هذا المسار يعيد (Render) صفحة React جديدة تسميها <code>Test.jsx</code>.</li>
-                <li>أرسل مع الصفحة متغيراً باسم <code>message</code> يحتوي على نص "هذه أول رسالة من Laravel!".</li>
-                <li>افتح المتصفح وتأكد من أن الرابط يعمل.</li>
-            </ol>
-        </div>
+<body class="bg-slate-50 text-slate-900">
+
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
+</header>
+
+<main class="mx-auto max-w-4xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة لشرح الدرس</a>
+    
+    <section class="space-y-8">
+        <div class="card p-8 bg-indigo-600 text-white shadow-xl shadow-indigo-100 rounded-3xl">
+            <h1 class="text-3xl font-black">واجب الدرس 5: بناء المسارات الذكية</h1>
+            <p class="mt-4 text-indigo-100 leading-relaxed italic">
+                "المسار هو الباب؛ لنتعلم كيف نصمم أبواب تطبيقنا ونربطها بواجهات React."
+            </p>
+        </div>
+
+        <div class="space-y-8">
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+                <h2 class="text-2xl font-black flex items-center gap-3 text-indigo-600">
+                    <span class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">01</span>
+                    المطلوب منك
+                </h2>
+                <div class="space-y-6">
+                    <div class="border-r-4 border-indigo-500 pr-6">
+                        <h4 class="font-black text-slate-900">1. إنشاء مسار جديد</h4>
+                        <p class="text-sm text-slate-500 mt-1">افتح ملف <code>routes/web.php</code> وأضف مساراً باسم <code>/about-us</code>.</p>
+                    </div>
+                    <div class="border-r-4 border-indigo-500 pr-6">
+                        <h4 class="font-black text-slate-900">2. ربط المسار بصفحة</h4>
+                        <p class="text-sm text-slate-500 mt-1">اجعل المسار يقوم بعمل <code>Inertia::render</code> لصفحة جديدة تسميها <code>AboutUs</code>.</p>
+                    </div>
+                    <div class="border-r-4 border-indigo-500 pr-6">
+                        <h4 class="font-black text-slate-900">3. إرسال بيانات</h4>
+                        <p class="text-sm text-slate-500 mt-1">أرسل متغيراً باسم <code>version</code> يحتوي على نص "1.0.0" واعرضه داخل الصفحة.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
 </main>
 </body>
 </html>

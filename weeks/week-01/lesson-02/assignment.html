@@ -3,77 +3,58 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 2: بناء أول مشروع Laravel & React</title>
+    <title>واجب الدرس 2: بناء أول صفحة FlowPilot</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+<body class="bg-slate-50 text-slate-900">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
-        <a href="../../../index.html" class="font-black text-2xl text-slate-900">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
 </header>
 
-<main class="mx-auto max-w-4xl px-4 py-12">
-    <a class="font-black text-indigo-700 hover:underline" href="index.html">← العودة لشرح الدرس</a>
+<main class="mx-auto max-w-4xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة لشرح الدرس</a>
     
-    <section class="mt-8 space-y-8">
-        <div class="card p-8 bg-indigo-600 text-white shadow-xl shadow-indigo-100 text-center">
-            <h1 class="text-3xl font-black">واجب الدرس الثاني: ولادة مشروع FlowPilot</h1>
+    <section class="space-y-8">
+        <div class="card p-8 bg-indigo-600 text-white shadow-xl shadow-indigo-100 rounded-3xl">
+            <h1 class="text-3xl font-black">واجب الدرس 2: إنشاء قلب المشروع</h1>
             <p class="mt-4 text-indigo-100 leading-relaxed italic">
-                "اليوم ستنشئ المجلد الذي سيحتوي على كل مهاراتك البرمجية القادمة. طبق الخطوات بعناية."
+                "سنقوم اليوم بتنصيب الأدوات وبناء أول صفحة حقيقية تربط Laravel بـ React."
             </p>
         </div>
 
         <div class="space-y-8">
-            <section class="card p-8 md:p-10 space-y-6">
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
                 <h2 class="text-2xl font-black flex items-center gap-3">
-                    <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm">01</span>
-                    تثبيت المشروع فعلياً
+                    <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">01</span>
+                    المطلوب تنفيذه
                 </h2>
-                <p class="text-slate-600 leading-relaxed">قم بتنفيذ الأوامر المذكورة في الدرس لإنشاء مشروع باسم <code>flowpilot</code> وتثبيت Inertia و React. تأكد من ظهور مجلد <code>node_modules</code> ومجلد <code>vendor</code> داخل مشروعك.</p>
+                <ol class="list-decimal pr-6 space-y-4 text-slate-700">
+                    <li>أنشئ مشروع Laravel جديد باسم <code>flowpilot</code>.</li>
+                    <li>ثبت حزمة Inertia جانب السيرفر باستخدام Composer.</li>
+                    <li>ثبت مكتبات React و Inertia جانب الواجهة باستخدام NPM.</li>
+                    <li>تأكد من وجود مجلد <code>resources/js/Pages</code>.</li>
+                </ol>
             </section>
 
-            <section class="card p-8 md:p-10 space-y-6">
-                <h2 class="text-2xl font-black flex items-center gap-3 text-indigo-600">
-                    <span class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm">02</span>
-                    تحدي التشغيل المزدوج
-                </h2>
-                <p class="text-slate-600 leading-relaxed">قم بتشغيل المشروع وتصوير الشاشة بحيث يظهر:</p>
-                <ul class="list-disc pr-6 space-y-2 text-slate-700 font-bold">
-                    <li>نافذة Terminal تشغل <code>php artisan serve</code>.</li>
-                    <li>نافذة Terminal ثانية تشغل <code>npm run dev</code>.</li>
-                    <li>المتصفح وهو يعرض الصفحة الرئيسية للمشروع.</li>
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white">
+                <h2 class="text-2xl font-black text-emerald-600">معايير النجاح</h2>
+                <ul class="list-disc pr-6 space-y-2 text-slate-600">
+                    <li>عدم وجود أخطاء في الـ Terminal أثناء التثبيت.</li>
+                    <li>ظهور ملف <code>package.json</code> يحتوي على React و Inertia.</li>
                 </ul>
             </section>
-
-            <section class="card p-8 md:p-10 space-y-6">
-                <h2 class="text-2xl font-black flex items-center gap-3 text-amber-600">
-                    <span class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-sm">03</span>
-                    فحص الملفات
-                </h2>
-                <p class="text-slate-600 leading-relaxed">افتح المشروع في VS Code وابحث عن ملف <code>resources/js/app.jsx</code>. هل تجد فيه أي ذكر لـ Inertia؟ (اكتب ملاحظتك حول ما وجدت).</p>
-            </section>
-        </div>
-
-        <div class="p-8 rounded-[2rem] bg-slate-900 text-white space-y-4">
-            <h3 class="text-xl font-black text-center">معايير النجاح</h3>
-            <div class="grid md:grid-cols-2 gap-4 text-sm">
-                <div class="flex gap-2">✅ <span class="text-slate-400">تشغيل المشروع بدون أخطاء.</span></div>
-                <div class="flex gap-2">✅ <span class="text-slate-400">فهم الفرق بين أوامر السيرفر وأوامر الواجهة.</span></div>
-            </div>
         </div>
     </section>
 </main>
-
-<footer class="mt-24 border-t py-8 text-center text-slate-400 text-sm">
-    © 2025 FlowPilot Academy. أنت الآن تمتلك مشروعك الأول!
-</footer>
-
-<script src="../../../assets/js/app.js"></script>
 </body>
 </html>

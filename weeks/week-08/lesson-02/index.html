@@ -3,12 +3,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 30: Deployment Workflow | النشر على الخادم</title>
+    <title>الدرس 30: خطوات النشر Deployment Workflow</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .sidebar-sticky { position: sticky; top: 5rem; }
+        .step-card { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
@@ -18,48 +23,86 @@
     </div>
 </header>
 
-<main class="mx-auto max-w-7xl px-4 py-8 text-right">
-    <div class="lesson-layout">
-        <aside class="sidebar-sticky h-fit card p-4 hidden lg:block text-right">
-            <a class="font-black text-indigo-700 hover:underline" href="../index.html">← العودة للأسبوع الثامن</a>
-            <div class="mt-8 space-y-2 text-sm font-bold text-slate-600">
-                <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم الـ Deployment</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">البيئة الإنتاجية</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">خطوات النشر</a>
+<main class="mx-auto max-w-7xl px-4 py-8">
+    <div class="grid lg:grid-cols-4 gap-8 text-right">
+        <aside class="hidden lg:block">
+            <div class="sidebar-sticky space-y-4">
+                <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الثامن</a>
+                <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
+                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم النشر</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">تسلسل الخطوات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال الافتتاح</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                </div>
             </div>
         </aside>
 
-        <article class="card p-6 md:p-12 prose-box bg-white shadow-sm border-slate-200">
-            <section class="lesson-hero border-b pb-8 mb-12">
-                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs tracking-widest text-right">الأسبوع 8 · الدرس 2</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">إطلاق المشروع: كيف تنشر FlowPilot على الإنترنت؟</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"كما ورد في موسوعة حسوب: نشر التطبيق يتطلب تهيئة الخادم (Server)، وضبط قاعدة البيانات الإنتاجية، وتأمين ملف الـ ENV."</p>
+        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm">
+            <section class="border-b pb-8 mb-12">
+                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 8 · الدرس 2</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">النشر (Deployment): كيف ترفع مشروعك ليراه العالم؟</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"اليوم ستخرج FlowPilot من حاسوبك الشخصي إلى الفضاء السحابي الواسع."</p>
             </section>
 
-            <section class="student-section space-y-4" id="intro">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4 text-right">ما هو الـ Deployment؟</h2>
-                <p class="text-slate-600 leading-relaxed text-lg text-right">
-                    هو نقل مشروعك من "جهازك الشخصي" (Localhost) إلى جهاز كمبيوتر قوي متصل بالإنترنت دائماً (Server) بحيث يمكن لأي شخص في العالم زيارته عبر رابط مثل <code>flowpilot.com</code>.
+            <section id="intro" class="space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هو النشر (Deployment)؟</h2>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    النشر هو عملية نقل ملفات المشروع من جهازك (Local) إلى "خادم" (Server) متصل بالإنترنت على مدار الساعة. لكي يستطيع أي شخص كتابة رابط موقعك في المتصفح والدخول لـ FlowPilot.
                 </p>
             </section>
 
-            <section class="student-section mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100 text-right" id="practice">
-                <h2 class="text-2xl font-black mb-4">قائمة فحص النشر (Deployment Checklist)</h2>
-                <ul class="list-disc pr-8 space-y-4 text-indigo-50 font-bold">
-                    <li>تغيير <code>APP_ENV</code> إلى <code>production</code>.</li>
-                    <li>تعطيل <code>APP_DEBUG</code> لحماية كودك من الظهور للمخترقين.</li>
-                    <li>استخدام خدمة استضافة تدعم Laravel (مثل Forge, DigitalOcean, أو Vercel).</li>
-                    <li>ضبط <strong>SSL Certificate</strong> ليكون الرابط آمن (HTTPS).</li>
-                </ul>
+            <section id="theory" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">تسلسل خطوات النشر الاحترافي</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <ul class="list-decimal pr-6 space-y-2">
+                        <li><strong>GitHub:</strong> رفع الكود على مستودع خاص.</li>
+                        <li><strong>Server Setup:</strong> حجز خادم (مثل DigitalOcean أو Forge).</li>
+                        <li><strong>SSH:</strong> الدخول للخادم عبر شاشة الأوامر.</li>
+                        <li><strong>Cloning:</strong> جلب الكود من GitHub للخادم.</li>
+                        <li><strong>Database:</strong> تهيئة قاعدة البيانات على السيرفر.</li>
+                    </ul>
+                </div>
             </section>
 
-            <div class="mt-12 flex justify-between gap-4 border-t pt-8">
+            <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (افتتاح محل)</h2>
+                <p class="text-indigo-50 leading-relaxed text-lg">
+                    تخيل أنك صنعت بضاعة جميلة في منزلك (المشروع على جهازك).
+                    <br><br>
+                    - <strong>النشر:</strong> هو استئجار محل في شارع رئيسي (السيرفر)، ونقل البضاعة إليه، وترتيبها على الأرفف، ثم تعليق لافتة كبيرة باسم المحل (الرابط/الدومين) ليدخل الزبائن!
+                </p>
+            </section>
+
+            <section id="visuals" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">مخططات توضيحية</h2>
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="diagram.svg" alt="Technical Diagram" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط النشر</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="practice" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي</h2>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: تهيئة SSH Key</h3>
+                    <p class="text-slate-600 mb-4">لكي يتحدث السيرفر مع GitHub، نحتاج لإنشاء "هوية إلكترونية" آمنة.</p>
+                </div>
+            </section>
+
+            <div class="mt-12 flex justify-between gap-4">
                 <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-01/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all" href="../lesson-03/index.html">الدرس التالي: التوثيق ←</a>
+                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../../week-08/lesson-03/index.html">الدرس التالي: توثيق المشروع ←</a>
             </div>
         </article>
     </div>
 </main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. مبروك! لقد أصبحت مطوراً حقيقياً.
+</footer>
 
 <script src="../../../assets/js/app.js"></script>
 </body>

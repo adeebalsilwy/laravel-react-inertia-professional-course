@@ -3,14 +3,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 4: Git وتنظيم المستودع والمعايير</title>
+    <title>الدرس 4: Git وتنظيم المستودع وطريقة حفظ التقدم</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .sidebar-sticky { position: sticky; top: 5rem; }
+        .step-card { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+<body class="bg-slate-50 text-slate-900">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
@@ -19,80 +24,84 @@
 </header>
 
 <main class="mx-auto max-w-7xl px-4 py-8">
-    <div class="lesson-layout">
-        <aside class="sidebar-sticky h-fit card p-4 hidden lg:block">
-            <a class="font-black text-indigo-700 hover:underline" href="../index.html">← العودة للأسبوع الأول</a>
-            <div class="mt-8 space-y-2 text-sm font-bold text-slate-600">
-                <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مقدمة في Git</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">المعايير البرمجية</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">أوامر Git</a>
+    <div class="grid lg:grid-cols-4 gap-8">
+        <aside class="hidden lg:block">
+            <div class="sidebar-sticky space-y-4">
+                <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الأول</a>
+                <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
+                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">لماذا Git؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">ما هو المستودع؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال الألعاب</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                </div>
             </div>
         </aside>
 
-        <article class="card p-6 md:p-12 prose-box bg-white shadow-sm">
-            <section class="lesson-hero border-b pb-8 mb-12">
-                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs tracking-widest">الأسبوع 1 · الدرس 4</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">Git وتنظيم المستودع والمعايير البرمجية Clean Code</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"المبرمج المحترف ليس من يكتب كوداً يعمل فحسب، بل من يكتب كوداً منظماً يستطيع الجميع قراءته."</p>
+        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
+            <section class="border-b pb-8 mb-12">
+                <span class="px-3 py-1 rounded-lg bg-indigo-50 text-indigo-700 font-bold text-xs uppercase tracking-widest">الأسبوع 1 · الدرس 4</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">Git: آلة الزمن والتعاون البرمجي في FlowPilot</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"المبرمج المحترف لا يخاف من الخطأ، لأنه يمتلك القدرة على العودة بالزمن وإصلاحه في ثوانٍ."</p>
             </section>
 
-            <section class="student-section space-y-4" id="intro">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">ما هو نظام Git؟</h2>
+            <section id="intro" class="space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">لماذا هذا الدرس مهم؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    تخيل أنك تكتب بحثاً طويلاً، وفي كل مرة تقوم بتعديله تحفظه باسم جديد: "بحث_نهائي"، "بحث_نهائي_حقاً"، "بحث_نهائي_أخير". هذا أسلوب فوضوي! 
+                    هل سبق لك وأن قمت بتعديل ملف ثم ندمت وأردت العودة للشكل القديم؟ أو هل خفت من تجربة كود جديد يفسد مشروعك بالكامل؟ هنا تأتي قوة <strong>Git</strong>.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    <strong>Git</strong> هو نظام ذكي يقوم بـ "تصوير" مشروعك في كل مرحلة مهمة. إذا أخطأت لاحقاً، يمكنك ببساطة إخبار Git: "أرجوك عد بي إلى نسخة يوم الثلاثاء الماضي قبل أن أفسد قاعدة البيانات".
+                    في مشروع FlowPilot، سنستخدم Git لحفظ "لقطات" (Commits) من تقدمنا. هذا يضمن لنا أن تعبنا لن يضيع أبداً، ويسمح لنا بالتعاون مع مبرمجين آخرين بسهولة واحترافية.
                 </p>
             </section>
 
-            <section class="student-section mt-16 space-y-6" id="theory">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">ما هو الكود النظيف (Clean Code)؟</h2>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    في FlowPilot، لن نكتب أسماء متغيرات عشوائية مثل <code>$x</code> أو <code>$data1</code>. سنتبع معايير عالمية:
-                </p>
-                <ul class="list-disc pr-6 space-y-2 text-slate-600 font-bold">
-                    <li>تسمية المتغيرات بأسماء واضحة (مثلاً: <code>$activeProjects</code>).</li>
-                    <li>كتابة تعليقات تشرح "لماذا" فعلنا هذا، وليس "ماذا" يفعل الكود.</li>
-                    <li>تنظيم الملفات في مجلداتها الصحيحة.</li>
-                </ul>
+            <section id="theory" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هو Git؟</h2>
+                <div class="space-y-4 text-slate-600">
+                    <p>Git هو نظام "تتبع الإصدارات" (Version Control System). وببساطة هو برنامج يراقب كل حرف تكتبه في مشروعك.</p>
+                    <ul class="list-disc pr-6 space-y-4">
+                        <li><strong>Repository (المستودع):</strong> هو المجلد الذي يحتوي على مشروعك وتاريخه بالكامل.</li>
+                        <li><strong>Commit (الحفظ):</strong> هي عملية أخذ "لقطة" لكودك في لحظة معينة مع رسالة تشرح ما فعلته.</li>
+                        <li><strong>Push (الرفع):</strong> هو إرسال مشروعك من جهازك إلى الإنترنت (مثل GitHub) ليكون آمناً.</li>
+                    </ul>
+                </div>
             </section>
 
-            <section class="student-section mt-16 space-y-12" id="practice">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">أول "لقطة" لمشروعك (First Commit)</h2>
+            <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">مثال من الواقع (حفظ الألعاب)</h2>
+                <p class="text-indigo-50 leading-relaxed text-lg">
+                    تخيل أنك تلعب لعبة صعبة. قبل أن تقابل "الوحش"، ستقوم بعمل <strong>Save</strong> للعبتك. إذا خسرت، لن تبدأ اللعبة من الصفر، بل ستعود لنقطة الحفظ الأخيرة وتجرب مرة أخرى بذكاء أكبر.
+                    <br><br>
+                    <strong>Git</strong> هو تماماً مثل زر <strong>Save</strong> في الألعاب، والـ <strong>Commit</strong> هي نقطة الحفظ التي تعود إليها إذا أفسدت الكود!
+                </p>
+            </section>
 
-                <div class="space-y-12">
-                    <div class="step-card">
-                        <div class="flex items-center gap-4 mb-4">
-                            <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl">1</span>
-                            <h3 class="text-xl font-black text-slate-900">تفعيل Git في المشروع</h3>
-                        </div>
-                        <div class="space-y-4 pr-16">
-                            <div class="bg-slate-900 rounded-2xl p-4 md:p-6 font-mono text-sm text-indigo-400 overflow-x-auto">
-                                <p>git init</p>
-                                <p>git add .</p>
-                                <p>git commit -m "Initial: تثبيت مشروع FlowPilot وتهيئة البيئة"</p>
-                            </div>
-                            <p class="text-sm text-slate-500 italic">شرح الأوامر: init (بدأ النظام)، add (تجهيز الملفات)، commit (حفظ اللقطة مع رسالة وصفية).</p>
-                        </div>
+            <section id="practice" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي</h2>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: بدء تشغيل Git في FlowPilot</h3>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto text-left mb-4">
+                        <p>git init</p>
+                    </div>
+                    <p class="text-sm text-slate-500 italic">هذا الأمر ينشئ "المستودع" داخل مجلد مشروعك.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: حفظ أول تقدم (Commit)</h3>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left">
+                        <p>git add .</p>
+                        <p>git commit -m "إتمام تهيئة مشروع FlowPilot وربطه بـ React"</p>
                     </div>
                 </div>
             </section>
 
-            <div class="mt-20 p-10 rounded-[2.5rem] bg-indigo-600 text-white text-center space-y-6">
-                <h2 class="text-3xl font-black">تهانينا! لقد أنهيت الأسبوع الأول بنجاح 🎉</h2>
-                <p class="text-indigo-100 text-lg">لقد جهزت بيئتك، أنشأت مشروعك، صممت أول عنصر، وحفظت عملك في Git. أنت الآن مبرمج Laravel & React مبتدئ لكن بأسس صحيحة.</p>
-                <a href="../../week-02/index.html" class="inline-block rounded-2xl bg-white text-indigo-600 px-8 py-4 font-black hover:bg-slate-100 transition-all">انتقل للأسبوع الثاني: الهيكل والمسارات ←</a>
+            <div class="mt-12 flex justify-between gap-4">
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-03/index.html">← الدرس السابق</a>
+                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../../week-02/lesson-01/index.html">الأسبوع الثاني: المسارات والهيكل ←</a>
             </div>
         </article>
     </div>
 </main>
-
-<footer class="mt-24 border-t bg-white">
-    <div class="mx-auto max-w-7xl px-4 py-12 text-center text-sm text-slate-500 font-medium">
-        © 2025 FlowPilot Academy. التنظيم هو مفتاح الاحتراف.
-    </div>
-</footer>
 
 <script src="../../../assets/js/app.js"></script>
 </body>

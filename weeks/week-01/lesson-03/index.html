@@ -3,138 +3,113 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 3: Tailwind CSS وتصميم النظام البصري</title>
+    <title>الدرس 3: تصميم الواجهة الأولى باستخدام Tailwind CSS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .sidebar-sticky { position: sticky; top: 5rem; }
+        .step-card { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+<body class="bg-slate-50 text-slate-900">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
-        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
-            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../index.html">الرئيسية</a>
-            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/curriculum.html">الفهرس</a>
-            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/lessons.html">الدروس</a>
-            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/beginner-guide.html">دليل الطالب</a>
-            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/project.html">المشروع</a>
-        </nav>
     </div>
 </header>
 
 <main class="mx-auto max-w-7xl px-4 py-8">
-    <div class="lesson-layout">
-        <aside class="sidebar-sticky h-fit card p-4 hidden lg:block">
-            <a class="font-black text-indigo-700 hover:underline" href="../index.html">← العودة للأسبوع الأول</a>
-            <div class="mt-8 space-y-2 text-sm font-bold text-slate-600">
-                <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">لماذا Tailwind؟</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">النظام البصري</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">في FlowPilot</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
-            </div>
-            <div class="mt-8 pt-8 border-t space-y-2">
-                <a class="block rounded-xl bg-emerald-600 text-white p-3 font-black text-center text-sm" href="assignment.html">واجب التصميم</a>
-                <a class="block rounded-xl bg-sky-600 text-white p-3 font-black text-center text-sm" href="quiz.html">كويز Tailwind</a>
+    <div class="grid lg:grid-cols-4 gap-8">
+        <aside class="hidden lg:block">
+            <div class="sidebar-sticky space-y-4">
+                <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الأول</a>
+                <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
+                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مقدمة في Tailwind</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">لماذا لا نكتب CSS؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال الليغو</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                </div>
             </div>
         </aside>
 
-        <article class="card p-6 md:p-12 prose-box bg-white shadow-sm">
-            <section class="lesson-hero border-b pb-8 mb-12">
-                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs tracking-widest">الأسبوع 1 · الدرس 3</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">Tailwind CSS وبناء النظام البصري (Design System)</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"المظهر الخارجي لا يقل أهمية عن الكود الداخلي. لنجعل FlowPilot يبدو رائعاً منذ البداية."</p>
+        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
+            <section class="border-b pb-8 mb-12">
+                <span class="px-3 py-1 rounded-lg bg-indigo-50 text-indigo-700 font-bold text-xs uppercase tracking-widest">الأسبوع 1 · الدرس 3</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">تلوين وتنسيق FlowPilot باستخدام Tailwind CSS</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"التصميم ليس مجرد شكل جميل، بل هو ما يجعل المستخدم يفهم كيف يستخدم تطبيقك بسهولة."</p>
             </section>
 
-            <section class="student-section space-y-4" id="intro">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">ما هو Tailwind CSS؟</h2>
+            <section id="intro" class="space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">لماذا هذا الدرس مهم؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    هل سبق وحاولت تنسيق صفحة HTML وشعرت بالضياع بين ملفات CSS الطويلة؟ <strong>Tailwind CSS</strong> يحل هذه المشكلة. بدلاً من كتابة ملفات منفصلة، يوفر لك "كلمات جاهزة" (Classes) تضعها مباشرة داخل الـ HTML لتعطيه اللون، الحجم، والمسافات المطلوبة.
+                    الآن بعد أن أصبح لدينا مشروع يعمل، نحتاج لجعله يبدو احترافياً. <strong>Tailwind CSS</strong> هو الأداة السحرية التي يستخدمها مبرمجو كبرى الشركات العالمية (مثل OpenAI و Shopify) لتصميم واجهاتهم بسرعة البرق وبأداء عالٍ جداً.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    مثلاً، بدلاً من كتابة <code>color: blue; font-weight: bold;</code> في ملف خارجي، نكتب فقط <code>text-blue-600 font-bold</code> داخل الكود. هذا يجعل التطوير أسرع بكثير وأكثر تنظيماً.
+                    بدلاً من كتابة آلاف الأسطر من أكواد CSS المعقدة في ملفات منفصلة، سنتعلم كيف ننسق العناصر مباشرة داخل كود React، مما يجعلنا نبني واجهات FlowPilot في دقائق بدلاً من أيام.
                 </p>
             </section>
 
-            <section class="student-section mt-16 space-y-6" id="theory">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">ما هو "النظام البصري" (Design System)؟</h2>
-                <p class="text-slate-600 leading-relaxed">
-                    التطبيقات الاحترافية لا تختار الألوان عشوائياً في كل صفحة. بل يحدد المطور "مجموعة ألوان" و "أحجام خطوط" ثابتة يستخدمها في كل مكان. هذا ما نسميه بالـ <strong>Design System</strong>. 
-                </p>
-                <div class="grid md:grid-cols-3 gap-4 mt-4">
-                    <div class="p-4 rounded-xl bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 text-center">ألوان الهوية</div>
-                    <div class="p-4 rounded-xl bg-slate-50 text-slate-700 font-bold border border-slate-100 text-center">خطوط واضحة</div>
-                    <div class="p-4 rounded-xl bg-emerald-50 text-emerald-700 font-bold border border-emerald-100 text-center">أيقونات معبرة</div>
+            <section id="theory" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هو Tailwind CSS؟</h2>
+                <div class="space-y-4 text-slate-600">
+                    <p>Tailwind هو "Utility-first CSS framework". وببساطة، يعني هذا أنه يوفر لك "كلمات مفتاحية" جاهزة تضعها داخل العناصر لتغيير شكلها.</p>
+                    <ul class="list-disc pr-6 space-y-2">
+                        <li>بدلاً من كتابة <code>color: blue;</code>، تكتب <code>text-blue-500</code>.</li>
+                        <li>بدلاً من كتابة <code>padding: 20px;</code>، تكتب <code>p-5</code>.</li>
+                        <li>بدلاً من كتابة <code>font-weight: bold;</code>، تكتب <code>font-bold</code>.</li>
+                    </ul>
                 </div>
             </section>
 
-            <section class="student-section mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100" id="example">
-                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة</h2>
+            <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">مثال من الواقع (قطع الليغو)</h2>
                 <p class="text-indigo-50 leading-relaxed text-lg">
-                    تخيل Tailwind كأنه "علبة مكعبات Lego". بدلاً من أن تضطر لصهر البلاستيك وتشكيل المكعب بنفسك (CSS التقليدي)، لديك مكعبات جاهزة بكل الألوان والأشكال. كل ما عليك فعله هو تركيبها بجانب بعضها لتبني قصراً رائعاً!
+                    تخيل الـ CSS التقليدي كأنك تصنع قطعة ألعاب من الطين؛ يجب أن تشكلها وتلونها وتنتظرها حتى تجف، وإذا أردت تغييرها قد تضطر لهدمها.
+                    <br><br>
+                    أما <strong>Tailwind</strong> فهو مثل مكعبات <strong>Lego</strong> الجاهزة. لديك مكعب أحمر، ومكعب طويل، ومكعب دائري. أنت فقط تضع القطع بجانب بعضها لتبني الشكل الذي تريده بسرعة فائقة، وإذا لم يعجبك اللون، تستبدل المكعب في ثانية واحدة!
                 </p>
             </section>
 
-            <section class="student-section mt-16" id="flowpilot">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">كيف سنستخدمه في FlowPilot؟</h2>
-                <div class="mt-6 p-6 rounded-2xl bg-emerald-50 border border-emerald-100">
-                    <p class="leading-relaxed text-emerald-900">
-                        سنستخدم Tailwind لتصميم "واجهة عربية" (RTL) تبدأ من اليمين لليسار. سنحدد ألواننا الرئيسية (النيلي والزمردي) ونبني أول الأزرار والبطاقات التي سيراها مستخدمو <strong>FlowPilot</strong>.
-                    </p>
+            <section id="practice" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي</h2>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: تثبيت Tailwind في مشروعنا</h3>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto text-left">
+                        <p>npm install -D tailwindcss postcss autoprefixer</p>
+                        <p>npx tailwindcss init -p</p>
+                    </div>
                 </div>
-            </section>
 
-            <section class="student-section mt-16 space-y-12" id="practice">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">التطبيق العملي</h2>
-
-                <div class="space-y-12">
-                    <div class="step-card">
-                        <div class="flex items-center gap-4 mb-4">
-                            <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl">1</span>
-                            <h3 class="text-xl font-black text-slate-900">تثبيت Tailwind CSS</h3>
-                        </div>
-                        <div class="space-y-4 pr-16">
-                            <p class="text-slate-600">داخل مجلد مشروع <code>flowpilot</code>، اكتب الأوامر التالية:</p>
-                            <div class="bg-slate-900 rounded-2xl p-4 md:p-6 font-mono text-sm text-indigo-400 overflow-x-auto">
-                                <p>npm install -D tailwindcss postcss autoprefixer</p>
-                                <p>npx tailwindcss init -p</p>
-                            </div>
-                        </div>
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تنسيق أول عنصر في FlowPilot</h3>
+                    <p class="mb-4">افتح ملف React الخاص بك وضع الكود التالي:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left">
+                        <p>&lt;h1 className="text-3xl font-black text-indigo-600"&gt;</p>
+                        <p>&nbsp;&nbsp;أهلاً بك في FlowPilot</p>
+                        <p>&lt;/h1&gt;</p>
                     </div>
-
-                    <div class="step-card">
-                        <div class="flex items-center gap-4 mb-4">
-                            <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl">2</span>
-                            <h3 class="text-xl font-black text-slate-900">تنسيق أول عنصر (Card)</h3>
-                        </div>
-                        <div class="space-y-4 pr-16">
-                            <p class="text-slate-600">جرب كتابة هذا الكود داخل ملف <code>Welcome.jsx</code> وشاهد كيف يتغير التصميم فوراً:</p>
-                            <div class="bg-slate-900 rounded-2xl p-4 md:p-6 font-mono text-sm text-emerald-400 overflow-x-auto">
-                                <p>&lt;div className="bg-white p-8 rounded-3xl shadow-lg border border-slate-200"&gt;</p>
-                                <p>&nbsp;&nbsp;&lt;h1 className="text-2xl font-black text-indigo-600"&gt;مرحباً بكم في FlowPilot&lt;/h1&gt;</p>
-                                <p>&lt;/div&gt;</p>
-                            </div>
-                            <p class="text-xs text-slate-400 italic mt-2">شرح الكلاسات: bg-white (خلفية بيضاء)، p-8 (مسافة داخلية)، rounded-3xl (حواف دائرية)، shadow-lg (ظل ناعم).</p>
-                        </div>
-                    </div>
+                    <p class="mt-4 text-sm text-slate-500 font-bold">شرح الكود:</p>
+                    <ul class="text-xs text-slate-500 pr-6 space-y-1">
+                        <li>• <code>text-3xl</code>: تجعل حجم النص كبيراً وواضحاً.</li>
+                        <li>• <code>font-black</code>: تجعل الخط عريضاً جداً (Bold).</li>
+                        <li>• <code>text-indigo-600</code>: تلون النص باللون البنفسجي المميز لـ FlowPilot.</li>
+                    </ul>
                 </div>
             </section>
 
             <div class="mt-12 flex justify-between gap-4">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-01/lesson-02/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all" href="../../week-01/lesson-04/index.html">الدرس التالي: تنظيم المستودع ←</a>
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-02/index.html">← الدرس السابق</a>
+                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all" href="../lesson-04/index.html">الدرس التالي: Git ←</a>
             </div>
         </article>
     </div>
 </main>
-
-<footer class="mt-24 border-t bg-white">
-    <div class="mx-auto max-w-7xl px-4 py-12 text-center text-sm text-slate-500 font-medium">
-        © 2025 FlowPilot Academy. صمم واجهاتك باحترافية وسهولة.
-    </div>
-</footer>
 
 <script src="../../../assets/js/app.js"></script>
 </body>

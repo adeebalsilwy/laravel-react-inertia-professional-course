@@ -3,93 +3,111 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 21: Laravel API Resources | تنظيم البيانات</title>
+    <title>الدرس 21: Laravel API Resources وتنظيم البيانات</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .sidebar-sticky { position: sticky; top: 5rem; }
+        .step-card { border-right: 4px solid #4f46e5; padding-right: 1.5rem; margin-bottom: 2rem; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+<body class="bg-slate-50 text-slate-900">
 
-<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
-    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4 text-right">
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
 </header>
 
-<main class="mx-auto max-w-7xl px-4 py-8 text-right">
-    <div class="lesson-layout">
-        <aside class="sidebar-sticky h-fit card p-4 hidden lg:block">
-            <a class="font-black text-indigo-700 hover:underline" href="../index.html">← العودة للأسبوع السادس</a>
-            <div class="mt-8 space-y-2 text-sm font-bold text-slate-600">
-                <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم الـ API Resource</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">لماذا نستخدم الموارد؟</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+<main class="mx-auto max-w-7xl px-4 py-8">
+    <div class="grid lg:grid-cols-4 gap-8 text-right">
+        <aside class="hidden lg:block">
+            <div class="sidebar-sticky space-y-4">
+                <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع السادس</a>
+                <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
+                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم الـ API Resource</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">تنظيف البيانات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال الفلتر</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                </div>
             </div>
         </aside>
 
-        <article class="card p-6 md:p-12 prose-box bg-white shadow-sm border-slate-200">
-            <section class="lesson-hero border-b pb-8 mb-12">
-                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs tracking-widest text-right">الأسبوع 6 · الدرس 1</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">تنظيم البيانات المبتعثة: استخدام Laravel API Resources</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"كما ورد في موسوعة حسوب: الموارد (Resources) هي طبقة تحويل تقع بين نماذج Eloquent وردود JSON التي تُرسل للمستخدم."</p>
+        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm">
+            <section class="border-b pb-8 mb-12">
+                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 6 · الدرس 1</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">API Resources: كيف نرسل البيانات للواجهة بذكاء؟</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"لا ترسل كل شيء؛ أرسل فقط ما تحتاجه الواجهة لتبدو منظمة وسريعة."</p>
             </section>
 
-            <section class="student-section space-y-4" id="intro">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4 text-right">ما هو الـ API Resource؟</h2>
+            <section id="intro" class="space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هو الـ API Resource؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    عندما نطلب بيانات من Laravel لتعرض في React، فإن Laravel يرسل "كل شيء" موجود في قاعدة البيانات بشكل افتراضي. لكن في المشاريع الاحترافية مثل <strong>FlowPilot</strong>، نريد التحكم الكامل فيما يظهر للمتصفح.
+                    قاعدة البيانات تحتوي على معلومات كثيرة قد لا نحتاجها في الواجهة (مثل <code>updated_at</code> أو <code>password</code>). الـ <strong>API Resource</strong> هو طبقة تنظيمية تسمح لنا باختيار "ماذا" نرسل و "كيف" يظهر شكله في React.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    الـ <strong>Resource</strong> هو "مصفاة" ذكية. هو يسمح لك بإعادة تسمية الحقول (مثلاً تحويل <code>created_at</code> إلى <code>date</code>) واختيار البيانات المهمة فقط، وحجب البيانات الحساسة مثل كلمات المرور أو Tokens.
+                    في FlowPilot، سنستخدمه لنتأكد من أن بيانات المشاريع والمهام تصل للواجهة بتنسيق موحد وجميل، مما يسهل عملنا في React.
                 </p>
             </section>
 
-            <section class="student-section mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100" id="example">
-                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة</h2>
-                <p class="text-indigo-50 leading-relaxed text-lg italic">
-                    تخيل الـ Resource كـ "قائمة الطعام" في مطعم فاخر. 
+            <section id="theory" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">لماذا ننظف البيانات؟</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <ul class="list-disc pr-6 space-y-2">
+                        <li><strong>الأمان:</strong> منع تسريب بيانات حساسة بالخطأ.</li>
+                        <li><strong>الأداء:</strong> تقليل حجم البيانات المرسلة عبر الإنترنت.</li>
+                        <li><strong>التوحيد:</strong> جعل أسماء الحقول واضحة (مثلاً تغيير <code>is_active</code> إلى <code>status</code>).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (فلتر المياه)</h2>
+                <p class="text-indigo-50 leading-relaxed text-lg">
+                    تخيل قاعدة البيانات هي "خزان مياه" كبير يحتوي على شوائب وأملاح. الـ <strong>API Resource</strong> هو "الفلتر". 
                     <br><br>
-                    المطبخ (قاعدة البيانات) مليء بالمكونات الخام، النفايات، والأدوات. لكن الزبون (المتصفح) لا يرى كل ذلك؛ هو فقط يستلم "طبقاً منسقاً" (JSON Resource) يحتوي فقط على ما طلبه وبشكل جميل ومرتب.
+                    أنت لا تريد شرب الماء مباشرة من الخزان؛ بل تمرره عبر الفلتر ليخرج لك ماءً نقياً وصالحاً للشرب (الاستخدام في الواجهة).
                 </p>
             </section>
 
-            <section class="student-section mt-16 space-y-12" id="practice">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">التطبيق العملي</h2>
+            <section id="practice" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي</h2>
+
                 <div class="step-card">
-                    <div class="flex items-center gap-4 mb-4">
-                        <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl shadow-lg">1</span>
-                        <h3 class="text-xl font-black text-slate-900">إنشاء مورد للمشاريع</h3>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء Resource للمشروع</h3>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
+                        <p>php artisan make:resource ProjectResource</p>
                     </div>
-                    <div class="space-y-4 pr-16">
-                        <p class="text-slate-600">اكتب الأمر التالي في Terminal:</p>
-                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto text-left" dir="ltr">
-                            <p>php artisan make:resource ProjectResource</p>
-                        </div>
-                        <p class="text-slate-600 mt-4">افتح الملف في <code>app/Http/Resources/ProjectResource.php</code> وحدد الحقول التي تريدها:</p>
-                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left" dir="ltr">
-                            <p>public function toArray(Request $request): array</p>
-                            <p>{</p>
-                            <p>&nbsp;&nbsp;return [</p>
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;'id' => $this->id,</p>
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;'title' => $this->name,</p>
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;'formatted_date' => $this->created_at->diffForHumans(),</p>
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;'owner' => $this->user->name,</p>
-                            <p>&nbsp;&nbsp;];</p>
-                            <p>}</p>
-                        </div>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تحديد البيانات المرسلة</h3>
+                    <p class="mb-4">داخل ملف <code>app/Http/Resources/ProjectResource.php</code>:</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <p>return [</p>
+                        <p>&nbsp;&nbsp;'id' => $this->id,</p>
+                        <p>&nbsp;&nbsp;'name' => $this->name,</p>
+                        <p>&nbsp;&nbsp;'tasks_count' => $this->tasks()->count(),</p>
+                        <p>];</p>
                     </div>
                 </div>
             </section>
 
-            <div class="mt-12 flex justify-between gap-4 border-t pt-8">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-05/lesson-04/index.html">← الأسبوع الخامس</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all" href="../../week-06/lesson-02/index.html">الدرس التالي: البحث والفلاتر ←</a>
+            <div class="mt-12 flex justify-between gap-4">
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-05/lesson-04/index.html">← الدرس السابق</a>
+                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../../week-06/lesson-02/index.html">الدرس التالي: البحث والفلاتر ←</a>
             </div>
         </article>
     </div>
 </main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. أنت الآن تتعلم كيف تبني أنظمة قوية ومنظمة.
+</footer>
 
 <script src="../../../assets/js/app.js"></script>
 </body>

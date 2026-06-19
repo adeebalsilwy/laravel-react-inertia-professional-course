@@ -3,79 +3,102 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 12: Queries وتحسين القراءة</title>
+    <title>الدرس 12: قراءة البيانات بكفاءة وتحسين الاستعلامات</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .sidebar-sticky { position: sticky; top: 5rem; }
+        .step-card { border-right: 4px solid #0ea5e9; padding-right: 1.5rem; margin-bottom: 2rem; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+<body class="bg-slate-50 text-slate-900">
 
-<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
 </header>
 
 <main class="mx-auto max-w-7xl px-4 py-8">
-    <div class="lesson-layout">
-        <aside class="sidebar-sticky h-fit card p-4 hidden lg:block">
-            <a class="font-black text-indigo-700 hover:underline" href="../index.html">← العودة للأسبوع الثالث</a>
-            <div class="mt-8 space-y-2 text-sm font-bold text-slate-600">
-                <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">استعلامات ذكية</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">Eager Loading</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">تحسين الأداء</a>
+    <div class="grid lg:grid-cols-4 gap-8">
+        <aside class="hidden lg:block">
+            <div class="sidebar-sticky space-y-4">
+                <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الثالث</a>
+                <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
+                    <a class="block p-3 rounded-xl bg-sky-50 text-sky-700" href="#intro">مقدمة في الجلب</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">مشكلة N+1</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال السوبر ماركت</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                </div>
             </div>
         </aside>
 
-        <article class="card p-6 md:p-12 prose-box bg-white shadow-sm border-slate-200">
-            <section class="lesson-hero border-b pb-8 mb-12">
-                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs tracking-widest">الأسبوع 3 · الدرس 4</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">الاستعلامات الذكية (Queries) وكيف نجعل تطبيقنا طلقة!</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"تخيل لو كان لديك مليون مشروع؛ كيف تجلب المشروع الذي تريده فقط وبسرعة البرق؟"</p>
+        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
+            <section class="border-b pb-8 mb-12">
+                <span class="badge bg-sky-50 text-sky-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 3 · الدرس 4</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">تحسين القراءة: كيف تجلب بيانات FlowPilot بسرعة البرق؟</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"التطبيق الجيد ليس فقط من يعمل، بل من يعمل بسرعة تجعل المستخدم سعيداً."</p>
             </section>
 
-            <section class="student-section space-y-4" id="intro">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">ما هو الـ Query؟</h2>
+            <section id="intro" class="space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">ما هي مشكلة البطء؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    الاستعلام (Query) هو سؤال توجهه لقاعدة البيانات. بدلاً من جلب كل شيء، سنطلب بيانات محددة: "أعطني المشاريع النشطة فقط"، أو "أعطني المهام التي تنتهي اليوم".
+                    عندما يزداد عدد المشاريع والمهام في FlowPilot، قد تبدأ صفحة Dashboard في البطء. السبب غالباً هو أن التطبيق يقوم بـ "رحلات كثيرة جداً وغير ضرورية" لقاعدة البيانات.
+                </p>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    اليوم سنتعرف على تقنية تسمى <strong>Eager Loading</strong>، وهي باختصار "جلب كل ما تحتاجه في رحلة واحدة" بدلاً من الذهاب والعودة مئات المرات.
                 </p>
             </section>
 
-            <section class="student-section mt-16 space-y-6" id="theory">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">مشكلة الـ N+1 (لا ترهق السيرفر!)</h2>
+            <section id="theory" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">مشكلة N+1 الشهيرة</h2>
                 <p class="text-slate-600 leading-relaxed">
-                    هذا المصطلح التقني يعني أنك تطلب البيانات بطريقة تجعل السيرفر يتعب جداً. 
+                    إذا طلبت "كل المشاريع"، ثم داخل كل مشروع طلبت "مهامه"، فإن Laravel سيقوم بعمل استعلام (Query) واحد للمشاريع، ثم استعلام <strong>لكل مشروع على حدة</strong> ليجلب مهامه. إذا كان لديك 100 مشروع، ستقوم بعمل 101 استعلام! وهذا كارثي للأداء.
+                </p>
+                <div class="p-6 rounded-2xl bg-slate-900 text-indigo-400 font-mono text-sm text-left">
+                    // الطريقة الصحيحة (Eager Loading)<br>
+                    Project::with('tasks')->get();
+                </div>
+            </section>
+
+            <section id="example" class="mt-16 p-8 rounded-3xl bg-sky-600 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (السوبر ماركت)</h2>
+                <p class="text-sky-50 leading-relaxed text-lg">
+                    تخيل أنك في السوبر ماركت وتريد شراء 10 أغراض.
+                    <br><br>
+                    - <strong>البطء (Lazy Loading):</strong> تذهب للرف، تأخذ غرضاً واحداً، تخرج تدفع الحساب، ثم تعود مرة ثانية لتأخذ الغرض الثاني.. وهكذا 10 مرات!
                     <br>
-                    <strong>الحل السحري:</strong> استخدام <code>with()</code>. بدلاً من جلب مشروع ثم طلب مهامه واحداً تلو الآخر، سنطلب من Laravel: "اجلب المشاريع مع مهامها في رحلة واحدة فقط".
+                    - <strong>السرعة (Eager Loading):</strong> تأخذ "عربة تسوق"، تضع فيها الـ 10 أغراض في جولة واحدة، وتخرج تدفع مرة واحدة فقط.
                 </p>
             </section>
 
-            <section class="student-section mt-16 space-y-12" id="practice">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">التطبيق العملي</h2>
+            <section id="practice" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-sky-600 pr-4">التطبيق العملي</h2>
+
                 <div class="step-card">
-                    <div class="flex items-center gap-4 mb-4">
-                        <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl">1</span>
-                        <h3 class="text-xl font-black text-slate-900">كتابة استعلام ذكي في الـ Controller</h3>
-                    </div>
-                    <div class="space-y-4 pr-16">
-                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400">
-                            <p>// جلب المشاريع النشطة فقط مع مهامها دفعة واحدة</p>
-                            <p>$projects = Project::where('status', 'active')->with('tasks')->get();</p>
-                        </div>
-                        <p class="text-sm text-slate-500 italic italic">بهذا السطر، سيحصل تطبيق FlowPilot على كل ما يحتاجه بكفاءة عالية جداً.</p>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: استخدام with لجلب العلاقات</h3>
+                    <p class="text-slate-600 mb-4">في الـ Controller الخاص بك، بدلاً من جلب المشاريع فقط، اجلبها مع مهامها ومستخدميها.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <p>$projects = Project::with(['tasks', 'user'])->get();</p>
                     </div>
                 </div>
             </section>
 
-            <div class="mt-12 flex justify-between gap-4 border-t pt-8">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-03/lesson-03/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all" href="../../week-04/index.html">انتقل للأسبوع الرابع: المصادقة ←</a>
+            <div class="mt-12 flex justify-between gap-4">
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-03/index.html">← الدرس السابق</a>
+                <a class="rounded-2xl bg-sky-600 px-8 py-4 text-white font-black hover:bg-sky-700 transition-all shadow-xl shadow-sky-100" href="../../week-04/lesson-01/index.html">الأسبوع الرابع: الأمان ←</a>
             </div>
         </article>
     </div>
 </main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. المحتوى مصمم لجعل كودك أسرع وأكثر كفاءة.
+</footer>
 
 <script src="../../../assets/js/app.js"></script>
 </body>

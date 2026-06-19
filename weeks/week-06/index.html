@@ -1,1 +1,71 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>الأسبوع 6 - FlowPilot Academy</title><link rel="stylesheet" href="../../assets/css/style.css"></head><body><nav class="nav"><div class="container inner"><a class="brand" href="../../index.html"><span class="logo">F</span><span>FlowPilot Academy</span></a><div class="links"><a href="../../index.html">الرئيسية</a><a href="../../pages/curriculum.html">الفهرس</a><a href="../../pages/lessons.html">الدروس</a><a href="../../pages/beginner-guide.html">دليل الطالب</a><a href="../../pages/project.html">المشروع</a><a href="../../pages/plan.html">خطة التطوير</a><a href="../../pages/references.html">المراجع</a></div></div></nav><main class="container section"><a class="btn" href="../../pages/curriculum.html">← العودة إلى الفهرس</a><section class="card"><span class="badge">الأسبوع السادس</span><h1 class="title">APIs والتكاملات والبحث</h1><p class="lead">في هذا الأسبوع يبني الطالب جزءاً واضحاً من FlowPilot عبر دروس نظرية وعملية مترابطة.</p><input class="search" data-search="[data-lesson-card]" placeholder="ابحث داخل دروس هذا الأسبوع..."></section><section class="grid grid-2 section"><a class="card lesson-card" href="lesson-01/index.html" data-lesson-card><span class="badge">الدرس 1 · رقم 21</span><h3>Laravel API Resources وتنظيم البيانات</h3><p class="muted">يتعلم الطالب كيف يجهز Laravel البيانات للواجهة بشكل واضح بدلاً من إرسال كل تفاصيل قاعدة البيانات.</p><p><span class="btn">فتح الدرس</span></p></a><a class="card lesson-card" href="lesson-02/index.html" data-lesson-card><span class="badge">الدرس 2 · رقم 22</span><h3>البحث والفلاتر المتقدمة</h3><p class="muted">يتعلم الطالب كيف يبحث داخل المشاريع والمهام ويستخدم الفلاتر بطريقة سهلة للمستخدم.</p><p><span class="btn">فتح الدرس</span></p></a><a class="card lesson-card" href="lesson-03/index.html" data-lesson-card><span class="badge">الدرس 3 · رقم 23</span><h3>التنبيهات Notifications داخل FlowPilot</h3><p class="muted">يتعلم الطالب كيف يعرف المستخدم أن مهمة أُسندت إليه أو أن حالة مشروع تغيرت.</p><p><span class="btn">فتح الدرس</span></p></a><a class="card lesson-card" href="lesson-04/index.html" data-lesson-card><span class="badge">الدرس 4 · رقم 24</span><h3>سجل النشاط Activity Log</h3><p class="muted">يتعلم الطالب كيف يحتفظ FlowPilot بتاريخ واضح لما حدث داخل المشروع ومن قام به.</p><p><span class="btn">فتح الدرس</span></p></a></section></main><footer class="footer"><div class="container">© FlowPilot Academy - دورة Laravel 12 + React + Inertia.js + Tailwind CSS</div></footer><script src="../../assets/js/app.js"></script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>الأسبوع 6: الميزات المتقدمة | FlowPilot Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+    </div>
+</header>
+
+<main class="mx-auto max-w-7xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="../../pages/curriculum.html">← العودة للفهرس الشامل</a>
+    
+    <section class="mb-12">
+        <div class="flex items-center gap-4 mb-4">
+            <span class="px-4 py-1.5 rounded-full bg-indigo-600 text-white font-black text-sm uppercase">الأسبوع 06</span>
+            <h1 class="text-4xl font-black text-slate-900">APIs والتكاملات والبحث الذكي</h1>
+        </div>
+        <p class="text-lg text-slate-600 max-w-3xl leading-relaxed">
+            في هذا الأسبوع، نجعل FlowPilot أكثر ذكاءً واحترافية. سنتعلم كيف ننظم البيانات باستخدام API Resources، وكيف نبني نظام بحث وفلاتر متقدم، ونضيف التنبيهات وسجل النشاط لتتبع العمل.
+        </p>
+    </section>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <a href="lesson-01/index.html" class="card p-8 hover:border-indigo-500 group bg-white rounded-3xl border border-slate-200 transition-all">
+            <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">الدرس 21</span>
+            <h3 class="mt-2 text-xl font-black group-hover:text-indigo-600 transition-colors">API Resources</h3>
+            <p class="mt-4 text-sm text-slate-500 leading-relaxed">تنظيم وتطهير البيانات المرسلة للواجهة.</p>
+            <div class="mt-6 pt-6 border-t text-xs font-bold text-indigo-600">ابدأ التعلم الآن ←</div>
+        </a>
+
+        <a href="lesson-02/index.html" class="card p-8 hover:border-indigo-500 group bg-white rounded-3xl border border-slate-200 transition-all">
+            <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">الدرس 22</span>
+            <h3 class="mt-2 text-xl font-black group-hover:text-indigo-600 transition-colors">البحث والفلاتر</h3>
+            <p class="mt-4 text-sm text-slate-500 leading-relaxed">مساعدة المستخدم للوصول لبياناته بسرعة.</p>
+            <div class="mt-6 pt-6 border-t text-xs font-bold text-indigo-600">ابدأ التعلم الآن ←</div>
+        </a>
+
+        <a href="lesson-03/index.html" class="card p-8 hover:border-indigo-500 group bg-white rounded-3xl border border-slate-200 transition-all">
+            <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">الدرس 23</span>
+            <h3 class="mt-2 text-xl font-black group-hover:text-indigo-600 transition-colors">التنبيهات</h3>
+            <p class="mt-4 text-sm text-slate-500 leading-relaxed">إخطار المستخدمين بالأحداث الهامة.</p>
+            <div class="mt-6 pt-6 border-t text-xs font-bold text-indigo-600">ابدأ التعلم الآن ←</div>
+        </a>
+
+        <a href="lesson-04/index.html" class="card p-8 hover:border-indigo-500 group bg-white rounded-3xl border border-slate-200 transition-all">
+            <span class="text-xs font-black text-indigo-500 uppercase tracking-widest">الدرس 24</span>
+            <h3 class="mt-2 text-xl font-black group-hover:text-indigo-600 transition-colors">سجل النشاط</h3>
+            <p class="mt-4 text-sm text-slate-500 leading-relaxed">مراقبة من فعل ماذا داخل التطبيق.</p>
+            <div class="mt-6 pt-6 border-t text-xs font-bold text-indigo-600">ابدأ التعلم الآن ←</div>
+        </a>
+    </div>
+</main>
+
+<footer class="mt-24 border-t bg-white py-12 text-center text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. الشفافية هي سر العمل الجماعي الناجح.
+</footer>
+
+<script src="../../assets/js/app.js"></script>
+</body>
+</html>

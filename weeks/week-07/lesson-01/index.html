@@ -3,12 +3,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 25: Testing للوحدات والميزات | جودة الكود</title>
+    <title>الدرس 25: Testing لاختبار الميزات المهمة</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .sidebar-sticky { position: sticky; top: 5rem; }
+        .step-card { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
@@ -18,66 +23,91 @@
     </div>
 </header>
 
-<main class="mx-auto max-w-7xl px-4 py-8 text-right">
-    <div class="lesson-layout">
-        <aside class="sidebar-sticky h-fit card p-4 hidden lg:block">
-            <a class="font-black text-indigo-700 hover:underline" href="../index.html">← العودة للأسبوع السابع</a>
-            <div class="mt-8 space-y-2 text-sm font-bold text-slate-600">
-                <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم الـ Testing</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">Pest و PHPUnit</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">أول اختبار لك</a>
+<main class="mx-auto max-w-7xl px-4 py-8">
+    <div class="grid lg:grid-cols-4 gap-8 text-right">
+        <aside class="hidden lg:block">
+            <div class="sidebar-sticky space-y-4">
+                <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع السابع</a>
+                <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
+                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم الاختبارات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">لماذا نكتب Tests؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال فحص السيارة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                </div>
             </div>
         </aside>
 
-        <article class="card p-6 md:p-12 prose-box bg-white shadow-sm border-slate-200">
-            <section class="lesson-hero border-b pb-8 mb-12">
-                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs tracking-widest text-right">الأسبوع 7 · الدرس 1</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">ضمان الجودة: كيف تختبر كودك (Testing) وتنام مطمئناً؟</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"كما ورد في موسوعة حسوب: الاختبارات الآلية تسمح لك بالتأكد من أن الكود يعمل كما هو متوقع، وتحميك من تكرار الأخطاء السابقة."</p>
+        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm">
+            <section class="border-b pb-8 mb-12">
+                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 7 · الدرس 1</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">الاختبارات الآلية (Testing): كيف نضمن أن كودنا يعمل للأبد؟</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"المبرمج المحترف لا يختبر الكود يدوياً في كل مرة؛ بل يكتب كوداً يختبر كوده!"</p>
             </section>
 
-            <section class="student-section space-y-4" id="intro">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4 text-right">لماذا الـ Testing؟</h2>
+            <section id="intro" class="space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هي الاختبارات (Tests)؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    هل سبق وقمنا بإصلاح خطأ في التطبيق، ثم اكتشفت لاحقاً أن هذا الإصلاح تسبب في "عطل" جزء آخر تماماً؟ 
+                    هي عبارة عن ملفات برمجية نكتبها لتقوم بفتح صفحات الموقع، تعبئة النماذج، والتأكد من أن النتيجة صحيحة بشكل آلي سريع جداً.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    الاختبارات الآلية (Automated Testing) هي كود يكتبه المبرمج ليقوم بـ "اختبار" الكود الأصلي. بدلاً من فتح المتصفح وتجربة كل زر يدوياً، نطلب من Laravel القيام بذلك في ثوانٍ معدودة.
+                    تخيل أنك قمت بتعديل نظام تسجيل الدخول في FlowPilot. هل ستجرب كل الاحتمالات يدوياً؟ بوجود الـ <strong>Tests</strong>، يمكنك تشغيل أمر واحد ليقوم بفحص مئات الحالات في ثوانٍ.
                 </p>
             </section>
 
-            <section class="student-section mt-16 space-y-12" id="practice">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">التطبيق العملي</h2>
+            <section id="theory" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">لماذا نتعب في كتابتها؟</h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed">
+                    <ul class="list-disc pr-6 space-y-2">
+                        <li><strong>منع التراجع (Regression):</strong> تضمن أن تعديل اليوم لن يفسد ميزة برمجتها قبل شهر.</li>
+                        <li><strong>الثقة:</strong> تسمح لك برفع الكود للسيرفر وأنت مطمئن تماماً.</li>
+                        <li><strong>التوثيق:</strong> ملفات الاختبار توضح لأي مبرمج جديد كيف يجب أن يعمل التطبيق.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (فحص السيارة)</h2>
+                <p class="text-indigo-50 leading-relaxed text-lg">
+                    تخيل أنك تملك مصنع سيارات. 
+                    <br><br>
+                    - <strong>الاختبار اليدوي:</strong> هو أن يركب الموظف كل سيارة ويجربها بنفسه. (بطيء وممل).
+                    <br>
+                    - <strong>الاختبار الآلي:</strong> هو وجود روبوت يضغط على الفرامل، يشغل المصابيح، ويفحص المحرك في ثوانٍ ويعطي إشارة خضراء. (سريع ودقيق).
+                </p>
+            </section>
+
+            <section id="practice" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي</h2>
+
                 <div class="step-card">
-                    <div class="flex items-center gap-4 mb-4">
-                        <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl shadow-lg">1</span>
-                        <h3 class="text-xl font-black text-slate-900">كتابة أول اختبار ميزة (Feature Test)</h3>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء اختبار لصفحة المشاريع</h3>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
+                        <p>php artisan make:test ProjectTest</p>
                     </div>
-                    <div class="space-y-4 pr-16">
-                        <p class="text-slate-600">سنختبر: "هل يستطيع المستخدم رؤية صفحة المشاريع؟"</p>
-                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto text-left" dir="ltr">
-                            <p>php artisan make:test ProjectTest</p>
-                        </div>
-                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left mt-4" dir="ltr">
-                            <p>public function test_user_can_view_projects_page()</p>
-                            <p>{</p>
-                            <p>&nbsp;&nbsp;$user = User::factory()->create();</p>
-                            <p>&nbsp;&nbsp;$response = $this->actingAs($user)->get('/projects');</p>
-                            <p>&nbsp;&nbsp;$response->assertStatus(200);</p>
-                            <p>}</p>
-                        </div>
-                        <p class="text-slate-600 mt-4 italic">ثم لتشغيل الاختبارات، نكتب الأمر: <code>php artisan test</code>.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: كتابة أول حالة فحص</h3>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <p>public function test_projects_page_is_accessible() {</p>
+                        <p>&nbsp;&nbsp;$response = $this->get('/projects');</p>
+                        <p>&nbsp;&nbsp;$response->assertStatus(200);</p>
+                        <p>}</p>
                     </div>
                 </div>
             </section>
 
-            <div class="mt-12 flex justify-between gap-4 border-t pt-8">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-06/lesson-04/index.html">← الأسبوع السادس</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all" href="../lesson-02/index.html">الدرس التالي: جودة React ←</a>
+            <div class="mt-12 flex justify-between gap-4">
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-06/lesson-04/index.html">← الدرس السابق</a>
+                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../../week-07/lesson-02/index.html">الدرس التالي: جودة المكونات ←</a>
             </div>
         </article>
     </div>
 </main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. الجودة هي ما يميز المبرمج الحقيقي.
+</footer>
 
 <script src="../../../assets/js/app.js"></script>
 </body>

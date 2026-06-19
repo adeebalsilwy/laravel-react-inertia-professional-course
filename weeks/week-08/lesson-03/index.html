@@ -3,63 +3,94 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 31: توثيق المشروع والعرض النهائي</title>
+    <title>الدرس 31: توثيق المشروع وتجهيز العرض</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .sidebar-sticky { position: sticky; top: 5rem; }
+        .step-card { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
-    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4 text-right">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
 </header>
 
-<main class="mx-auto max-w-7xl px-4 py-8 text-right">
-    <div class="lesson-layout">
-        <aside class="sidebar-sticky h-fit card p-4 hidden lg:block text-right">
-            <a class="font-black text-indigo-700 hover:underline" href="../index.html">← العودة للأسبوع الثامن</a>
-            <div class="mt-8 space-y-2 text-sm font-bold text-slate-600">
-                <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">أهمية التوثيق</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">ملف README</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+<main class="mx-auto max-w-7xl px-4 py-8">
+    <div class="grid lg:grid-cols-4 gap-8 text-right">
+        <aside class="hidden lg:block">
+            <div class="sidebar-sticky space-y-4">
+                <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الثامن</a>
+                <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
+                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم التوثيق</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">ملف README</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال الكتالوج</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                </div>
             </div>
         </aside>
 
-        <article class="card p-6 md:p-12 prose-box bg-white shadow-sm border-slate-200">
-            <section class="lesson-hero border-b pb-8 mb-12">
-                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs tracking-widest text-right">الأسبوع 8 · الدرس 3</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">التوثيق (Documentation): كيف تجعل كودك يتحدث بلسان فصيح؟</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"كما ورد في موسوعة حسوب: التوثيق الجيد هو ما يجعل المبرمجين الآخرين يحبون العمل معك، وهو مرجعك الشخصي بعد مرور شهور."</p>
+        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm">
+            <section class="border-b pb-8 mb-12">
+                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 8 · الدرس 3</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">التوثيق (Documentation): كيف تشرح مشروعك للآخرين؟</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"الكود العظيم يحتاج لتوثيق أعظم؛ ليتعرف العالم على مجهودك وذكائك."</p>
             </section>
 
-            <section class="student-section space-y-4" id="intro">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4 text-right">لماذا نوثق مشروع FlowPilot؟</h2>
+            <section id="intro" class="space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">لماذا نوثق المشروع؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    تخيل أنك سلمت مشروع <strong>FlowPilot</strong> لشركة، ثم أرادوا تثبيته على أجهزتهم. كيف سيعرفون الأوامر المطلوبة؟ كيف سيعرفون نسخة PHP المناسبة؟ التوثيق هو "دليل الاستخدام" الذي يشرح كل ذلك.
+                    بعد شهور من العمل، قد تنسى كيف قمت ببرمجة جزء معين، أو قد يأتي مبرمج آخر ليعمل معك. التوثيق هو الدليل الذي يشرح: ما هو المشروع؟ كيف يتم تشغيله؟ وما هي ميزاته؟
                 </p>
             </section>
 
-            <section class="student-section mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100 text-right" id="theory">
-                <h2 class="text-2xl font-black mb-4">مكونات الـ README المثالي</h2>
-                <ul class="list-disc pr-8 space-y-4 text-indigo-50 font-bold">
-                    <li><strong>وصف المشروع:</strong> ماذا يفعل FlowPilot؟</li>
-                    <li><strong>المتطلبات:</strong> (PHP 8.2, Node 18, etc).</li>
-                    <li><strong>خطوات التثبيت:</strong> (composer install, npm install, etc).</li>
-                    <li><strong>صور للشاشات:</strong> عرض جمالية الواجهة.</li>
-                </ul>
+            <section id="theory" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ملف README.md</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    هو أهم ملف في مستودع GitHub. هو الواجهة التي يراها أصحاب الشركات والمبرمجون عند فتح مشروعك. يجب أن يحتوي على صور للمشروع، التقنيات المستخدمة، وأوامر التثبيت.
+                </p>
             </section>
 
-            <div class="mt-12 flex justify-between gap-4 border-t pt-8">
+            <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (كتالوج الأثاث)</h2>
+                <p class="text-indigo-50 leading-relaxed text-lg">
+                    تخيل أنك اشتريت خزانة معقدة من IKEA. 
+                    <br><br>
+                    - <strong>الكود:</strong> هو قطع الخشب والبراغي.
+                    <br>
+                    - <strong>التوثيق:</strong> هو الكتالوج المصور الذي يخبرك كيف تجمع القطع لتصل للشكل النهائي. 
+                    <br><br>
+                    بدون الكتالوج، قد تضيع وسط القطع وتفشل في بناء الخزانة!
+                </p>
+            </section>
+
+            <section id="practice" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي</h2>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: كتابة ملف README</h3>
+                    <p class="text-slate-600 mb-4">سنقوم بإنشاء ملف Markdown احترافي يشرح FlowPilot باللغتين العربية والإنجليزية.</p>
+                </div>
+            </section>
+
+            <div class="mt-12 flex justify-between gap-4">
                 <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-02/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all" href="../lesson-04/index.html">الدرس الأخير: التسليم النهائي ←</a>
+                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../../week-08/lesson-04/index.html">الدرس الأخير: التسليم ←</a>
             </div>
         </article>
     </div>
 </main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. المحتوى مصمم لرفع كفاءة المبرمج العربي.
+</footer>
 
 <script src="../../../assets/js/app.js"></script>
 </body>

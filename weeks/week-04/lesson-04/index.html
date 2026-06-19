@@ -3,72 +3,94 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 16: إدارة الملف الشخصي والإعدادات</title>
+    <title>الدرس 16: صفحة الملف الشخصي وإعدادات الحساب</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .sidebar-sticky { position: sticky; top: 5rem; }
+        .step-card { border-right: 4px solid #f59e0b; padding-right: 1.5rem; margin-bottom: 2rem; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+<body class="bg-slate-50 text-slate-900">
 
-<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
 </header>
 
 <main class="mx-auto max-w-7xl px-4 py-8">
-    <div class="lesson-layout">
-        <aside class="sidebar-sticky h-fit card p-4 hidden lg:block">
-            <a class="font-black text-indigo-700 hover:underline" href="../index.html">← العودة للأسبوع الرابع</a>
-            <div class="mt-8 space-y-2 text-sm font-bold text-slate-600">
-                <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مقدمة الملف الشخصي</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">تعديل البيانات</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+    <div class="grid lg:grid-cols-4 gap-8">
+        <aside class="hidden lg:block">
+            <div class="sidebar-sticky space-y-4">
+                <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الرابع</a>
+                <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
+                    <a class="block p-3 rounded-xl bg-amber-50 text-amber-700" href="#intro">مقدمة في الحساب</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">تعديل البيانات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال بطاقة الهوية</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                </div>
             </div>
         </aside>
 
-        <article class="card p-6 md:p-12 prose-box bg-white shadow-sm border-slate-200">
-            <section class="lesson-hero border-b pb-8 mb-12">
-                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs tracking-widest">الأسبوع 4 · الدرس 4</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">تخصيص التجربة: إدارة الملف الشخصي (Profile) والإعدادات</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"المستخدم يحب الشعور بالتحكم. لنعطه القدرة على تعديل اسمه، بريده، وكلمة مروره."</p>
+        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
+            <section class="border-b pb-8 mb-12">
+                <span class="badge bg-amber-50 text-amber-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 4 · الدرس 4</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">الملف الشخصي (Profile): كيف يدير المستخدم حسابه؟</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"يجب أن يشعر المستخدم بالسيطرة الكاملة على بياناته داخل التطبيق."</p>
             </section>
 
-            <section class="student-section space-y-4" id="intro">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">ما هو الملف الشخصي؟</h2>
+            <section id="intro" class="space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">لماذا صفحة الملف الشخصي؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    هي المنطقة الخاصة بكل مستخدم في FlowPilot. بفضل Laravel Breeze، حصلنا على صفحة Profile جاهزة تدعم تعديل البيانات الشخصية وحذف الحساب بشكل آمن تماماً. 
+                    أي نظام احترافي يحتاج لمكان يستطيع فيه المستخدم تغيير اسمه، تحديث بريده الإلكتروني، أو حتى حذف حسابه بالكامل. هذه هي صفحة <strong>الملف الشخصي (Profile)</strong>.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    سنرى كيف يقوم Laravel بالتحقق من البيانات (Validation) قبل حفظها؛ للتأكد مثلاً أن البريد الإلكتروني مكتوب بصيغة صحيحة وغير مكرر.
+                    في هذا الدرس، سنقوم بتخصيص صفحة الملف الشخصي التي وفرها لنا Laravel Breeze لنجعلها تتناسب مع هوية وتصميم <strong>FlowPilot</strong>.
                 </p>
             </section>
 
-            <section class="student-section mt-16 space-y-12" id="practice">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">جولة في كود البروفايل</h2>
+            <section id="theory" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">تعديل البيانات والحماية</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    عملية تحديث البيانات تحتاج لـ <strong>Validation</strong> (تحقق) قوي. لا نسمح للمستخدم مثلاً بترك اسمه فارغاً، أو تغيير بريده لبريد مسجل مسبقاً لمستخدم آخر. Laravel يتكفل بكل هذه التعقيدات خلف الكواليس.
+                </p>
+            </section>
+
+            <section id="example" class="mt-16 p-8 rounded-3xl bg-amber-600 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">مثال من الواقع (بطاقة الهوية)</h2>
+                <p class="text-white leading-relaxed text-lg">
+                    تخيل <strong>الملف الشخصي</strong> كـ "بطاقة هوية" ذكية. 
+                    <br><br>
+                    - يمكنك النظر إليها لترى بياناتك.
+                    <br>
+                    - يمكنك الذهاب للمكتب المختص (صفحة الإعدادات) لتغيير صورتك أو عنوانك.
+                    <br>
+                    - لكن لا يحق لأحد غيرك (أو غير الموظف المسؤول) القيام بهذه التعديلات!
+                </p>
+            </section>
+
+            <section id="practice" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">التطبيق العملي</h2>
+
                 <div class="step-card">
-                    <div class="flex items-center gap-4 mb-4">
-                        <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl">1</span>
-                        <h3 class="text-xl font-black text-slate-900">فهم الـ Update Logic</h3>
-                    </div>
-                    <div class="space-y-4 pr-16">
-                        <p class="text-slate-600">افتح ملف <code>app/Http/Controllers/ProfileController.php</code>. لاحظ كيف يتم التحقق من البيانات:</p>
-                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400">
-                            <p>$request->validate([</p>
-                            <p>&nbsp;&nbsp;'name' => 'required|string|max:255',</p>
-                            <p>&nbsp;&nbsp;'email' => 'required|email|unique:users,email,' . $user->id,</p>
-                            <p>]);</p>
-                        </div>
-                    </div>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: استعراض ملفات البروفايل</h3>
+                    <p class="text-slate-600 mb-4">اذهب للمجلد <code>resources/js/Pages/Profile</code>. ستجد هناك ملفات جاهزة للتحرير والحذف وتغيير كلمة المرور.</p>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تخصيص الواجهة العربية</h3>
+                    <p class="text-slate-600 mb-4">سنقوم بتغيير النصوص الإنجليزية في النماذج إلى نصوص عربية واضحة تناسب مستخدم FlowPilot.</p>
                 </div>
             </section>
 
-            <div class="mt-20 p-10 rounded-[2.5rem] bg-indigo-600 text-white text-center space-y-6">
-                <h2 class="text-3xl font-black">رائع! لقد أتممت نصف الرحلة بنجاح 🎉</h2>
-                <p class="text-indigo-100 text-lg">أصبح تطبيق FlowPilot الآن آمناً، منظماً، وفيه نظام صلاحيات متطور. استعد للأسبوع القادم لنبدأ العمل الحقيقي في إدارة المشاريع والمهام!</p>
-                <a href="../../week-05/index.html" class="inline-block rounded-2xl bg-white text-indigo-600 px-8 py-4 font-black hover:bg-slate-100 transition-all">انتقل للأسبوع الخامس: العمليات الاحترافية ←</a>
+            <div class="mt-12 flex justify-between gap-4">
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-03/index.html">← الدرس السابق</a>
+                <a class="rounded-2xl bg-amber-600 px-8 py-4 text-white font-black hover:bg-amber-700 transition-all shadow-xl shadow-indigo-100" href="../../week-05/lesson-01/index.html">الأسبوع الخامس: CRUD ←</a>
             </div>
         </article>
     </div>

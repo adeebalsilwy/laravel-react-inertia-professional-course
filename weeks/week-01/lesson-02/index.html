@@ -9,8 +9,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .sidebar-sticky { position: sticky; top: 5rem; }
+        .step-card { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+<body class="bg-slate-50 text-slate-900">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
@@ -22,192 +27,179 @@
             <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/beginner-guide.html">دليل الطالب</a>
             <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/project.html">المشروع</a>
         </nav>
-        <button onclick="toggleMenu()" class="md:hidden rounded-xl border px-3 py-2 transition-all">☰</button>
     </div>
 </header>
 
 <main class="mx-auto max-w-7xl px-4 py-8">
-    <div class="lesson-layout">
-        <aside class="sidebar-sticky h-fit card p-4 hidden lg:block">
-            <a class="font-black text-indigo-700 hover:underline" href="../index.html">← العودة للأسبوع الأول</a>
-            <div class="mt-8 space-y-2 text-sm font-bold text-slate-600">
-                <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مقدمة الدرس</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">الشرح النظري</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال من الحياة</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">في FlowPilot</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">أخطاء شائعة</a>
-            </div>
-            <div class="mt-8 pt-8 border-t space-y-2">
-                <a class="block rounded-xl bg-emerald-600 text-white p-3 font-black text-center text-sm" href="assignment.html">واجب الدرس</a>
-                <a class="block rounded-xl bg-sky-600 text-white p-3 font-black text-center text-sm" href="quiz.html">كويز الدرس</a>
+    <div class="grid lg:grid-cols-4 gap-8">
+        <aside class="hidden lg:block">
+            <div class="sidebar-sticky space-y-4">
+                <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الأول</a>
+                <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
+                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مقدمة الدرس</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">الشرح النظري</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال المطعم</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">في FlowPilot</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#errors">أخطاء شائعة</a>
+                </div>
+                <div class="space-y-2">
+                    <a class="block rounded-xl bg-emerald-600 text-white p-3 font-black text-center text-sm shadow-lg shadow-emerald-100" href="assignment.html">واجب الدرس</a>
+                    <a class="block rounded-xl bg-sky-600 text-white p-3 font-black text-center text-sm shadow-lg shadow-sky-100" href="quiz.html">كويز الدرس</a>
+                </div>
             </div>
         </aside>
 
-        <article class="card p-6 md:p-12 prose-box bg-white shadow-sm">
-            <!-- 1. Lesson Title -->
-            <section class="lesson-hero border-b pb-8 mb-12">
-                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs tracking-widest">الأسبوع 1 · الدرس 2</span>
+        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
+            <section class="border-b pb-8 mb-12">
+                <span class="px-3 py-1 rounded-lg bg-indigo-50 text-indigo-700 font-bold text-xs uppercase tracking-widest">الأسبوع 1 · الدرس 2</span>
                 <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">تثبيت Laravel 12 وربطه بـ React عبر جسر Inertia.js</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"سنقوم اليوم بدمج قوتين عظيمتين: ذكاء Laravel في الخلفية، وجمال وتفاعل React في الواجهة."</p>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"اليوم سنبدأ فعلياً في بناء الأساس البرمجي لـ FlowPilot. سنجمع بين قوة Laravel وجمال React."</p>
             </section>
 
-            <!-- 2. Introduction -->
-            <section class="student-section space-y-4" id="intro">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">لماذا هذا الدرس مهم؟</h2>
+            <section id="intro" class="space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">لماذا هذا الدرس مهم؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    في الماضي، كان على المبرمج بناء مشروعين منفصلين تماماً (واحد للخلفية وآخر للواجهة). لكن مع <strong>Inertia.js</strong>، أصبح بإمكاننا بناء تطبيق واحد يجمع بين سهولة Laravel وقوة React.
+                    في السابق، كان بناء تطبيق ويب يتطلب إنشاء مشروعيْن منفصلين؛ واحد للبيانات (Back-end) وآخر للشكل (Front-end). لكن مع تقنية <strong>Inertia.js</strong>، سنقوم بدمجهما في مشروع واحد ذكي.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    هذا الدرس سيجعلك قادراً على إنشاء "أول صفحة حقيقية" في تطبيقك، ويفهمك كيف تتدفق البيانات بين السيرفر والمتصفح بسلاسة تامة.
+                    هذا الدرس سيعلمك كيف تنشئ مجلد المشروع الحقيقي، وكيف تجعل Laravel و React يتواصلان معاً بسلاسة. بعد هذا الدرس، ستكون قادراً على رؤية أول صفحة تفاعلية لـ FlowPilot.
                 </p>
             </section>
 
-            <!-- 3. Detailed Theory -->
-            <section class="student-section mt-16 space-y-6" id="theory">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">ما هو الـ Stack الذي سنبنيه؟</h2>
-                <div class="space-y-6 mt-8">
-                    <div class="teaching-point">
-                        <h4 class="font-black text-indigo-600 text-lg">Inertia.js: الجسر السحري</h4>
-                        <p class="text-slate-600 leading-relaxed">
-                            عادة، عندما تضغط على رابط، يقوم المتصفح بإعادة تحميل الصفحة بالكامل. <strong>Inertia</strong> يمنع ذلك؛ فهو يجعل تطبيقك يبدو كتطبيق موبايل سريع جداً، مع الحفاظ على سهولة البرمجة بلغة PHP.
-                        </p>
-                    </div>
-                    <div class="teaching-point">
-                        <h4 class="font-black text-indigo-600 text-lg">لماذا نستخدم React؟</h4>
-                        <p class="text-slate-600 leading-relaxed">
-                            لأنها تسمح لنا بتقسيم الواجهة إلى "قطع صغيرة" (Components). تخيل أن زر "الإعجاب" أو "شريط التنقل" هو قطعة مستقلة يمكنك استخدامها في أي مكان آخر بسهولة.
-                        </p>
-                    </div>
+            <section id="theory" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هو الـ Stack التقني؟</h2>
+                <div class="space-y-4 text-slate-600">
+                    <p>الـ <strong>Stack</strong> هو مجموعة التقنيات التي تعمل معاً لبناء التطبيق. في FlowPilot نستخدم:</p>
+                    <ul class="list-disc pr-6 space-y-4">
+                        <li><strong>Laravel 12:</strong> مسؤول عن "العقل"؛ حفظ البيانات، الصلاحيات، والتحقق من المستخدمين.</li>
+                        <li><strong>React:</strong> مسؤول عن "الواجهة"؛ الأزرار، القوائم، والتفاعل السريع دون إعادة تحميل الصفحة.</li>
+                        <li><strong>Inertia.js:</strong> هو "الجسر"؛ ينقل البيانات من Laravel إلى React بطريقة تجعل التطبيق يبدو كتطبيقات الموبايل السريعة.</li>
+                    </ul>
                 </div>
             </section>
 
-            <!-- 4. Real-life Example -->
-            <section class="student-section mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100" id="example">
-                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة</h2>
+            <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (المطعم الذكي)</h2>
                 <p class="text-indigo-50 leading-relaxed text-lg">
-                    تخيل <strong>Laravel</strong> كمدير مطعم ذكي يجهز الطلبات، و <strong>React</strong> كطاولة تقديم أنيقة جداً. 
+                    تخيل <strong>Laravel</strong> هو المطبخ (حيث تُجهز الأطباق)، و <strong>React</strong> هو الصالة (حيث يجلس الزبائن).
                     <br><br>
-                    بدون <strong>Inertia</strong>، سيكون عليك تغيير الطاولة بالكامل في كل مرة يطلب فيها الزبون طبقاً جديداً. 
+                    بدون <strong>Inertia</strong>، سيكون على الزبون الذهاب للمطبخ في كل مرة يطلب فيها شيئاً جديداً. 
                     <br><br>
-                    مع <strong>Inertia</strong>، يقوم النادل (Inertia) بتغيير الأطباق على نفس الطاولة بسرعة فائقة دون إزعاج الزبون!
+                    مع <strong>Inertia</strong>، هناك نادل فائق السرعة يأخذ الطلب من الصالة، يذهب للمطبخ، ويعود بالطبق ويضعه على الطاولة دون أن يشعر الزبون بأي تأخير أو يحتاج لتغيير طاولته!
                 </p>
             </section>
 
-            <!-- 5. Link to FlowPilot -->
-            <section class="student-section mt-16" id="flowpilot">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">في مشروع FlowPilot</h2>
-                <div class="mt-6 p-6 rounded-2xl bg-emerald-50 border border-emerald-100">
-                    <p class="leading-relaxed text-emerald-900">
-                        هذا الدرس هو "شهادة ميلاد" مشروعنا. في نهاية الخطوات العملية، ستمتلك مجلد مشروع FlowPilot الحقيقي الذي سنقضي فيه الثمانية أسابيع القادمة. سنرى أول واجهة لـ FlowPilot تظهر في المتصفح!
+            <section id="flowpilot" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">في مشروع FlowPilot</h2>
+                <div class="mt-6 p-6 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-900">
+                    <p class="leading-relaxed">
+                        هذا هو اليوم الذي ننشئ فيه مجلد <code>flowpilot</code> الحقيقي على جهازك. كل الدروس القادمة ستعتمد على ما سنفعله اليوم. سننشئ "قلب" المشروع الذي سنبني عليه كل ميزات إدارة المهام والفرق لاحقاً.
                     </p>
                 </div>
             </section>
 
-            <!-- 6. Step-by-Step Practical -->
-            <section class="student-section mt-16 space-y-12" id="practice">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">التطبيق العملي</h2>
-
-                <div class="space-y-12">
-                    <div class="step-card">
-                        <div class="flex items-center gap-4 mb-4">
-                            <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl shadow-lg shadow-indigo-200">1</span>
-                            <h3 class="text-xl font-black text-slate-900">إنشاء مشروع Laravel جديد</h3>
-                        </div>
-                        <div class="space-y-4 pr-16">
-                            <p class="text-slate-600">افتح الـ Terminal وانتقل للمجلد الذي تضع فيه مشاريعك، ثم اكتب:</p>
-                            <div class="bg-slate-900 rounded-2xl p-4 md:p-6 font-mono text-sm text-indigo-400 overflow-x-auto">
-                                <p>composer create-project laravel/laravel flowpilot</p>
-                                <p>cd flowpilot</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="flex items-center gap-4 mb-4">
-                            <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl shadow-lg shadow-indigo-200">2</span>
-                            <h3 class="text-xl font-black text-slate-900">تثبيت Inertia.js (جانب السيرفر)</h3>
-                        </div>
-                        <div class="space-y-4 pr-16">
-                            <p class="text-slate-600">نحتاج لإضافة مكتبة Inertia داخل Laravel ليفهم كيف يتخاطب مع React.</p>
-                            <div class="bg-slate-900 rounded-2xl p-4 md:p-6 font-mono text-sm text-emerald-400 overflow-x-auto">
-                                <p>composer require inertiajs/inertia-laravel</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="flex items-center gap-4 mb-4">
-                            <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl shadow-lg shadow-indigo-200">3</span>
-                            <h3 class="text-xl font-black text-slate-900">تثبيت React (جانب الواجهة)</h3>
-                        </div>
-                        <div class="space-y-4 pr-16">
-                            <p class="text-slate-600">الآن نثبت مكتبة React والأدوات المرتبطة بها باستخدام NPM.</p>
-                            <div class="bg-slate-900 rounded-2xl p-4 md:p-6 font-mono text-sm text-sky-400 overflow-x-auto">
-                                <p>npm install @inertiajs/react react react-dom @vitejs/plugin-react</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 7. Explained Code -->
-            <section class="student-section mt-16" id="code">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">شرح الكود</h2>
-                <div class="mt-8 p-6 rounded-2xl border border-slate-200 bg-slate-50 space-y-4">
-                    <pre class="text-sm font-bold text-indigo-700">return Inertia::render('Welcome');</pre>
-                    <p class="text-sm text-slate-600 leading-relaxed">
-                        هذا السطر (الذي يوضع في Controller) هو أهم سطر اليوم! 
-                        <br>
-                        - <strong>Inertia::render</strong> يخبر Laravel: "لا تعرض صفحة عادية، بل شغل محرك React".
-                        <br>
-                        - <strong>'Welcome'</strong> هو اسم الملف الذي أنشأناه في مجلد React.
-                    </p>
-                </div>
-            </section>
-
-            <!-- 10. Diagrams -->
-            <section class="student-section mt-16" id="visuals">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">كيف تتدفق البيانات؟</h2>
+            <section id="visuals" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">مخططات توضيحية</h2>
                 <div class="grid md:grid-cols-2 gap-8 mt-8">
-                    <div class="card p-4 text-center">
+                    <div class="card p-4 text-center space-y-4">
                         <img src="diagram.svg" alt="Technical Diagram" class="w-full rounded-xl border">
-                        <p class="mt-2 text-xs font-bold text-slate-400 uppercase">المتصفح ← Inertia ← Laravel</p>
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط الربط التقني</p>
                     </div>
-                    <div class="card p-4 text-center">
-                        <img src="visual-example.svg" alt="Concept Diagram" class="w-full rounded-xl border">
-                        <p class="mt-2 text-xs font-bold text-slate-400 uppercase">تكامل الـ Stack في FlowPilot</p>
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="visual-example.svg" alt="Teaching Diagram" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">التشبيه البصري (المطعم)</p>
                     </div>
                 </div>
             </section>
 
-            <!-- 9. Common Errors -->
-            <section class="student-section mt-16" id="errors">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-rose-600 pr-4">أخطاء شائعة للمبتدئين</h2>
+            <section id="practice" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي خطوة بخطوة</h2>
+
+                <!-- Step 1 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء مشروع Laravel</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> إنشاء المجلد الأساسي للمشروع وتحميل ملفات Laravel 12.</p>
+                    <p class="text-slate-600 mb-4"><strong>لماذا؟</strong> نحتاج لنسخة نظيفة من Laravel لنبدأ بناء FlowPilot عليها.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4">
+                        <p>composer create-project laravel/laravel flowpilot</p>
+                        <p>cd flowpilot</p>
+                    </div>
+                    <p class="text-slate-500 text-sm italic">شرح الأمر: نطلب من Composer إنشاء مشروع جديد اسمه flowpilot ثم ندخل إلى المجلد.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: تثبيت Inertia جانب السيرفر</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> إضافة مكتبة Inertia داخل ملفات Laravel.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <p>composer require inertiajs/inertia-laravel</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 3: تثبيت React و Inertia جانب الواجهة</h3>
+                    <p class="text-slate-600 mb-4"><strong>الهدف:</strong> تحميل مكتبات React لتشغيل الواجهات.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-sky-400 overflow-x-auto mb-4 text-left">
+                        <p>npm install @inertiajs/react react react-dom @vitejs/plugin-react</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="code" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">شرح كود الربط الأساسي</h2>
+                <div class="mt-8 space-y-4">
+                    <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
+                        <code class="text-indigo-600 font-bold block mb-2 text-left">return Inertia::render('Home');</code>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            هذا السطر يخبر Laravel: "لا تبحث عن صفحة HTML عادية، بل ابحث عن صفحة React اسمها Home في مجلد الصفحات، وأرسلها للمستخدم عبر جسر Inertia".
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="errors" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-rose-600 pr-4">أخطاء قد تواجهك</h2>
                 <div class="mt-8 space-y-6">
                     <div class="p-6 rounded-2xl bg-rose-50 border border-rose-100">
-                        <h4 class="font-black text-rose-700 mb-2">نسيان تشغيل السيرفر</h4>
-                        <p class="text-sm text-rose-900/70 leading-relaxed mb-4">أكبر خطأ يقع فيه المبتدئ هو فتح الرابط دون تشغيل "المحركات".</p>
-                        <p class="text-sm font-black text-rose-900 italic">الحل: يجب تشغيل نافذتين Terminal؛ الأولى لـ `php artisan serve` والثانية لـ `npm run dev`.</p>
+                        <h4 class="font-black text-rose-700 mb-2">خطأ: Composer is not recognized</h4>
+                        <p class="text-sm text-rose-900/70 mb-2">يعني أنك لم تثبت Composer أو لم تضفه للمسار.</p>
+                        <p class="text-sm font-black text-rose-900">الحل: عد للدرس الأول وتأكد من تثبيت Composer بنجاح.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mt-16 p-10 rounded-[2.5rem] bg-slate-900 text-white">
+                <h2 class="text-2xl font-black mb-6">ملخص الدرس</h2>
+                <p class="text-slate-400 leading-relaxed mb-6">اليوم قمنا بإنشاء مشروع FlowPilot وربطنا Laravel بـ React باستخدام Inertia. هذه الخطوة هي التي حولت مشروعنا من مجرد فكرة إلى تطبيق ويب حديث جاهز للتطوير.</p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="text-indigo-400 font-black uppercase text-xs tracking-widest">أهم ما تعلمناه</h4>
+                        <ul class="text-sm text-slate-400 space-y-1">
+                            <li>• إنشاء مشروع Laravel 12.</li>
+                            <li>• مفهوم الـ Stack التقني.</li>
+                            <li>• دور Inertia كجسر بين الخلفية والواجهة.</li>
+                        </ul>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="text-indigo-400 font-black uppercase text-xs tracking-widest">الدرس القادم</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed">سنتعلم كيف نستخدم Tailwind CSS لنجعل تطبيق FlowPilot يبدو رائعاً من اللمسة الأولى!</p>
                     </div>
                 </div>
             </section>
 
             <div class="mt-12 flex justify-between gap-4">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-01/lesson-01/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all" href="../../week-01/lesson-03/index.html">الدرس التالي: Tailwind CSS ←</a>
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="index.html">← الدرس السابق</a>
+                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../../week-01/lesson-03/index.html">الدرس التالي: Tailwind CSS ←</a>
             </div>
         </article>
     </div>
 </main>
 
 <footer class="mt-24 border-t bg-white">
-    <div class="mx-auto max-w-7xl px-4 py-12 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-slate-500 font-medium">
-        <p>© 2025 FlowPilot Academy. تعلم بذكاء مع Laravel 12.</p>
-        <div class="flex gap-4 font-black">
-            <a href="assignment.html" class="text-emerald-600">واجب الأسبوع</a>
-            <a href="quiz.html" class="text-sky-600">كويز سريع</a>
-        </div>
+    <div class="mx-auto max-w-7xl px-4 py-8 text-center text-slate-400 text-sm font-medium">
+        © 2025 FlowPilot Academy. المحتوى مصمم لمساعدتك على بناء مشاريعك الخاصة.
     </div>
 </footer>
 

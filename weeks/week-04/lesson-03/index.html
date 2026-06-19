@@ -9,76 +9,89 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .sidebar-sticky { position: sticky; top: 5rem; }
+        .step-card { border-right: 4px solid #f59e0b; padding-right: 1.5rem; margin-bottom: 2rem; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+<body class="bg-slate-50 text-slate-900">
 
-<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
 </header>
 
 <main class="mx-auto max-w-7xl px-4 py-8">
-    <div class="lesson-layout">
-        <aside class="sidebar-sticky h-fit card p-4 hidden lg:block">
-            <a class="font-black text-indigo-700 hover:underline" href="../index.html">← العودة للأسبوع الرابع</a>
-            <div class="mt-8 space-y-2 text-sm font-bold text-slate-600">
-                <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم الـ Middleware</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">حماية المسارات</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+    <div class="grid lg:grid-cols-4 gap-8">
+        <aside class="hidden lg:block">
+            <div class="sidebar-sticky space-y-4">
+                <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الرابع</a>
+                <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
+                    <a class="block p-3 rounded-xl bg-amber-50 text-amber-700" href="#intro">مفهوم الـ Middleware</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">حماية المسارات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال البواب الإلكتروني</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                </div>
             </div>
         </aside>
 
-        <article class="card p-6 md:p-12 prose-box bg-white shadow-sm border-slate-200">
-            <section class="lesson-hero border-b pb-8 mb-12">
-                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs tracking-widest">الأسبوع 4 · الدرس 3</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">فهم الـ Middleware: الحارس الشخصي لمسارات تطبيقك</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"تخيل لو استطاع أي شخص رؤية لوحة التحكم دون تسجيل دخول! الـ Middleware يمنع ذلك تماماً."</p>
+        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
+            <section class="border-b pb-8 mb-12">
+                <span class="badge bg-amber-50 text-amber-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 4 · الدرس 3</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">Middleware: كيف نمنع الغرباء من دخول صفحاتنا؟</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"لا تسمح لأي طلب بالمرور إلا إذا كان مستوفياً للشروط."</p>
             </section>
 
-            <section class="student-section space-y-4" id="intro">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">ما هو الـ Middleware؟</h2>
+            <section id="intro" class="space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">ما هو الـ Middleware؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    هو عبارة عن "طبقة فحص" يمر من خلالها الطلب قبل أن يصل إلى الصفحة. وظيفته الأساسية هي التحقق من شروط معينة؛ مثل: "هل هذا المستخدم مسجل دخول؟" أو "هل هذا المستخدم لديه صلاحية مدير؟".
+                    الـ <strong>Middleware</strong> (البرمجية الوسيطة) هي طبقة فحص تقف بين "طلب المستخدم" و "كود التطبيق". وظيفتها أن تسأل: "هل يحق لهذا المستخدم الوصول لهذه الصفحة؟" قبل أن تفتح له الباب.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    إذا تحقق الشرط، يسمح له بالمرور. إذا لم يتحقق، يقوم الـ Middleware "بطرده" وإعادته لصفحة تسجيل الدخول مثلاً.
+                    في FlowPilot، سنستخدم الـ Middleware لنقول لـ Laravel: "إذا حاول شخص غير مسجل الدخول فتح صفحة <code>/dashboard</code>، اطرده فوراً وأعده لصفحة تسجيل الدخول".
                 </p>
             </section>
 
-            <section class="student-section mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100" id="example">
-                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة</h2>
-                <p class="text-indigo-50 leading-relaxed text-lg">
-                    تخيل الـ Middleware كـ "رجل أمن" يقف عند مدخل المطار. 
-                    <br>
-                    - أنت لا تستطيع الوصول لبوابة الطائرة (الصفحة) إلا بعد أن يفحص رجل الأمن (Middleware) تذكرتك وهويتك.
-                    <br>
-                    - إذا لم تكن تملك تذكرة، يمنعك من الدخول فوراً.
+            <section id="theory" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">Middleware 'auth'</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    Laravel يوفر لنا Middleware جاهزاً اسمه <code>auth</code>. وظيفته بسيطة جداً: التأكد من أن المستخدم "مُصادق عليه" (دخل ببريد وكلمة مرور). إذا لم يكن كذلك، سيمنعه من الوصول للمسار.
                 </p>
             </section>
 
-            <section class="student-section mt-16 space-y-12" id="practice">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">التطبيق العملي</h2>
+            <section id="example" class="mt-16 p-8 rounded-3xl bg-amber-600 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (البواب الإلكتروني)</h2>
+                <p class="text-white leading-relaxed text-lg">
+                    تخيل الـ <strong>Middleware</strong> كبواب يقف عند مدخل سينما. 
+                    <br><br>
+                    - أي شخص يمكنه الوصول لمنطقة بيع التذاكر (صفحة الهبوط).
+                    <br>
+                    - لكن لا أحد يمكنه دخول قاعة العرض (الـ Dashboard) إلا إذا أظهر "تذكرة" (Session/Cookie تثبت تسجيل الدخول).
+                    <br>
+                    - البواب (Middleware) يفحص التذكرة؛ إذا كانت صالحة يمررك، وإذا لم تكن، يطلب منك العودة لشباك التذاكر!
+                </p>
+            </section>
+
+            <section id="practice" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-amber-600 pr-4">التطبيق العملي</h2>
+
                 <div class="step-card">
-                    <div class="flex items-center gap-4 mb-4">
-                        <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl">1</span>
-                        <h3 class="text-xl font-black text-slate-900">حماية مسارات FlowPilot</h3>
-                    </div>
-                    <div class="space-y-4 pr-16">
-                        <p class="text-slate-600">سنقوم بتجميع مسارات "المشاريع" و "المهام" داخل Middleware يسمى <code>auth</code> لضمان عدم دخول الغرباء.</p>
-                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400">
-                            <p>Route::middleware(['auth'])->group(function () {</p>
-                            <p>&nbsp;&nbsp;Route::resource('projects', ProjectController::class);</p>
-                            <p>&nbsp;&nbsp;Route::resource('tasks', TaskController::class);</p>
-                            <p>});</p>
-                        </div>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: حماية مسارات الـ Dashboard</h3>
+                    <p class="text-slate-600 mb-4">افتح ملف <code>routes/web.php</code> وقم بتغليف المسارات بالـ Middleware.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
+                        <p>Route::middleware(['auth'])->group(function () {</p>
+                        <p>&nbsp;&nbsp;Route::get('/dashboard', [DashboardController::class, 'index']);</p>
+                        <p>&nbsp;&nbsp;Route::get('/projects', [ProjectController::class, 'index']);</p>
+                        <p>});</p>
                     </div>
                 </div>
             </section>
 
-            <div class="mt-12 flex justify-between gap-4 border-t pt-8">
-                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-04/lesson-02/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all" href="../../week-04/lesson-04/index.html">الدرس التالي: الملف الشخصي ←</a>
+            <div class="mt-12 flex justify-between gap-4">
+                <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../lesson-02/index.html">← الدرس السابق</a>
+                <a class="rounded-2xl bg-amber-600 px-8 py-4 text-white font-black hover:bg-amber-700 transition-all shadow-xl shadow-indigo-100" href="../lesson-04/index.html">الدرس التالي: الملف الشخصي ←</a>
             </div>
         </article>
     </div>

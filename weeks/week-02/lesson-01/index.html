@@ -9,99 +9,146 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .sidebar-sticky { position: sticky; top: 5rem; }
+        .step-card { border-right: 4px solid #10b981; padding-right: 1.5rem; margin-bottom: 2rem; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+<body class="bg-slate-50 text-slate-900">
 
-<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
 </header>
 
 <main class="mx-auto max-w-7xl px-4 py-8">
-    <div class="lesson-layout">
-        <aside class="sidebar-sticky h-fit card p-4 hidden lg:block">
-            <a class="font-black text-indigo-700 hover:underline" href="../index.html">← العودة للأسبوع الثاني</a>
-            <div class="mt-8 space-y-2 text-sm font-bold text-slate-600">
-                <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مقدمة في المسارات</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">كيف يعمل Routing؟</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال من الواقع</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">تطبيق الـ Route الأول</a>
+    <div class="grid lg:grid-cols-4 gap-8">
+        <aside class="hidden lg:block">
+            <div class="sidebar-sticky space-y-4">
+                <a class="font-black text-emerald-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الثاني</a>
+                <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
+                    <a class="block p-3 rounded-xl bg-emerald-50 text-emerald-700" href="#intro">مقدمة في المسارات</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">كيف يعمل Routing؟</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال المجمع التجاري</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#flowpilot">في FlowPilot</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                </div>
             </div>
         </aside>
 
-        <article class="card p-6 md:p-12 prose-box bg-white shadow-sm">
-            <section class="lesson-hero border-b pb-8 mb-12">
-                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs tracking-widest">الأسبوع 2 · الدرس 1</span>
+        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
+            <section class="border-b pb-8 mb-12">
+                <span class="px-3 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-bold text-xs uppercase tracking-widest">الأسبوع 2 · الدرس 1</span>
                 <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">فهم المسارات (Routing) وكيف يرسل Laravel البيانات لـ React</h1>
                 <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"المسار هو الباب الذي يدخل منه المستخدم لتطبيقك. لنتعلم كيف نبني أبوابنا الذكية."</p>
             </section>
 
-            <section class="student-section space-y-4" id="intro">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">لماذا نحتاج الـ Routing؟</h2>
+            <section id="intro" class="space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">لماذا نحتاج الـ Routing؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    عندما تكتب <code>facebook.com/profile</code>، كيف يعرف الفيسبوك أنه يجب عرض صفحتك الشخصية؟ هذا هو دور <strong>الـ Routing</strong>. هو نظام توجيه يربط "الرابط" الذي يطلبه المستخدم بـ "الكود" الذي يجب أن يعمل.
+                    عندما تكتب <code>facebook.com/profile</code>، كيف يعرف الفيسبوك أنه يجب عرض صفحتك الشخصية وليس صفحة الأخبار؟ هذا هو دور <strong>الـ Routing</strong>. هو نظام توجيه يربط "الرابط" الذي يطلبه المستخدم بـ "الكود" الذي يجب أن يعمل.
                 </p>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    في مشروعنا <strong>FlowPilot</strong>، سنحتاج لمسارات كثيرة مثل: مسار لعرض المهام، ومسار لإنشاء مشروع جديد، ومسار لتعديل البيانات.
+                    بدون مسارات، سيكون تطبيقنا عبارة عن صفحة واحدة صماء. في مشروعنا <strong>FlowPilot</strong>، سنحتاج لمسارات كثيرة مثل: مسار لعرض المهام، ومسار لإنشاء مشروع جديد، ومسار لتعديل البيانات الشخصية.
                 </p>
             </section>
 
-            <section class="student-section mt-16 space-y-6" id="theory">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">كيف يعمل Inertia Response؟</h2>
+            <section id="theory" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">كيف يعمل Inertia Response؟</h2>
                 <p class="text-slate-600 leading-relaxed">
-                    في Laravel التقليدي، كنا نعيد ملف Blade. لكننا الآن نستخدم React. هنا يأتي دور <code>Inertia::render()</code>. 
-                    هي دالة تخبر Laravel: "توقف، لا ترسل HTML عادياً، بل أرسل البيانات لصفحة React الفلانية لتقوم هي بالعرض".
+                    في Laravel التقليدي، كنا نعيد ملف Blade (HTML عادي). لكننا الآن نستخدم React. هنا يأتي دور <code>Inertia::render()</code>. 
+                    هذه الدالة تخبر Laravel: "توقف، لا ترسل HTML عادياً، بل أرسل البيانات لصفحة React الفلانية لتقوم هي بالعرض".
                 </p>
-                <div class="p-6 rounded-2xl bg-indigo-50 border border-indigo-100 font-mono text-sm text-indigo-700">
-                    Route::get('/dashboard', function() { <br>
-                    &nbsp;&nbsp;return Inertia::render('Dashboard'); <br>
-                    });
+                <div class="p-6 rounded-2xl bg-indigo-50 border border-indigo-100 font-mono text-sm text-indigo-700 text-left">
+                    return Inertia::render('Dashboard', [<br>
+                    &nbsp;&nbsp;'projects' => $projects<br>
+                    ]);
                 </div>
             </section>
 
-            <section class="student-section mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100" id="example">
-                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة</h2>
-                <p class="text-indigo-50 leading-relaxed text-lg">
-                    تخيل التطبيق كـ "مجمع تجاري". 
+            <section id="example" class="mt-16 p-8 rounded-3xl bg-emerald-600 text-white shadow-xl shadow-emerald-100">
+                <h2 class="text-2xl font-black mb-4">مثال لتقريب الفكرة (المجمع التجاري)</h2>
+                <p class="text-emerald-50 leading-relaxed text-lg">
+                    تخيل تطبيق FlowPilot كـ "مجمع تجاري" ضخم. 
+                    <br><br>
+                    - <strong>الـ Route</strong> هو اللوحات الإرشادية عند المدخل التي تخبرك: "للوصول لقسم الملابس اذهب يميناً، ولقسم المطاعم اصعد للدور الثاني".
                     <br>
-                    - <strong>الـ Route</strong> هو اللوحات الإرشادية التي تخبرك: "للوصول لقسم الملابس اذهب يميناً".
+                    - <strong>المتصفح</strong> هو الزائر الذي يتبع اللوحات.
                     <br>
-                    - <strong>المتصفح</strong> هو الزائر.
-                    <br>
-                    - <strong>Inertia</strong> هو الموظف الذي يفتح لك باب القسم المخصص ويعرض لك البضائع (البيانات) بداخله.
+                    - <strong>Inertia</strong> هو الموظف الذي يفتح لك باب القسم المخصص ويجهز لك البضائع (البيانات) لتراها بشكل أنيق.
                 </p>
             </section>
 
-            <section class="student-section mt-16 space-y-12" id="practice">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">التطبيق العملي</h2>
-                <div class="step-card">
-                    <div class="flex items-center gap-4 mb-4">
-                        <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl">1</span>
-                        <h3 class="text-xl font-black text-slate-900">إنشاء مسار Dashboard</h3>
+            <section id="flowpilot" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">في مشروع FlowPilot</h2>
+                <div class="mt-6 p-6 rounded-2xl bg-slate-50 border border-slate-100 text-slate-900">
+                    <p class="leading-relaxed">
+                        سنبدأ بإنشاء مسار لوحة التحكم <code>/dashboard</code>. هذا المسار سيكون هو "المركز" الذي يرى فيه المستخدم ملخصاً لمشاريعه ومهامه. سنربطه بصفحة React تسمى <code>Dashboard.jsx</code>.
+                    </p>
+                </div>
+            </section>
+
+            <section id="visuals" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">مخططات توضيحية</h2>
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="diagram.svg" alt="Technical Diagram" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط دورة الطلب</p>
                     </div>
-                    <div class="space-y-4 pr-16">
-                        <p class="text-slate-600">افتح ملف <code>routes/web.php</code> وأضف الكود التالي:</p>
-                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400">
-                            <p>use Inertia\Inertia;</p>
-                            <p>Route::get('/dashboard', function () {</p>
-                            <p>&nbsp;&nbsp;return Inertia::render('Dashboard', [</p>
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;'userName' => 'أحمد'</p>
-                            <p>&nbsp;&nbsp;]);</p>
-                            <p>});</p>
-                        </div>
-                        <p class="text-sm text-slate-500 italic">هنا قمنا بربط الرابط <code>/dashboard</code> بصفحة React تسمى <code>Dashboard.jsx</code> وأرسلنا لها بيانات (اسم المستخدم).</p>
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="visual-example.svg" alt="Teaching Diagram" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">التشبيه البصري (المجمع التجاري)</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="practice" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-emerald-600 pr-4">التطبيق العملي خطوة بخطوة</h2>
+
+                <!-- Step 1 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: تعريف المسار في Laravel</h3>
+                    <p class="text-slate-600 mb-4"><strong>المكان:</strong> ملف <code>routes/web.php</code></p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto mb-4 text-left">
+                        <p>use Inertia\Inertia;</p>
+                        <p>Route::get('/dashboard', function () {</p>
+                        <p>&nbsp;&nbsp;return Inertia::render('Dashboard');</p>
+                        <p>});</p>
+                    </div>
+                    <p class="text-slate-500 text-sm italic">شرح: قمنا بربط الرابط <code>/dashboard</code> بصفحة React التي تحمل اسم Dashboard.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: إنشاء صفحة React</h3>
+                    <p class="text-slate-600 mb-4"><strong>المكان:</strong> مجلد <code>resources/js/Pages/Dashboard.jsx</code></p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto mb-4 text-left">
+                        <p>export default function Dashboard() {</p>
+                        <p>&nbsp;&nbsp;return (</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="p-8"&gt;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1 className="text-2xl font-bold"&gt;لوحة تحكم FlowPilot&lt;/h1&gt;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</p>
+                        <p>&nbsp;&nbsp;);</p>
+                        <p>}</p>
                     </div>
                 </div>
             </section>
 
             <div class="mt-12 flex justify-between gap-4">
                 <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-01/lesson-04/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all" href="../../week-02/lesson-02/index.html">الدرس التالي: بناء الـ Layout ←</a>
+                <a class="rounded-2xl bg-emerald-600 px-8 py-4 text-white font-black hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-100" href="../../week-02/lesson-02/index.html">الدرس التالي: بناء الـ Layout ←</a>
             </div>
         </article>
     </div>
 </main>
+
+<footer class="mt-24 border-t bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-8 text-center text-slate-400 text-sm font-medium">
+        © 2025 FlowPilot Academy. المحتوى مصمم لربط المفاهيم ببعضها.
+    </div>
+</footer>
 
 <script src="../../../assets/js/app.js"></script>
 </body>

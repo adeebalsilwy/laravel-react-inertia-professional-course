@@ -3,78 +3,133 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>الدرس 17: إنشاء المشاريع وإدارتها (CRUD)</title>
+    <title>الدرس 17: إنشاء المشاريع وإدارتها CRUD</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .sidebar-sticky { position: sticky; top: 5rem; }
+        .step-card { border-right: 4px solid #6366f1; padding-right: 1.5rem; margin-bottom: 2rem; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+<body class="bg-slate-50 text-slate-900">
 
-<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
 </header>
 
 <main class="mx-auto max-w-7xl px-4 py-8">
-    <div class="lesson-layout">
-        <aside class="sidebar-sticky h-fit card p-4 hidden lg:block">
-            <a class="font-black text-indigo-700 hover:underline" href="../index.html">← العودة للأسبوع الخامس</a>
-            <div class="mt-8 space-y-2 text-sm font-bold text-slate-600">
-                <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم الـ CRUD</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">العمليات الأربعة</a>
-                <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">بناء Controller</a>
+    <div class="grid lg:grid-cols-4 gap-8">
+        <aside class="hidden lg:block">
+            <div class="sidebar-sticky space-y-4 text-right">
+                <a class="font-black text-indigo-700 hover:underline block mb-6" href="../index.html">← العودة للأسبوع الخامس</a>
+                <div class="card p-4 space-y-2 text-sm font-bold text-slate-600">
+                    <a class="block p-3 rounded-xl bg-indigo-50 text-indigo-700" href="#intro">مفهوم الـ CRUD</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#theory">العمليات الأربعة</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#example">مثال السجل المدني</a>
+                    <a class="block p-3 rounded-xl hover:bg-slate-100" href="#practice">التطبيق العملي</a>
+                </div>
             </div>
         </aside>
 
-        <article class="card p-6 md:p-12 prose-box bg-white shadow-sm border-slate-200">
-            <section class="lesson-hero border-b pb-8 mb-12">
-                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs tracking-widest">الأسبوع 5 · الدرس 1</span>
-                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">الـ CRUD: المهارة الأساسية لأي مطور تطبيقات ويب</h1>
-                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"CRUD هي اختصار لأربع عمليات تجعل تطبيقك حياً: الإضافة، العرض، التعديل، والحذف."</p>
+        <article class="lg:col-span-3 card p-6 md:p-12 bg-white shadow-sm text-right">
+            <section class="border-b pb-8 mb-12">
+                <span class="badge bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-xs uppercase tracking-widest">الأسبوع 5 · الدرس 1</span>
+                <h1 class="mt-4 text-3xl md:text-5xl font-black text-slate-900 leading-tight">إدارة المشاريع (CRUD): بناء الدورة الكاملة للبيانات</h1>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed italic">"تطبيق الويب الحقيقي هو الذي يسمح للمستخدم بإنشاء وقراءة وتحديث وحذف بياناته."</p>
             </section>
 
-            <section class="student-section space-y-4" id="intro">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">ما هو الـ CRUD؟</h2>
+            <section id="intro" class="space-y-4">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">ما هو الـ CRUD؟</h2>
                 <p class="text-slate-600 leading-relaxed text-lg">
-                    أي تطبيق ناجح في العالم (مثل فيسبوك أو واتساب) يعتمد على هذه العمليات الأربعة:
+                    الـ <strong>CRUD</strong> هو اختصار لأربع عمليات أساسية يقوم بها أي نظام في العالم:
+                    <br>
+                    1. <strong>C</strong>reate: إنشاء مشروع جديد.
+                    <br>
+                    2. <strong>R</strong>ead: عرض قائمة المشاريع.
+                    <br>
+                    3. <strong>U</strong>pdate: تعديل بيانات مشروع موجود.
+                    <br>
+                    4. <strong>D</strong>elete: حذف مشروع لم نعد نحتاجه.
                 </p>
-                <div class="grid md:grid-cols-4 gap-4 mt-8">
-                    <div class="p-4 rounded-xl bg-blue-50 text-blue-700 font-black text-center">Create (إضافة)</div>
-                    <div class="p-4 rounded-xl bg-green-50 text-green-700 font-black text-center">Read (عرض)</div>
-                    <div class="p-4 rounded-xl bg-yellow-50 text-yellow-700 font-black text-center">Update (تعديل)</div>
-                    <div class="p-4 rounded-xl bg-red-50 text-red-700 font-black text-center">Delete (حذف)</div>
-                </div>
-                <p class="text-slate-600 leading-relaxed text-lg mt-4">
-                    في هذا الدرس، سنطبق هذه العمليات على "المشاريع" في FlowPilot. سنبني صفحة لإنشاء مشروع جديد، وصفحة لعرض قائمة المشاريع، وصفحة لتعديلها.
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    في هذا الدرس، سنبني هذه الدورة الكاملة لجدول المشاريع في FlowPilot، ليمتلك المستخدم القدرة على إدارة مشاريعه بنفسه.
                 </p>
             </section>
 
-            <section class="student-section mt-16 space-y-12" id="practice">
-                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-r-indigo-600 pr-4">التطبيق العملي</h2>
+            <section id="theory" class="mt-16 space-y-6">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التحقق من البيانات (Validation)</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    أثناء عملية الـ <strong>Create</strong>، لا نسمح للمستخدم بإرسال بيانات خاطئة. مثلاً، لا يمكن إنشاء مشروع بدون "اسم". نستخدم في Laravel قواعد تحقق مثل <code>'name' => 'required|min:3'</code> لضمان جودة البيانات.
+                </p>
+            </section>
+
+            <section id="example" class="mt-16 p-8 rounded-3xl bg-indigo-600 text-white shadow-xl shadow-indigo-100">
+                <h2 class="text-2xl font-black mb-4">مثال من حياتنا (السجل المدني)</h2>
+                <p class="text-indigo-50 leading-relaxed text-lg">
+                    - <strong>Create:</strong> تسجيل مولود جديد.
+                    <br>
+                    - <strong>Read:</strong> استخراج شهادة ميلاد لرؤية البيانات.
+                    <br>
+                    - <strong>Update:</strong> تغيير محل الإقامة في البطاقة.
+                    <br>
+                    - <strong>Delete:</strong> إلغاء قيد شخص في حالة الوفاة أو الخطأ.
+                </p>
+            </section>
+
+            <section id="visuals" class="mt-16">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">مخططات توضيحية</h2>
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="card p-4 text-center space-y-4">
+                        <img src="diagram.svg" alt="Technical Diagram" class="w-full rounded-xl border">
+                        <p class="text-xs font-bold text-slate-500 italic uppercase tracking-wider">مخطط CRUD</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="practice" class="mt-16 space-y-12">
+                <h2 class="text-2xl font-black text-slate-900 border-r-4 border-indigo-600 pr-4">التطبيق العملي</h2>
+
                 <div class="step-card">
-                    <div class="flex items-center gap-4 mb-4">
-                        <span class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl">1</span>
-                        <h3 class="text-xl font-black text-slate-900">استخدام Resource Controller</h3>
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 1: إنشاء دالة العرض (Index)</h3>
+                    <p class="mb-4">في <code>ProjectController</code>، جلب المشاريع من قاعدة البيانات وإرسالها لـ React.</p>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto text-left">
+                        <p>public function index() {</p>
+                        <p>&nbsp;&nbsp;return Inertia::render('Projects/Index', [</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;'projects' => Project::all()</p>
+                        <p>&nbsp;&nbsp;]);</p>
+                        <p>}</p>
                     </div>
-                    <div class="space-y-4 pr-16">
-                        <p class="text-slate-600">بدلاً من كتابة كل دالة يدوياً، Laravel يوفر لنا أمراً واحداً يجهز السبع دوال الأساسية للـ CRUD:</p>
-                        <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-indigo-400 overflow-x-auto">
-                            <p>php artisan make:controller ProjectController --resource</p>
-                        </div>
+                </div>
+
+                <div class="step-card">
+                    <h3 class="text-xl font-black text-slate-900 mb-2">الخطوة 2: إنشاء دالة الحفظ (Store)</h3>
+                    <div class="bg-slate-900 rounded-2xl p-6 font-mono text-sm text-emerald-400 overflow-x-auto text-left">
+                        <p>public function store(Request $request) {</p>
+                        <p>&nbsp;&nbsp;$attr = $request->validate(['name' => 'required']);</p>
+                        <p>&nbsp;&nbsp;Project::create($attr);</p>
+                        <p>&nbsp;&nbsp;return redirect()->route('projects.index');</p>
+                        <p>}</p>
                     </div>
                 </div>
             </section>
 
-            <div class="mt-12 flex justify-between gap-4 border-t pt-8">
+            <div class="mt-12 flex justify-between gap-4">
                 <a class="rounded-2xl bg-slate-200 px-8 py-4 text-slate-700 font-black hover:bg-slate-300 transition-all" href="../../week-04/lesson-04/index.html">← الدرس السابق</a>
-                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all" href="../../week-05/lesson-02/index.html">الدرس التالي: إدارة المهام ←</a>
+                <a class="rounded-2xl bg-indigo-600 px-8 py-4 text-white font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100" href="../../week-05/lesson-02/index.html">الدرس التالي: Kanban Board ←</a>
             </div>
         </article>
     </div>
 </main>
+
+<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">
+    © 2025 FlowPilot Academy. أنت الآن تبني ميزات حقيقية للمستخدمين.
+</footer>
 
 <script src="../../../assets/js/app.js"></script>
 </body>

@@ -3,31 +3,29 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 1: تهيئة بيئة العمل</title>
+    <title>واجب الدرس 1: تفقد أسلحتك البرمجية</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+        .card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
+<body class="bg-slate-50 text-slate-900">
 
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
-        <a href="../../../index.html" class="font-black text-2xl text-slate-900">FlowPilot <span class="text-indigo-600">Academy</span></a>
-        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
-            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../index.html">الرئيسية</a>
-            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/curriculum.html">الفهرس</a>
-            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/lessons.html">الدروس</a>
-            <a class="px-3 py-2 rounded-xl hover:bg-slate-100" href="../../../pages/project.html">المشروع</a>
-        </nav>
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
 </header>
 
-<main class="mx-auto max-w-4xl px-4 py-12">
-    <a class="font-black text-indigo-700 hover:underline" href="index.html">← العودة لشرح الدرس</a>
+<main class="mx-auto max-w-4xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة لشرح الدرس</a>
     
-    <section class="mt-8 space-y-8">
+    <section class="space-y-8">
         <div class="card p-8 bg-indigo-600 text-white shadow-xl shadow-indigo-100">
             <h1 class="text-3xl font-black">واجب الدرس الأول: تفقد أسلحتك البرمجية</h1>
             <p class="mt-4 text-indigo-100 leading-relaxed italic">
@@ -37,35 +35,52 @@
 
         <div class="space-y-8">
             <!-- Part 1 -->
-            <section class="card p-8 md:p-10 space-y-6">
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm">
                 <h2 class="text-2xl font-black flex items-center gap-3">
-                    <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm">01</span>
+                    <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-black">01</span>
                     التحقق العملي (Terminal Check)
                 </h2>
-                <p class="text-slate-600 leading-relaxed">قم بفتح شاشة الأوامر (Terminal) ونفذ الأوامر التالية، ثم التقط صورة (Screenshot) للنتائج:</p>
-                <ul class="list-disc pr-6 space-y-4 text-slate-700 font-bold">
-                    <li>أمر فحص نسخة PHP (يجب أن تكون 8.2+).</li>
-                    <li>أمر فحص نسخة Composer.</li>
-                    <li>أمر فحص نسخة Node.js و NPM.</li>
-                </ul>
+                <div class="space-y-4 text-slate-600">
+                    <p class="font-bold">الهدف من الخطوة:</p>
+                    <p>التأكد من أن جهازك "يتحدث" لغة البرمجة المطلوبة ويفهم أوامر إدارة الحزم.</p>
+                    <p class="font-bold">المطلوب تنفيذه:</p>
+                    <p>قم بفتح شاشة الأوامر (Terminal) ونفذ الأوامر التالية، ثم التقط صورة (Screenshot) للنتائج:</p>
+                    <ul class="list-disc pr-6 space-y-2 text-slate-700 font-bold">
+                        <li>أمر فحص نسخة PHP (يجب أن تكون 8.2+).</li>
+                        <li>أمر فحص نسخة Composer.</li>
+                        <li>أمر فحص نسخة Node.js و NPM.</li>
+                    </ul>
+                    <p class="text-sm italic">ملفات يجب تعديلها: لا يوجد، فقط شاشة الأوامر.</p>
+                </div>
             </section>
 
             <!-- Part 2 -->
-            <section class="card p-8 md:p-10 space-y-6">
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm">
                 <h2 class="text-2xl font-black flex items-center gap-3 text-indigo-600">
-                    <span class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm">02</span>
+                    <span class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-black">02</span>
                     تحدي الفهم (Explain it)
                 </h2>
-                <p class="text-slate-600 leading-relaxed">بأسلوبك الخاص، اشرح لزميلك المبتدئ: لماذا نحتاج لـ <strong>Composer</strong> ولماذا نحتاج لـ <strong>Node.js</strong> في مشروع Laravel؟ (اكتب الإجابة في ملف نصي أو على الورق).</p>
+                <div class="space-y-4 text-slate-600">
+                    <p class="font-bold">المطلوب:</p>
+                    <p>بأسلوبك الخاص، اشرح لزميلك المبتدئ: لماذا نحتاج لـ <strong>Composer</strong> ولماذا نحتاج لـ <strong>Node.js</strong> في مشروع Laravel؟</p>
+                    <p class="font-bold">معايير التقييم:</p>
+                    <ul class="list-disc pr-6 space-y-2 text-sm">
+                        <li>وضوح الشرح.</li>
+                        <li>استخدام تشبيهات بسيطة.</li>
+                        <li>ذكر دور كل أداة في مشروع FlowPilot.</li>
+                    </ul>
+                </div>
             </section>
 
             <!-- Part 3 -->
-            <section class="card p-8 md:p-10 space-y-6">
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm">
                 <h2 class="text-2xl font-black flex items-center gap-3 text-rose-600">
-                    <span class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-sm">03</span>
-                    الاستعداد للمستقبل
+                    <span class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-sm font-black">03</span>
+                    تحدي إضافي
                 </h2>
-                <p class="text-slate-600 leading-relaxed">قم بإنشاء مجلد جديد على جهازك باسم <code>FlowPilot-Academy</code> ليكون هو مكان عملك طوال الدورة. هل نجحت في تثبيت Git؟ جرب كتابة <code>git --version</code>.</p>
+                <p class="text-slate-600 leading-relaxed">
+                    قم بإنشاء مجلد جديد على جهازك باسم <code>FlowPilot-Academy</code> ليكون هو مكان عملك طوال الدورة. هل تستطيع تثبيت VS Code وإضافة إضافات (Extensions) خاصة بـ PHP و React؟
+                </p>
             </section>
         </div>
 
@@ -73,8 +88,11 @@
         <div class="p-8 rounded-[2rem] bg-slate-900 text-white space-y-4">
             <h3 class="text-xl font-black">طريقة التسليم</h3>
             <p class="text-slate-400 text-sm leading-relaxed">
-                ارفع صورة الـ Terminal وملف الشرح على المنصة التعليمية أو شاركها مع مدربك في القاعة التدريبية. تأكد من عدم وجود أي رسائل خطأ حمراء في صورتك!
+                ارفع صورة الـ Terminal وملف الشرح على المنصة التعليمية. تأكد من مراجعة الخطوات قبل التسليم للتأكد من عدم وجود أخطاء.
             </p>
+            <div class="p-4 bg-slate-800 rounded-xl text-amber-400 text-xs font-bold">
+                ⚠️ تذكر: بدون تهيئة البيئة بشكل صحيح، لن تستطيع تشغيل الدروس القادمة.
+            </div>
         </div>
     </section>
 </main>

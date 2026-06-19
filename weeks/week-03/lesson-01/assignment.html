@@ -3,23 +3,46 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>واجب الدرس 9: تصميم جداول FlowPilot</title>
+    <title>واجب الدرس 9: تصميم ذاكرة FlowPilot</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../../assets/css/style.css">
+    <style>
+        :root { font-family: 'Tajawal', sans-serif; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-['Tajawal',sans-serif]">
-<main class="mx-auto max-w-3xl px-4 py-12">
-    <div class="card p-12 space-y-8">
-        <h1 class="text-3xl font-black text-center text-indigo-600">تحدي التصميم المعماري</h1>
-        <div class="space-y-6 text-right">
-            <h3 class="font-black text-xl">المطلوب منك:</h3>
-            <p class="text-slate-600 leading-relaxed">ارسم على ورقة أو باستخدام أداة رسم (مثل Lucidchart) الجداول الثلاثة (Users, Projects, Tasks). حدد في كل جدول 4 أعمدة على الأقل (مثلاً: id, name, created_at...).</p>
-            <p class="text-slate-600"><strong>تحدي:</strong> كيف تربط المهمة بالمشروع؟ (ابحث عن معنى Foreign Key).</p>
-        </div>
+<body class="bg-slate-50 text-slate-900">
+
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+        <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
     </div>
+</header>
+
+<main class="mx-auto max-w-4xl px-4 py-12 text-right">
+    <a class="font-black text-indigo-700 hover:underline inline-block mb-8" href="index.html">← العودة لشرح الدرس</a>
+    
+    <section class="space-y-8">
+        <div class="card p-8 bg-sky-600 text-white shadow-xl shadow-sky-100 rounded-3xl">
+            <h1 class="text-3xl font-black">واجب الدرس 9: تخطيط الجداول</h1>
+            <p class="mt-4 text-sky-100 leading-relaxed italic">
+                "قاعدة البيانات الجيدة تبدأ برسم وتخطيط ذكي قبل كتابة الكود."
+            </p>
+        </div>
+
+        <div class="space-y-8">
+            <section class="card p-8 md:p-10 space-y-6 shadow-sm rounded-3xl bg-white text-right">
+                <h2 class="text-2xl font-black text-sky-600">المطلوب تنفيذة:</h2>
+                <ol class="list-decimal pr-6 space-y-4 font-bold text-slate-700">
+                    <li>قم برسم تخطيطي بسيط لجدول المهام <code>Tasks</code>.</li>
+                    <li>حدد 5 أعمدة ضرورية للمهمة (مثل العنوان، الحالة، التاريخ).</li>
+                    <li>حدد نوع البيانات لكل عمود (مثلاً: العنوان = نص، الحالة = نص).</li>
+                </ol>
+            </section>
+        </div>
+    </section>
 </main>
 </body>
 </html>
