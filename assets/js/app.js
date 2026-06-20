@@ -210,5 +210,109 @@
             });
         });
 
+        // ========================
+        // 11. IMAGE LIGHTBOX (معاينة الصور)
+        // ========================
+        (function() {
+            // إنشاء عناصر الـ Lightbox
+            var overlay = document.createElement('div');
+            overlay.id = 'lightboxOverlay';
+            overlay.style.cssText = 'display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;justify-content:center;align-items:center;cursor:zoom-out;opacity:0;transition:opacity 0.3s ease;';
+
+            var container = document.createElement('div');
+            container.style.cssText = 'position:relative;max-width:90vw;max-height:90vh;display:flex;justify-content:center;align-items:center;';
+
+            var img = document.createElement('img');
+            img.id = 'lightboxImage';
+            img.style.cssText = 'max-width:100%;max-height:90vh;border-radius:1rem;box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);transform:scale(0.9);transition:transform 0.3s ease;';
+
+            var closeBtn = document.createElement('button');
+            closeBtn.innerHTML = '✕';
+            closeBtn.style.cssText = 'position:absolute;top:-2.5rem;left:-0.5rem;background:rgba(255,255,255,0.15);color:white;border:none;width:2.5rem;height:2.5rem;border-radius:50%;font-size:1.25rem;cursor:pointer;transition:background 0.2s;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);';
+            closeBtn.onmouseover = function() { this.style.background = 'rgba(255,255,255,0.3)'; };
+            closeBtn.onmouseout = function() { this.style.background = 'rgba(255,255,255,0.15)'; };
+
+            var caption = document.createElement('p');
+            caption.id = 'lightboxCaption';
+            caption.style.cssText = 'position:absolute;bottom:-2.5rem;right:0;left:0;text-align:center;color:rgba(255,255,255,0.7);font-size:0.875rem;font-weight:bold;';
+
+            container.appendChild(img);
+            container.appendChild(closeBtn);
+            container.appendChild(caption);
+            overlay.appendChild(container);
+            document.body.appendChild(overlay);
+
+            // فتح الـ Lightbox
+            function openLightbox(src, alt) {
+                img.src = src;
+                img.alt = alt || '';
+                caption.textContent = alt || '';
+                overlay.style.display = 'flex';
+                // تأخير بسيط للـ transition
+                setTimeout(function() {
+                    overlay.style.opacity = '1';
+                    img.style.transform = 'scale(1)';
+                }, 10);
+                document.body.style.overflow = 'hidden';
+            }
+
+            // إغلاق الـ Lightbox
+            function closeLightbox() {
+                overlay.style.opacity = '0';
+                img.style.transform = 'scale(0.9)';
+                setTimeout(function() {
+                    overlay.style.display = 'none';
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+
+            // إغلاق عند النقر على الخلفية
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) closeLightbox();
+            });
+
+            // إغلاق عند الضغط على ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && overlay.style.display === 'flex') {
+                    closeLightbox();
+                }
+            });
+
+            // إغلاق عند النقر على زر الإغلاق
+            closeBtn.addEventListener('click', closeLightbox);
+
+            // جعل كل الصور التوضيحية قابلة للنقر
+            // نختار كل الصور الموجودة داخل الـ article أو داخل .card في قسم المخططات
+            var diagramImages = document.querySelectorAll('article img, section[id*="visuals"] img, section[id*="diagram"] img, .card img[src*=".svg"], img.diagram-img, img.zoomable');
+
+            // أيضاً نختار الصور الموجودة في أي مكان بالمشروع
+            document.querySelectorAll('img.zoomable, .diagram-gallery img').forEach(function(img) {
+                if (!img.closest('[data-no-zoom]')) {
+                    img.style.cursor = 'pointer';
+                    img.classList.add('zoomable-image');
+                }
+            });
+
+            // نطبق على كل الصور الموجودة في المقالات أو البطاقات إذا كانت SVG
+            diagramImages.forEach(function(img) {
+                img.style.cursor = 'pointer';
+                img.classList.add('zoomable-image');
+            });
+
+            // مستمع النقر لكل الصور القابلة للتكبير
+            document.addEventListener('click', function(e) {
+                var target = e.target;
+                if (target.tagName === 'IMG' && (target.classList.contains('zoomable-image') || target.closest('.diagram-gallery') || (target.closest('article') && target.src.includes('.svg')))) {
+                    if (!target.closest('[data-no-zoom]') && !target.closest('.no-zoom')) {
+                        openLightbox(target.src, target.alt || '');
+                    }
+                }
+            });
+
+            // إتاحة الدوال عالمياً
+            window.openLightbox = openLightbox;
+            window.closeLightbox = closeLightbox;
+        })();
+
     });
 })();
