@@ -4,10 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>الدرس 6: بناء Layout رئيسي وشريط تنقل ثابت | FlowPilot Academy</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <link rel="stylesheet" href="../../../assets/css/fonts.css">
     <link rel="stylesheet" href="../../../assets/css/style.css">
     <style>
         :root { font-family: 'Tajawal', sans-serif; }
@@ -214,10 +212,10 @@
                             <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2 className="text-xl font-black text-indigo-600"&gt;FlowPilot&lt;/h2&gt;</span>
                             <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
                             <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nav className="space-y-1 px-4"&gt;</span>
-                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link href="/dashboard" className="flex items-center gap-3 p-3 rounded-xl text-slate-600 hover:bg-slate-100 font-bold"&gt;🏠 Dashboard&lt;/Link&gt;</span>
-                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link href="/projects" className="flex items-center gap-3 p-3 rounded-xl text-slate-600 hover:bg-slate-100 font-bold"&gt;📁 المشاريع&lt;/Link&gt;</span>
-                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link href="/tasks" className="flex items-center gap-3 p-3 rounded-xl text-slate-600 hover:bg-slate-100 font-bold"&gt;✅ المهام&lt;/Link&gt;</span>
-                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link href="/team" className="flex items-center gap-3 p-3 rounded-xl text-slate-600 hover:bg-slate-100 font-bold"&gt;👥 الفريق&lt;/Link&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link href="#" className="flex items-center gap-3 p-3 rounded-xl text-slate-600 hover:bg-slate-100 font-bold"&gt;🏠 Dashboard&lt;/Link&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link href="#" className="flex items-center gap-3 p-3 rounded-xl text-slate-600 hover:bg-slate-100 font-bold"&gt;📁 المشاريع&lt;/Link&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link href="#" className="flex items-center gap-3 p-3 rounded-xl text-slate-600 hover:bg-slate-100 font-bold"&gt;✅ المهام&lt;/Link&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link href="#" className="flex items-center gap-3 p-3 rounded-xl text-slate-600 hover:bg-slate-100 font-bold"&gt;👥 الفريق&lt;/Link&gt;</span>
                             <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/nav&gt;</span>
                             <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/aside&gt;</span>
                             <span class="code-line"> </span>
@@ -343,7 +341,7 @@
                             <span class="code-line">&nbsp;&nbsp;return (</span>
                             <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&lt;aside className={`w-64 bg-white border-l shadow-sm ${open ? 'block' : 'hidden'} md:block shrink-0`}&gt;</span>
                             <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="p-6 border-b"&gt;</span>
-                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link href="/dashboard" className="text-2xl font-black text-indigo-600"&gt;FlowPilot&lt;/Link&gt;</span>
+                            <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Link href="#" className="text-2xl font-black text-indigo-600"&gt;FlowPilot&lt;/Link&gt;</span>
                             <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</span>
                             <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nav className="p-4 space-y-1"&gt;</span>
                             <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{navItems.map(item =&gt; (</span>
