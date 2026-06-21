@@ -10,9 +10,24 @@
     <style>.quiz-option{display:block;padding:12px 16px;border:2px solid #e2e8f0;border-radius:12px;margin-bottom:8px;cursor:pointer}.quiz-option:hover{border-color:#93c5fd;background:#f0f9ff}.quiz-option.selected{border-color:#6366f1;background:#eef2ff}.tf-option{display:inline-block;padding:10px 24px;border:2px solid #e2e8f0;border-radius:10px;cursor:pointer;margin:4px}.tf-option:hover{border-color:#93c5fd}.tf-option.selected{border-color:#6366f1;background:#eef2ff}textarea{width:100%;padding:12px;border:2px solid #e2e8f0;border-radius:12px;font-family:'Tajawal',sans-serif;resize:vertical}.explain{background:#f8fafc;padding:12px;border-radius:10px;margin-top:8px;font-size:13px;border-right:3px solid #6366f1;display:none}</style>
 </head>
 <body class="bg-slate-50 text-slate-900">
-<header class="glass sticky top-0 z-50 border-b border-slate-200/70 text-right">
+<header class="glass sticky top-0 z-50 border-b border-slate-200/70">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
         <a href="../../../index.html" class="font-black text-2xl text-slate-900 tracking-tight">FlowPilot <span class="text-indigo-600">Academy</span></a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-bold text-slate-700">
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../index.html">الرئيسية</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/curriculum.html">الفهرس</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/lessons.html">الدروس</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/beginner-guide.html">دليل الطالب</a>
+            <a class="px-4 py-2 rounded-xl hover:bg-slate-100 transition-all" href="../../../pages/project.html">المشروع العملي</a>
+        </nav>
+        <button onclick="toggleMenu()" class="md:hidden rounded-xl border border-slate-200 bg-white px-3 py-2 hover:bg-slate-50 transition-all">☰</button>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden px-4 pb-4 space-y-2 font-bold bg-white border-b shadow-sm text-right">
+        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="../../../index.html">الرئيسية</a>
+        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="../../../pages/curriculum.html">الفهرس</a>
+        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="../../../pages/lessons.html">الدروس</a>
+        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="../../../pages/beginner-guide.html">دليل الطالب</a>
+        <a class="block p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600" href="../../../pages/project.html">المشروع العملي</a>
     </div>
 </header>
 <main class="mx-auto max-w-3xl px-4 py-12 text-right">
