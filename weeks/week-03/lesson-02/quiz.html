@@ -6,18 +6,6 @@
     <title>كويز الدرس 10: Migrations و Seeders و Factories | FlowPilot Academy</title>
     <link rel="stylesheet" href="../../../assets/css/main.css">
     <link rel="stylesheet" href="../../../assets/css/fonts.css">
-    <link rel="stylesheet" href="../../../assets/css/style.css">
-    <style>
-        :root { font-family: 'Tajawal', sans-serif; }
-        .quiz-option { display: block; padding: 12px 16px; border: 2px solid #e2e8f0; border-radius: 12px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; }
-        .quiz-option:hover { border-color: #93c5fd; background: #f0f9ff; }
-        .quiz-option.selected { border-color: #6366f1; background: #eef2ff; }
-        .tf-option { display: inline-block; padding: 10px 24px; border: 2px solid #e2e8f0; border-radius: 10px; cursor: pointer; margin: 4px; transition: all 0.2s; }
-        .tf-option:hover { border-color: #93c5fd; }
-        .tf-option.selected { border-color: #6366f1; background: #eef2ff; }
-        textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; font-family: 'Tajawal', sans-serif; resize: vertical; }
-        .explain { background: #f8fafc; padding: 12px; border-radius: 10px; margin-top: 8px; font-size: 13px; border-right: 3px solid #6366f1; display: none; }
-    </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
 <header class="glass sticky top-0 z-50 border-b border-slate-200/70">
@@ -141,7 +129,11 @@
         <p id="feedback" class="mt-2 text-lg font-bold"></p>
     </div>
 </main>
-<footer class="mt-24 border-t bg-white text-center py-12 text-slate-400 text-sm font-medium">© 2025 FlowPilot Academy. اختبر معلوماتك.</footer>
+<footer class="mt-32 border-t bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-12 text-center text-sm text-slate-400 font-medium">
+        <p>© 2025 FlowPilot Academy. جميع الحقوق محفوظة. صمم لتعليم المبتدئين العرب.</p>
+    </div>
+</footer>
 <script src="../../../assets/js/app.js"></script>
 <script>
 document.querySelectorAll('.tf-option').forEach(function(el) {
